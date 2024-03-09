@@ -13,6 +13,8 @@ namespace BookingApp.Model
         public int TourId { get; set; }
         
         public DateOnly TourDateTime { get; set; }
+        public Tour Tour { get; set; }
+        public User User { get; set; }
 
         public int GuestsNumber { get; set; }   
 
