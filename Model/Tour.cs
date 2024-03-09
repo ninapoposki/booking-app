@@ -18,6 +18,8 @@ namespace BookingApp.Model
         public double Duration {  get; set; }
         public List<Image> Images { get; set; }
 
+        public User User { get; set; }
+
         public Tour() 
         { 
             Images = new List<Image>();
