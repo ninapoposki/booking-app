@@ -7,26 +7,25 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public class Location : ISerializable
+    public class CheckPoint : ISerializable
     {
-
         public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public string Name { get; set; }
+        public int tourId { get; set; }
+        public CheckPoint() { }
 
-        public Location() { }
-        
-        public Location(int id, string city, string country)
+        public CheckPoint(int id, string name, int tourId)
         {
             Id = id;
-            City = city;
-            Country = country;
+            Name = name;
+            this.tourId = tourId;
         }
+
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            City = values[1];
-            Country = values[2];
+            Name = values[1];
+            tourId = Convert.ToInt32(values[2]);
         }
 
         public string[] ToCSV()
@@ -34,21 +33,11 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                City,
-                Country
-
-
+                Name,
+                tourId.ToString()
             };
 
             return csvValues;
-            
         }
-        
-        public override string ToString()
-        {
-            return Id + "," + City + "," + Country;
-        }
-
-        
     }
 }
