@@ -17,10 +17,6 @@ namespace BookingApp.Model
         public int GuestsNumber { get; set; }   
 
 
-
-
-
-
         public TourReservation() { }
 
         public TourReservation(int id, int tourId, DateOnly tourDateTime, int guestsNumber)
