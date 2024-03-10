@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class ImageReporsitory
+    public class ImageRepository
     {
         private const string FilePath = "../../../Resources/Data/images.csv";
 
@@ -20,7 +20,7 @@ namespace BookingApp.Repository
 
         public Subject subject;
 
-        public ImageReporsitory()
+        public ImageRepository()
         {
             serializer = new Serializer<Image>();
             images = serializer.FromCSV(FilePath);

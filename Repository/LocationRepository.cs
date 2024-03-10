@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class LocationReporsitory
+    public class LocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -18,7 +18,7 @@ namespace BookingApp.Repository
         private List<Location> locations;
 
 
-        public LocationReporsitory()
+        public LocationRepository()
         {
             serializer = new Serializer<Location>();
             locations = serializer.FromCSV(FilePath);

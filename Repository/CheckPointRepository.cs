@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class CheckPointReporsitory
+    public class CheckPointRepository
     {
         private const string FilePath = "../../../Resources/Data/checkPoints.csv";
 
@@ -18,7 +18,7 @@ namespace BookingApp.Repository
         private List<CheckPoint> checkPoints;
         public Subject subject;
 
-        public CheckPointReporsitory()
+        public CheckPointRepository()
         {
             serializer = new Serializer<CheckPoint>();
             checkPoints = serializer.FromCSV(FilePath);
