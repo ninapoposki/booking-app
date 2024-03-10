@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class TourStartDateReporsitory
+    public class TourStartDateRepository
     {
         private const string FilePath = "../../../Resources/Data/tourStartDates.csv";
 
@@ -19,7 +19,7 @@ namespace BookingApp.Repository
 
         public Subject subject;
 
-        public TourStartDateReporsitory()
+        public TourStartDateRepository()
         {
             serializer = new Serializer<TourStartDate>();
             tourStartDates = serializer.FromCSV(FilePath);

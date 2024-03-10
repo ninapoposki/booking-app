@@ -49,9 +49,26 @@ namespace BookingApp.View
             {
                 if(user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    Close();
+                    if (user.UserType.ToString() =="OWNER") 
+                    { 
+                    //dajana
+                    }
+                    else if(user.UserType.ToString() =="GUEST")
+                    {
+                    //irina
+                    }
+                    else if (user.UserType.ToString() == "GUIDE")
+                    {
+                        //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
+                         CommentsOverview commentsOverview = new CommentsOverview(user);
+                         commentsOverview.Show();
+                        Close();
+                    }
+                    else
+                    {
+                     //arijana
+                    }
+                  
                 } 
                 else
                 {
