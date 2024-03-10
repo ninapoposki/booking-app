@@ -21,11 +21,12 @@ namespace BookingApp.Model
 
         public TourReservation() { }
 
-        public TourReservation(int id, int tourId, DateOnly tourDateTime, int guestsNumber)
+        public TourReservation(int id, int tourId, DateOnly tourDateTime,Tour tour, int guestsNumber)
         {
             Id = id;
             TourId = tourId;
             TourDateTime = tourDateTime;
+            Tour = tour;
             GuestsNumber = guestsNumber;
         }
 
