@@ -29,4 +29,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="View\Guest\" />
+    <Folder Include="View\Guide\" />
+    <Folder Include="View\Owner\" />
+  </ItemGroup>
+
 </Project>
