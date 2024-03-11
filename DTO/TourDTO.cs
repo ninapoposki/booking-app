@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,12 +91,13 @@ namespace BookingApp.DTO
             }
         }
 
-        
+
+
         public TourDTO()
         {
 
         }
-        public TourDTO(Tour tour)
+        public TourDTO(Tour tour, LocationRepository locationRepository, LanguageRepository languageRepository)
         {
             Id = tour.Id;
             Name = tour.Name;
@@ -104,6 +106,12 @@ namespace BookingApp.DTO
             LocationId=tour.LocationId;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
+
+           
+            Location = locationRepository.GetById(LocationId);
+            Language=languageRepository.GetById(LanguageId);
+         
+
 
         }
        public Tour ToTour()

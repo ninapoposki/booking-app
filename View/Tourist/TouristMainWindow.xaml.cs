@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using BookingApp.DTO;
 
 namespace BookingApp.View.Tourist
 {
@@ -26,22 +27,46 @@ namespace BookingApp.View.Tourist
     {
 
         private readonly TourRepository tourRepository;
-        public ObservableCollection<Tour> AllTours { get; set; }
+        private readonly LocationRepository locationRepository;
+        private readonly LanguageRepository languageRepository;
+        public ObservableCollection<TourDTO> AllTours { get; set; }
+        public ObservableCollection<LanguageDTO> Languages { get; set; }
 
-        //public TourDTO SelectedTour {get;set} 
+        public TourDTO SelectedTour { get; set; } 
         public TouristMainWindow()
         {
             InitializeComponent();
             DataContext = this;
             tourRepository= new TourRepository();
-            AllTours = new ObservableCollection<Tour>(tourRepository.GetAll()); //tourDTO
-            ToursDataGrid.ItemsSource = AllTours; //Ovo povezuje vašu kolekciju tura (AllTours) sa DataGrid-om na vašem prozoru, omogućavajući prikaz tura.
+            locationRepository = new LocationRepository(); 
+            languageRepository = new LanguageRepository();
+            AllTours = new ObservableCollection<TourDTO>();
+            Languages = new ObservableCollection<LanguageDTO>();
+            
+          
+           
+            Update();
 
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
+            AllTours.Clear();
+            foreach(Tour tour in tourRepository.GetAll())
+            {
+                AllTours.Add(new TourDTO(tour, locationRepository, languageRepository));
+                
+            }
+            Languages.Clear();
+
+
+            foreach (Language language in languageRepository.GetAll())
+            {
+                Languages.Add(new LanguageDTO(language));
+            }
+
+
+
         }
 
         private void ButtonCancel(object sender, RoutedEventArgs e)
@@ -76,15 +101,15 @@ namespace BookingApp.View.Tourist
 
         private void BookTourButton(object sender, RoutedEventArgs e)
         {
-           /* if (SelectedTour == null)
+           if (SelectedTour == null)
             {
 
 
                 MessageBox.Show("Molimo Vas da odaberete turu koju želite da rezervižšete.");
 
                 return;
-            }*/
-            TourReservation tourReservation=new TourReservation();
+            }
+            TourReservation tourReservation=new TourReservation(SelectedTour);
             tourReservation.Show();
         }
     }

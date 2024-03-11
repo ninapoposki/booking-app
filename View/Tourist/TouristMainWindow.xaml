@@ -40,12 +40,7 @@
             <TextBox x:Name="DaysTextBox" Grid.Column="5" Margin="5"/>
 
             <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
-            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5">
-               
-                <ComboBoxItem Content="English"/>
-                <ComboBoxItem Content="Serbian"/>
-                
-            </ComboBox>
+            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
 
             <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
             <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
@@ -54,7 +49,7 @@
             <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchClick" />
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding Tour, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

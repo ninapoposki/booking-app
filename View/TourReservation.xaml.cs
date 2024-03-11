@@ -1,4 +1,6 @@
-﻿using BookingApp.Observer;
+﻿using BookingApp.DTO;
+using BookingApp.Observer;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +22,14 @@ namespace BookingApp.View
     /// </summary>
     public partial class TourReservation : Window, IObserver
     {
-        public TourReservation()
+        private TourDTO selectedTour;
+       
+        public TourReservation(TourDTO selectedTour)
         {
             InitializeComponent();
             DataContext = this;
+            this.selectedTour = selectedTour;
+           
         }
 
         public void Update()
@@ -39,6 +45,7 @@ namespace BookingApp.View
         }
 
         private void ConfirmTourReservation(object sender, RoutedEventArgs e)
+
         {
 
 
