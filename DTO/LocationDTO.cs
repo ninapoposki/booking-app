@@ -67,9 +67,6 @@ namespace BookingApp.DTO
 
         public LocationDTO (Location location)
         {
-
-
-
             Id= location.Id;
             City= location.City;
             Country= location.Country;
