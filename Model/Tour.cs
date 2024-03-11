@@ -12,7 +12,10 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Language Language { get; set; }  
+        public Language Language { get; set; } 
+        
+        public int LocationId {  get; set; }
+        public int LanguageId{ get; set; }
         public Location Location { get; set; }
         public int Capacity { get; set; }
         public double Duration {  get; set; }
@@ -26,7 +29,7 @@ namespace BookingApp.Model
             Location = new Location();
             Language = new Language();
         }
-        public Tour(int id, string name, string description, Language language, Location location, int capacity, double duration, List<Image> images)
+        public Tour(int id, string name, string description, Language language, Location location, int capacity, double duration)
         {
             Id = id;
             Name = name;
@@ -38,16 +41,30 @@ namespace BookingApp.Model
             Images = new List<Image>();
         }
 
+        public Tour(int id, string name, string description, int languageId,int locationId, int capacity, double duration)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            LanguageId = languageId;
+            LocationId = locationId;
+            Capacity = capacity;
+            Duration = duration;
+            Images = new List<Image>();
+        }
+
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             Description = values[2];
-            string[] locationParametars = values[3].Split(",");
-            Location.Id = Convert.ToInt32(locationParametars[0]);
-            Location.City = locationParametars[1];
-            Location.Country = locationParametars[2];   
-            Language.Name = values[4];
+            LanguageId = Convert.ToInt32(values[3]);
+            LocationId = Convert.ToInt32(values[4]);    
+            // string[] locationParametars = values[3].Split(",");
+            //Location.Id = Convert.ToInt32(locationParametars[0]);
+            //Location.City = locationParametars[1];
+            //Location.Country = locationParametars[2];   
+            //Language.Name = values[4];
             Capacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
         }
@@ -59,8 +76,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 Name,
                 Description,
-                Location.ToString(),
-                Language.Name.ToString(),
+                LanguageId.ToString(),
+                LocationId.ToString(),
                 Capacity.ToString(),
                 Duration.ToString()
 
