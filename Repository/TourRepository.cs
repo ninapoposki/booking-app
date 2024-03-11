@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.DTO;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,12 @@ namespace BookingApp.Repository
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
+        }
+
+        public Tour? GetTourById(int id)
+        {
+            return tours.Find(s => s.Id == id);
+
         }
     }
 }
