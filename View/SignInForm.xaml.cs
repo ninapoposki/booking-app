@@ -63,7 +63,7 @@ namespace BookingApp.View
                         //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
                          CommentsOverview commentsOverview = new CommentsOverview(user);
                          commentsOverview.Show();
-                        Close();
+                         Close();
                     }
                     //arijana
                     else

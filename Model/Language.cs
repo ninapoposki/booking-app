@@ -16,24 +16,34 @@ namespace BookingApp.Model
 
         public Language() { }
 
+        public Language(int id,string name)
+        {
+            Id = id;
+            Name=name;
+        }
         public Language(string name)
         {
-            Name=name;
+            Name = name;
         }
         public void FromCSV(string[] values)
         {
-            Name = values[0];
+            Id = Convert.ToInt32(values[0]);
+            Name = values[1];
         }
 
         public string[] ToCSV()
         {
             string[] csvValues =
             {
+                Id.ToString(),
                 Name
             };
 
             return csvValues;
         }
-       
+       public override string ToString()
+        {
+            return Name;
+        }
     }
 }
