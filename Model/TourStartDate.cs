@@ -26,7 +26,7 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            StartTime = DateTime.ParseExact(values[1], "dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture);
+            StartTime = DateTime.ParseExact(values[1], "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
             TourId= Convert.ToInt32(values[2]);
         }
 
@@ -35,7 +35,7 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                StartTime.ToString("dd/MM/yyyy hh:mm"),
+                StartTime.ToString("dd/MM/yyyy HH:mm"),
                 TourId.ToString(),
             };
 
