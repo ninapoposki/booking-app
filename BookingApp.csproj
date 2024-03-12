@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="View\Guest\**" />
+    <Compile Remove="View\Guide\**" />
+    <EmbeddedResource Remove="View\Guest\**" />
+    <EmbeddedResource Remove="View\Guide\**" />
+    <None Remove="View\Guest\**" />
+    <None Remove="View\Guide\**" />
+    <Page Remove="View\Guest\**" />
+    <Page Remove="View\Guide\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
