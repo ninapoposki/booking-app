@@ -73,12 +73,7 @@ namespace BookingApp.Repository
             return tourGuest;
         }
 
-        public List<TourGuest> GetByUser(User user)
-        {
-            tourGuests = serializer.FromCSV(FilePath);
-            return tourGuests.FindAll(t => t.User.Id == user.Id);
-        }
-
+       
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);

@@ -51,8 +51,8 @@ namespace BookingApp.DTO
 
         public Language Language { get; set; }
         public Location Location { get; set; }
-       private int LocationId { get; set; }
-        private int LanguageId {  get; set; }
+       public int LocationId { get; set; }
+        public int LanguageId {  get; set; }
        
         private int capacity;
         public int Capacity
@@ -101,7 +101,9 @@ namespace BookingApp.DTO
             Name = tour.Name;
             Description = tour.Description;
             LanguageId=tour.LanguageId;
+
             LocationId=tour.LocationId;
+
             Capacity = tour.Capacity;
             Duration = tour.Duration;
 

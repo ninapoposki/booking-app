@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guide;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -60,12 +61,13 @@ namespace BookingApp.View
                     else if (user.UserType.ToString() == "GUIDE")
                     {
                         //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
-                         CommentsOverview commentsOverview = new CommentsOverview(user);
-                         commentsOverview.Show();
+                        MakeTour makeTour = new MakeTour();
+                        makeTour.Show();
                          Close();
                     }
                     else
                     {
+                        //TouristMainWindow t = new TouristMainWindow();
                      //arijana
                     }
                   

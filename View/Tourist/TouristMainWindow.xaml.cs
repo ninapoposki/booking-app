@@ -24,7 +24,7 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
-        private TourReporsitory tourRepository; 
+        private TourRepository tourRepository; 
         public List<Tour> AllTours { get; set; }
         public TouristMainWindow()
         {
@@ -39,19 +39,18 @@ namespace BookingApp.View.Tourist
             throw new NotImplementedException();
         }
 
-        private void ButtonCancel(object sender, RoutedEventArgs e)
-        {
-
-
-            this.Close();
-        }
-
-
         private void SearchClick(object sender, RoutedEventArgs e)
         {
 
-            
+        }
 
+        private void BookTourClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
 
         }
     }

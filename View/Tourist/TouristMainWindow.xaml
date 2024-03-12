@@ -77,8 +77,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Book Tour" Margin="5" Padding="10,0" Click="BookTourButton" Height="34" Width="94" />
-            <Button Content="Cancel" Margin="5" Padding="10,0" Click="ButtonCancel" Width="89" />
+          
+            <Button Content="Cancel" Margin="5" Padding="10,0" Width="89" Click="CancelClick" />
+            <Button Content="Book a Tour" Margin="5" Padding="10,0" Width="89" Click="BookTourClick" />
         </StackPanel>
 
     </Grid>
