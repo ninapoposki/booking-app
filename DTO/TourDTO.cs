@@ -109,7 +109,6 @@ namespace BookingApp.DTO
             Capacity = tour.Capacity;
             Duration = tour.Duration;
 
-           
             Location = locationRepository.GetById(LocationId);
             Language=languageRepository.GetById(LanguageId);
          

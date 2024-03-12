@@ -1,7 +1,9 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,21 +25,24 @@ namespace BookingApp.View
     public partial class TourReservation : Window, IObserver
     {
         private TourDTO selectedTour;
+        private readonly TourRepository tourRepository;
        
         public TourReservation(TourDTO selectedTour)
         {
             InitializeComponent();
             DataContext = this;
+
+            tourRepository=new TourRepository();
             this.selectedTour = selectedTour;
+          
            
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
         }
 
-        private void ButtonCancel(object sender, RoutedEventArgs e)
+        private void CancelTour(object sender, RoutedEventArgs e)
         {
 
 
@@ -47,7 +52,35 @@ namespace BookingApp.View
         private void ConfirmTourReservation(object sender, RoutedEventArgs e)
 
         {
+            if (!int.TryParse(txtNumberOfPeople.Text, out int numberOfPeople))
+            {
+                MessageBox.Show("Unesite validan broj ljudi.");
+                return;
+            }
 
+            Tour tour = tourRepository.GetTourById(selectedTour.Id);
+            if (tour == null)
+            {
+
+                MessageBox.Show("Greska,nije pronadjena ta tura");
+                return;
+            }
+
+            if (numberOfPeople > tour.Capacity)
+            {
+
+
+                MessageBox.Show("Nema dovoljno mjesta na turi, mozete da odaberete neku drugu");
+            }
+            else
+            {
+
+
+                MessageBox.Show("Tura je rezervisana,ima dovoljno mjesta");
+                tour.Capacity -= numberOfPeople;
+                tourRepository.Update(tour);
+                
+            }
 
         }
     }

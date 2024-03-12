@@ -23,6 +23,13 @@ namespace BookingApp.Model
             StartTime = startTime;
         }
 
+        public TourStartDate( int tourId, DateTime startTime)
+        {
+            
+            TourId = tourId;
+            StartTime = startTime;
+        }
+
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
