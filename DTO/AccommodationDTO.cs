@@ -9,12 +9,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BookingApp.DTO;
 using BookingApp.Model;
+using BookingApp.Repository;
 
 namespace BookingApp.DTO
 {
         public class AccommodationDTO : INotifyPropertyChanged, IDataErrorInfo
     {
         
+
         public int id = -1;
         public int Id
         {
@@ -163,6 +165,7 @@ namespace BookingApp.DTO
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
+            //this.Location = locationRepository.GetById(IdLocation);
             //  images??
         }
 

@@ -31,6 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="View\Owner\AddAccommodation.xaml.cs" />
+    <Compile Include="View\Owner\AddAccommodationImage.xaml.cs" />
+    <Compile Include="View\Owner\OwnerMainWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -49,10 +55,6 @@
     <Page Include="View\Guest\GuestMainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="View\Owner\" />
   </ItemGroup>
 
 </Project>

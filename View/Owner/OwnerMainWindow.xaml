@@ -1,0 +1,44 @@
+﻿<Window x:Class="BookingApp.View.Owner.OwnerMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.Owner"
+        mc:Ignorable="d"
+        Title="OwnerMainWindow" Height="500" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="22,20,0,20">
+            <Button Content="Add Accommodation" Margin="5" Padding="10,0" Click="AddAccommodationButton" Width="150" />
+            <Button Content="GradeGuest" Margin="5" Padding="10,0" Click="GradeGuestButton" Width="89" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Margin="10,0,10,33" AutoGenerateColumns="False" x:Name="AccommodationDataGrid" ItemsSource="{Binding Accommodation, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectionChanged="AccommodationDataGrid_SelectionChanged">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="Regular"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location.City}" Width="100"/>
+                <DataGridTextColumn Header="Accommodation Type" Binding="{Binding AccommodationType}" Width="130"/>
+                <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="100"/>
+                <DataGridTextColumn Header="Min Stay Days" Binding="{Binding MinStayDays}" Width="100"/>
+                <DataGridTextColumn Header="Cancellation Period" Binding="{Binding CancellationPeriod}" Width="120"/>
+                <DataGridTemplateColumn Header="Images" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Images[0]}" Height="50"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

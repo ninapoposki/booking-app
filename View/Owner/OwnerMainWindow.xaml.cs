@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using System;
@@ -21,7 +22,7 @@ namespace BookingApp.View.Owner
     /// <summary>
     /// Interaction logic for OwnerMainWindow.xaml
     /// </summary>
-    public partial class OwnerMainWindow : Window , IObserver
+    public partial class OwnerMainWindow : Window, IObserver
     {
         public static ObservableCollection<Comment> Comments { get; set; }
 
@@ -30,6 +31,8 @@ namespace BookingApp.View.Owner
         public User LoggedInUser { get; set; }
 
         private readonly CommentRepository _repository;
+
+        private readonly LocationRepository locationRepository;
 
         public readonly AccommodationRepository accommodationRepository;
         public ObservableCollection<AccommodationDTO> AllAccommodation { get; set; }
@@ -41,7 +44,8 @@ namespace BookingApp.View.Owner
             LoggedInUser = user;
             _repository = new CommentRepository();
             Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
-        
+
+            locationRepository = new LocationRepository(); //add
             accommodationRepository = new AccommodationRepository();
             AllAccommodation = new ObservableCollection<AccommodationDTO>();
             var Accoms = accommodationRepository.GetAll();
@@ -54,7 +58,7 @@ namespace BookingApp.View.Owner
         public void Update()
         {
             AllAccommodation.Clear();
-            foreach(Accommodation all in accommodationRepository.GetAll()) { AllAccommodation.Add(new AccommodationDTO(all)); }
+            foreach (Accommodation all in accommodationRepository.GetAll()) { AllAccommodation.Add(new AccommodationDTO(all)); }
         }
 
 
@@ -62,9 +66,9 @@ namespace BookingApp.View.Owner
         {
             AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository);
 
-            
+
             addAccommodationWindow.ShowDialog();
-           
+
         }
 
         private void GradeGuestButton(object sender, RoutedEventArgs e)
