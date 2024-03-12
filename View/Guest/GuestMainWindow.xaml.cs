@@ -34,7 +34,7 @@ namespace BookingApp.View.Guest
         //public ObservableCollection<LanguageDTO> Languages { get; set; } //ovo miuslim da ne treba,da samo arijani treba
 
         public AccommodationDTO SelectedAccommodation { get; set; }
-      
+
 
         public GuestMainWindow()
         {
@@ -75,8 +75,8 @@ namespace BookingApp.View.Guest
             string country = CountryTextBox.Text;
             string type = (TypeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
 
-            AccommodationDTO accommodation=new AccommodationDTO(); //ne puca kad napravis instancu ali to ne valaj to popravi
-          
+            AccommodationDTO accommodation = new AccommodationDTO(); //ne puca kad napravis instancu ali to ne valaj to popravi
+
             var filteredAccommodations = AllAccommodations
                     .Where(accommodation =>
                         (string.IsNullOrEmpty(name) || accommodation.Name.Contains(name)) &&
@@ -88,10 +88,10 @@ namespace BookingApp.View.Guest
                     )
                     .ToList();
 
-                // Ažuriranje DataGrid-a sa filtriranim smeštajima
-                ToursDataGrid.ItemsSource = filteredAccommodations;
+            // Ažuriranje DataGrid-a sa filtriranim smeštajima
+            ToursDataGrid.ItemsSource = filteredAccommodations;
 
-            }
+        }
 
 
 
@@ -105,16 +105,15 @@ namespace BookingApp.View.Guest
 
                 return;
             }
-           // AccommodationReservation accommodationReservation = new AccommodationReservation(SelectedTour);?
-           // accommodationReservation.Show();
+            // AccommodationReservation accommodationReservation = new AccommodationReservation(SelectedTour);?
+            // accommodationReservation.Show();
         }
 
-    
+
         private void ButtonCancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
     }
-        
- }
 
+}

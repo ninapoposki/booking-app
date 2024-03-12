@@ -2,7 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.View.Tourist;
 using BookingApp.View.Guest;
-using BookingApp.View.Owner;
+//using BookingApp.View.Owner;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -54,8 +54,8 @@ namespace BookingApp.View
                 {
                     if (user.UserType.ToString() =="OWNER") 
                     {
-                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
-                        ownerMainWindow.Show();
+                       // OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                       // ownerMainWindow.Show();
                         Close();
                     }
                     else if(user.UserType.ToString() =="GUEST")
