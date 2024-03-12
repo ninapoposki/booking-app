@@ -37,7 +37,7 @@
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="50,26,0,20" Grid.Column="1" Width="213">
             <Button Content="Potvrdi" Margin="5" Padding="10,0" Click="ConfirmTourReservation" Height="26" Width="81" />
-            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="ButtonCancel" Width="72" Height="26" />
+            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="72" Height="26" />
         </StackPanel>
 
     </Grid>

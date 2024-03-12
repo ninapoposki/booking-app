@@ -42,9 +42,9 @@ namespace BookingApp.View.Tourist
             languageRepository = new LanguageRepository();
             AllTours = new ObservableCollection<TourDTO>();
             Languages = new ObservableCollection<LanguageDTO>();
-            
-          
-           
+            tourRepository.subject.Subscribe(this);
+
+
             Update();
 
         }
@@ -69,7 +69,7 @@ namespace BookingApp.View.Tourist
 
         }
 
-        private void ButtonCancel(object sender, RoutedEventArgs e)
+        private void CancelTour(object sender, RoutedEventArgs e)
         {
 
 
@@ -77,7 +77,7 @@ namespace BookingApp.View.Tourist
         }
 
 
-        private void SearchClick(object sender, RoutedEventArgs e)
+        private void SearchTour(object sender, RoutedEventArgs e)
         {
 
             bool parsePeopleSuccess = int.TryParse(PeopleTextBox.Text, out int peopleCountParsed);
@@ -88,9 +88,8 @@ namespace BookingApp.View.Tourist
             var filteredTours = AllTours.Where(tour =>
                 (string.IsNullOrWhiteSpace(CityTextBox.Text) || tour.Location.City.Equals(CityTextBox.Text, StringComparison.OrdinalIgnoreCase)) &&
                 (string.IsNullOrWhiteSpace(CountryTextBox.Text) || tour.Location.Country.Equals(CountryTextBox.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (!parseDurationSuccess || Math.Abs(tour.Duration - durationParsed) < 0.01) && // Usporedba double vrijednosti sa dozvoljenom razlikom
+                (!parseDurationSuccess || Math.Abs(tour.Duration - durationParsed) < 0.01) && 
                 (selectedLanguage == null || tour.Language.Name.Equals(selectedLanguage, StringComparison.OrdinalIgnoreCase)) &&
-                // Provjera da li je uneseni broj ljudi manji ili jednak kapacitetu ture, ako je uspješno parsiran
                 (!parsePeopleSuccess || (tour.Capacity >= peopleCountParsed && peopleCountParsed > 0))
             ).ToList();
 
@@ -99,7 +98,7 @@ namespace BookingApp.View.Tourist
 
         }
 
-        private void BookTourButton(object sender, RoutedEventArgs e)
+        private void BookTour(object sender, RoutedEventArgs e)
         {
            if (SelectedTour == null)
             {

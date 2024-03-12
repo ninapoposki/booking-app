@@ -46,7 +46,7 @@
             <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
 
             
-            <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchClick" />
+            <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />
         </Grid>
 
         <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
@@ -57,13 +57,17 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="120"/>
-                <DataGridTextColumn Header="Država" Binding="{Binding Location.Country}" Width="100"/>
-                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="100"/>
-                <DataGridTextColumn Header="Broj ljudi" Binding="{Binding Capacity}" Width="80"/>
-                <DataGridTextColumn Header="Datum/Trajanje" Binding="{Binding Duration}" Width="120"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="100"/>
-                <DataGridTemplateColumn Header="Slika" Width="150">
+                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Opis ture" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="*"/>
+                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
+                
+                <DataGridTextColumn Header="Broj mjesta" Binding="{Binding Capacity}" Width="*"/>
+                <DataGridTextColumn Header="Datum ture" Binding="{Binding }" Width="*"/>
+                
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="*"/>
+                <DataGridTemplateColumn Header="Slika" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding ImagePath}" Height="50"/>
@@ -73,8 +77,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTourButton" Height="34" Width="94" />
-            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="ButtonCancel" Width="89" />
+            <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
+            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
         </StackPanel>
 
 
