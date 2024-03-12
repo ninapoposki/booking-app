@@ -16,9 +16,16 @@ namespace BookingApp.Model
         public DateTime StartTime { get; set; }
         public TourStartDate() { }
 
-        public TourStartDate(int id, int tourId, DateTime startTime)
+        public TourStartDate(int id,int tourId, DateTime startTime)
         {
             Id = id;
+            TourId = tourId;
+            StartTime = startTime;
+        }
+
+        public TourStartDate( int tourId, DateTime startTime)
+        {
+            
             TourId = tourId;
             StartTime = startTime;
         }
@@ -35,7 +42,7 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                StartTime.ToString("dd/MM/yyyy HH:mm"),
+                StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
                 TourId.ToString(),
             };
 

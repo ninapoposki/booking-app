@@ -26,6 +26,8 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
+
+
         private readonly TourRepository tourRepository;
         private readonly LocationRepository locationRepository;
         private readonly LanguageRepository languageRepository;
@@ -33,6 +35,7 @@ namespace BookingApp.View.Tourist
         public ObservableCollection<LanguageDTO> Languages { get; set; }
 
         public TourDTO SelectedTour { get; set; } 
+
         public TouristMainWindow()
         {
             InitializeComponent();
@@ -69,9 +72,9 @@ namespace BookingApp.View.Tourist
 
         }
 
+        
         private void CancelTour(object sender, RoutedEventArgs e)
         {
-
 
             this.Close();
         }

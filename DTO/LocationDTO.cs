@@ -11,6 +11,7 @@ namespace BookingApp.DTO
 {
     public class LocationDTO : INotifyPropertyChanged
     {
+       
         public int Id { get; set; }
 
         private string city;

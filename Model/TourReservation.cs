@@ -10,31 +10,25 @@ namespace BookingApp.Model
     public class TourReservation : ISerializable
     {
         public int Id { get; set; }
-        public int TourId { get; set; }
-        
-        public DateOnly TourDateTime { get; set; }
-        public Tour Tour { get; set; }
-        public User User { get; set; }
-
+        public int TourStartDateId {  get; set; }
+        public int UserId { get; set; }
         public int GuestsNumber { get; set; }   
-
 
         public TourReservation() { }
 
-        public TourReservation(int id, int tourId, DateOnly tourDateTime,Tour tour, int guestsNumber)
+        public TourReservation(int id, int tourStartDateId,int userId, int guestsNumber)
         {
             Id = id;
-            TourId = tourId;
-            TourDateTime = tourDateTime;
-            Tour = tour;
+            TourStartDateId = tourStartDateId;
+            UserId = userId;
             GuestsNumber = guestsNumber;
         }
 
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            TourId= Convert.ToInt32(values[1]);
-            TourDateTime= DateOnly.Parse(values[2]);
+            TourStartDateId= Convert.ToInt32(values[1]);
+            UserId = Convert.ToInt32(values[2]);
             GuestsNumber= Convert.ToInt32(values[3]);
 
         }
@@ -45,8 +39,8 @@ namespace BookingApp.Model
 
 
                 Id.ToString(),
-                TourId.ToString(),
-                TourDateTime.ToString(),
+                TourStartDateId.ToString(),
+                UserId.ToString(),
                 GuestsNumber.ToString()
 
 
