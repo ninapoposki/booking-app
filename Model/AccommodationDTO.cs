@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BookingApp.DTO;
 
 namespace BookingApp.Model
 {
@@ -41,9 +42,9 @@ namespace BookingApp.Model
             }
         }
 
-        /*
+        
         private LocationDTO _Location;
-        public LocationDTO Adresa_stanovanja
+        public LocationDTO Location
         {
             get { return _Location; }
             set
@@ -55,7 +56,7 @@ namespace BookingApp.Model
                 }
             }
         }
-        */
+        
 
         private int _IdLocation;
         public int IdLocation

@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Tourist;
+using BookingApp.View.Guest;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -55,7 +57,10 @@ namespace BookingApp.View
                     }
                     else if(user.UserType.ToString() =="GUEST")
                     {
-                    //irina
+                        //irina
+                        GuestMainWindow guestMainWindow = new GuestMainWindow();
+                        guestMainWindow.Show();
+                        Close();
                     }
                     else if (user.UserType.ToString() == "GUIDE")
                     {
