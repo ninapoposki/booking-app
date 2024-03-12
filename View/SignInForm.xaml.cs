@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Tourist;
+using BookingApp.View.Guest;
 using BookingApp.View.Owner;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -58,14 +60,17 @@ namespace BookingApp.View
                     }
                     else if(user.UserType.ToString() =="GUEST")
                     {
-                    //irina
+                        //irina
+                        GuestMainWindow guestMainWindow = new GuestMainWindow();
+                        guestMainWindow.Show();
+                        Close();
                     }
                     else if (user.UserType.ToString() == "GUIDE")
                     {
                         //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
                          CommentsOverview commentsOverview = new CommentsOverview(user);
                          commentsOverview.Show();
-                        Close();
+                         Close();
                     }
                     else
                     {

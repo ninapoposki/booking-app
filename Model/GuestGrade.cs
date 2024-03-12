@@ -10,6 +10,7 @@ namespace BookingApp.Model
     public class GuestGrade : ISerializable
     {
         public int Id { get; set; }
+
        public int GuestId {  get; set; }
        public int MaxDays {  get; set; }
        public int Cleanless {  get; set; }

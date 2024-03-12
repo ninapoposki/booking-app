@@ -24,13 +24,14 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
+
         private TourRepository tourRepository; 
         public List<Tour> AllTours { get; set; }
         public TouristMainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            AllTours = tourRepository.GetAll();
+          //  AllTours = tourRepository.GetAll();
             Update();
         }
 
@@ -53,6 +54,11 @@ namespace BookingApp.View.Tourist
             
 
 
+        }
+        private void BookTourButton(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
         }
     }
 }
