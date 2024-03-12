@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.Guide;
+using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -65,10 +66,12 @@ namespace BookingApp.View
                         makeTour.Show();
                          Close();
                     }
+                    //arijana
                     else
                     {
-                        //TouristMainWindow t = new TouristMainWindow();
-                     //arijana
+                     TouristMainWindow touristMainWindow= new TouristMainWindow();
+                        touristMainWindow.Show();
+                        Close();
                     }
                   
                 } 

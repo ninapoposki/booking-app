@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.DTO;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -84,10 +85,16 @@ namespace BookingApp.Repository
             subject.Subscribe(observer);
         }
 
+
         public int GetCurrentId()
         {
             if (tours.Count == 0) return 1;
             return tours.Max(t => t.Id);
+        }
+        public Tour? GetTourById(int id)
+        {
+            return tours.Find(s => s.Id == id);
+
         }
     }
 }

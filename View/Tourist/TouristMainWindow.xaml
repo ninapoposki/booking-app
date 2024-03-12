@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.Tourist"
         mc:Ignorable="d"
-        Title="Pretraga i izbor tura" Height="450" Width="800">
+        Title="Pretraga i izbor tura" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100" />
-                <!-- Dodatna kolona za dugme -->
+                
             </Grid.ColumnDefinitions>
 
             <Label Content="Grad:" Grid.Column="0" Margin="5"/>
@@ -40,20 +40,16 @@
             <TextBox x:Name="DaysTextBox" Grid.Column="5" Margin="5"/>
 
             <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
-            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5">
-                <!-- Dodajte jezike ovdje -->
-                <ComboBoxItem Content="Engleski"/>
-                <ComboBoxItem Content="Francuski"/>
-                <!-- I tako dalje -->
-            </ComboBox>
+            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
 
             <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
             <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
 
-            <!-- Dugme za slanje/pretraživanje -->
+            
             <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchClick" />
         </Grid>
-        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding Tour, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
+
+        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -62,11 +58,11 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="120"/>
-                <DataGridTextColumn Header="Država" Binding="{Binding Location}" Width="100"/>
-                <DataGridTextColumn Header="Grad" Binding="{Binding Location}" Width="100"/>
+                <DataGridTextColumn Header="Država" Binding="{Binding Location.Country}" Width="100"/>
+                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="100"/>
                 <DataGridTextColumn Header="Broj ljudi" Binding="{Binding Capacity}" Width="80"/>
                 <DataGridTextColumn Header="Datum/Trajanje" Binding="{Binding Duration}" Width="120"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding Language}" Width="100"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="100"/>
                 <DataGridTemplateColumn Header="Slika" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -77,10 +73,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-          
-            <Button Content="Cancel" Margin="5" Padding="10,0" Width="89" Click="CancelClick" />
-            <Button Content="Book a Tour" Margin="5" Padding="10,0" Width="89" Click="BookTourClick" />
+            <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTourButton" Height="34" Width="94" />
+            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="ButtonCancel" Width="89" />
+
         </StackPanel>
+
 
     </Grid>
 </Window>
