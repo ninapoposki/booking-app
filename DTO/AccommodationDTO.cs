@@ -7,8 +7,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BookingApp.DTO;
+using BookingApp.Model;
 
-namespace BookingApp.Model
+namespace BookingApp.DTO
 {
         public class AccommodationDTO : INotifyPropertyChanged, IDataErrorInfo
     {
@@ -42,7 +44,7 @@ namespace BookingApp.Model
             }
         }
 
-        /*
+        
         private LocationDTO location;
         public LocationDTO Location
         {
@@ -56,7 +58,7 @@ namespace BookingApp.Model
                 }
             }
         }
-        */
+        
 
         private int idLocation;
         public int IdLocation

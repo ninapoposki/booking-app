@@ -45,4 +45,14 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Include="View\Guest\GuestMainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="View\Owner\" />
+  </ItemGroup>
+
 </Project>
