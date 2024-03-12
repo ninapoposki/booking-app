@@ -26,7 +26,7 @@ namespace BookingApp.View.Owner
             InitializeComponent();
             DataContext = this;
             //  Image = new ImageDTO();
-           
+
         }
 
         public void Update()

@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -25,28 +26,28 @@ namespace BookingApp.View.Owner
     public partial class AddAccommodation : Window, INotifyPropertyChanged
     {
         public AccommodationDTO Accommodation { get; set; }
-        public AccommodationRepository accommodationRepository { get; set; }    
+        public AccommodationRepository accommodationRepository { get; set; }
         public AddAccommodation(AccommodationRepository accommodationRepository)
         {
             InitializeComponent();
             DataContext = this;
             Accommodation = new AccommodationDTO();
             this.accommodationRepository = accommodationRepository;
-            
+
         }
 
-        
+
         // Metoda koja se poziva kada se pritisne dugme "Add"
         private void AddAccommodationButton_Click(object sender, RoutedEventArgs e)
         {
             // Implementacija koda za dodavanje smještaja
 
-           
+
 
             if (Accommodation.IsValid)
             {
                 MessageBox.Show("Dodavanje smeštaja");
-                this.DialogResult = true; 
+                this.DialogResult = true;
                 accommodationRepository.Add(Accommodation.ToAccommodation());
                 Close();
             }
