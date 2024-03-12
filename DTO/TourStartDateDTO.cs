@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,8 +16,8 @@ namespace BookingApp.DTO
 
         public int TourId { get; set; }
 
-        private DateTime startTime;
-        public DateTime StartTime
+        private string startTime;
+        public string StartTime
         {
 
             get { return startTime; }
@@ -44,15 +45,15 @@ namespace BookingApp.DTO
         {
 
             Id = tourStartDate.Id;
-          TourId = tourStartDate.TourId;
-            StartTime = tourStartDate.StartTime;
+            TourId = tourStartDate.TourId;
+            StartTime = tourStartDate.StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
 
 
         }
 
         public TourStartDate ToTourStartDate()
         {
-            return new TourStartDate(Id,TourId,startTime);
+            return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

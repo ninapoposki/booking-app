@@ -31,6 +31,7 @@ namespace BookingApp.View.Tourist
         private readonly TourRepository tourRepository;
         private readonly LocationRepository locationRepository;
         private readonly LanguageRepository languageRepository;
+        private readonly TourStartDateRepository tourStartDateRepository;
         public ObservableCollection<TourDTO> AllTours { get; set; }
         public ObservableCollection<LanguageDTO> Languages { get; set; }
 
@@ -43,23 +44,30 @@ namespace BookingApp.View.Tourist
             tourRepository= new TourRepository();
             locationRepository = new LocationRepository(); 
             languageRepository = new LanguageRepository();
+            tourStartDateRepository = new TourStartDateRepository();
             AllTours = new ObservableCollection<TourDTO>();
             Languages = new ObservableCollection<LanguageDTO>();
             tourRepository.subject.Subscribe(this);
-
+            //int id = SelectedTour.SelectedDateTime.Id; ovo ti treba za posle i ne radis ovde to!
 
             Update();
+            
 
         }
 
         public void Update()
         {
             AllTours.Clear();
-            foreach(Tour tour in tourRepository.GetAll())
+            foreach (Tour tour in tourRepository.GetAll())
             {
-                AllTours.Add(new TourDTO(tour, locationRepository, languageRepository));
-                
+            Location location = locationRepository.GetById(tour.LocationId);
+            Language language = languageRepository.GetById(tour.LanguageId);
+            var tourDTO = new TourDTO(tour, location, language);
+            tourDTO.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tour.Id));
+            AllTours.Add(tourDTO);
             }
+            // Osvježavanje lista jezika...
+
             Languages.Clear();
 
 
@@ -67,12 +75,21 @@ namespace BookingApp.View.Tourist
             {
                 Languages.Add(new LanguageDTO(language));
             }
-
-
-
         }
 
-        
+        private IEnumerable<TourStartDateDTO> UpdateDate(int tourId)
+        {
+            var dateTimesForTour = new List<TourStartDateDTO>();
+            foreach (var startTime in tourStartDateRepository.GetByTourId(tourId))
+            {
+                dateTimesForTour.Add(new TourStartDateDTO(startTime));
+            }
+            return dateTimesForTour;
+        }
+
+
+
+
         private void CancelTour(object sender, RoutedEventArgs e)
         {
 

@@ -63,8 +63,17 @@
                 <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
                 
                 <DataGridTextColumn Header="Broj mjesta" Binding="{Binding Capacity}" Width="*"/>
-                <DataGridTextColumn Header="Datum ture" Binding="{Binding }" Width="*"/>
-                
+                <DataGridTemplateColumn Header="Datumi ture" Width="3*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" 
+                     SelectionMode="Single" 
+                     SelectedItem="{Binding Path=SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ListBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
                 <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="*"/>
                 <DataGridTemplateColumn Header="Slika" Width="*">
