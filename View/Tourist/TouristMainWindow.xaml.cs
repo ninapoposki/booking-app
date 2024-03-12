@@ -24,7 +24,7 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
-        private TourReporsitory tourRepository; 
+        private TourRepository tourRepository; 
         public List<Tour> AllTours { get; set; }
         public TouristMainWindow()
         {

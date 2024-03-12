@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Owner;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -50,8 +51,10 @@ namespace BookingApp.View
                 if(user.Password == txtPassword.Password)
                 {
                     if (user.UserType.ToString() =="OWNER") 
-                    { 
-                    //dajana
+                    {
+                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                        ownerMainWindow.Show();
+                        Close();
                     }
                     else if(user.UserType.ToString() =="GUEST")
                     {

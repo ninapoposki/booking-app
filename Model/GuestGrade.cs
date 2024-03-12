@@ -10,7 +10,7 @@ namespace BookingApp.Model
     public class GuestGrade : ISerializable
     {
         public int Id { get; set; }
-       public int GuestID {  get; set; }
+       public int GuestId {  get; set; }
        public int MaxDays {  get; set; }
        public int Cleanless {  get; set; }
        public int RulesFollowing {  get; set; }
@@ -20,7 +20,7 @@ namespace BookingApp.Model
         public GuestGrade(int id, int guestID, int maxDays, int cleanless, int rulesFollowing, string comment)
         {
             Id = id;
-            GuestID = guestID;
+            GuestId = guestID;
             MaxDays = maxDays;
             Cleanless = cleanless;
             RulesFollowing = rulesFollowing;
@@ -32,7 +32,7 @@ namespace BookingApp.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                GuestID.ToString(),
+                GuestId.ToString(),
                 MaxDays.ToString(),
                 Cleanless.ToString(),
                 RulesFollowing.ToString(),
@@ -45,7 +45,7 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            GuestID = int.Parse(values[1]);
+            GuestId = int.Parse(values[1]);
             MaxDays = int.Parse(values[2]);
             Cleanless = int.Parse(values[3]);
             RulesFollowing = int.Parse(values[4]);
