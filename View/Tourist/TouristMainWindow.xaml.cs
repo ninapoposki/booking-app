@@ -26,6 +26,10 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
+
+        private TourRepository tourRepository; 
+        public List<Tour> AllTours { get; set; }
+
         private readonly TourRepository tourRepository;
         private readonly LocationRepository locationRepository;
         private readonly LanguageRepository languageRepository;
@@ -33,6 +37,7 @@ namespace BookingApp.View.Tourist
         public ObservableCollection<LanguageDTO> Languages { get; set; }
 
         public TourDTO SelectedTour { get; set; } 
+
         public TouristMainWindow()
         {
             InitializeComponent();
@@ -69,15 +74,18 @@ namespace BookingApp.View.Tourist
 
         }
 
-        private void ButtonCancel(object sender, RoutedEventArgs e)
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BookTourClick(object sender, RoutedEventArgs e)
         {
 
 
-            this.Close();
         }
 
-
-        private void SearchClick(object sender, RoutedEventArgs e)
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
 
             bool parsePeopleSuccess = int.TryParse(PeopleTextBox.Text, out int peopleCountParsed);
