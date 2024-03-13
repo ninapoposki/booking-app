@@ -32,11 +32,15 @@ namespace BookingApp.View.Guide
         private LanguageRepository languageRepository;
         private CheckPointRepository checkPointRepository;
         private TourStartDateRepository tourStartDateRepository;
-        
+        private ImageRepository imageRepository;
+
         public List<LanguageDTO> LanguageComboBox { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
 
         public List<DateTime> TourStartDates { get; set; }
+
+        private ImageDTO selectedImage;
+        public List<ImageDTO> Images { get; set; }
         public MakeTour()
         {
             InitializeComponent();
@@ -46,10 +50,13 @@ namespace BookingApp.View.Guide
             locationRepository=new LocationRepository();
             checkPointRepository=new CheckPointRepository();
             tourStartDateRepository=new TourStartDateRepository();
+            imageRepository=new ImageRepository();
             LanguageComboBox = new List<LanguageDTO>();
             LocationComboBox = new List<LocationDTO>();
             TourStartDates = new List<DateTime>();
             TourDTO = new TourDTO();
+            selectedImage = new ImageDTO();
+            Images = new List<ImageDTO>();
 
             LoadLanguagesAndLocations();
 
@@ -80,11 +87,20 @@ namespace BookingApp.View.Guide
            
             tourRepository.Add(TourDTO.ToTour());
             AddCheckPoints(tourRepository.GetCurrentId());
+            
             foreach(DateTime tourDate in TourStartDates)
             {
                 TourStartDate tourDates = new TourStartDate(tourRepository.GetCurrentId(), tourDate);
                 tourStartDateRepository.Add(tourDates);
             }
+            foreach(ImageDTO image in Images)
+            {
+                image.EntityId=tourRepository.GetCurrentId();
+                image.EntityType = EntityType.TOUR;
+                imageRepository.Update(image.ToImage());
+         
+            }
+            
 
             Close();
 
@@ -154,6 +170,14 @@ namespace BookingApp.View.Guide
         {
             if(TimeSpan.TryParse(input, out var time))   return time; 
             return null;
+        }
+
+        private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
+        {
+            PictureBrowseWindow pictureBrowseWindow = new PictureBrowseWindow();
+            pictureBrowseWindow.ShowDialog();
+            selectedImage = pictureBrowseWindow.selectedImage;
+            Images.Add(selectedImage);
         }
     }
 }

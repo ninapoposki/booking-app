@@ -51,7 +51,7 @@ namespace BookingApp.DTO
 
 
                     country = value;
-                    OnPropertyChanged("Counrty");
+                    OnPropertyChanged("Country");
                 }
             }
         }
