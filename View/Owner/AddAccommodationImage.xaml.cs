@@ -36,14 +36,14 @@ namespace BookingApp.View.Owner
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Implementacija dodavanja slike
-            MessageBox.Show("Implementacija dodavanja slike");
+            
+            MessageBox.Show("Dodavanje URL-a slike");
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Implementacija otkazivanja akcije
-            MessageBox.Show("Otkazivanje akcije");
+            
+            MessageBox.Show("Otkazivanje dodavanja URL-a slike");
             this.DialogResult = false;
             this.Close();
         }

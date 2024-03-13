@@ -21,9 +21,12 @@ namespace BookingApp.Model
         public int CancellationPeriod {  get; set; }
         public List<Image> Images {  get; set; }
 
+     
+
         public Accommodation() {
             Images = new List<Image>();
             Location=new Location();
+
         }
 
         public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, List<Image> images)
@@ -36,6 +39,7 @@ namespace BookingApp.Model
             MinStayDays = minStayDays;
             CancellationPeriod = cancellationPeriod;
             Images = images;
+            
         }
 
         public string[] ToCSV()
@@ -48,7 +52,8 @@ namespace BookingApp.Model
                 AccommodationType.ToString(),
                 Capacity.ToString(),
                 MinStayDays.ToString(),
-                CancellationPeriod.ToString()
+                CancellationPeriod.ToString(),
+                
 
             };
 
@@ -75,6 +80,7 @@ namespace BookingApp.Model
             Capacity = int.Parse(values[4]);
             MinStayDays = int.Parse(values[5]);
             CancellationPeriod = int.Parse(values[6]);
+            
 
         }
     }

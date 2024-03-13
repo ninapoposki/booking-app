@@ -3,6 +3,7 @@ using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +34,14 @@ namespace BookingApp.Repository
         public Accommodation Add(Accommodation accommodation)
         {
             accommodation.Id = NextId();
-            accommodations = serializer.FromCSV(FilePath);
-            accommodations.Add(accommodation);
-            serializer.ToCSV(FilePath, accommodations);
+            //accommodations = serializer.FromCSV(FilePath);
+             accommodations.Add(accommodation);
+            //serializer.ToCSV(FilePath, accommodations);
+            // storage.Save(accommodations);
+           
+            
+            WriteToFile();
+            
             subject.NotifyObservers();
             return accommodation;
         }
@@ -61,15 +67,29 @@ namespace BookingApp.Repository
 
         public Accommodation Update(Accommodation accommodation)
         {
-            accommodations = serializer.FromCSV(FilePath);
-            Accommodation current = accommodations.Find(t => t.Id == accommodation.Id);
-            int index = accommodations.IndexOf(current);
-            accommodations.Remove(current);
-            accommodations.Insert(index, accommodation);       // keep ascending order of ids in file 
-            serializer.ToCSV(FilePath, accommodations);
-            subject.NotifyObservers();
+            /* accommodations = serializer.FromCSV(FilePath);
+             Accommodation current = accommodations.Find(t => t.Id == accommodation.Id);
+             int index = accommodations.IndexOf(current);
+             accommodations.Remove(current);
+             accommodations.Insert(index, accommodation);       // keep ascending order of ids in file 
+             serializer.ToCSV(FilePath, accommodations);
+             subject.NotifyObservers();
+             return accommodation;*/
+
+            var existing = accommodations.FindIndex(a => a.Id == accommodation.Id);
+            if (existing != -1)
+            {
+                accommodations[existing] = accommodation;
+                WriteToFile();
+                subject.NotifyObservers();
+            }
             return accommodation;
         }
+        private void WriteToFile()
+        {
+            serializer.ToCSV(FilePath, accommodations);
+        }
+
 
         public void Subscribe(IObserver observer)
         {

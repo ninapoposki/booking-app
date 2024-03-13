@@ -15,6 +15,8 @@
             </StackPanel>
         </ControlTemplate>
     </Window.Resources>
+    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -22,6 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="40" />
             <RowDefinition Height="Auto" MinHeight="40" />
             <RowDefinition Height="Auto" MinHeight="40" />
             <RowDefinition Height="Auto" MinHeight="40"/>
@@ -34,19 +37,30 @@
         <Label Grid.Column="0" Content="Name*" VerticalAlignment="Center" Height="34"/>
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
 
+ 
+
         <Label Grid.Row="1" Grid.Column="0" Content="Location*" VerticalAlignment="Center" Height="26"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}" Margin="5,5,5,10">
-            <ComboBoxItem Content="Novi Sad"/>
-            <ComboBoxItem Content="Beograd"/>
+        <ComboBox x:Name="locationComboBox" Grid.Row="1" Grid.Column="1" Margin="5" ItemsSource="{Binding LocationComboBox}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding City}"/>
+                        <TextBlock Text=","/>
+                        <TextBlock Text="{Binding Country}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
+
 
         <Label Grid.Row="2" Grid.Column="0" Content="Accommodation Type*" VerticalAlignment="Center" Height="26"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Margin="5,5,5,5">
-            <ComboBoxItem Content="APARTMENT"/>
-            <ComboBoxItem Content="HOUSE"/>
-            <ComboBoxItem Content="CABIN"/>
-        </ComboBox>
 
+        <ComboBox x:Name="TypeComboBox" Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=Accommodation.AccommodationType}" />
+        <!-- <ComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Margin="5,5,5,5">
+    <ComboBoxItem Content="APARTMENT"/>
+    <ComboBoxItem Content="HOUSE"/>
+    <ComboBoxItem Content="CABIN"/>
+</ComboBox>-->
         <!--<Label Grid.Row="3" Grid.Column="0" Content="Capacity*" VerticalAlignment="Center" /> -->
         <!-- <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5"> -->
         <!--    <Button Content="-" Width="20" Click="DecreaseCapacityButton_Click"/>-->
@@ -76,7 +90,8 @@
         <!-- </StackPanel>-->
 
         <Label Grid.Row="6" Grid.Column="0" Content="Images URL*" VerticalAlignment="Center" Height="26"/>
-        <Button Grid.Row="6" Grid.Column="1" Content="Add Images" HorizontalAlignment="Stretch"  Click="AddImageButton_Click"  Margin="5,5,5,10"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=Accommodation.ImageUrl, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
+
 
         <Button Grid.Row="6" Grid.Column="0" Content="Add" HorizontalAlignment="Left"  Click="AddAccommodationButton_Click" Width="64" Margin="310,68,0,-67"/>
         <Button Grid.Row="6" Grid.Column="1" Content="Cancel" HorizontalAlignment="Right" Click="CancelButton_Click" Width="64" Margin="0,67,310,-66" />

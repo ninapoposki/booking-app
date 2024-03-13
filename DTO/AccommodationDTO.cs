@@ -137,19 +137,20 @@ namespace BookingApp.DTO
         //imagedto
         private List<Image> images;
 
-        public List<Image> Images
-        {
-            get { return images; }
-            set
-            {
-                if (images != value)
-                {
-                    images = value;
-                    OnPropertyChanged("Images");
-                }
-            }
-        }
-
+         public List<Image> Images
+         {
+             get { return images; }
+             set
+             {
+                 if (images != value)
+                 {
+                     images = value;
+                     OnPropertyChanged("Images");
+                 }
+             }
+         }
+        
+     
         public AccommodationDTO()
         {
 
@@ -165,8 +166,13 @@ namespace BookingApp.DTO
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
-        }
 
+            
+            //  images??
+
+
+        }
+       
         public Accommodation ToAccommodation()
         {
             var accommodation = new Accommodation();
