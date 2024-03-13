@@ -29,11 +29,10 @@ namespace BookingApp.View.Guest
     {
         private readonly AccommodationRepository accommodationRepository;
         private readonly LocationRepository locationRepository;
-        //accommodationType?
         public ObservableCollection<AccommodationDTO> AllAccommodations { get; set; }
-        //public ObservableCollection<LanguageDTO> Languages { get; set; } //ovo miuslim da ne treba,da samo arijani treba
 
         public AccommodationDTO SelectedAccommodation { get; set; }
+        public ObservableCollection<AccommodationType> Types { get; set; }
 
 
         public GuestMainWindow()
@@ -43,7 +42,9 @@ namespace BookingApp.View.Guest
             accommodationRepository = new AccommodationRepository();
             locationRepository = new LocationRepository();
             AllAccommodations = new ObservableCollection<AccommodationDTO>();
-
+   
+            var type=Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
+            Types = new ObservableCollection<AccommodationType>(type);
 
             Update();
         }
@@ -52,43 +53,32 @@ namespace BookingApp.View.Guest
             AllAccommodations.Clear();
             foreach (Accommodation accommodation in accommodationRepository.GetAll())
             {
-                //ovo proveri,ne valja
-                AllAccommodations.Add(new AccommodationDTO(accommodation)); //vidi jel jos nesto prosledjujes kao parametar
+                Location location = locationRepository.GetById(accommodation.IdLocation);
+                AllAccommodations.Add(new AccommodationDTO(accommodation,location)); 
 
             }
-            // Languages.Clear();- ovo jel treba
-
-
-            /* foreach (Language language in languageRepository.GetAll())
-             {-proveri
-                 Languages.Add(new LanguageDTO(language));
-             }*/
+           
 
         }
         private void SearchClick(object sender, RoutedEventArgs e)
         {
-            //parsiras uneti string
+        
             bool parseGuestNumberSuccess = int.TryParse(NumberOfGuestsTextBox.Text, out int numberOfGuestsParsed);
-            bool parseStayDaysSuccess = double.TryParse(NumberOfDaysToStayTextBox.Text, out double stayDaysParsed); //da li promenim ovo u kraci naziv number of?
-            string name = NameTextBox.Text;
-            string city = CityTextBox.Text;
-            string country = CountryTextBox.Text;
-            string type = (TypeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            bool parseStayDaysSuccess = double.TryParse(NumberOfDaysToStayTextBox.Text, out double stayDaysParsed); 
+          
+            AccommodationType? selectedType = TypeComboBox.SelectedItem as AccommodationType?;
 
-            AccommodationDTO accommodation = new AccommodationDTO(); //ne puca kad napravis instancu ali to ne valaj to popravi
-
+            //probaj da nadjes neko optimalnije resenje
             var filteredAccommodations = AllAccommodations
                     .Where(accommodation =>
-                        (string.IsNullOrEmpty(name) || accommodation.Name.Contains(name)) &&
-                        (string.IsNullOrEmpty(city) || accommodation.Location.City.Contains(city)) &&
-                        (string.IsNullOrEmpty(country) || accommodation.Location.Country.Contains(country)) &&
-                        (string.IsNullOrEmpty(type) || accommodation.AccommodationType.ToString() == type) &&
+                        (string.IsNullOrEmpty(NameTextBox.Text) || accommodation.Name.ToLower().Contains(NameTextBox.Text.ToLower())) &&
+                        (string.IsNullOrEmpty(CityTextBox.Text) || accommodation.Location.City.ToLower().Contains(CityTextBox.Text.ToLower())) &&
+                        (string.IsNullOrEmpty(CountryTextBox.Text) || accommodation.Location.Country.ToLower().Contains(CountryTextBox.Text.ToLower())) &&
+                        (!selectedType.HasValue || accommodation.AccommodationType == selectedType)&&
                         (numberOfGuestsParsed == 0 || accommodation.Capacity >= numberOfGuestsParsed) &&
-                        (stayDaysParsed == 0 || accommodation.MinStayDays >= stayDaysParsed)
+                        (stayDaysParsed == 0 || accommodation.MinStayDays <= stayDaysParsed)
                     )
                     .ToList();
-
-            // Ažuriranje DataGrid-a sa filtriranim smeštajima
             ToursDataGrid.ItemsSource = filteredAccommodations;
 
         }
@@ -105,8 +95,6 @@ namespace BookingApp.View.Guest
 
                 return;
             }
-            // AccommodationReservation accommodationReservation = new AccommodationReservation(SelectedTour);?
-            // accommodationReservation.Show();
         }
 
 
