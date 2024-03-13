@@ -25,14 +25,14 @@ namespace BookingApp.Model
 
         public Accommodation() {
             Images = new List<Image>();
-          
+            Location=new Location();
+
         }
 
-        public Accommodation(int id, string name, Location location, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, List<Image> images)
+        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, List<Image> images)
         {
             Id = id;
             Name = name;
-            Location = location;
             IdLocation = idLocation;
             AccommodationType = type;
             Capacity = capacity;

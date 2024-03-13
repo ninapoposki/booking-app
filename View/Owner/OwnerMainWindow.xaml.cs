@@ -58,10 +58,9 @@ namespace BookingApp.View.Owner
         public void Update()
         {
             AllAccommodation.Clear();
-            foreach (Accommodation all in accommodationRepository.GetAll()) {
-                AllAccommodation.Add(new AccommodationDTO(all)); 
-            }
-           
+
+          //  foreach (Accommodation all in accommodationRepository.GetAll()) { AllAccommodation.Add(new AccommodationDTO(all)); }
+
         }
 
 

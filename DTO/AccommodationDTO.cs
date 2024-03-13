@@ -46,9 +46,9 @@ namespace BookingApp.DTO
             }
         }
 
-        
-        private LocationDTO location;
-        public LocationDTO Location
+
+        private Location location;
+        public Location Location
         {
             get { return location; }
             set
@@ -153,21 +153,24 @@ namespace BookingApp.DTO
      
         public AccommodationDTO()
         {
-            // images = new List<ImageDTO>();
-
 
         }
-        public AccommodationDTO(Accommodation accommodation)
+     
+        public AccommodationDTO(Accommodation accommodation,Location location)
         {
             this.Id = accommodation.Id;
             this.Name = accommodation.Name;
             this.IdLocation = accommodation.IdLocation;
+            this.Location= location;
             this.AccommodationType = accommodation.AccommodationType;
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
+
             
             //  images??
+
+
         }
        
         public Accommodation ToAccommodation()
