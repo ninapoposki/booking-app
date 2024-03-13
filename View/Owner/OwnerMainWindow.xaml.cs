@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace BookingApp.View.Owner
 {
-    /// <summary>
+    /// summary>
     /// Interaction logic for OwnerMainWindow.xaml
     /// </summary>
     public partial class OwnerMainWindow : Window, IObserver
@@ -58,7 +58,10 @@ namespace BookingApp.View.Owner
         public void Update()
         {
             AllAccommodation.Clear();
-            foreach (Accommodation all in accommodationRepository.GetAll()) { AllAccommodation.Add(new AccommodationDTO(all)); }
+            foreach (Accommodation all in accommodationRepository.GetAll()) {
+                AllAccommodation.Add(new AccommodationDTO(all)); 
+            }
+           
         }
 
 
@@ -66,14 +69,26 @@ namespace BookingApp.View.Owner
         {
             AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository);
 
-
+            addAccommodationWindow.AccommodationAdded += (sender, args) =>
+            {
+                UpdateAccommodationDataGrid();
+            };
             addAccommodationWindow.ShowDialog();
 
+        }
+        private void UpdateAccommodationDataGrid()
+        {
+            AllAccommodation.Clear();
+            foreach (Accommodation all in accommodationRepository.GetAll())
+            {
+                AllAccommodation.Add(new AccommodationDTO(all));
+            }
         }
 
         private void GradeGuestButton(object sender, RoutedEventArgs e)
         {
-            // Implementacija ocenjivanja gosta
+            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow();
+            gradeGuestWindow.ShowDialog();
         }
 
         private void AccommodationDataGrid_SelectionChanged(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace BookingApp.View.Owner
     {
         public AccommodationDTO Accommodation { get; set; }
         public AccommodationRepository accommodationRepository { get; set; }
+        public ObservableCollection<AccommodationType> Types { get; set; }
         public AddAccommodation(AccommodationRepository accommodationRepository)
         {
             InitializeComponent();
@@ -34,9 +36,13 @@ namespace BookingApp.View.Owner
             Accommodation = new AccommodationDTO();
             this.accommodationRepository = accommodationRepository;
 
+            var type = Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
+            Types = new ObservableCollection<AccommodationType>(type);
+            
         }
 
-
+        public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
+        public event AccommodationAddedEventHandler AccommodationAdded;
         // Metoda koja se poziva kada se pritisne dugme "Add"
         private void AddAccommodationButton_Click(object sender, RoutedEventArgs e)
         {
@@ -47,9 +53,12 @@ namespace BookingApp.View.Owner
             if (Accommodation.IsValid)
             {
                 MessageBox.Show("Dodavanje smeštaja");
-                this.DialogResult = true;
+               
                 accommodationRepository.Add(Accommodation.ToAccommodation());
+                //this.DialogResult = true;
+                AccommodationAdded?.Invoke(this, EventArgs.Empty);
                 Close();
+                
             }
             else
             {

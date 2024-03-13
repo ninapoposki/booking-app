@@ -34,7 +34,7 @@
                 <DataGridTemplateColumn Header="Images" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding Images[0]}" Height="50"/>
+                            <Image Source="{Binding Image}" Height="50"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="View\Owner\AddAccommodation.xaml.cs" />
     <Compile Include="View\Owner\AddAccommodationImage.xaml.cs" />
+    <Compile Include="View\Owner\GradeGuestWindow.xaml.cs" />
     <Compile Include="View\Owner\OwnerMainWindow.xaml.cs" />
   </ItemGroup>
 
