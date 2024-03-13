@@ -23,7 +23,6 @@ namespace BookingApp.DTO
             get { return startTime; }
 
 
-
             set
             {
 
