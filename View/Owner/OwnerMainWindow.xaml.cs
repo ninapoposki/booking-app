@@ -89,10 +89,12 @@ namespace BookingApp.View.Owner
         private void UpdateAccommodationDataGrid()
         {
             AllAccommodation.Clear();
+
            /* foreach (Accommodation all in accommodationRepository.GetAll())
             {
                 AllAccommodation.Add(new AccommodationDTO(all));
             }*/
+
         }
 
         private void GradeGuestButton(object sender, RoutedEventArgs e)

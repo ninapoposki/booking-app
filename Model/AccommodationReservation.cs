@@ -16,6 +16,7 @@ namespace BookingApp.Model
         public DateOnly InitialDate { get; set; }
         public DateOnly EndDate { get; set; }
         public int DaysToStay { get; set; }
+        public int NumberOfGuests { get; set; }
 
         public AccommodationReservation() 
         {
@@ -23,7 +24,7 @@ namespace BookingApp.Model
         
         }
 
-        public AccommodationReservation(int id,Accommodation accommodation,int acommodationId,DateOnly initDate,DateOnly endD,int stayDays)
+        public AccommodationReservation(int id,Accommodation accommodation,int acommodationId,DateOnly initDate,DateOnly endD,int stayDays,int numberOfGuests)
         {
             Id = id;
             Accommodation = accommodation; //da li ti ovo treba ovde ili da radis sve preko id-a
@@ -31,6 +32,7 @@ namespace BookingApp.Model
             InitialDate = initDate;
             EndDate = endD;
             DaysToStay = stayDays;
+            NumberOfGuests = numberOfGuests;
         }
 
         public void FromCSV(string[] values)
@@ -41,6 +43,7 @@ namespace BookingApp.Model
             InitialDate = DateOnly.Parse(values[2]);
             EndDate= DateOnly.Parse(values[3]);
             DaysToStay = int.Parse(values[4]);
+            NumberOfGuests= int.Parse(values[5]);
         }
 
       public string[] ToCSV()
@@ -51,7 +54,8 @@ namespace BookingApp.Model
                 AccommodationId.ToString(),
                 InitialDate.ToString(),
                 EndDate.ToString(),
-                DaysToStay.ToString()
+                DaysToStay.ToString(),
+                NumberOfGuests.ToString()
 
             };
             return csvValues;   

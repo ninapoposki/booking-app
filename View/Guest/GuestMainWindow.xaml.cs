@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using BookingApp.DTO;
 using System.Diagnostics.Metrics;
+using System.Diagnostics.Eventing.Reader;
 
 namespace BookingApp.View.Guest
 {
@@ -87,18 +88,19 @@ namespace BookingApp.View.Guest
 
         private void BookAccommodationButton(object sender, RoutedEventArgs e)
         {
-            if (SelectedAccommodation == null)
+            if (SelectedAccommodation != null)
             {
-
-
-                MessageBox.Show("Please select the accommodation you wish to book.");
-
-                return;
+                var dialog = new ReserveAccommodation(SelectedAccommodation);
+                dialog.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You didn't choose accommodation!");
             }
         }
 
 
-        private void ButtonCancel(object sender, RoutedEventArgs e)
+        private void CancelButton(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

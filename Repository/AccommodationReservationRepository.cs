@@ -15,7 +15,7 @@ namespace BookingApp.Repository
 
         private readonly Serializer<AccommodationReservation> serializer;
 
-        private List<AccommodationReservation> accommodationReservations;
+        private List<AccommodationReservation> accommodationReservations; //lista rezervisanih smestaja 
         public Subject subject;
 
         public AccommodationReservationRepository()
@@ -25,6 +25,25 @@ namespace BookingApp.Repository
             subject = new Subject();
         }
 
+
+        //mora accommodation da postoji
+        public bool isReservationValid(AccommodationReservation accommodationReservation)
+        {
+            if(accommodationReservation.DaysToStay>accommodationReservation.Accommodation.MinStayDays  || accommodationReservation.NumberOfGuests<=accommodationReservation.Accommodation.Capacity) 
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void makeReservation(Accommodation accommodation)
+        {
+            List<Accommodation> reservedAccommodations=new List<Accommodation>();
+            reservedAccommodations.Add(accommodation); //na prvu ruku ali ne valja 
+        }
         public List<AccommodationReservation> GetAll()
         {
             return serializer.FromCSV(FilePath);
@@ -53,8 +72,7 @@ namespace BookingApp.Repository
         public void Delete(AccommodationReservation accommodationReservation)
         {
             accommodationReservations = serializer.FromCSV(FilePath);
-            AccommodationReservation founded = accommodationReservations.Find(c => c.Id == accommodationReservation.Id); //moguca nula vr-zato je podvuceno,obrati paznju
-            accommodationReservations.Remove(founded);
+            AccommodationReservation founded = accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
             serializer.ToCSV(FilePath, accommodationReservations);
             subject.NotifyObservers();
         }
@@ -65,7 +83,7 @@ namespace BookingApp.Repository
             AccommodationReservation current = accommodationReservations.Find(t => t.Id == accommodationReservation.Id);
             int index = accommodationReservations.IndexOf(current);
             accommodationReservations.Remove(current);
-            accommodationReservations.Insert(index, accommodationReservation);       // keep ascending order of ids in file 
+            accommodationReservations.Insert(index, accommodationReservation);     
             serializer.ToCSV(FilePath, accommodationReservations);
             subject.NotifyObservers();
             return accommodationReservation;
