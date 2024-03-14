@@ -105,7 +105,24 @@ namespace BookingApp.DTO
 
             }
         }
-        
+        private int numberOfGuests;
+        public int NumberOfGuests
+        {
+            get
+            {
+                return numberOfGuests;
+            }
+            set
+            {
+                if (value != numberOfGuests)
+                {
+                    numberOfGuests = value;
+                    OnPropertyChanged("NumberOfGuests");
+                }
+
+            }
+        }
+
         public AccommodationReservationDTO()
         { 
 
