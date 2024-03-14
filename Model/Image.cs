@@ -38,9 +38,13 @@ namespace BookingApp.Model
             }else if (values[3]=="TOUR"){
                 EntityType= EntityType.TOUR;
             }
+            else
+            {
+                EntityType= EntityType.NONE;
+            }
             
         }
-
+        
         public string[] ToCSV()
         {
             string[] csvValues =

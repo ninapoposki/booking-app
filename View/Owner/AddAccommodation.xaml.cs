@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookingApp.View.Owner
 {
@@ -28,7 +29,13 @@ namespace BookingApp.View.Owner
     {
         public AccommodationDTO Accommodation { get; set; }
         public AccommodationRepository accommodationRepository { get; set; }
+        private ImageRepository imageRepository {  get; set; }
+        private LocationRepository locationRepository {  get; set; }
         public ObservableCollection<AccommodationType> Types { get; set; }
+        public List<LocationDTO> LocationComboBox { get; set; }
+
+        private ImageDTO selectedImage;
+        public List<ImageDTO> Images { get; set; }
         public AddAccommodation(AccommodationRepository accommodationRepository)
         {
             InitializeComponent();
@@ -36,18 +43,54 @@ namespace BookingApp.View.Owner
             Accommodation = new AccommodationDTO();
             this.accommodationRepository = accommodationRepository;
 
+            selectedImage = new ImageDTO();
+            Images = new List<ImageDTO>();
+            imageRepository = new ImageRepository();
+
+
+            locationRepository = new LocationRepository();
+            LocationComboBox = new List<LocationDTO>();
+
             var type = Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
             Types = new ObservableCollection<AccommodationType>(type);
-            
-        }
+             LoadLocations();
 
-        public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
+           
+    }
+
+       
+        private void LoadLocations()
+        {
+                   
+            LocationComboBox.Clear();
+            foreach (Location location in locationRepository.GetAll()) LocationComboBox.Add(new LocationDTO(location));
+        }
+    
+   
+
+
+    public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
         public event AccommodationAddedEventHandler AccommodationAdded;
         // Metoda koja se poziva kada se pritisne dugme "Add"
         private void AddAccommodationButton_Click(object sender, RoutedEventArgs e)
         {
             // Implementacija koda za dodavanje smještaja
+            foreach (ImageDTO image in Images)
+            {
+                image.EntityId = accommodationRepository.GetCurrentId();
+                image.EntityType = EntityType.ACCOMODATION;
+                imageRepository.Update(image.ToImage());
 
+            }
+
+            LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
+            
+
+            if (selectedLocation != null) Accommodation.IdLocation = selectedLocation.Id;
+            else
+            {
+                MessageBox.Show("Choose a tour location!");
+            }
 
 
             if (Accommodation.IsValid)
@@ -75,12 +118,18 @@ namespace BookingApp.View.Owner
             this.Close();
         }
 
-        private void AddImageButton_Click(object sender, RoutedEventArgs e)
+        /* private void AddImageButton_Click(object sender, RoutedEventArgs e)
+         {
+             AddAccommodationImage addAccommodationImageWindow = new AddAccommodationImage();
+             addAccommodationImageWindow.ShowDialog();
+         }*/
+        private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
         {
-            AddAccommodationImage addAccommodationImageWindow = new AddAccommodationImage();
-            addAccommodationImageWindow.ShowDialog();
+            PictureBrowseWindow pictureBrowseWindow = new PictureBrowseWindow();
+            pictureBrowseWindow.ShowDialog();
+            selectedImage = pictureBrowseWindow.selectedImage;
+            Images.Add(selectedImage);
         }
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;

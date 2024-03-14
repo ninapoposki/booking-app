@@ -45,7 +45,7 @@ namespace BookingApp.View.Owner
             _repository = new CommentRepository();
             Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
 
-            locationRepository = new LocationRepository(); //add
+            locationRepository = new LocationRepository(); 
             accommodationRepository = new AccommodationRepository();
             AllAccommodation = new ObservableCollection<AccommodationDTO>();
             var Accoms = accommodationRepository.GetAll();
@@ -58,9 +58,20 @@ namespace BookingApp.View.Owner
         public void Update()
         {
             AllAccommodation.Clear();
+           
+              foreach (Accommodation acc in accommodationRepository.GetAll()) { 
+                Location location = locationRepository.GetById(acc.IdLocation);
+                AllAccommodation.Add(new AccommodationDTO(acc, location));
 
-          //  foreach (Accommodation all in accommodationRepository.GetAll()) { AllAccommodation.Add(new AccommodationDTO(all)); }
+                      /*  AccommodationDTO accommodationDTO = new AccommodationDTO(acc, location);
+                        //dodato
+                        if (acc.Images.Any())
+                    {
+                        accommodationDTO.Path = acc.Images.First().Path;
+                    }
 
+                    AllAccommodation.Add(accommodationDTO);*/
+            }
         }
 
 
@@ -78,10 +89,10 @@ namespace BookingApp.View.Owner
         private void UpdateAccommodationDataGrid()
         {
             AllAccommodation.Clear();
-            foreach (Accommodation all in accommodationRepository.GetAll())
+           /* foreach (Accommodation all in accommodationRepository.GetAll())
             {
                 AllAccommodation.Add(new AccommodationDTO(all));
-            }
+            }*/
         }
 
         private void GradeGuestButton(object sender, RoutedEventArgs e)

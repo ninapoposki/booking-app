@@ -17,7 +17,7 @@ namespace BookingApp.DTO
     {
         
 
-        public int id = -1;
+        public int id;
         public int Id
         {
             get { return id; }
@@ -134,7 +134,7 @@ namespace BookingApp.DTO
         }
 
        
-        //imagedto
+        
         private List<Image> images;
 
          public List<Image> Images
@@ -166,10 +166,6 @@ namespace BookingApp.DTO
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
-
-            
-            //  images??
-
 
         }
        

@@ -27,21 +27,21 @@ namespace BookingApp.DTO
         }
 
 
-        private int guestId;
-        public int GuestId
+        private int reservationId;
+        public int ReservationId
         {
-            get { return guestId; }
+            get { return reservationId; }
             set
             {
-                if (guestId != value)
+                if (reservationId != value)
                 {
-                    guestId = value;
-                    OnPropertyChanged("GuideId");
+                    reservationId = value;
+                    OnPropertyChanged("ReservationId");
                 }
             }
         }
 
-        private int maxDays;
+      /*  private int maxDays;
         public int MaxDays
         {
             get { return maxDays; }
@@ -54,7 +54,7 @@ namespace BookingApp.DTO
                 }
             }
         }
-
+      */
        
         private int cleanless;
         public int Cleanless
@@ -107,8 +107,8 @@ namespace BookingApp.DTO
         public GuestGradeDTO(GuestGrade guestGrade)
         {
             this.Id = guestGrade.Id;
-            this.GuestId = guestGrade.GuestId;
-            this.MaxDays = guestGrade.MaxDays;
+            this.ReservationId = guestGrade.ReservationId;
+            //this.MaxDays = guestGrade.MaxDays;
             this.Cleanless = guestGrade.Cleanless;
             this.RulesFollowing = guestGrade.RulesFollowing;
             this.Comment = guestGrade.Comment;
@@ -118,7 +118,7 @@ namespace BookingApp.DTO
 
         public GuestGrade ToGuestGrade()
         {
-            return new GuestGrade(id, guestId, maxDays, cleanless, rulesFollowing, comment);
+            return new GuestGrade(id, reservationId, cleanless, rulesFollowing, comment);
         }
 
 

@@ -29,7 +29,7 @@ namespace BookingApp.Model
 
         }
 
-        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, List<Image> images)
+        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod)
         {
             Id = id;
             Name = name;
@@ -38,8 +38,8 @@ namespace BookingApp.Model
             Capacity = capacity;
             MinStayDays = minStayDays;
             CancellationPeriod = cancellationPeriod;
-            Images = images;
-            
+            Images = new List<Image>();
+
         }
 
         public string[] ToCSV()
