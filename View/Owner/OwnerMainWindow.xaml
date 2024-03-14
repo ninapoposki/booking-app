@@ -32,11 +32,13 @@
                 <DataGridTextColumn Header="Min Stay Days" Binding="{Binding MinStayDays}" Width="100"/>
                 <DataGridTextColumn Header="Cancellation Period" Binding="{Binding CancellationPeriod}" Width="120"/>
                 <DataGridTemplateColumn Header="Images" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Image}" Height="50"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
+                    
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path}" Height="50"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

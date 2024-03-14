@@ -25,7 +25,7 @@
             <!-- Prva kolona -->
             <StackPanel Grid.Column="0">
                 <!-- Sadržaj prve kolone -->
-                <Label Content="Guests:" Margin="10 0 10 0"/>
+                <Label Content="Guest:" Margin="10 0 10 0"/>
                 <DataGrid Grid.Row="1" Margin="10,0,10,33" >
                     
                     <DataGrid.Columns>

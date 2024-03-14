@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
@@ -44,6 +45,15 @@ namespace BookingApp.Repository
             
             subject.NotifyObservers();
             return accommodation;
+        }
+
+        public int GetCurrentId()
+        {
+            /*   if (accommodations.Count == 0) return 1;
+               return accommodations.Max(t => t.Id);*/
+            accommodations = serializer.FromCSV(FilePath);
+            int maxId = accommodations.Count > 0 ? accommodations.Max(t => t.Id) : 0;
+            return maxId + 1;
         }
 
         public int NextId()
