@@ -128,8 +128,8 @@ namespace BookingApp.View.Tourist
 
                 return;
             }
-            TourReservation tourReservation=new TourReservation(SelectedTour);
-            tourReservation.Show();
+          //  TourReservation tourReservation=new TourReservation(SelectedTour);
+            //tourReservation.Show();
         }
     }
 }
