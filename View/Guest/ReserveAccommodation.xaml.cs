@@ -15,39 +15,54 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Model;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BookingApp.View.Guest
 {
     /// <summary>
     /// Interaction logic for ReserveAccommodation.xaml
     /// </summary>
-    public partial class ReserveAccommodation : Window
+    public partial class ReserveAccommodation : Window, INotifyPropertyChanged
     {
-        public AccommodationReservationDTO accommodationReservation;
-        public AccommodationReservation accommRes;
-        public ObservableCollection<AccommodationReservationDTO> accommodationReservations;
-        public AccommodationReservationRepository accommodationReservationRepository=new AccommodationReservationRepository();
+       // public AccommodationReservationDTO accommodationReservation;
+        public AccommodationReservation accommodationReservation ;
+        public AccommodationReservationDTO accommodationReservationDTO { get; set; }
+        public AccommodationReservationRepository accommodationReservationRepository=new AccommodationReservationRepository(); 
+        //public AccommodationReservationRepository accommodationReservationRepository {get; set;}
+        public AccommodationDTO selectedAccommodationDTO; //ili ovo da ide preko DTO AccommodationDTO
         public Accommodation selectedAccommodation;
-        public ReserveAccommodation(AccommodationDTO accommodation)
-        {
+ 
+       // public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations;
+   
+        
+       // public ReserveAccommodation(AccommodationDTO accommodation)
+         public ReserveAccommodation(AccommodationDTO accommodationDTO)
+         {
             InitializeComponent();
             DataContext = this;
-            accommodationReservation=new AccommodationReservationDTO();
-        }
+            accommodationReservationDTO=new AccommodationReservationDTO();
+            selectedAccommodationDTO=new AccommodationDTO();
+            selectedAccommodationDTO = accommodationDTO;
+          //  this.accommodationReservationRepository=accommodationReservationRepository;
+
+            accommodationReservationDTO.AccommodationId = accommodationDTO.Id; //ili selected?
+
+
+         }
+
+       
+
+
         private void TryToBookButton(object sender, RoutedEventArgs e)
         {
-            if (!accommodationReservationRepository.isReservationValid(accommRes)) //kontam da mora u dto
-            {
-                accommodationReservationRepository.makeReservation(selectedAccommodation); 
 
-            }
-            else
-            {
-                MessageBox.Show("You can't book this accommodation,here is the alternative");
-
-            }
-
-
+            accommodationReservationDTO.GuestId = 1;
+            accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation()); //gore pozvala ovde samo sredila
+               
+           
+            this.Close();
+          
 
         }
 
@@ -55,6 +70,11 @@ namespace BookingApp.View.Guest
         private void CancelButton(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

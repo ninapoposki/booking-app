@@ -126,6 +126,20 @@ namespace BookingApp.DTO
             User=guest.User; //ovde proveri da li se prosledjuje ili ovako,ako se prosledjueje onda kao po lokaciji radis
 
         }
+        public Guest ToGuest()
+        {
+            var guest = new Guest();
+
+            guest.Id = this.Id;
+            guest.FirstName = this.FirstName;
+            // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
+            guest.LastName = this.LastName;
+            guest.PhoneNumber = this.PhoneNumber;
+            guest.Email = this.Email;
+
+
+            return guest;
+        }
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

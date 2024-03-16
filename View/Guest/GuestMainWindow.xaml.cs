@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using BookingApp.DTO;
+//using BookingApp.DTO;
 using System.Diagnostics.Metrics;
 using System.Diagnostics.Eventing.Reader;
 
@@ -34,6 +34,7 @@ namespace BookingApp.View.Guest
 
         public AccommodationDTO SelectedAccommodation { get; set; }
         public ObservableCollection<AccommodationType> Types { get; set; }
+        private readonly AccommodationReservationRepository accommodationReservationRepository;
 
 
         public GuestMainWindow()

@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using BookingApp.Model; //obrisli posle kad doca prebaci u dto folder 
 
 namespace BookingApp.DTO
 {
@@ -16,7 +15,7 @@ namespace BookingApp.DTO
     {
         public int Id { get; set; }
         //User
-        private AccommodationDTO accommodation;
+       /* private AccommodationDTO accommodation; //OVO MISLIM DA TI NE TREBA
         public AccommodationDTO Accommodation
         {
             get
@@ -33,7 +32,7 @@ namespace BookingApp.DTO
 
             }
 
-        }
+        }*/
 
         private int accommodationId; //da li je neophodno?
         public int AccommodationId
@@ -53,7 +52,9 @@ namespace BookingApp.DTO
         }
 
 
+
         private int guestId;
+
         public int GuestId
         {
             get
@@ -69,7 +70,26 @@ namespace BookingApp.DTO
                 }
             }
         }
+
         public GuestDTO Guest { get; set; }
+
+
+        private Guest guest; //da li je neophodno?
+        public Guest Guest
+        {
+            get
+            {
+                return guest;
+            }
+            set
+            {
+                if (value != guest)
+                {
+                    guest = value;
+                    OnPropertyChanged("Guest");
+                }
+            }
+        }
 
 
         private DateTime initialDate;
@@ -156,10 +176,12 @@ namespace BookingApp.DTO
             accommodationReservation.AccommodationId= this.AccommodationId;
             accommodationReservation.GuestId = this.GuestId;
             // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
+            accommodationReservation.GuestId = this.GuestId;
             accommodationReservation.InitialDate = this.InitialDate;
             accommodationReservation.EndDate= this.EndDate;
             accommodationReservation.DaysToStay= this.DaysToStay;
             accommodationReservation.NumberOfGuests= this.NumberOfGuests;
+
 
 
             return accommodationReservation;
@@ -170,6 +192,8 @@ namespace BookingApp.DTO
             Id= reservation.Id;
             GuestId = reservation.GuestId;
             AccommodationId=reservation.AccommodationId;
+            GuestId=reservation.GuestId;
+            //Guest=reservation.Guest;
             InitialDate= reservation.InitialDate;
             EndDate= reservation.EndDate;
             DaysToStay = reservation.DaysToStay;   
