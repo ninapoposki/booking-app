@@ -13,7 +13,7 @@ namespace BookingApp.Model
 
         public int Id { get; set; }
         public string Path { get; set; }
-        public int EntityId { get; set; }
+        public int EntityId { get; set; } //id ture
         public EntityType EntityType { get; set; }
         
         public Image() { }

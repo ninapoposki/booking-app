@@ -21,7 +21,7 @@ namespace BookingApp.Model
             FullName = fullName;
             Age = age;
             TourReservationId=tourReservationId;
-        
+            CheckPointId = -1;
         }
         public TourGuest() { }
 
