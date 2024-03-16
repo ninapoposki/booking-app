@@ -114,7 +114,7 @@ namespace BookingApp.View
 
         private Tour ValidateTourCapacity(int numberOfPeople)
         {
-            Tour tour = tourRepository.GetTourById(this.selectedTour.Id);
+            Tour tour = tourRepository.GetById(this.selectedTour.Id);
             if (tour == null)
             {
                 MessageBox.Show("Greška, nije pronađena ta tura.");
@@ -151,7 +151,7 @@ namespace BookingApp.View
 
         private void UpdateTourCapacity()
         {
-            Tour tour = tourRepository.GetTourById(selectedTour.Id);
+            Tour tour = tourRepository.GetById(selectedTour.Id);
             if (tour == null) return;
 
             tour.Capacity--;
@@ -184,10 +184,10 @@ namespace BookingApp.View
 
             foreach (Tuple<string, int> guest in temporaryGuests)
             {
-                tourGuestRepository.AddNewGuest(guest.Item1, guest.Item2, newReservation.Id);
+                tourGuestRepository.AddNewGuest(guest.Item1, guest.Item2, newReservation.Id,-1);
             }
 
-            Tour tour = tourRepository.GetTourById(selectedTour.Id);
+            Tour tour = tourRepository.GetById(selectedTour.Id);
             if (tour != null)
             {
                 int remainingCapacity = tour.Capacity;

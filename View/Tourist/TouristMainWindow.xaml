@@ -78,10 +78,16 @@
 
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
                 <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="*"/>
-                <DataGridTemplateColumn Header="Slika" Width="*">
+                <DataGridTemplateColumn Header="Slike" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImagePath}" Height="50"/>
+                            <ItemsControl ItemsSource="{Binding Images}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path}" Height="50" Margin="2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

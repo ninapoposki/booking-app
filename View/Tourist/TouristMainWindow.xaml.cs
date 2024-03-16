@@ -32,7 +32,9 @@ namespace BookingApp.View.Tourist
         private readonly LocationRepository locationRepository;
         private readonly LanguageRepository languageRepository;
         private readonly TourStartDateRepository tourStartDateRepository;
+        private readonly ImageRepository imageRepository;
         public ObservableCollection<TourDTO> AllTours { get; set; }
+        public ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<LanguageDTO> Languages { get; set; }
 
         public TourDTO SelectedTour { get; set; } 
@@ -44,8 +46,10 @@ namespace BookingApp.View.Tourist
             tourRepository= new TourRepository();
             locationRepository = new LocationRepository(); 
             languageRepository = new LanguageRepository();
+            imageRepository = new ImageRepository();
             tourStartDateRepository = new TourStartDateRepository();
             AllTours = new ObservableCollection<TourDTO>();
+            Images = new ObservableCollection<ImageDTO>();
             Languages = new ObservableCollection<LanguageDTO>();
             tourRepository.subject.Subscribe(this);
             
@@ -64,11 +68,19 @@ namespace BookingApp.View.Tourist
         private void GetTours()
         {
             AllTours.Clear();
+            var allImages = imageRepository.GetAll()
+                                    .Where(img => img.EntityType == EntityType.TOUR)
+                                    .Select(img => new ImageDTO(img))
+                                    .ToList();
+
+
             foreach (var tour in tourRepository.GetAll())
             {
+                var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
                 var tourDTO = new TourDTO(tour, locationRepository.GetById(tour.LocationId), languageRepository.GetById(tour.LanguageId))
                 {
-                    DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tour.Id))
+                    DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tour.Id)),
+                    Images = matchingImages
                 };
                 AllTours.Add(tourDTO);
             }

@@ -13,8 +13,8 @@ namespace BookingApp.DTO
 {
     public class TourDTO : INotifyPropertyChanged
     {
-       // Pretpostavljam da već imate definisane ostale svojstva i konstruktore
 
+        public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
 
         private TourStartDateDTO selectedDateTime;
