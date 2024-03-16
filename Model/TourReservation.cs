@@ -1,4 +1,4 @@
-﻿using BookingApp.Serializer;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,10 @@ namespace BookingApp.Model
     public class TourReservation : ISerializable
     {
         public int Id { get; set; }
-        public int TourStartDateId {  get; set; }
-        public int UserId { get; set; } //da znam ko je napravio turu
+
+        public int TourStartDateId {  get; set; } 
+        public int UserId { get; set; }
+
         public int GuestsNumber { get; set; }   
 
         public TourReservation() { }

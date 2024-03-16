@@ -84,5 +84,20 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+
+        public TourReservation AddNewReservation(int tourStartDateId, int userId, int numberOfPeople)
+        {
+            int newId = NextId(); 
+            TourReservation newReservation = new TourReservation(newId, tourStartDateId, userId, numberOfPeople);
+
+          
+
+            tourReservations.Add(newReservation);
+            serializer.ToCSV(FilePath, tourReservations); 
+            subject.NotifyObservers();
+
+            return newReservation;
+        }
+
     }
 }
