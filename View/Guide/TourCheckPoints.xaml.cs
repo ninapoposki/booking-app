@@ -37,6 +37,7 @@ namespace BookingApp.View.Guide
         public List<CheckPointDTO> toursCheckPoints {  get; set; }
         private CheckPointRepository checkPointRepository;
         private CheckPointDTO currentCheckPoint;
+        //private TourStartDate tourStart;
         public TourCheckPoints(TourStartDateDTO selectedStartDate)
         {
             InitializeComponent();
@@ -48,11 +49,12 @@ namespace BookingApp.View.Guide
             checkPointRepository = new CheckPointRepository();
             tourGuestRepository = new TourGuestRepository();
             tourReservationRepository = new TourReservationRepository();
-            guests=new ObservableCollection<TourGuestDTO>();
+            tourStartDateRepository = new TourStartDateRepository();
+            guests =new ObservableCollection<TourGuestDTO>();
+
 
             TourStartDate tourStart = this.selectedStartDate.ToTourStartDate();
             tourStart.HasStarted= true;
-            tourStartDateRepository = new TourStartDateRepository();
             tourStartDateRepository.Update(tourStart);
             tourId = this.selectedStartDate.TourId;
 
@@ -122,7 +124,7 @@ namespace BookingApp.View.Guide
          {
                 TourStartDate tourStart = selectedStartDate.ToTourStartDate();
                 tourStart.HasFinished = true;
-                tourStartDateRepository.Update(selectedStartDate.ToTourStartDate());
+                tourStartDateRepository.Update(tourStart);
                 MessageBox.Show("Tour has ended");
                 Close();
             
