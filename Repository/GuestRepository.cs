@@ -69,11 +69,23 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return guest;
         }
-       
-        public List<Guest> GetByUser(User user)
+
+        /*public List<Guest> GetByUser(User user)
         {
             guests = serializer.FromCSV(FilePath);
             return guests.FindAll(t => t.User.Id == user.Id);
+        }*/
+        //ili treba samo jedan gost da bude tog tipa?
+        public Guest GetByUser(User user) //ILI int userId
+        {
+            guests = serializer.FromCSV(FilePath);
+            return guests.FirstOrDefault(guest => guest.User.Id == user.Id);
+        }
+      
+        public Guest GetById(int id)
+        {
+            guests = serializer.FromCSV(FilePath);
+            return guests.Find(i => i.Id == id);
         }
 
 
