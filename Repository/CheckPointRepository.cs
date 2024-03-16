@@ -75,6 +75,11 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+        public List<CheckPoint> GetByTourId(int id)
+        {
+            checkPoints= serializer.FromCSV(FilePath);
+           return checkPoints.FindAll(t => t.TourId ==id);
+        }
     }
 }
 

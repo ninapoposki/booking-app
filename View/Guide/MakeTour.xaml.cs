@@ -93,14 +93,18 @@ namespace BookingApp.View.Guide
                 TourStartDate tourDates = new TourStartDate(tourRepository.GetCurrentId(), tourDate);
                 tourStartDateRepository.Add(tourDates);
             }
-            foreach(ImageDTO image in Images)
+            if (Images.Count != 0)
             {
-                image.EntityId=tourRepository.GetCurrentId();
-                image.EntityType = EntityType.TOUR;
-                imageRepository.Update(image.ToImage());
-         
+                foreach (ImageDTO image in Images)
+                {
+                    image.EntityId = tourRepository.GetCurrentId();
+
+                    image.EntityType = EntityType.TOUR;
+                    imageRepository.Update(image.ToImage());
+
+                }
+
             }
-            
 
             Close();
 
@@ -178,6 +182,13 @@ namespace BookingApp.View.Guide
             pictureBrowseWindow.ShowDialog();
             selectedImage = pictureBrowseWindow.selectedImage;
             Images.Add(selectedImage);
+        }
+
+        private void LiveTourClick(object sender, RoutedEventArgs e)
+        {
+            LiveTour liveTour=new LiveTour();
+            liveTour.ShowDialog();
+
         }
     }
 }

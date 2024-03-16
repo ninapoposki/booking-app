@@ -14,12 +14,14 @@ namespace BookingApp.Model
         public int Age { get; set; }
         public int TourReservationId {  get; set; }
 
-        public TourGuest (int  id, string fullName, int age,int tourReservationId)
+        public int CheckPointId {  get; set; }
+        public TourGuest (int id, string fullName, int age,int tourReservationId)
         {
             Id = id;
             FullName = fullName;
             Age = age;
             TourReservationId=tourReservationId;
+        
         }
         public TourGuest() { }
 
@@ -30,6 +32,7 @@ namespace BookingApp.Model
             FullName = values[1];
             Age = Convert.ToInt32(values[2]);
             TourReservationId = Convert.ToInt32(values[3]);
+            CheckPointId= Convert.ToInt32(values[4]);
         }
 
         public string[] ToCSV()
@@ -40,7 +43,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 FullName,
                 Age.ToString(),
-                TourReservationId.ToString()
+                TourReservationId.ToString(),
+                CheckPointId.ToString()
 
 
             };

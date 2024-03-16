@@ -73,6 +73,11 @@ namespace BookingApp.Repository
             return tourReservation;
         }
 
+        public List<TourReservation> GetByTourDateId(int id)
+        {
+            tourReservations=serializer.FromCSV(FilePath);
+            return tourReservations.FindAll(tr=>tr.TourStartDateId == id);
+        }
       
 
         public void Subscribe(IObserver observer)

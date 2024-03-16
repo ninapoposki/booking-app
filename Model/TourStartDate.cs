@@ -14,6 +14,10 @@ namespace BookingApp.Model
         public int Id {  get; set; }
         public int TourId { get; set; }
         public DateTime StartTime { get; set; }
+
+        public bool HasStarted {  get; set; }
+
+        public bool HasFinished {  get; set; }
         public TourStartDate() { }
 
         public TourStartDate(int id,int tourId, DateTime startTime)
@@ -28,6 +32,8 @@ namespace BookingApp.Model
             
             TourId = tourId;
             StartTime = startTime;
+            HasStarted = false;
+            HasFinished = false;
         }
 
         public void FromCSV(string[] values)
@@ -35,6 +41,8 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             StartTime = DateTime.ParseExact(values[1], "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
             TourId= Convert.ToInt32(values[2]);
+            HasStarted = Convert.ToBoolean(values[3]);
+            HasFinished = Convert.ToBoolean(values[4]);
         }
 
         public string[] ToCSV()
@@ -44,6 +52,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
                 TourId.ToString(),
+                HasStarted.ToString(),
+                HasFinished.ToString()
             };
 
             return csvValues;
