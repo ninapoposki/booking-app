@@ -51,9 +51,29 @@ namespace BookingApp.DTO
                 }
             }
         }
-        
-        private DateOnly initialDate;
-        public DateOnly InitialDate
+
+
+        private int guestId;
+        public int GuestId
+        {
+            get
+            {
+                return guestId;
+            }
+            set
+            {
+                if (value != guestId)
+                {
+                    guestId = value;
+                    OnPropertyChanged("GuestId");
+                }
+            }
+        }
+        public GuestDTO Guest { get; set; }
+
+
+        private DateTime initialDate;
+        public DateTime InitialDate
         {
             get
             {
@@ -70,8 +90,8 @@ namespace BookingApp.DTO
             }
 
         }
-        private DateOnly endDate;
-        public DateOnly EndDate
+        private DateTime endDate;
+        public DateTime EndDate
         {
             get
             {
@@ -128,16 +148,18 @@ namespace BookingApp.DTO
 
         }
 
-        public AccommodationReservation ToAccommodationReservationDTO()
+        public AccommodationReservation ToAccommodationReservation()
         {
             var accommodationReservation = new AccommodationReservation();
 
             accommodationReservation.Id = this.Id;
             accommodationReservation.AccommodationId= this.AccommodationId;
+            accommodationReservation.GuestId = this.GuestId;
             // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
             accommodationReservation.InitialDate = this.InitialDate;
             accommodationReservation.EndDate= this.EndDate;
             accommodationReservation.DaysToStay= this.DaysToStay;
+            accommodationReservation.NumberOfGuests= this.NumberOfGuests;
 
 
             return accommodationReservation;
@@ -146,10 +168,12 @@ namespace BookingApp.DTO
         public AccommodationReservationDTO(AccommodationReservation reservation) //ili je bolje samo accommodationReservation
         {
             Id= reservation.Id;
+            GuestId = reservation.GuestId;
             AccommodationId=reservation.AccommodationId;
             InitialDate= reservation.InitialDate;
             EndDate= reservation.EndDate;
-            DaysToStay = reservation.DaysToStay;    
+            DaysToStay = reservation.DaysToStay;   
+            NumberOfGuests = reservation.NumberOfGuests;
 
         }
 

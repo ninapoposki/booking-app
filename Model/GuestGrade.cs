@@ -31,10 +31,11 @@ namespace BookingApp.Model
            
         }
 
-        public GuestGrade(int id, int reservationId, int cleanless, int rulesFollowing, string comment)
+        public GuestGrade(int id, int reservationId, int guestId, int cleanless, int rulesFollowing, string comment)
         {
             Id = id;
             ReservationId = reservationId;
+            GuestId = guestId;
             Cleanless = cleanless;
             RulesFollowing = rulesFollowing;
             Comment = comment;
@@ -46,6 +47,7 @@ namespace BookingApp.Model
              {
                   Id.ToString(),
                   ReservationId.ToString(),
+                  GuestId.ToString(),
                   Cleanless.ToString(),
                   RulesFollowing.ToString(),
                   Comment
@@ -59,9 +61,10 @@ namespace BookingApp.Model
         {
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
-            Cleanless = int.Parse(values[2]);
-            RulesFollowing = int.Parse(values[3]);
-            Comment = values[4];
+            GuestId = int.Parse(values[2]);
+            Cleanless = int.Parse(values[3]);
+            RulesFollowing = int.Parse(values[4]);
+            Comment = values[5];
         }
 
 

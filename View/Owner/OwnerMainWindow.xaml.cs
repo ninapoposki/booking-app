@@ -71,7 +71,7 @@ namespace BookingApp.View.Owner
                     }
 
                     AllAccommodation.Add(accommodationDTO);*/
-            }
+              }
         }
 
 
@@ -99,13 +99,16 @@ namespace BookingApp.View.Owner
 
         private void GradeGuestButton(object sender, RoutedEventArgs e)
         {
-            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow();
-            gradeGuestWindow.ShowDialog();
+            GuestReservations guestReservations = new GuestReservations();
+            guestReservations.ShowDialog();
+        }
+        private void NotificationsButton(object sender, RoutedEventArgs e)
+        {
+            Notifications notifications = new Notifications();
+            notifications.ShowDialog();
         }
 
-        private void AccommodationDataGrid_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            // Implementacija koda koji se izvršava kada se selektuje stavka u DataGrid-u
-        }
+
+
     }
 }

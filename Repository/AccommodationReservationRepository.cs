@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Repository
 {
@@ -88,8 +89,17 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return accommodationReservation;
         }
-
-        public void Subscribe(IObserver observer)
+        public bool IsOverFiveDays(AccommodationReservation accommodationReservation)
+        {
+            
+            DateTime currentDate = DateTime.Now;
+            DateTime endDate = accommodationReservation.EndDate;
+            TimeSpan difference = currentDate - endDate;
+            return difference.Days < 5 && difference.Days > 0;
+        }
+        
+     
+    public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
         }

@@ -15,9 +15,10 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="22,20,0,20">
             <Button Content="Add Accommodation" Margin="5" Padding="10,0" Click="AddAccommodationButton" Width="150" />
             <Button Content="GradeGuest" Margin="5" Padding="10,0" Click="GradeGuestButton" Width="89" />
+            <Button Content="Notifications" Margin="5" Padding="10,0" Click="NotificationsButton" Width="89" />
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Margin="10,0,10,33" AutoGenerateColumns="False" x:Name="AccommodationDataGrid" ItemsSource="{Binding Accommodation, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectionChanged="AccommodationDataGrid_SelectionChanged">
+        <DataGrid Grid.Row="1" Margin="10,0,10,33" AutoGenerateColumns="False" x:Name="AccommodationDataGrid" ItemsSource="{Binding Accommodation, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

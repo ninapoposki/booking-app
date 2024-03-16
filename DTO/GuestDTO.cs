@@ -25,6 +25,20 @@ namespace BookingApp.DTO
             }
         }
 
+        private int accommodationReservationId;
+        public int AccommodationReservationId
+        {
+            get { return accommodationReservationId; }
+            set
+            {
+                if (value != accommodationReservationId)
+                {
+                    accommodationReservationId = value;
+                    OnPropertyChanged("AccommodationReservationId");
+                }
+            }
+        }
+
         private string firstName;
 
         public string FirstName
