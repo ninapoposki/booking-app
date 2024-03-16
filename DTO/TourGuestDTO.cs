@@ -58,7 +58,7 @@ namespace BookingApp.DTO
         }
         public int TourReservationId {  get; set; }
 
-       
+      
 
         public TourGuestDTO() { }
 

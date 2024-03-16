@@ -66,12 +66,6 @@ namespace BookingApp.Repository
         {
             tours = serializer.FromCSV(FilePath);
             Tour current = tours.Find(t => t.Id == tour.Id);
-            if (current != null)
-            {
-                current.Capacity = tour.Capacity;
-
-            }
-            
             int index = tours.IndexOf(current);
             tours.Remove(current);
             tours.Insert(index, tour);       // keep ascending order of ids in file 

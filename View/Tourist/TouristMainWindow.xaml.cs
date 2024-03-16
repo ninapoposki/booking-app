@@ -48,7 +48,7 @@ namespace BookingApp.View.Tourist
             AllTours = new ObservableCollection<TourDTO>();
             Languages = new ObservableCollection<LanguageDTO>();
             tourRepository.subject.Subscribe(this);
-            //int id = SelectedTour.SelectedDateTime.Id; ovo ti treba za posle i ne radis ovde to!
+            
 
             Update();
             
@@ -57,21 +57,27 @@ namespace BookingApp.View.Tourist
 
         public void Update()
         {
+            GetTours();
+            GetLanguages();
+        }
+
+        private void GetTours()
+        {
             AllTours.Clear();
-            foreach (Tour tour in tourRepository.GetAll())
+            foreach (var tour in tourRepository.GetAll())
             {
-            Location location = locationRepository.GetById(tour.LocationId);
-            Language language = languageRepository.GetById(tour.LanguageId);
-            var tourDTO = new TourDTO(tour, location, language);
-            tourDTO.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tour.Id));
-            AllTours.Add(tourDTO);
+                var tourDTO = new TourDTO(tour, locationRepository.GetById(tour.LocationId), languageRepository.GetById(tour.LanguageId))
+                {
+                    DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tour.Id))
+                };
+                AllTours.Add(tourDTO);
             }
-            // Osvježavanje lista jezika...
+        }
 
+        private void GetLanguages()
+        {
             Languages.Clear();
-
-
-            foreach (Language language in languageRepository.GetAll())
+            foreach (var language in languageRepository.GetAll())
             {
                 Languages.Add(new LanguageDTO(language));
             }
@@ -99,37 +105,140 @@ namespace BookingApp.View.Tourist
 
         private void SearchTour(object sender, RoutedEventArgs e)
         {
+            int peopleCount = ParsePeopleCount(PeopleTextBox.Text);
+            double duration = ParseDuration(DaysTextBox.Text);
+            string selectedLanguage = GetSelectedLanguage();
 
-            bool parsePeopleSuccess = int.TryParse(PeopleTextBox.Text, out int peopleCountParsed);
-            bool parseDurationSuccess = double.TryParse(DaysTextBox.Text, out double durationParsed);
+            List<TourDTO> filteredTours = FilterTours(peopleCount, duration, selectedLanguage);
 
-            string selectedLanguage = (LanguageComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            var filteredTours = AllTours.Where(tour =>
-                (string.IsNullOrWhiteSpace(CityTextBox.Text) || tour.Location.City.Equals(CityTextBox.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (string.IsNullOrWhiteSpace(CountryTextBox.Text) || tour.Location.Country.Equals(CountryTextBox.Text, StringComparison.OrdinalIgnoreCase)) &&
-                (!parseDurationSuccess || Math.Abs(tour.Duration - durationParsed) < 0.01) && 
-                (selectedLanguage == null || tour.Language.Name.Equals(selectedLanguage, StringComparison.OrdinalIgnoreCase)) &&
-                (!parsePeopleSuccess || (tour.Capacity >= peopleCountParsed && peopleCountParsed > 0))
-            ).ToList();
-
-            ToursDataGrid.ItemsSource = filteredTours;
-
-
+            UpdateTourDataGrid(filteredTours);
         }
 
+        private int ParsePeopleCount(string text)
+        {
+            int result;
+            if (int.TryParse(text, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return -1; 
+            }
+        }
+
+        private double ParseDuration(string text)
+        {
+            double result;
+            if (double.TryParse(text, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return -1.0; 
+            }
+        }
+
+        private string GetSelectedLanguage()
+        {
+            if (LanguageComboBox.SelectedItem is LanguageDTO selectedLanguage)
+            {
+                return selectedLanguage.Name;
+            }
+            return string.Empty;
+        }
+
+        private List<TourDTO> FilterTours(int peopleCount, double duration, string selectedLanguage)
+        {
+            return AllTours.Where(tour =>
+                IsMatchCity(tour) &&
+                IsMatchCountry(tour) &&
+                IsMatchDuration(tour, duration) &&
+                IsMatchLanguage(tour, selectedLanguage) &&
+                IsMatchPeopleCount(tour, peopleCount)
+            ).ToList();
+        }
+
+        private bool IsMatchCity(TourDTO tour)
+        {
+            return string.IsNullOrWhiteSpace(CityTextBox.Text) || tour.Location.City.Equals(CityTextBox.Text, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IsMatchCountry(TourDTO tour)
+        {
+            return string.IsNullOrWhiteSpace(CountryTextBox.Text) || tour.Location.Country.Equals(CountryTextBox.Text, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IsMatchDuration(TourDTO tour, double duration)
+        {
+            return duration < 0 || Math.Abs(tour.Duration - duration) < 0.01;
+        }
+
+        private bool IsMatchLanguage(TourDTO tour, string selectedLanguage)
+        {
+            return string.IsNullOrEmpty(selectedLanguage) || tour.Language.Name.Equals(selectedLanguage, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IsMatchPeopleCount(TourDTO tour, int peopleCount)
+        {
+            return peopleCount < 0 || (tour.Capacity >= peopleCount && peopleCount > 0);
+        }
+
+        private void UpdateTourDataGrid(List<TourDTO> tours)
+        {
+            ToursDataGrid.ItemsSource = tours;
+        }
         private void BookTour(object sender, RoutedEventArgs e)
         {
-           if (SelectedTour == null)
+            if (SelectedTour == null)
             {
-
-
-                MessageBox.Show("Molimo Vas da odaberete turu koju želite da rezervižšete.");
-
+                ShowMessage("Molimo Vas da odaberete turu koju želite da rezervišete.");
                 return;
             }
-            TourReservation tourReservation=new TourReservation(SelectedTour);
-            tourReservation.Show();
+
+            if (SelectedTour.Capacity > 0)
+            {
+                StartTourReservation(SelectedTour);
+                return;
+            }
+
+            ShowNoSpaceAvailableMessage();
+            ShowAvailableToursOnSameLocation();
         }
+
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void StartTourReservation(TourDTO tour)
+        {
+            TourReservationWindow tourReservationWindow = new TourReservationWindow(tour);
+            tourReservationWindow.Show();
+        }
+
+        private void ShowNoSpaceAvailableMessage()
+        {
+            ShowMessage("Nažalost, na ovoj turi nema više slobodnih mesta, ali nudimo vam ostale!");
+        }
+
+        private void ShowAvailableToursOnSameLocation()
+        {
+            var locationId = SelectedTour.LocationId;
+            var availableTours = AllTours.Where(tour => tour.LocationId == locationId && tour.Capacity > 0).ToList();
+
+            if (availableTours.Count == 0)
+            {
+                ShowMessage("Nema dostupnih tura na ovoj lokaciji.");
+                return;
+            }
+
+            var availableTourWindow = new AvailableTourWindow(availableTours);
+            availableTourWindow.Show();
+        }
+
+
+
     }
 }
