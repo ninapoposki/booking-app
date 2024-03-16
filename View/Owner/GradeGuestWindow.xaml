@@ -8,7 +8,7 @@
         Title="GradeGuestWindow" Height="500" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -26,31 +26,32 @@
             <StackPanel Grid.Column="0">
                 <!-- Sadržaj prve kolone -->
                 <Label Content="Guest:" Margin="10 0 10 0"/>
-                <DataGrid Grid.Row="1" Margin="10,0,10,33" >
-                    
+           
+               
+                <DataGrid Grid.Row="1" Margin="10,0,10,33" ItemsSource="{Binding AllAccommodationReservations}"
+                          SelectedItem="{Binding selectedAccommodationReservation}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
-                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="100"/>
-                        <DataGridTextColumn Header="Email" Binding="{Binding AccommodationType}" Width="130"/>
-                        
-                            
+                        <DataGridTextColumn Header="Name" Binding="{Binding Guest.FirstName}" Width="100"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Guest.LastName}" Width="100"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="130"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding Guest.PhoneNumber}" Width="130"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
 
 
             </StackPanel>
-            <!-- Druga kolona -->
+            <!-- druga kolona -->
             <StackPanel Grid.Column="1">
-                <!-- Sadržaj druge kolone -->
+               
             </StackPanel>
         </StackPanel>
 
-        <!-- Drugi red -->
+       
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,10,0" >
             <Label Content="Grade selected Guest in these categories" Margin="10 0 0 0"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,10,0" >
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,10,0" >
             <StackPanel Name="Cleanness" Orientation="Horizontal">
                 <Label Content="Cleanness:" Margin="50 0 10 0"/>
                 <RadioButton Margin="148 5 0 0" Content="1"  GroupName="CleannesGroup" Width="55" />
@@ -60,7 +61,7 @@
                 <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleannesGroup" Width="50" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,10,0" >
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,10,0" >
             <StackPanel Name="FollowingTheRules" Orientation="Horizontal">
                 <Label Content="Following the rules:" Margin="50 0 10 0"/>
                 <RadioButton Margin="100 5 0 0" Content="1"  GroupName="FollowingRulesGroup" Width="55" />
@@ -69,6 +70,15 @@
                 <RadioButton Margin="10 5 0 0" Content="4"  GroupName="FollowingRulesGroup" Width="50" />
                 <RadioButton Margin="10 5 0 0" Content="5"  GroupName="FollowingRulesGroup" Width="50" />
             </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10,10,0" Orientation="Horizontal">
+            <Label Content="Comment:" Margin="50 0 0 0" VerticalAlignment="Center"/>
+            <TextBox x:Name="CommentsTextBox" Width="310" Height="50" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="388,10,10,0">
+            <Button Content="Confirm" Margin="5" Padding="10,0" Click="ConfirmButton_Click" Width="100"/>
+            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButton_Click" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

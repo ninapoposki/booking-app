@@ -56,39 +56,17 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Accommodation Type*" VerticalAlignment="Center" Height="26"/>
 
         <ComboBox x:Name="TypeComboBox" Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=Accommodation.AccommodationType}" />
-        <!-- <ComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding Path=Accommodation.AccommodationType, UpdateSourceTrigger=PropertyChanged}" Margin="5,5,5,5">
-    <ComboBoxItem Content="APARTMENT"/>
-    <ComboBoxItem Content="HOUSE"/>
-    <ComboBoxItem Content="CABIN"/>
-</ComboBox>-->
-        <!--<Label Grid.Row="3" Grid.Column="0" Content="Capacity*" VerticalAlignment="Center" /> -->
-        <!-- <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5"> -->
-        <!--    <Button Content="-" Width="20" Click="DecreaseCapacityButton_Click"/>-->
-
-        <!-- <TextBox  x:Name="CapacityTextBox" Text="{Binding Path=Capacity, UpdateSourceTrigger=PropertyChanged}" Width="25" Margin="5"/>-->
-        <!--  <Button Content="+" Width="20" Click="IncreaseCapacityButton_Click"/>-->
-        <!-- </StackPanel>-->
+       
         <Label Grid.Row="3" Grid.Column="0" Content="Capacity*" VerticalAlignment="Center" Height="26"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Accommodation.Capacity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10" />
 
-        <!--<Label Grid.Row="4" Grid.Column="0" Content="Min Stay Days*" VerticalAlignment="Center"/>-->
-        <!--<StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="5">-->
-        <!--  <Button Content="-" Width="20" Click="DecreaseMinStayDaysButton_Click"/> -->
-        <!-- <TextBox x:Name="MinStayDaysTextBox" Text="{Binding Path=MinStayDays, UpdateSourceTrigger=PropertyChanged}" Width="25" Margin="5"/>-->
-        <!-- <Button Content="+" Width="20" Click="IncreaseMinStayDaysButton_Click"/>-->
-        <!-- </StackPanel>-->
+        
         <Label Grid.Row="4" Grid.Column="0" Content="Min Stay Days*" VerticalAlignment="Center" Height="26"/>
         <TextBox x:Name="MinStayDaysTextBox" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Accommodation.MinStayDays, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10" />
 
         <Label Grid.Row="5" Grid.Column="0" Content="Cancellation Period*" VerticalAlignment="Center" Height="26"/>
         <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Accommodation.CancellationPeriod, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
-        <!-- <Label Grid.Row="5" Grid.Column="0" Content="Cancellation Period*" VerticalAlignment="Center"/>-->
-        <!-- <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="5">-->
-        <!--<Button Content="-" Width="20" Click="DecreaseCancellationPeriodButton_Click"/>-->
-        <!-- <TextBox x:Name="CancellationPeriodTextBox" Text="{Binding Path=CancellationPeriod, UpdateSourceTrigger=PropertyChanged}" Width="25" Margin="5"/>-->
-        <!--<Button Content="+" Width="20" Click="IncreaseCancellationPeriodButton_Click"/>-->
-        <!-- </StackPanel>-->
-
+        
         <Label Grid.Row="6" Grid.Column="0" Content="Images URL*" VerticalAlignment="Center" Height="26"/>
         <Button Grid.Row="6" Grid.Column="1" Click="BrowseAndLoadPictureClick">Choose picture</Button>
         

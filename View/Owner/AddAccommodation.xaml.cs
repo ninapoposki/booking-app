@@ -71,10 +71,10 @@ namespace BookingApp.View.Owner
 
     public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
         public event AccommodationAddedEventHandler AccommodationAdded;
-        // Metoda koja se poziva kada se pritisne dugme "Add"
+        
         private void AddAccommodationButton_Click(object sender, RoutedEventArgs e)
         {
-            // Implementacija koda za dodavanje smještaja
+            
             foreach (ImageDTO image in Images)
             {
                 image.EntityId = accommodationRepository.GetCurrentId();
@@ -109,7 +109,7 @@ namespace BookingApp.View.Owner
             }
         }
 
-        // Metoda koja se poziva kada se pritisne dugme "Cancel"
+        
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             // Implementacija koda za otkazivanje dodavanja smještaja
@@ -118,11 +118,7 @@ namespace BookingApp.View.Owner
             this.Close();
         }
 
-        /* private void AddImageButton_Click(object sender, RoutedEventArgs e)
-         {
-             AddAccommodationImage addAccommodationImageWindow = new AddAccommodationImage();
-             addAccommodationImageWindow.ShowDialog();
-         }*/
+       
         private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
         {
             PictureBrowseWindow pictureBrowseWindow = new PictureBrowseWindow();

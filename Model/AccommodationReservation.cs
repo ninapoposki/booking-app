@@ -14,8 +14,8 @@ namespace BookingApp.Model
         public int Id {  get; set; }
         public Accommodation Accommodation { get; set; } //ili direktno iz accommodation -ovo mislim ni da ne treba
         public int AccommodationId { get; set; }//nisam sigurna da li je potrebno,svakako korisnik to ne sme da unese,ali zbog uvezivanja
-        public int GuestId { get; set; } //OVO DODAJ SAMO DOLE U KOD
-        public Guest Guest { get; set; } //i ovo mislimd a ne treba
+        public int GuestId {  get; set; }
+        public Guest Guest { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime EndDate { get; set; }
         public int DaysToStay { get; set; }
@@ -45,11 +45,11 @@ namespace BookingApp.Model
             Id = int.Parse(values[0]);
             AccommodationId = int.Parse(values[1]); //ilir adi direktno po id ili accommodation id
             GuestId = int.Parse(values[2]);
-            //ili samo Accommodation.Id.Parse?
             InitialDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
             DaysToStay = int.Parse(values[5]);
             NumberOfGuests= int.Parse(values[6]);
+
         }
 
       public string[] ToCSV()

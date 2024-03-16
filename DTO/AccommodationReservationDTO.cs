@@ -50,7 +50,11 @@ namespace BookingApp.DTO
                 }
             }
         }
-        private int guestId; //da li je neophodno?
+
+
+
+        private int guestId;
+
         public int GuestId
         {
             get
@@ -66,6 +70,10 @@ namespace BookingApp.DTO
                 }
             }
         }
+
+        public GuestDTO Guest { get; set; }
+
+
         private Guest guest; //da li je neophodno?
         public Guest Guest
         {
@@ -82,6 +90,7 @@ namespace BookingApp.DTO
                 }
             }
         }
+
 
         private DateTime initialDate;
         public DateTime InitialDate
@@ -165,12 +174,14 @@ namespace BookingApp.DTO
 
             accommodationReservation.Id = this.Id;
             accommodationReservation.AccommodationId= this.AccommodationId;
+            accommodationReservation.GuestId = this.GuestId;
             // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
             accommodationReservation.GuestId = this.GuestId;
             accommodationReservation.InitialDate = this.InitialDate;
             accommodationReservation.EndDate= this.EndDate;
             accommodationReservation.DaysToStay= this.DaysToStay;
-            accommodationReservation.NumberOfGuests=this.NumberOfGuests;
+            accommodationReservation.NumberOfGuests= this.NumberOfGuests;
+
 
 
             return accommodationReservation;
@@ -179,12 +190,14 @@ namespace BookingApp.DTO
         public AccommodationReservationDTO(AccommodationReservation reservation) //ili je bolje samo accommodationReservation
         {
             Id= reservation.Id;
+            GuestId = reservation.GuestId;
             AccommodationId=reservation.AccommodationId;
             GuestId=reservation.GuestId;
             //Guest=reservation.Guest;
             InitialDate= reservation.InitialDate;
             EndDate= reservation.EndDate;
-            DaysToStay = reservation.DaysToStay;    
+            DaysToStay = reservation.DaysToStay;   
+            NumberOfGuests = reservation.NumberOfGuests;
 
         }
 

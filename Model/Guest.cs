@@ -10,7 +10,7 @@ namespace BookingApp.Model
     public class Guest:ISerializable
     {
         public int Id { get; set; }
-        //int AccommodationReservationId { get; set }
+        //public int AccommodationReservationId { get; set; }
         public User User { get; set; }
        // public int UserId {  get; set; } //ovo isto da li mi treba
         public String FirstName { get; set; }
@@ -23,9 +23,10 @@ namespace BookingApp.Model
             User=new User();
         }
 
-        public Guest(int id,String firstName,String lastName,String phoneNumber,String email)
+        public Guest(int id, String firstName,String lastName,String phoneNumber,String email)
         {
             this.Id = id;
+           // this.AccommodationReservationId = accommodationReservationId;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.PhoneNumber = phoneNumber;
