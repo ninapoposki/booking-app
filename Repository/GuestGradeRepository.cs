@@ -50,6 +50,7 @@ namespace BookingApp.Repository
             return guestGrades.Max(c => c.Id) + 1;
         }
 
+
         public void Delete(GuestGrade guestGrade)
         {
             guestGrades = serializer.FromCSV(FilePath);

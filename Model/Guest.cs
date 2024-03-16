@@ -18,7 +18,10 @@ namespace BookingApp.Model
         public string PhoneNumber {  get; set; }
         public string Email { get; set; }
 
-        public Guest() { }
+        public Guest()
+        {
+            User=new User();
+        }
 
         public Guest(int id,String firstName,String lastName,String phoneNumber,String email)
         {
