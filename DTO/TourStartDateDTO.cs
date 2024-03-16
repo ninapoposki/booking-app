@@ -23,7 +23,6 @@ namespace BookingApp.DTO
             get { return startTime; }
 
 
-
             set
             {
 
@@ -39,6 +38,49 @@ namespace BookingApp.DTO
             }
         }
 
+        private bool hasStarted;
+
+        public bool HasStarted
+        {
+
+            get { return hasStarted; }
+
+
+            set
+            {
+
+                if (value != hasStarted)
+                {
+
+                    hasStarted = value;
+                    OnPropertyChanged("HasStarted");
+
+
+                }
+
+            }
+        }
+        private bool hasFinished;
+        public bool HasFinished
+        {
+
+            get { return hasFinished; }
+
+
+            set
+            {
+
+                if (value != hasFinished)
+                {
+
+                    hasFinished = value;
+                    OnPropertyChanged("HasFinished");
+
+
+                }
+
+            }
+        }
         public TourStartDateDTO() { }
 
         public TourStartDateDTO(TourStartDate tourStartDate)
@@ -47,6 +89,8 @@ namespace BookingApp.DTO
             Id = tourStartDate.Id;
             TourId = tourStartDate.TourId;
             StartTime = tourStartDate.StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            HasStarted = tourStartDate.HasStarted;
+            HasFinished = tourStartDate.HasFinished;
 
 
         }

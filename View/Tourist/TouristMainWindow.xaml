@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100" />
-                
+
             </Grid.ColumnDefinitions>
 
             <Label Content="Grad:" Grid.Column="0" Margin="5"/>
@@ -45,11 +45,11 @@
             <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
             <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
 
-            
+
             <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid Grid.Row="1" Margin="10,10,10,18" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" Grid.RowSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -62,7 +62,9 @@
                 <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="*"/>
                 <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
 
+
                 <DataGridTextColumn Header="Broj mjesta" Binding="{Binding Capacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Width="*"/>
+
                 <DataGridTemplateColumn Header="Datumi ture" Width="3*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

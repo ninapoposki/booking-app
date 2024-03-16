@@ -22,7 +22,13 @@ namespace BookingApp.Model
             TourId = tourId;
             Type = type;
         }
-
+        public CheckPoint(int id,string name, int tourId, string type)
+        {
+            Id = id;
+            Name = name;
+            TourId = tourId;
+            Type = type;
+        }
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);

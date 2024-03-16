@@ -234,8 +234,10 @@ namespace BookingApp.View.Tourist
                 return;
             }
 
+
             var availableTourWindow = new AvailableTourWindow(availableTours);
             availableTourWindow.Show();
+
         }
 
 
