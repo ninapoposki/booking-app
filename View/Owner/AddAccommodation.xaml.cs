@@ -78,7 +78,7 @@ namespace BookingApp.View.Owner
             foreach (ImageDTO image in Images)
             {
                 image.EntityId = accommodationRepository.GetCurrentId();
-                image.EntityType = EntityType.ACCOMODATION;
+                image.EntityType = EntityType.ACCOMMODATION;
                 imageRepository.Update(image.ToImage());
 
             }

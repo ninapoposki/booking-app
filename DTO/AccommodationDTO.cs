@@ -5,6 +5,8 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+//using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BookingApp.DTO;
@@ -15,7 +17,9 @@ namespace BookingApp.DTO
 {
         public class AccommodationDTO : INotifyPropertyChanged, IDataErrorInfo
     {
-        
+
+        public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
+
 
         public int id;
         public int Id
@@ -135,16 +139,16 @@ namespace BookingApp.DTO
 
        
         
-        private List<Image> images;
+        private List<Image> image;
 
-         public List<Image> Images
+         public List<Image> Image
          {
-             get { return images; }
+             get { return image; }
              set
              {
-                 if (images != value)
+                 if (image != value)
                  {
-                     images = value;
+                     image = value;
                      OnPropertyChanged("Images");
                  }
              }

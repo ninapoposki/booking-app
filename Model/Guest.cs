@@ -10,9 +10,8 @@ namespace BookingApp.Model
     public class Guest:ISerializable
     {
         public int Id { get; set; }
-        //public int AccommodationReservationId { get; set; }
         public User User { get; set; }
-       // public int UserId {  get; set; } //ovo isto da li mi treba
+        public int UserId { get; set; }
         public String FirstName { get; set; }
         public string LastName { get; set; }   
         public string PhoneNumber {  get; set; }
@@ -23,14 +22,14 @@ namespace BookingApp.Model
             User=new User();
         }
 
-        public Guest(int id, String firstName,String lastName,String phoneNumber,String email)
+        public Guest(int id, String firstName,String lastName,String phoneNumber,String email,int userId)
         {
             this.Id = id;
-           // this.AccommodationReservationId = accommodationReservationId;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.PhoneNumber = phoneNumber;
             this.Email = email;
+            this.UserId = userId;
         }
 
         public void FromCSV(string[] values)
@@ -40,6 +39,7 @@ namespace BookingApp.Model
             LastName = values[2];
             PhoneNumber = values[3];
             Email = values[4];
+            UserId = int.Parse(values[5]);
         }
 
         public string[] ToCSV()
@@ -50,7 +50,8 @@ namespace BookingApp.Model
                 FirstName,
                 LastName,
                 PhoneNumber,
-                Email
+                Email,
+                UserId.ToString()
             };
             return csvValues;
         }

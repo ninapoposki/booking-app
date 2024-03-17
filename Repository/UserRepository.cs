@@ -24,5 +24,11 @@ namespace BookingApp.Repository
             _users = _serializer.FromCSV(FilePath);
             return _users.FirstOrDefault(u => u.Username == username);
         }
+
+        public int GetCurrentGuestUserId()
+        {
+            if (_users.Count == 0) return 1;
+            return _users[1].Id;
+        }
     }
 }

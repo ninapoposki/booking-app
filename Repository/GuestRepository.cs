@@ -81,12 +81,9 @@ namespace BookingApp.Repository
             guests = serializer.FromCSV(FilePath);
             return guests.FirstOrDefault(guest => guest.User.Id == user.Id);
         }
-      
-        public Guest GetById(int id)
-        {
-            guests = serializer.FromCSV(FilePath);
-            return guests.Find(i => i.Id == id);
-        }
+        
+       
+       
 
         public Guest GetById(int id)
         {
@@ -94,6 +91,15 @@ namespace BookingApp.Repository
             guests = serializer.FromCSV(FilePath);
             return guests.Find(i => i.Id == id);
              //return guests.FirstOrDefault(guest => guest.Id == id);
+        }
+
+        public int GetCurrentId()
+        {
+            /*   if (accommodations.Count == 0) return 1;
+               return accommodations.Max(t => t.Id);*/
+            guests = serializer.FromCSV(FilePath);
+            int maxId = guests.Count > 0 ? guests.Max(t => t.Id) : 0;
+            return maxId;
         }
 
 

@@ -28,82 +28,251 @@ namespace BookingApp.Repository
             subject = new Subject();
         }
 
-
-        //mora accommodation da postoji
-        //mora za selektovani accommodation a kontam da se negde mora povezati i selektovani accommodation sa ovim accommodationom u rezervaciji
-        public bool isReservationValid(AccommodationReservation accommodationReservation,Accommodation accommodation)
+        //izdvajam rezervacije samo za selektovani smestaj,da bih rpoverila da li postoji u bazi
+        public List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId)
         {
-            //da li je br gostiju manji od max kapaciteta(manji ili jednak),da je br dana boravka veci od minimalnog broja dana -uradjeno
-            //da je pocetni datum veci od krajnjeg datuma tj da je razlika izmedju pocetnog i krajnjeg datuma pozitivna-uradjeno
-            //i provera da li je smestaj u tom periodu vec bukiran-tj ako su ti datumi zauzeti interval izmedju njih,onda ne moze da se bukira
-            //ovo treba za bukiranje da bude posebna validacija,ovo ovde se odnosi samo na opste podatke
-            //a druga validacija treba da se odnosi na to da li je vec rezervisano ili ne
-            //vraca false inicijalno-fali jos provera da li su datumi zauzeti
-            return accommodationReservation.DaysToStay < accommodation.MinStayDays || accommodationReservation.NumberOfGuests > accommodation.Capacity ||
-                !isDateValid(accommodationReservation.InitialDate, accommodationReservation.EndDate);
-                // accommodationReservation.InitialDate >= accommodationReservation.EndDate; //OVDE CE VRATITI FALSE
+            return accommodationReservations.Where(r => r.AccommodationId == accommodationId).ToList();
         }
-        //ovo ti mozda ne treba,mozda mozes samo direktno da pooves za validnost godina meseca i dana
-        public bool isDateValid(DateTime initialDate,DateTime endDate)
+        public bool IsCapacityValid(int numberOfGuests, int maxGuests)
         {
-            //provera validnosti datuma- vraca false inicijalno
-            //vraca true inicijalno
-            return initialDate.Month<endDate.Month || initialDate.Year<endDate.Year || areMonthsValid(initialDate,endDate) || areDaysValid(initialDate,endDate); 
+            return numberOfGuests <= maxGuests;
+        }
+        public bool AreDatesValid(DateTime initialDate, DateTime endDate)
+        {
+            return initialDate < endDate;
         }
 
-        public bool areMonthsValid(DateTime initialDate,DateTime endDate)
+        public bool AreDatesAvailable(DateTime initialDate, DateTime endDate, int accommodationId)
         {
-            //ako su u istoj godini prvi datum mora biti manji od drugog
-            //vraca true inicijalno
-            return initialDate.Year==endDate.Year && initialDate.Month<=endDate.Month;
-        }
+            List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
 
-        public bool areDaysValid(DateTime initialDate,DateTime endDate)
-        {
-            //ako su u istom mesecu prvi dan mora biti manji od drugog 
-            //vraca true inicijalno
-            return initialDate.Month==endDate.Month && initialDate.Day<endDate.Day;
-        }
-
-
-        //ne nzam da li mit reba da se ovde kao parametar prosledjuje accommodation samo,za selektovanu akomodaciju,jer meni ovde treba samo provera preklapanja datuma i dana boravka
-        //treba mi accommodation da bih uporedila da li je selektovan smestaj jednak smestaju iz rezervacije
-        public bool isAvailableForBooking(AccommodationReservation accommodationReservation,Accommodation accommodation)
-        {
-            //prvo prolazim kroz listu rezervisanih i gledam da li se poklapaju datumi sa onim datumima 
-            //koje zelim da rezervisem
-            foreach(AccommodationReservation reservation in accommodationReservations)
+            foreach (AccommodationReservation reservation in reservations)
             {
-                if (reservation.AccommodationId == accommodation.Id)
+                if (IsOverlap(initialDate, endDate, reservation.InitialDate, reservation.EndDate))
                 {
-                    //ili probaj bez ovoliko ifova-ALI TO POSLE SKONTAJ
-                    if (reservation.InitialDate <= accommodationReservation.EndDate && reservation.EndDate >= accommodationReservation.InitialDate)
-                    {
-                        // Provera da li se dani boravka preklapaju
-                        if (reservation.DaysToStay >= accommodationReservation.DaysToStay && accommodationReservation.DaysToStay > 0)
-                        {
-                            return false; // Vraćanje false ako postoji preklapanje datuma i dana boravka
-                        }
-                    }
+                    return false; // Postoji preklapanje datuma sa postojećom rezervacijom
                 }
             }
-            return true;
+
+            return true; // Nema preklapanja datuma, datumi su dostupni za rezervaciju
         }
-        /*
-        public void makeReservation(AccommodationReservation accommodationReservation,Accommodation accommodation)
+
+        private bool IsOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2)
         {
-            //znaci to je inicijalno true
-            if (isAvailableForBooking(accommodationReservation, accommodation))
+            return startDate1 <= endDate2 && endDate1 >= startDate2;
+        }
+
+
+
+        //provera dana boravka
+        public bool AreStayDaysValid(int daysToStay, int minimumStayDays)
+        {
+            //TimeSpan stayDuration = endDate - initialDate; //ili samo prosledi days to stay
+            return daysToStay >= minimumStayDays; //inicijalno je true
+        }
+        //provera broja gostiju
+
+        public bool isValid(AccommodationReservation reservation,Accommodation accommodation)
+        {
+            return IsCapacityValid(reservation.NumberOfGuests, accommodation.Capacity) &&
+                AreStayDaysValid(reservation.DaysToStay, accommodation.MinStayDays) && //moze samo preko stay days,alid a se osiguramo,ako korisnik slucajno pogresan br unese
+                AreDatesValid(reservation.InitialDate, reservation.EndDate); //vraca true ako je sve tacno
+
+        }
+        /* public List<(DateTime,DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays)
+         {
+             List<DateTime> availableDates = new List<DateTime>();
+             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+             for (DateTime date = startDate; date <= endDate.AddDays(-requiredStayDays); date = date.AddDays(1))
+             {
+                 // Provera dostupnosti datuma koristeći već postojeću funkciju
+                 if (areDatesAvailable(date, date.AddDays(requiredStayDays - 1), accommodationId))
+                 {
+                     availableDates.Add(date);
+                 }
+             }
+
+             return availableDates;
+         }*/
+        /* public List<(DateTime, DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays)
+         {
+             List<(DateTime, DateTime)> availableDates = new List<(DateTime, DateTime)>();
+             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+             for (DateTime date = startDate; date <= endDate.AddDays(-requiredStayDays); date = date.AddDays(1))
+             {
+                 // Provera dostupnosti datuma koristeći već postojeću funkciju
+                 if (areDatesAvailable(date, date.AddDays(requiredStayDays - 1), accommodationId))
+                 {
+                     availableDates.Add((date, date.AddDays(requiredStayDays - 1)));
+                 }
+             }
+
+             return availableDates;
+         }*/
+
+        /* public List<(DateTime, DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays)
+         {
+             List<(DateTime, DateTime)> availableDates = new List<(DateTime, DateTime)>();
+             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+             for (DateTime date = startDate; date <= endDate.AddDays(-requiredStayDays); date = date.AddDays(1))
+             {
+                 // Provera dostupnosti datuma koristeći već postojeću funkciju
+                 if (areDatesAvailable(date, date.AddDays(requiredStayDays - 1), accommodationId))
+                 {
+                     availableDates.Add((date, date.AddDays(requiredStayDays - 1)));
+                 }
+             }
+
+             // Provera da li postoje alternativni slobodni datumi van zadatog opsega
+             if (availableDates.Count == 0)
+             {
+                 DateTime alternativeStartDate = endDate.AddDays(1);
+                 DateTime alternativeEndDate = alternativeStartDate;
+
+                 while (alternativeEndDate <= endDate && !areDatesAvailable(alternativeStartDate, alternativeEndDate, accommodationId))
+                 {
+                     alternativeEndDate = alternativeEndDate.AddDays(1);
+                 }
+
+                 // Provera da li je pronađen validan alternativni datum
+                 if (alternativeEndDate <= endDate && (alternativeEndDate - alternativeStartDate).Days >= requiredStayDays)
+                 {
+                     availableDates.Add((alternativeStartDate, alternativeEndDate));
+                 }
+             }
+
+             return availableDates;
+         }*/
+        /* public List<(DateTime, DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays)
+         {
+             List<(DateTime, DateTime)> availableDates = new List<(DateTime, DateTime)>();
+             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+             reservations.Sort((r1, r2) => r1.InitialDate.CompareTo(r2.InitialDate)); // Sortiranje rezervacija po početnom datumu
+
+             DateTime today = DateTime.Today;
+             DateTime alternativeStartDate = today;
+             DateTime alternativeEndDate = today.AddDays(requiredStayDays);
+
+             foreach (AccommodationReservation reservation in reservations)
+             {
+                 if (isOverlap(alternativeStartDate, alternativeEndDate, reservation.InitialDate, reservation.EndDate))
+                 {
+                     alternativeStartDate = reservation.EndDate.AddDays(1); // Nastavljamo traženje slobodnih datuma od kraja poslednje rezervacije
+                     alternativeEndDate = alternativeStartDate.AddDays(requiredStayDays);
+                 }
+             }
+
+             // Dodavanje slobodnih datuma van opsega unetih datuma
+             while (alternativeEndDate <= endDate)
+             {
+                 availableDates.Add((alternativeStartDate, alternativeEndDate));
+                 alternativeStartDate = alternativeStartDate.AddDays(1);
+                 alternativeEndDate = alternativeStartDate.AddDays(requiredStayDays);
+             }
+
+             return availableDates;
+         }*/
+        /* public List<(DateTime, DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int daysToStay)
+         {
+             List<(DateTime, DateTime)> availableDateRanges = new List<(DateTime, DateTime)>();
+             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+             // Sortiranje rezervacija po datumima
+             reservations.Sort((r1, r2) => r1.InitialDate.CompareTo(r2.InitialDate));
+
+             DateTime currentStartDate = startDate;
+             DateTime currentEndDate = startDate.AddDays(daysToStay - 1);
+             bool isWithinRange = false;
+
+             foreach (AccommodationReservation reservation in reservations)
+             {
+                 // Provera da li postoji preklapanje datuma sa rezervacijom
+                 if (currentEndDate >= reservation.InitialDate && currentStartDate <= reservation.EndDate)
+                 {
+                     isWithinRange = true;
+                     currentStartDate = reservation.EndDate.AddDays(1);
+                     currentEndDate = currentStartDate.AddDays(daysToStay - 1);
+                 }
+                 else if (currentEndDate < reservation.InitialDate)
+                 {
+                     // Dodavanje raspona slobodnih datuma sa razmakom od daysToStay dana
+                     availableDateRanges.Add((currentStartDate, currentStartDate.AddDays(daysToStay - 1)));
+                     currentStartDate = reservation.EndDate.AddDays(1);
+                     currentEndDate = currentStartDate.AddDays(daysToStay - 1);
+                 }
+             }
+
+             // Dodavanje poslednjeg raspona slobodnih datuma
+             if (!isWithinRange && currentEndDate <= endDate)
+             {
+                 availableDateRanges.Add((currentStartDate, currentStartDate.AddDays(daysToStay - 1)));
+             }
+
+             return availableDateRanges;
+         }*/
+        public List<(DateTime, DateTime)> FindAvailableDates(DateTime startDate, DateTime endDate, int accommodationId, int daysToStay)
+        {
+            List<(DateTime, DateTime)> availableDateRanges = new List<(DateTime, DateTime)>();
+            List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+
+            // Sortiranje rezervacija po datumima početka
+            reservations = reservations.OrderBy(r => r.InitialDate).ToList();
+
+            DateTime currentStartDate = startDate;
+            DateTime currentEndDate = startDate.AddDays(daysToStay - 1);
+
+            foreach (AccommodationReservation reservation in reservations)
             {
-                accommodationReservations.Add(accommodationReservation);
-                //dodajem u listu rezervisanih smestaja i dodajem taj datum u listu zauzetih datuma
-                //ili da napravim listu slobodnih datuma?
-                //SKONTAJ****************8
+                // Provera da li postoji preklapanje datuma sa rezervacijom
+                if (currentEndDate >= reservation.InitialDate && currentStartDate <= reservation.EndDate)
+                {
+                    currentStartDate = reservation.EndDate.AddDays(1);
+                    currentEndDate = currentStartDate.AddDays(daysToStay - 1);
+                }
+                else if (currentEndDate < reservation.InitialDate)
+                {
+                    // Izračunavanje listi slobodnih datuma
+                    List<DateTime> freeDates = new List<DateTime>();
+                    for (DateTime date = currentStartDate; date <= currentEndDate; date = date.AddDays(1))
+                    {
+                        freeDates.Add(date);
+                    }
+
+                    // Dodavanje raspona slobodnih datuma u listu
+                    availableDateRanges.Add((freeDates.First(), freeDates.Last()));
+
+                    // Postavljanje novog raspona datuma
+                    currentStartDate = reservation.EndDate.AddDays(1);
+                    currentEndDate = currentStartDate.AddDays(daysToStay - 1);
+                }
             }
-           
-            //List<Accommodation> reservedAccommodations=new List<Accommodation>();
-           // reservedAccommodations.Add(accommodation); //na prvu ruku ali ne valja 
-        }*/
+
+            // Dodavanje poslednjeg raspona slobodnih datuma
+            if (currentEndDate <= endDate)
+            {
+                List<DateTime> freeDates = new List<DateTime>();
+                for (DateTime date = currentStartDate; date <= currentEndDate; date = date.AddDays(1))
+                {
+                    freeDates.Add(date);
+                }
+
+                availableDateRanges.Add((freeDates.First(), freeDates.Last()));
+            }
+
+            return availableDateRanges;
+        }
+
+
+
+
+
+
+
+
         public List<AccommodationReservation> GetAll()
         {
             return serializer.FromCSV(FilePath);
@@ -146,15 +315,6 @@ namespace BookingApp.Repository
 
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
-            /*
-            accommodationReservations = serializer.FromCSV(FilePath);
-            AccommodationReservation current = accommodationReservations.Find(t => t.Id == accommodationReservation.Id);
-            int index = accommodationReservations.IndexOf(current);
-            accommodationReservations.Remove(current);
-            accommodationReservations.Insert(index, accommodationReservation);     
-            serializer.ToCSV(FilePath, accommodationReservations);
-            subject.NotifyObservers();
-            return accommodationReservation;*/
             var existing = accommodationReservations.FindIndex(a => a.Id == accommodationReservation.Id);
             if (existing != -1)
             {
