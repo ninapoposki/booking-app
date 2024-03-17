@@ -17,16 +17,16 @@ using System.Windows.Shapes;
 namespace BookingApp.View.Owner
 {
     /// <summary>
-    /// Interaction logic for PictureBrowseWindow.xaml
+    /// Interaction logic for PictureWindow.xaml
     /// </summary>
 
-    public partial class PictureBrowseWindow : Window
+    public partial class PictureWindow : Window
     {
         public static List<ImageDTO> Images { get; set; }
         private ImageRepository imageRepository { get; set; }
 
         public ImageDTO selectedImage { get; set; }
-        public PictureBrowseWindow()
+        public PictureWindow()
         {
             InitializeComponent();
             DataContext = this;

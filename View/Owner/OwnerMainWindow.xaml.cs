@@ -78,25 +78,10 @@ namespace BookingApp.View.Owner
         private void AddAccommodationButton(object sender, RoutedEventArgs e)
         {
             AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository);
-
-            addAccommodationWindow.AccommodationAdded += (sender, args) =>
-            {
-                UpdateAccommodationDataGrid();
-            };
             addAccommodationWindow.ShowDialog();
 
         }
-        private void UpdateAccommodationDataGrid()
-        {
-            AllAccommodation.Clear();
-
-           /* foreach (Accommodation all in accommodationRepository.GetAll())
-            {
-                AllAccommodation.Add(new AccommodationDTO(all));
-            }*/
-
-        }
-
+      
         private void GradeGuestButton(object sender, RoutedEventArgs e)
         {
             GuestReservations guestReservations = new GuestReservations();

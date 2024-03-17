@@ -82,12 +82,7 @@ namespace BookingApp.Repository
             return guests.FirstOrDefault(guest => guest.User.Id == user.Id);
         }
       
-        public Guest GetById(int id)
-        {
-            guests = serializer.FromCSV(FilePath);
-            return guests.Find(i => i.Id == id);
-        }
-
+        
         public Guest GetById(int id)
         {
             //ostavicu ovaj red da vidim da li ce raditi da bude sazetije

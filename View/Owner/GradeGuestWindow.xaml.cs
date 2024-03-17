@@ -39,7 +39,6 @@ namespace BookingApp.View.Owner
 
         private int GetSelectedRadioButtonValue(StackPanel panel)
         {
-            // Pronalazak izabranog radio dugmeta i preuzimanje vrednosti
             foreach (var radioButton in panel.Children)
             {
                 if (radioButton is RadioButton && ((RadioButton)radioButton).IsChecked == true)
@@ -47,7 +46,7 @@ namespace BookingApp.View.Owner
                     return int.Parse(((RadioButton)radioButton).Content.ToString());
                 }
             }
-            return 0; // Ukoliko nijedno dugme nije izabrano
+            return 0; 
         }
 
 
@@ -56,7 +55,6 @@ namespace BookingApp.View.Owner
             int cleanness = GetSelectedRadioButtonValue(Cleanness);
             int followingRules = GetSelectedRadioButtonValue(FollowingTheRules);
 
-            // Preuzimanje vrednosti komentara
             string comment = CommentsTextBox.Text;
 
             guestGradeDTO.Cleanless = cleanness;

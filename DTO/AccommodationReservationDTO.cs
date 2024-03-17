@@ -15,7 +15,7 @@ namespace BookingApp.DTO
     {
         public int Id { get; set; }
         //User
-       /* private AccommodationDTO accommodation; //OVO MISLIM DA TI NE TREBA
+        private AccommodationDTO accommodation; 
         public AccommodationDTO Accommodation
         {
             get
@@ -32,7 +32,7 @@ namespace BookingApp.DTO
 
             }
 
-        }*/
+        }
 
         private int accommodationId; //da li je neophodno?
         public int AccommodationId
@@ -74,7 +74,7 @@ namespace BookingApp.DTO
         public GuestDTO Guest { get; set; }
 
 
-        private Guest guest; //da li je neophodno?
+       /* private Guest guest; //da li je neophodno?
         public Guest Guest
         {
             get
@@ -90,7 +90,7 @@ namespace BookingApp.DTO
                 }
             }
         }
-
+       */
 
         private DateTime initialDate;
         public DateTime InitialDate

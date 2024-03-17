@@ -56,6 +56,13 @@ namespace BookingApp.Repository
             return maxId + 1;
         }
 
+        public Accommodation GetById(int id)
+        {
+
+            accommodations = serializer.FromCSV(FilePath);
+            return accommodations.Find(i => i.Id == id);
+        }
+
         public int NextId()
         {
             accommodations = serializer.FromCSV(FilePath);
