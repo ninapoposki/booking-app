@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guide;
+using BookingApp.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -49,9 +51,29 @@ namespace BookingApp.View
             {
                 if(user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    Close();
+                    if (user.UserType.ToString() =="OWNER") 
+                    { 
+                    //dajana
+                    }
+                    else if(user.UserType.ToString() =="GUEST")
+                    {
+                    //irina
+                    }
+                    else if (user.UserType.ToString() == "GUIDE")
+                    {
+                        //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
+                        MakeTour makeTour = new MakeTour();
+                        makeTour.Show();
+                         Close();
+                    }
+                    //arijana
+                    else
+                    {
+                     TouristMainWindow touristMainWindow= new TouristMainWindow();
+                        touristMainWindow.Show();
+                        Close();
+                    }
+                  
                 } 
                 else
                 {
