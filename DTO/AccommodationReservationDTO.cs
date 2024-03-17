@@ -74,7 +74,7 @@ namespace BookingApp.DTO
         public GuestDTO Guest { get; set; }
 
 
-        private Guest guest; //da li je neophodno?
+      /*  private Guest guest; //da li je neophodno?
         public Guest Guest
         {
             get
@@ -89,10 +89,10 @@ namespace BookingApp.DTO
                     OnPropertyChanged("Guest");
                 }
             }
-        }
+        }*/
 
 
-        private DateTime initialDate;
+        private DateTime initialDate=DateTime.Now;
         public DateTime InitialDate
         {
             get
@@ -110,7 +110,8 @@ namespace BookingApp.DTO
             }
 
         }
-        private DateTime endDate;
+        //public Guest GGuest { get; set; }
+        private DateTime endDate=DateTime.Now;
         public DateTime EndDate
         {
             get
@@ -175,7 +176,6 @@ namespace BookingApp.DTO
             accommodationReservation.Id = this.Id;
             accommodationReservation.AccommodationId= this.AccommodationId;
             accommodationReservation.GuestId = this.GuestId;
-            // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
             accommodationReservation.GuestId = this.GuestId;
             accommodationReservation.InitialDate = this.InitialDate;
             accommodationReservation.EndDate= this.EndDate;
@@ -193,7 +193,6 @@ namespace BookingApp.DTO
             GuestId = reservation.GuestId;
             AccommodationId=reservation.AccommodationId;
             GuestId=reservation.GuestId;
-            //Guest=reservation.Guest;
             InitialDate= reservation.InitialDate;
             EndDate= reservation.EndDate;
             DaysToStay = reservation.DaysToStay;   

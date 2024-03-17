@@ -62,10 +62,16 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding AccommodationType}" Width="80"/>
                 <DataGridTextColumn Header="Max number of guests" Binding="{Binding Capacity}" Width="130"/>
                 <DataGridTextColumn Header="Min stay days" Binding="{Binding MinStayDays}" Width="100"/>
-                <DataGridTemplateColumn Header="Image" Width="180">
+                <DataGridTemplateColumn Header="Image" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding ImagePath}" Height="50"/>
+                            <ItemsControl ItemsSource="{Binding Images}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path}" Height="50" Margin="2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
