@@ -77,7 +77,7 @@ namespace BookingApp.DTO
 /*
       private Guest guest; //da li je neophodno?
 
-        public Guest Guest
+        public Guest gGuest
         {
             get
             {
@@ -88,14 +88,14 @@ namespace BookingApp.DTO
                 if (value != guest)
                 {
                     guest = value;
-                    OnPropertyChanged("Guest");
+                    OnPropertyChanged("gGuest");
                 }
             }
 
         }
        
-
-        }*/
+        */
+       
 
 
 
