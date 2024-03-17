@@ -68,42 +68,5 @@ namespace BookingApp.Model
         }
 
 
-        /*
-
-
-         public GuestGrade(int id, int guestID, int reservationId, int cleanless, int rulesFollowing, string comment)
-          {
-              Id = id;
-              GuestId = guestID;
-             // MaxDays = maxDays;
-              Cleanless = cleanless;
-              RulesFollowing = rulesFollowing;
-              Comment = comment;
-          }
-
-          public string[] ToCSV()
-          {
-              string[] csvValues =
-              {
-                  Id.ToString(),
-                  GuestId.ToString(),
-                 // MaxDays.ToString(),
-                  Cleanless.ToString(),
-                  RulesFollowing.ToString(),
-                  Comment
-
-              };
-              return csvValues;
-          }
-
-          public void FromCSV(string[] values)
-          {
-              Id = int.Parse(values[0]);
-              GuestId = int.Parse(values[1]);
-              //MaxDays = int.Parse(values[2]);
-              Cleanless = int.Parse(values[3]);
-              RulesFollowing = int.Parse(values[4]);
-              Comment = values[5];
-          }*/
     }
 }

@@ -112,7 +112,6 @@ namespace BookingApp.View.Owner
         
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Implementacija koda za otkazivanje dodavanja smještaja
             MessageBox.Show("Otkazivanje dodavanja smeštaja");
             this.DialogResult = false;
             this.Close();
@@ -121,9 +120,9 @@ namespace BookingApp.View.Owner
        
         private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
         {
-            PictureBrowseWindow pictureBrowseWindow = new PictureBrowseWindow();
-            pictureBrowseWindow.ShowDialog();
-            selectedImage = pictureBrowseWindow.selectedImage;
+            PictureWindow pictureWindow = new PictureWindow();
+            pictureWindow.ShowDialog();
+            selectedImage = pictureWindow.selectedImage;
             Images.Add(selectedImage);
         }
 

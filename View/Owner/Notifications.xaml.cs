@@ -37,6 +37,7 @@ namespace BookingApp.View.Owner
             DataContext = this;
             accommodationReservationRepository = new AccommodationReservationRepository();
             guestRepository = new GuestRepository();
+            guestGradeRepository = new GuestGradeRepository();
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             
 
@@ -50,13 +51,16 @@ namespace BookingApp.View.Owner
             
             foreach (AccommodationReservation accommodationReservation in accommodationReservationRepository.GetAll())
             {
-                if (IsWithinFiveDays(accommodationReservation) && !IsGuestGraded(accommodationReservation.GuestId, accommodationReservation.Id))
-                { 
-                    var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservation);
-                    var guest = guestRepository.GetById(accommodationReservation.GuestId);
-                    accommodationReservationDTO.Guest = new GuestDTO(guest);
+                if (IsWithinFiveDays(accommodationReservation))
+                {
+                    if (IsGuestGraded( accommodationReservation.Id) == false)
+                    {
+                        var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservation);
+                        var guest = guestRepository.GetById(accommodationReservation.GuestId);
+                        accommodationReservationDTO.Guest = new GuestDTO(guest);
 
-                AllAccommodationReservations.Add(accommodationReservationDTO);
+                        AllAccommodationReservations.Add(accommodationReservationDTO);
+                    }
                 }
             }
 
@@ -72,44 +76,13 @@ namespace BookingApp.View.Owner
             return difference.Days < 5 && difference.Days >= 0;
         }
 
-        private bool IsGuestGraded(int guestId, int reservationId)
+
+
+        private bool IsGuestGraded(int reservationId)
         {
-            // Putanja do datoteke guestGrade.csv
-            string filePath = "../../Resources/Data/guestGrade.csv";
-
-            // Provera da li datoteka postoji
-            if (File.Exists(filePath))
-            {
-                // Čitanje svih linija iz datoteke
-                string[] lines = File.ReadAllLines(filePath);
-
-                // Iteracija kroz svaku liniju
-                foreach (string line in lines)
-                {
-                    // Razdvajanje linije na delove koristeći separator (npr. zarez)
-                    string[] parts = line.Split(',');
-
-                    // Provera da li linija ima dovoljno delova i da li se podaci podudaraju
-                    if (parts.Length >= 2 &&
-                        int.TryParse(parts[1], out int currentGuestId) &&
-                        int.TryParse(parts[2], out int currentReservationId))
-                    {
-                        // Ako se podaci podudaraju, vratiti true
-                        if (currentGuestId == guestId && currentReservationId == reservationId)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            // Ako nismo pronašli odgovarajući zapis, vratiti false
-            return false;
+            // Provera da li gost ima ocenu za datu rezervaciju
+            return guestGradeRepository.GetAll().Any(grade =>grade.ReservationId == reservationId);
         }
-
-
-
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

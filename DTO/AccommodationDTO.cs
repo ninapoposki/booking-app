@@ -172,7 +172,19 @@ namespace BookingApp.DTO
             this.CancellationPeriod = accommodation.CancellationPeriod;
 
         }
-       
+
+        public AccommodationDTO(Accommodation accommodation)
+        {
+            this.Id = accommodation.Id;
+            this.Name = accommodation.Name;
+            this.IdLocation = accommodation.IdLocation;
+            this.AccommodationType = accommodation.AccommodationType;
+            this.Capacity = accommodation.Capacity;
+            this.MinStayDays = accommodation.MinStayDays;
+            this.CancellationPeriod = accommodation.CancellationPeriod;
+
+        }
+
         public Accommodation ToAccommodation()
         {
             var accommodation = new Accommodation();
