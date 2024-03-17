@@ -111,6 +111,21 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private int userId { get; set; }
+
+        public int UserId
+        {
+            get { return userId; }
+            set
+            {
+                if (value != userId)
+                {
+                    userId = value;
+                    OnPropertyChanged("UserId");
+                }
+            }
+        }
+
 
         public GuestDTO() { }
 
@@ -124,7 +139,7 @@ namespace BookingApp.DTO
             PhoneNumber = guest.PhoneNumber;
             Email = guest.Email;
             User=guest.User; //ovde proveri da li se prosledjuje ili ovako,ako se prosledjueje onda kao po lokaciji radis
-
+            UserId = guest.UserId;
         }
         public Guest ToGuest()
         {
@@ -136,6 +151,7 @@ namespace BookingApp.DTO
             guest.LastName = this.LastName;
             guest.PhoneNumber = this.PhoneNumber;
             guest.Email = this.Email;
+            guest.UserId = this.UserId;
 
 
             return guest;

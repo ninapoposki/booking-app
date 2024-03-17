@@ -25,44 +25,64 @@ namespace BookingApp.View.Guest
     /// </summary>
     public partial class ReserveAccommodation : Window, INotifyPropertyChanged
     {
-       // public AccommodationReservationDTO accommodationReservation;
         public AccommodationReservation accommodationReservation ;
         public AccommodationReservationDTO accommodationReservationDTO { get; set; }
         public AccommodationReservationRepository accommodationReservationRepository=new AccommodationReservationRepository(); 
-        //public AccommodationReservationRepository accommodationReservationRepository {get; set;}
-        public AccommodationDTO selectedAccommodationDTO; //ili ovo da ide preko DTO AccommodationDTO
+        public AccommodationDTO selectedAccommodationDTO; 
         public Accommodation selectedAccommodation;
+        public UserRepository userRepository = new UserRepository();
+        public GuestDTO guestDTO { get; set; }
+        public GuestRepository guestRepository=new GuestRepository();
  
-       // public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations;
-   
-        
-       // public ReserveAccommodation(AccommodationDTO accommodation)
+       
          public ReserveAccommodation(AccommodationDTO accommodationDTO)
          {
             InitializeComponent();
             DataContext = this;
             accommodationReservationDTO=new AccommodationReservationDTO();
             selectedAccommodationDTO=new AccommodationDTO();
+            guestDTO=new GuestDTO();
             selectedAccommodationDTO = accommodationDTO;
-          //  this.accommodationReservationRepository=accommodationReservationRepository;
-
-            accommodationReservationDTO.AccommodationId = accommodationDTO.Id; //ili selected?
-
+            guestRepository = new GuestRepository(); 
+            accommodationReservationDTO.AccommodationId = accommodationDTO.Id; 
 
          }
-
-       
 
 
         private void TryToBookButton(object sender, RoutedEventArgs e)
         {
+            accommodationReservation=accommodationReservationDTO.ToAccommodationReservation();
+            selectedAccommodation=selectedAccommodationDTO.ToAccommodation();
+            if (accommodationReservationRepository.isValid(accommodationReservation, selectedAccommodation))
+            {
+                if (accommodationReservationRepository.AreDatesAvailable(accommodationReservation.InitialDate, accommodationReservation.EndDate, selectedAccommodation.Id))
+                {
+                    guestDTO.UserId = userRepository.GetCurrentGuestUserId();
+                    guestRepository.Add(guestDTO.ToGuest());
+                    accommodationReservationDTO.GuestId = guestRepository.GetCurrentId();
+                    accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation());
+                    MessageBox.Show("Reservation added successfully");
+                    this.Close();
 
-            accommodationReservationDTO.GuestId = 1;
-            accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation()); //gore pozvala ovde samo sredila
-               
-           
-            this.Close();
-          
+
+                }
+                else
+                {
+                    MessageBox.Show("The requested dates are not available. Here are some alternative options.");
+                    //DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays
+                    List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindAvailableDates(accommodationReservation.InitialDate, accommodationReservation.EndDate, selectedAccommodation.Id, accommodationReservation.DaysToStay);
+
+                    var dialog = new AvailableDatesWindow(dates);
+                    dialog.ShowDialog();
+                }
+
+            }
+            else {
+                MessageBox.Show("The data you entered is not valid");
+                this.Close();
+            }
+            
+            
 
         }
 
@@ -71,6 +91,7 @@ namespace BookingApp.View.Guest
         {
             this.Close();
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

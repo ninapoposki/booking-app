@@ -32,7 +32,7 @@ namespace BookingApp.Model
             Id= Convert.ToInt32(values[0]);
             Path = values[1];
             EntityId = Convert.ToInt32(values[2]);
-            if (values[3] == "ACCOMODATION")
+            if (values[3] == "ACCOMMODATION")
             {
                 EntityType= EntityType.ACCOMMODATION;
             }else if (values[3]=="TOUR"){
