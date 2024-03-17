@@ -94,8 +94,10 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+
             <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
             <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
+
         </StackPanel>
 
 

@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guest;
+using BookingApp.View.Owner;
 using BookingApp.View.Guide;
 using BookingApp.View.Tourist;
 using System.ComponentModel;
@@ -52,12 +54,17 @@ namespace BookingApp.View
                 if(user.Password == txtPassword.Password)
                 {
                     if (user.UserType.ToString() =="OWNER") 
-                    { 
-                    //dajana
+                    {
+                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+                        ownerMainWindow.Show();
+                        Close();
                     }
                     else if(user.UserType.ToString() =="GUEST")
                     {
-                    //irina
+                        //irina
+                        GuestMainWindow guestMainWindow = new GuestMainWindow();
+                        guestMainWindow.Show();
+                        Close();
                     }
                     else if (user.UserType.ToString() == "GUIDE")
                     {

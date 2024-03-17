@@ -12,7 +12,7 @@ namespace BookingApp.Model
     public class Accommodation : ISerializable
     {
         public int Id {  get; set; }
-        public String Name {  get; set; }
+        public string Name {  get; set; }
         public Location Location {  get; set; } 
         public int IdLocation {  get; set; }
         public AccommodationType AccommodationType {  get; set; }
@@ -21,19 +21,25 @@ namespace BookingApp.Model
         public int CancellationPeriod {  get; set; }
         public List<Image> Images {  get; set; }
 
-        public Accommodation() { }
+     
 
-        public Accommodation(int id, string name, Location location, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, List<Image> images)
+        public Accommodation() {
+            Images = new List<Image>();
+            Location=new Location();
+
+        }
+
+        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod)
         {
             Id = id;
             Name = name;
-            Location = location;
             IdLocation = idLocation;
             AccommodationType = type;
             Capacity = capacity;
             MinStayDays = minStayDays;
             CancellationPeriod = cancellationPeriod;
-            Images = images;
+            Images = new List<Image>();
+
         }
 
         public string[] ToCSV()
@@ -46,7 +52,8 @@ namespace BookingApp.Model
                 AccommodationType.ToString(),
                 Capacity.ToString(),
                 MinStayDays.ToString(),
-                CancellationPeriod.ToString()
+                CancellationPeriod.ToString(),
+                
 
             };
 
@@ -73,6 +80,7 @@ namespace BookingApp.Model
             Capacity = int.Parse(values[4]);
             MinStayDays = int.Parse(values[5]);
             CancellationPeriod = int.Parse(values[6]);
+            
 
         }
     }
