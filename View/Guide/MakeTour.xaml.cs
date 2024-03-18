@@ -7,6 +7,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,10 +42,12 @@ namespace BookingApp.View.Guide
 
         private ImageDTO selectedImage;
         public List<ImageDTO> Images { get; set; }
+       
         public MakeTour()
         {
             InitializeComponent();
             DataContext = this;
+            this.WindowStartupLocation=WindowStartupLocation.CenterScreen;
             tourRepository=new TourRepository();
             languageRepository=new LanguageRepository();
             locationRepository=new LocationRepository();
@@ -69,116 +72,154 @@ namespace BookingApp.View.Guide
             foreach (Location location in locationRepository.GetAll()) LocationComboBox.Add(new LocationDTO(location));
         }
         private void AddClick(object sender, RoutedEventArgs e)
-        {
-            LanguageDTO selectedLanguage = (LanguageDTO)languageComboBox.SelectedItem;
-            LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
-            if (selectedLanguage != null) TourDTO.LanguageId = selectedLanguage.Id;
-            else
-            {
-                MessageBox.Show("Choose a tour language!");
-                
-            }
+        {  
+            GetTourLocation();
+            GetTourLanguage();
 
-            if (selectedLocation != null) TourDTO.LocationId = selectedLocation.Id;
-            else
+            if (!IsAdditionPossible())
+            {
+                MessageBox.Show("All fields must be filled properly before adding the tour");
+                return;
+            }
+              
+               tourRepository.Add(TourDTO.ToTour());
+               AddCheckPoints(tourRepository.GetCurrentId());
+               AddTourStartDates(tourRepository.GetCurrentId());
+               UpdateImages();
+        }
+        private void GetTourLocation()
+        {
+            LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
+            if (selectedLocation==null)
             {
                 MessageBox.Show("Choose a tour location!");
-            }
-           
-            tourRepository.Add(TourDTO.ToTour());
-            AddCheckPoints(tourRepository.GetCurrentId());
-            
-            foreach(DateTime tourDate in TourStartDates)
-            {
-                TourStartDate tourDates = new TourStartDate(tourRepository.GetCurrentId(), tourDate);
-                tourStartDateRepository.Add(tourDates);
-            }
-            if (Images.Count != 0)
-            {
-                foreach (ImageDTO image in Images)
-                {
-                    image.EntityId = tourRepository.GetCurrentId();
-
-                    image.EntityType = EntityType.TOUR;
-                    imageRepository.Update(image.ToImage());
-
-                }
+                return;
 
             }
-
-            Close();
-
-            
+            TourDTO.LocationId = selectedLocation.Id;
         }
-
-        private void CloseClick(object sender, RoutedEventArgs e)
+        private void GetTourLanguage()
         {
-            Close();
+            LanguageDTO selectedLanguage = (LanguageDTO)languageComboBox.SelectedItem;
+            if (selectedLanguage == null)
+            {
+                MessageBox.Show("Choose a tour language!");
+                return;
+            }
+            TourDTO.LanguageId = selectedLanguage.Id;
+
+        }
+        private bool IsAdditionPossible()
+        {
+            return Images.Count() > 0 && TourStartDates.Count() > 0 && AreCheckPointsSpecified() && AreStopsSpecified();
+        }
+        private bool AreCheckPointsSpecified()
+        {
+            if (string.IsNullOrEmpty(startPointTextBox.Text) || string.IsNullOrEmpty(endPointTextBox.Text))
+            {
+                MessageBox.Show("Start and end point are mendatory");
+                return false;
+            }
+            return true;
+        }
+        private bool AreStopsSpecified()
+        {
+            if (!String.IsNullOrEmpty(stopsTextBox.Text))
+            {
+                string pattern = @"^([a-zA-Z0-9]+;*)+$";
+                if (!Regex.IsMatch(stopsTextBox.Text, pattern))
+                {
+                    MessageBox.Show("Not good format for stops(it should be TEXT;TEXT;TEXT..)");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void AddCheckPoints(int tourId)
         {
-
-            if (string.IsNullOrEmpty(startPointTextBox.Text) || string.IsNullOrEmpty(endPointTextBox.Text)) MessageBox.Show("Start and end point are mendatory");
-
-            CheckPoint startingPoint = new CheckPoint(startPointTextBox.Text, tourId,"START");
-            checkPointRepository.Add(startingPoint);
-
+            AddStartStop(tourId);
             if (!string.IsNullOrEmpty(stopsTextBox.Text))
             {
                 AddStops(tourId);
             }
-            CheckPoint endPoint = new CheckPoint(endPointTextBox.Text, tourId, "END");
+            AddEndStop(tourId);
+        }
+        private void AddStartStop(int id)
+        {
+            CheckPoint startingPoint = new CheckPoint(startPointTextBox.Text, id, "START");
+            checkPointRepository.Add(startingPoint);
+        }
+        private void AddEndStop(int id)
+        {
+            CheckPoint endPoint = new CheckPoint(endPointTextBox.Text, id, "END");
             checkPointRepository.Add(endPoint);
         }
-
         private void AddStops(int tourId)
         {
-            var stopNames=stopsTextBox.Text.Split(';').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n)); 
-            foreach(var name in stopNames)
+            var stopNames = stopsTextBox.Text.Split(';').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n));
+            foreach (var name in stopNames)
             {
                 CheckPoint stop = new CheckPoint(name, tourId, "STOP");
                 checkPointRepository.Add(stop);
             }
         }
-
+        private void AddTourStartDates(int tourId)
+        {
+            foreach (DateTime tourDate in TourStartDates)
+            {
+                TourStartDate tourDates = new TourStartDate(tourId, tourDate);
+                tourStartDateRepository.Add(tourDates);
+            }
+        }
         private void AddDateClick(object sender, RoutedEventArgs e)
         {
             var selectedDate = datePicker.SelectedDate;
             var time = TryTimeParse(timeTextBox.Text);
-            if (selectedDate.HasValue && time!=null)
+            if (!selectedDate.HasValue || time == null)
             {
-                var dateTime = selectedDate.Value.Add(time.Value);
-
-                TourStartDates.Add(dateTime);
-
-
-                datesListView.ItemsSource = null;
-                datesListView.ItemsSource = TourStartDates.Select(date => 
-                new
-                { DisplayDate = date.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture) }).ToList(); 
-
-
-                datePicker.SelectedDate = null;
-                timeTextBox.Text = "HH:mm";
-               
-
+                MessageBox.Show("Please select date and time in good format");
+                ResetDateInput();
+                return;
             }
-            else
-            {
-                MessageBox.Show("Please select date in good format");
-            }
+            var dateTime = selectedDate.Value.Add(time.Value);
+            TourStartDates.Add(dateTime);
+            ShowAddedDates();
+            ResetDateInput();
         }
+        private void ShowAddedDates()
+        {
+            datesListView.ItemsSource = null;
+            datesListView.ItemsSource = TourStartDates.Select(date =>
+            new
+            { DisplayDate = date.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture) }).ToList();
 
+        }
+        private void ResetDateInput()
+        {
+            datePicker.SelectedDate = null;
+            timeTextBox.Text = "HH:mm";
+        }
         private TimeSpan? TryTimeParse(string input)
         {
-            if(TimeSpan.TryParse(input, out var time))   return time; 
+            if (TimeSpan.TryParse(input, out var time)) return time;
             return null;
         }
-
+        private void UpdateImages()
+        {
+            int id = tourRepository.GetCurrentId();
+            foreach (ImageDTO image in Images)
+            {
+                image.EntityId = id;
+                image.EntityType = EntityType.TOUR;
+                imageRepository.Update(image.ToImage());
+            }
+        }
         private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
         {
             PictureBrowseWindow pictureBrowseWindow = new PictureBrowseWindow();
+            pictureBrowseWindow.Owner = this;
+            pictureBrowseWindow.WindowStartupLocation=WindowStartupLocation.CenterScreen;
             pictureBrowseWindow.ShowDialog();
             selectedImage = pictureBrowseWindow.selectedImage;
             Images.Add(selectedImage);
@@ -187,8 +228,14 @@ namespace BookingApp.View.Guide
         private void LiveTourClick(object sender, RoutedEventArgs e)
         {
             LiveTour liveTour=new LiveTour();
+            liveTour.Owner = this;
+            liveTour.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             liveTour.ShowDialog();
 
+        }
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

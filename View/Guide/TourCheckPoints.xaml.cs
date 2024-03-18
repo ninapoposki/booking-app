@@ -93,21 +93,19 @@ namespace BookingApp.View.Guide
 
         }
         private void MarkAsPresentClick(object sender, RoutedEventArgs e)
-        {//ovde cu da brisem one koji su dosli iz liste i dodelim im id tog check pointa kad su dosli
+        {
             foreach(TourGuestDTO tourGuest in TouristList.SelectedItems)
             {
                 TourGuest guest = tourGuest.ToTourGuest();
-                guest.CheckPointId = currentCheckPoint.Id; //dodelila sam mu vrednost trenutno check pointa
+                guest.CheckPointId = currentCheckPoint.Id; 
                 tourGuestRepository.Update(guest);
-              
             }
             MessageBox.Show("Tourist marked as present!");
-
         }
 
         private void NextCheckPointClick(object sender, RoutedEventArgs e)
         {
-            if(currentCheckPointIndex+1< toursCheckPoints.Count) 
+            if(currentCheckPointIndex+1<toursCheckPoints.Count) 
             {
                 currentCheckPointIndex++;
                 UpdateUI();
@@ -116,7 +114,6 @@ namespace BookingApp.View.Guide
             else if(currentCheckPointIndex + 1 == toursCheckPoints.Count && String.Equals(currentCheckPoint.Type,"END"))
             { 
                 FinishingTour();
-                
             }
 
         }
@@ -129,15 +126,14 @@ namespace BookingApp.View.Guide
                 Close();
             
          }
-            private void UpdateUI()
-        {
+         private void UpdateUI()
+         {
             if(toursCheckPoints!=null && toursCheckPoints.Count > currentCheckPointIndex)
             {
                 currentCheckPoint = toursCheckPoints[currentCheckPointIndex];
                 CheckPointName.Text = currentCheckPoint.Name;
             }
-            
-        }
+         }
 
         private void EndTourClick(object sender, RoutedEventArgs e)
         {
