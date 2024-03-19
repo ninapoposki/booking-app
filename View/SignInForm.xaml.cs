@@ -79,11 +79,15 @@ namespace BookingApp.View
         }
         private void OpenOwnerWindow()
         {
-            // Dajana
+            //OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+            //ownerMainWindow.Show();
+            //Close();
         }
         private void OpenGuestWindow()
         {
-            // Irina
+            //GuestMainWindow guestMainWindow = new GuestMainWindow();
+           //guestMainWindow.Show();
+            //Close();
         }
         private void OpenGuideWindow()
         {
