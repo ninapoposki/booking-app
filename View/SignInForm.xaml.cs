@@ -1,5 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guest;
+using BookingApp.View.Owner;
 using BookingApp.View.Guide;
 using BookingApp.View.Tourist;
 using System.ComponentModel;
@@ -98,7 +100,6 @@ namespace BookingApp.View
         }
         private void OpenTouristWindow()
         {
-            // Arijana
             TouristMainWindow touristMainWindow = new TouristMainWindow();
             touristMainWindow.Show();
             Close();

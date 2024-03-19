@@ -26,8 +26,6 @@ namespace BookingApp.View.Tourist
     public partial class TouristMainWindow : Window,IObserver
     {
 
-
-
         private readonly TourRepository tourRepository;
         private readonly LocationRepository locationRepository;
         private readonly LanguageRepository languageRepository;
@@ -39,10 +37,12 @@ namespace BookingApp.View.Tourist
 
         public TourDTO SelectedTour { get; set; } 
 
+
         public TouristMainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
             tourRepository= new TourRepository();
             locationRepository = new LocationRepository(); 
             languageRepository = new LanguageRepository();
@@ -187,6 +187,7 @@ namespace BookingApp.View.Tourist
             return string.IsNullOrEmpty(selectedLanguage) || tour.Language.Name.Equals(selectedLanguage, StringComparison.OrdinalIgnoreCase);
         }
 
+
         private bool IsMatchPeopleCount(TourDTO tour, int peopleCount)
         {
             return peopleCount <= 0 || tour.Capacity >= peopleCount;
@@ -255,12 +256,12 @@ namespace BookingApp.View.Tourist
             return tour.LocationId == SelectedTour?.LocationId && tour.Capacity > 0;
         }
 
+
         private void ShowAvailableTourWindow(List<TourDTO> availableTours)
         {
             var availableTourWindow = new AvailableTourWindow(availableTours);
             availableTourWindow.Show();
         }
-
 
     }
 }
