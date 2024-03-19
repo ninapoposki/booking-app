@@ -37,13 +37,13 @@ namespace BookingApp.View.Owner
         public readonly AccommodationRepository accommodationRepository;
         public ObservableCollection<AccommodationDTO> AllAccommodation { get; set; }
 
-        public OwnerMainWindow(User user)
+        public OwnerMainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            LoggedInUser = user;
-            _repository = new CommentRepository();
-            Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
+            //LoggedInUser = user;
+           // _repository = new CommentRepository();
+           // Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
 
             locationRepository = new LocationRepository(); 
             accommodationRepository = new AccommodationRepository();
