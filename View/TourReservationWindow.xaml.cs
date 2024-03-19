@@ -70,24 +70,43 @@ namespace BookingApp.View
         }
 
         private void ConfirmTourReservation(object sender, RoutedEventArgs e)
-        {   
+        {
             if (!ValidateInput(out int numberOfPeople, out int age))
             {
                 return;
             }
-            txtNumberOfPeople.IsEnabled = false;
-            Tour tour = ValidateTourCapacity(numberOfPeople);
-            if (tour == null)
+
+            if (!IsTourCapacitySufficient(numberOfPeople))
             {
+                EnableGuestNumberInput();
                 return;
             }
-           maxGuests = numberOfPeople;
-            
 
+            ProcessGuestAddition(numberOfPeople, age);
+        }
 
+        private bool IsTourCapacitySufficient(int numberOfGuests)
+        {
+            Tour tour = ValidateTourCapacity(numberOfGuests);
+            if (tour != null)
+            {
+                txtNumberOfPeople.IsEnabled = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void EnableGuestNumberInput()
+        {
+            txtNumberOfPeople.IsEnabled = true;
+            txtNumberOfPeople.Focus();
+        }
+
+        private void ProcessGuestAddition(int numberOfPeople, int age)
+        {
+            maxGuests = numberOfPeople;
             AddGuest(txtNameSurname.Text, age);
-
-
         }
 
         private bool ValidateInput(out int numberOfPeople, out int age)
@@ -108,7 +127,6 @@ namespace BookingApp.View
             }
             maxGuests = numberOfPeople;
            
-
             return true;
         }
 
@@ -182,23 +200,41 @@ namespace BookingApp.View
                 return;
             }
 
-            foreach (Tuple<string, int> guest in temporaryGuests)
-            {
-                tourGuestRepository.AddNewGuest(guest.Item1, guest.Item2, newReservation.Id,-1);
-            }
+            AddTemporaryGuests(newReservation);
+            UpdateTourInformation(newReservation);
+        }
 
+        private void AddTemporaryGuests(TourReservation newReservation)
+        {
+            foreach (Tuple<string, int> guest in temporaryGuests)
+
+            {
+
+                TourGuest newGuest = new TourGuest
+                {
+                    FullName = guest.Item1,
+                    Age = guest.Item2,
+                    TourReservationId = newReservation.Id,
+                    CheckPointId = -1 
+                };
+
+                tourGuestRepository.Add(newGuest);
+            }
+        }
+
+        private void UpdateTourInformation(TourReservation newReservation)
+        {
             Tour tour = tourRepository.GetById(selectedTour.Id);
             if (tour != null)
             {
                 int remainingCapacity = tour.Capacity;
-                MessageBox.Show($"Rezervacija kreirana sa {temporaryGuests.Count} gostiju. ID rezervacije: {newReservation.Id}.\nPREOSTALO MJESTA NA TURI: {remainingCapacity}");
+                MessageBox.Show($"VAŠA REZERVACIJA JE USPJEŠNO KREIRANA!!! \n Sa {temporaryGuests.Count} gostiju. \nPREOSTALO MJESTA NA TURI: {remainingCapacity}");
             }
             else
             {
                 MessageBox.Show("Došlo je do greške prilikom ažuriranja informacija o turi.");
             }
         }
-
         private void ResetGuestInputFields()
         {
             txtNameSurname.Text = string.Empty;

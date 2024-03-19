@@ -49,49 +49,61 @@ namespace BookingApp.View
         private void SignIn(object sender, RoutedEventArgs e)
         {
             User user = _repository.GetByUsername(Username);
-            if (user != null)
-            {
-                if(user.Password == txtPassword.Password)
-                {
-                    if (user.UserType.ToString() =="OWNER") 
-                    {
-                        OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
-                        ownerMainWindow.Show();
-                        Close();
-                    }
-                    else if(user.UserType.ToString() =="GUEST")
-                    {
-                        //irina
-                        GuestMainWindow guestMainWindow = new GuestMainWindow();
-                        guestMainWindow.Show();
-                        Close();
-                    }
-                    else if (user.UserType.ToString() == "GUIDE")
-                    {
-                        //ovo je samo proba da vidim je l radi ovde cu biti ja(Anja)
-                        MakeTour makeTour = new MakeTour();
-                        makeTour.Show();
-                         Close();
-                    }
-                    //arijana
-                    else
-                    {
-                     TouristMainWindow touristMainWindow= new TouristMainWindow();
-                        touristMainWindow.Show();
-                        Close();
-                    }
-                  
-                } 
-                else
-                {
-                    MessageBox.Show("Wrong password!");
-                }
-            }
-            else
+            if (user == null)
             {
                 MessageBox.Show("Wrong username!");
+                return;
             }
-            
+            if (user.Password != txtPassword.Password)
+            {
+                MessageBox.Show("Wrong password!");
+                return;
+            }
+            HandleUserSignIn(user.UserType);   
         }
+        private void HandleUserSignIn(UserType type) { 
+        
+            switch(type)
+            {
+                case UserType.OWNER:
+                    OpenOwnerWindow();
+                    break;
+                case UserType.GUEST:
+                    OpenGuestWindow();
+                    break;
+                case UserType.GUIDE:
+                    OpenGuideWindow();
+                    break;
+                default:
+                    OpenTouristWindow();
+                    break;
+            }
+        }
+        private void OpenOwnerWindow()
+        {
+            //OwnerMainWindow ownerMainWindow = new OwnerMainWindow(user);
+            //ownerMainWindow.Show();
+            //Close();
+        }
+        private void OpenGuestWindow()
+        {
+            //GuestMainWindow guestMainWindow = new GuestMainWindow();
+           //guestMainWindow.Show();
+            //Close();
+        }
+        private void OpenGuideWindow()
+        {
+           
+            MakeTour makeTour = new MakeTour();
+            makeTour.Show();
+            Close();
+        }
+        private void OpenTouristWindow()
+        {
+            TouristMainWindow touristMainWindow = new TouristMainWindow();
+            touristMainWindow.Show();
+            Close();
+        }
+
     }
 }
