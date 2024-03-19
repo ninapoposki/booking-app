@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,14 +41,21 @@ namespace BookingApp.View.Owner
             Images.Clear();
             foreach (Image image in imageRepository.GetAll())
             {
-                Images.Add(new ImageDTO(image));
+                bool isAvailable = image.EntityId == -1 && image.EntityType.ToString().Equals("NONE");
+                if (isAvailable)
+                {
+                    Images.Add(new ImageDTO(image));
+                }
             }
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You added a picture!");
-            this.Close();
+            if (selectedImage != null)
+            {
+                MessageBox.Show("You added a picture!");
+                this.Close();
+            }
         }
     }
 }

@@ -66,12 +66,12 @@
 
         <Label Grid.Row="5" Grid.Column="0" Content="Cancellation Period*" VerticalAlignment="Center" Height="26"/>
         <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Accommodation.CancellationPeriod, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
-        
+
         <Label Grid.Row="6" Grid.Column="0" Content="Images URL*" VerticalAlignment="Center" Height="26"/>
         <Button Grid.Row="6" Grid.Column="1" Click="BrowseAndLoadPictureClick">Choose picture</Button>
         
-        <Button Grid.Row="6" Grid.Column="0" Content="Add" HorizontalAlignment="Left"  Click="AddAccommodationButton_Click" Width="64" Margin="310,68,0,-67"/>
-        <Button Grid.Row="6" Grid.Column="1" Content="Cancel" HorizontalAlignment="Right" Click="CancelButton_Click" Width="64" Margin="0,67,310,-66" />
+        <Button Grid.Row="6" Grid.Column="0" Content="Add" HorizontalAlignment="Left"  Click="AddAccommodationButtonClick" Width="64" Margin="310,68,0,-67"/>
+        <Button Grid.Row="6" Grid.Column="1" Content="Cancel" HorizontalAlignment="Right" Click="CancelButtonClick" Width="64" Margin="0,67,310,-66" />
 
     </Grid>
 </Window>

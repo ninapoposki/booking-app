@@ -27,6 +27,7 @@ namespace BookingApp.View.Owner
 
         public readonly GuestGradeRepository guestGradeRepository;
         public readonly GuestRepository guestRepository;
+        public readonly AccommodationRepository accommodationRepository;
         private readonly AccommodationReservationRepository accommodationReservationRepository;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         
@@ -38,6 +39,7 @@ namespace BookingApp.View.Owner
             accommodationReservationRepository = new AccommodationReservationRepository();
             guestRepository = new GuestRepository();
             guestGradeRepository = new GuestGradeRepository();
+            accommodationRepository = new AccommodationRepository();
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             
 
@@ -58,6 +60,9 @@ namespace BookingApp.View.Owner
                         var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservation);
                         var guest = guestRepository.GetById(accommodationReservation.GuestId);
                         accommodationReservationDTO.Guest = new GuestDTO(guest);
+                        var accomm = accommodationRepository.GetById(accommodationReservation.AccommodationId);
+                        accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
+
 
                         AllAccommodationReservations.Add(accommodationReservationDTO);
                     }
@@ -83,7 +88,7 @@ namespace BookingApp.View.Owner
             // Provera da li gost ima ocenu za datu rezervaciju
             return guestGradeRepository.GetAll().Any(grade =>grade.ReservationId == reservationId);
         }
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -123,7 +123,7 @@ namespace BookingApp.DTO
             }
         }
 
-        private int cancellationPeriod;
+        private int cancellationPeriod = 1; 
         public int CancellationPeriod
         {
             get { return cancellationPeriod; }
@@ -201,7 +201,7 @@ namespace BookingApp.DTO
         }
 
         public string Error => null;
-        private Regex _BrojRegex = new Regex("[0-9]+");
+        private Regex BrojRegex = new Regex("[0-9]+");
         public string this[string columnName]
         {
             get
@@ -216,7 +216,7 @@ namespace BookingApp.DTO
                     if (Capacity <= 0)
                         return "Capacity cannot be negative number!";
 
-                    Match match = _BrojRegex.Match(Capacity.ToString());
+                    Match match = BrojRegex.Match(Capacity.ToString());
                     if (!match.Success)
                         return "You must enter number";
                 }
@@ -225,33 +225,34 @@ namespace BookingApp.DTO
                     if (MinStayDays <= 0)
                         return "Min Stay Days cannot be negative number!";
 
-                    Match match = _BrojRegex.Match(MinStayDays.ToString());
+                    Match match = BrojRegex.Match(MinStayDays.ToString());
                     if (!match.Success)
                         return "You must enter number";
                 }
                 else if (columnName == "CancellationPeriod")
                 {
-                    if (CancellationPeriod <= 0)
-                        return "Cancellation Period cannot be negative number!";
+                    if (CancellationPeriod < 1)
+                        return "Cancellation Period cannot be less than one day!";
 
-                    Match match = _BrojRegex.Match(CancellationPeriod.ToString());
+                    Match match = BrojRegex.Match(CancellationPeriod.ToString());
                     if (!match.Success)
                         return "You must enter number";
                 }
+               
 
                 return null;
             }
         }
 
 
-        private readonly string[] _validatedProperties = { "Name", "Capacity", "MinStayDays", "CancellationPeriod" };
+        private readonly string[] ValidatedProperties = { "Name", "Capacity", "MinStayDays", "CancellationPeriod" };
 
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach (var property in ValidatedProperties)
                 {
                     if (this[property] != null)
                         return false;

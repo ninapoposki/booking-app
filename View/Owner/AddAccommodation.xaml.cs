@@ -72,45 +72,33 @@ namespace BookingApp.View.Owner
     public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
         public event AccommodationAddedEventHandler AccommodationAdded;
         
-        private void AddAccommodationButton_Click(object sender, RoutedEventArgs e)
+        private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
         {
             
-            foreach (ImageDTO image in Images)
-            {
+            foreach (ImageDTO image in Images) {
                 image.EntityId = accommodationRepository.GetCurrentId();
                 image.EntityType = EntityType.ACCOMMODATION;
                 imageRepository.Update(image.ToImage());
-
             }
 
             LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
-            
 
             if (selectedLocation != null) Accommodation.IdLocation = selectedLocation.Id;
-            else
-            {
-                MessageBox.Show("Choose a tour location!");
-            }
-
-
-            if (Accommodation.IsValid)
-            {
+          
+            
+            if (Accommodation.IsValid) {
                 MessageBox.Show("Dodavanje smeštaja");
                
                 accommodationRepository.Add(Accommodation.ToAccommodation());
                 //this.DialogResult = true;
-                AccommodationAdded?.Invoke(this, EventArgs.Empty);
                 Close();
                 
-            }
-            else
-            {
-                MessageBox.Show("Accommodation cannot be created. All fields are not valid.");
-            }
+            } else MessageBox.Show("Accommodation cannot be created. Not all field are valid.");
+            
         }
 
         
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Otkazivanje dodavanja smeštaja");
             this.DialogResult = false;
