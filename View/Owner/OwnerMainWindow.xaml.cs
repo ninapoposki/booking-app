@@ -75,19 +75,19 @@ namespace BookingApp.View.Owner
         }
 
 
-        private void AddAccommodationButton(object sender, RoutedEventArgs e)
+        private void AddAccommodationClick(object sender, RoutedEventArgs e)
         {
             AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository);
             addAccommodationWindow.ShowDialog();
 
         }
       
-        private void GradeGuestButton(object sender, RoutedEventArgs e)
+        private void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             GuestReservations guestReservations = new GuestReservations();
             guestReservations.ShowDialog();
         }
-        private void NotificationsButton(object sender, RoutedEventArgs e)
+        private void NotificationsClick(object sender, RoutedEventArgs e)
         {
             Notifications notifications = new Notifications();
             notifications.ShowDialog();
