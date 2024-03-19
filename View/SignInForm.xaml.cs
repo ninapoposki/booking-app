@@ -87,9 +87,9 @@ namespace BookingApp.View
         }
         private void OpenGuestWindow()
         {
-            //GuestMainWindow guestMainWindow = new GuestMainWindow();
-           //guestMainWindow.Show();
-            //Close();
+            GuestMainWindow guestMainWindow = new GuestMainWindow();
+            guestMainWindow.Show();
+            Close();
         }
         private void OpenGuideWindow()
         {
