@@ -33,7 +33,7 @@ namespace BookingApp.DTO
             }
         }
 
-        private int age { get; set; }   
+        private int age;
         public int Age
         {
 
@@ -56,32 +56,9 @@ namespace BookingApp.DTO
 
             }
         }
+        public int TourReservationId {  get; set; }
 
-
-        private User user { get; set; }
-
-        public User User
-        {
-
-
-            get { return user; }
-
-
-            set
-            {
-
-
-
-                if(value != user)
-                {
-
-
-
-                    user = value;
-                    OnPropertyChanged("User");
-                }
-            }
-        }
+      
 
         public TourGuestDTO() { }
 
@@ -91,7 +68,8 @@ namespace BookingApp.DTO
             Id=tourGuest.Id;
             FullName=tourGuest.FullName;
             Age=tourGuest.Age;
-            User=tourGuest.User;
+            TourReservationId = tourGuest.TourReservationId;
+           
 
 
         }
@@ -100,7 +78,7 @@ namespace BookingApp.DTO
         {
 
 
-            return new TourGuest(Id, fullName, age);
+            return new TourGuest(Id, fullName, age,TourReservationId);
 
 
         }

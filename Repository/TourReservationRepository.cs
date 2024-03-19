@@ -73,15 +73,31 @@ namespace BookingApp.Repository
             return tourReservation;
         }
 
-        public List<TourReservation> GetByUser(User user)
+        public List<TourReservation> GetByTourDateId(int id)
         {
-            tourReservations = serializer.FromCSV(FilePath);
-            return tourReservations.FindAll(t => t.User.Id == user.Id);
+            tourReservations=serializer.FromCSV(FilePath);
+            return tourReservations.FindAll(tr=>tr.TourStartDateId == id);
         }
+      
 
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
         }
+
+        public TourReservation AddNewReservation(int tourStartDateId, int userId, int numberOfPeople)
+        {
+            int newId = NextId(); 
+            TourReservation newReservation = new TourReservation(newId, tourStartDateId, userId, numberOfPeople);
+
+          
+
+            tourReservations.Add(newReservation);
+            serializer.ToCSV(FilePath, tourReservations); 
+            subject.NotifyObservers();
+
+            return newReservation;
+        }
+
     }
 }

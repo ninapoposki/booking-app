@@ -14,91 +14,18 @@ namespace BookingApp.DTO
 
         public int Id { get; set; }
 
-        public int TourId { get; set; }
-        private string tourDateTime;
+        public int TourStartDateId { get; set; }
 
-        public string TourDateTime
-        {
-
-
-
-
-            get { return tourDateTime; }
-
-            set {
-
-                if (value != tourDateTime)
-                {
-                        tourDateTime = value;
-                        OnPropertyChanged("TourDateTime");
-
-
-                }
-
-                     
-            
-            
-            }
-        }
-
-
-        private Tour tour;
-
-        public Tour Tour
-        {
-            get { return tour; }
-
-            set
-            {
-
-
-
-                if (value != tour)
-                {
-                    tour= value;
-                    OnPropertyChanged("Tour");
-
-
-                }
-            }
-        }
-
-        private User user;
-
-        public User User
-        {
-
-
-
-            get { return user; }
-
-            set
-            {
-
-
-
-                if (value != user)
-                {
-
-
-                    user= value;
-                    OnPropertyChanged("User");
-                }
-            }
-        }
+        public int UserId {  get; set; }
+       
 
         private int guestsNumber;
         public int GuestsNumber
         {
 
-
-
-
             get { return guestsNumber; }
             set
             {
-
-
 
                 if(value != guestsNumber)
                 {
@@ -110,7 +37,6 @@ namespace BookingApp.DTO
             }
 
 
-
         }
             public TourReservationDTO() { }
 
@@ -118,23 +44,16 @@ namespace BookingApp.DTO
             {
 
                 Id=tourReservation.Id;
-                TourId=tourReservation.TourId;
-                TourDateTime=tourReservation.TourDateTime.ToString();
-                Tour=tourReservation.Tour;
-                User= tourReservation.User;
+                TourStartDateId = tourReservation.TourStartDateId;
+                UserId= tourReservation.UserId;
                 GuestsNumber=tourReservation.GuestsNumber;
-
-
-
+                
 
             }
 
             public TourReservation ToTourReservation()
             {
-
-
-
-                return new TourReservation(Id,TourId,DateOnly.Parse(tourDateTime),tour,guestsNumber);
+                return new TourReservation(Id,TourStartDateId,UserId,guestsNumber);
             }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model
 {
-    public enum EntityType {ACCOMMODATION,TOUR,NONE };
+
+    public enum EntityType {NONE,TOUR,ACCOMMODATION };
+
     public class Image : ISerializable
     {
 
         public int Id { get; set; }
         public string Path { get; set; }
-        public int EntityId { get; set; }
+        public int EntityId { get; set; } //id ture
         public EntityType EntityType { get; set; }
         
         public Image() { }
@@ -40,7 +42,9 @@ namespace BookingApp.Model
             }
             else
             {
-                EntityType= EntityType.NONE;
+
+                EntityType = EntityType.NONE;
+
             }
             
         }

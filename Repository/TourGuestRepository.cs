@@ -32,7 +32,7 @@ namespace BookingApp.Repository
             return serializer.FromCSV(FilePath);
         }
 
-        public TourGuest Add(TourGuest tourGuest)
+      /*  public TourGuest Add(TourGuest tourGuest)
         {
             tourGuest.Id = NextId();
             tourGuests = serializer.FromCSV(FilePath);
@@ -40,7 +40,7 @@ namespace BookingApp.Repository
             serializer.ToCSV(FilePath,tourGuests);
             subject.NotifyObservers();
             return tourGuest;
-        }
+        }*/
 
         public int NextId()
         {
@@ -73,15 +73,26 @@ namespace BookingApp.Repository
             return tourGuest;
         }
 
-        public List<TourGuest> GetByUser(User user)
-        {
-            tourGuests = serializer.FromCSV(FilePath);
-            return tourGuests.FindAll(t => t.User.Id == user.Id);
-        }
-
+       
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
+        }
+
+        public TourGuest AddNewGuest(string fullName, int age, int tourReservationId,int checkPointId)
+        {
+            TourGuest newGuest = new TourGuest
+            {
+                Id = NextId(),
+                FullName = fullName,
+                Age = age,
+                TourReservationId = tourReservationId,
+                CheckPointId= checkPointId
+            };
+            tourGuests.Add(newGuest);
+            serializer.ToCSV(FilePath, tourGuests);
+            subject.NotifyObservers();
+            return newGuest;
         }
     }
 }
