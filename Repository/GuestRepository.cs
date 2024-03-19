@@ -70,13 +70,8 @@ namespace BookingApp.Repository
             return guest;
         }
 
-        /*public List<Guest> GetByUser(User user)
-        {
-            guests = serializer.FromCSV(FilePath);
-            return guests.FindAll(t => t.User.Id == user.Id);
-        }*/
-        //ili treba samo jedan gost da bude tog tipa?
-        public Guest GetByUser(User user) //ILI int userId
+    
+        public Guest GetByUser(User user) 
         {
             guests = serializer.FromCSV(FilePath);
             return guests.FirstOrDefault(guest => guest.User.Id == user.Id);
@@ -93,8 +88,6 @@ namespace BookingApp.Repository
 
         public int GetCurrentId()
         {
-            /*   if (accommodations.Count == 0) return 1;
-               return accommodations.Max(t => t.Id);*/
             guests = serializer.FromCSV(FilePath);
             int maxId = guests.Count > 0 ? guests.Max(t => t.Id) : 0;
             return maxId;

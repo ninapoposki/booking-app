@@ -12,8 +12,8 @@ namespace BookingApp.Model
     public class AccommodationReservation:ISerializable
     {
         public int Id {  get; set; }
-        public Accommodation Accommodation { get; set; } //ili direktno iz accommodation -ovo mislim ni da ne treba
-        public int AccommodationId { get; set; }//nisam sigurna da li je potrebno,svakako korisnik to ne sme da unese,ali zbog uvezivanja
+        public Accommodation Accommodation { get; set; } 
+        public int AccommodationId { get; set; }
         public int GuestId {  get; set; }
         public Guest Guest { get; set; }
         public DateTime InitialDate { get; set; }
@@ -31,7 +31,6 @@ namespace BookingApp.Model
         public AccommodationReservation(int id,int guestId,int acommodationId,DateTime initDate,DateTime endD,int stayDays,int numberOfGuests)
         {
             Id = id;
-            //Accommodation = accommodation; //da li ti ovo treba ovde ili da radis sve preko id-a
             GuestId=guestId;
             AccommodationId= acommodationId;
             InitialDate = initDate;
@@ -43,7 +42,7 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            AccommodationId = int.Parse(values[1]); //ilir adi direktno po id ili accommodation id
+            AccommodationId = int.Parse(values[1]);
             GuestId = int.Parse(values[2]);
             InitialDate = DateTime.Parse(values[3]);
             EndDate = DateTime.Parse(values[4]);
@@ -67,9 +66,5 @@ namespace BookingApp.Model
             };
             return csvValues;   
       }
-       
-
-
     }
- 
 }

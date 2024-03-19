@@ -1,57 +1,80 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.ExceptionServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.Guest
 {
-    /// <summary>
-    /// Interaction logic for AvailableDatesWindow.xaml
-    /// </summary>
     public partial class AvailableDatesWindow : Window, INotifyPropertyChanged
     {
-
         public ObservableCollection<Range> Dates { get; set; }
-       // public AccommodationReservation accommodationReservation;
-       // public AccommodationReservationDTO accommodationReservationDTO;
-        public AvailableDatesWindow(List<(DateTime,DateTime)> dates)
+        public AccommodationReservationDTO selectedReservation=new AccommodationReservationDTO();
+        public AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+
+        private Range _selectedDate=new Range();
+
+        public Range selectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                _selectedDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AvailableDatesWindow(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             InitializeComponent();
             this.DataContext = this;
-            //accommodationReservationDTO=new AccommodationReservationDTO();
-            //accommodationReservation = accommodationReservationDTO.ToAccommodationReservation();
+            selectedReservation = new AccommodationReservationDTO();
+            selectedReservation = accommodationReservation;
+            Dates = new ObservableCollection<Range>(dates.Select(r => new Range { InitialDate = r.Item1, EndDate = r.Item2 }).ToList());
+          
+            CheckSixMonthsAvailability(Dates);
 
-            
-
-            Dates = new ObservableCollection<Range>(dates.Select(r => new Range {InitialDate = r.Item1, EndDate= r.Item2 }).ToList());
         }
-        
+        private void CheckSixMonthsAvailability(IEnumerable<Range> dates)
+        {
+            bool anyAvailable = dates.Any(date => date.InitialDate <= DateTime.Now.AddMonths(6));
+
+            if (!anyAvailable)
+            {
+                MessageBox.Show("There are no available dates for the next 6 months.");
+                this.Close();
+            }
+            else
+            {
+                selectedDate = new Range { InitialDate = dates.First().InitialDate, EndDate = dates.First().EndDate };
+            }
+        }
 
         public class Range
         {
             public DateTime InitialDate { get; set; }
             public DateTime EndDate { get; set; }
         }
-        private void BookAccommodationButton(object sender, RoutedEventArgs e)
+
+        private void BookAccommodationClick(object sender, RoutedEventArgs e)
         {
             
-
+             selectedReservation.InitialDate = selectedDate.InitialDate;
+             selectedReservation.EndDate = selectedDate.EndDate; 
+                    
+             accommodationReservationRepository.Add(selectedReservation.ToAccommodationReservation());
+             MessageBox.Show("Reservation added successfully");
+             this.Close();
         }
-        private void CancelButton(object sender, RoutedEventArgs e)
+
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -61,6 +84,5 @@ namespace BookingApp.View.Guest
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }
