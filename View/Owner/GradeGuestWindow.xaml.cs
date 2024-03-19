@@ -50,7 +50,7 @@ namespace BookingApp.View.Owner
         }
 
 
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             int cleanness = GetSelectedRadioButtonValue(Cleanness);
             int followingRules = GetSelectedRadioButtonValue(FollowingTheRules);
@@ -69,7 +69,7 @@ namespace BookingApp.View.Owner
 
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

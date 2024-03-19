@@ -65,23 +65,17 @@ namespace BookingApp.Model
             Id = int.Parse(values[0]);
             Name = values[1];
             IdLocation = int.Parse(values[2]);
-            if (values[3] == "APARTMENT")
-            {
+            if (values[3] == "APARTMENT"){
                 AccommodationType = AccommodationType.APARTMENT;
             }
-            else if (values[3] == "HOUSE")
-            {
+            else if (values[3] == "HOUSE"){
                 AccommodationType = AccommodationType.HOUSE;
-            }
-            else if (values[3] == "CABIN")
-            {
+            } else{ // if (values[3] == "CABIN")          
                 AccommodationType = AccommodationType.CABIN;
             }
             Capacity = int.Parse(values[4]);
             MinStayDays = int.Parse(values[5]);
             CancellationPeriod = int.Parse(values[6]);
-            
-
         }
     }
 }

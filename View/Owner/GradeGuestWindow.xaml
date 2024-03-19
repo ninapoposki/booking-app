@@ -77,8 +77,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="388,10,10,0">
-            <Button Content="Confirm" Margin="5" Padding="10,0" Click="ConfirmButton_Click" Width="100"/>
-            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButton_Click" Width="100"/>
+            <Button Content="Confirm" Margin="5" Padding="10,0" Click="ConfirmButtonClick" Width="100"/>
+            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButtonClick" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

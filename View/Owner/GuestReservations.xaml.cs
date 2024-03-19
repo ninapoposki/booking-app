@@ -63,28 +63,22 @@ namespace BookingApp.View.Owner
             }
         }
 
-        
+        /*
 
         private void GuestDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            
-            if (GuestDataGrid.SelectedItem != null)
-            {
+            if (GuestDataGrid.SelectedItem != null) {
                 
                 AccommodationReservationDTO selectedAccommodationReservation = (AccommodationReservationDTO)GuestDataGrid.SelectedItem;
+                int reservationId = guestGradeRepository.GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationReservation.Id)?.ReservationId ?? -1;
 
-                bool isGuestAlreadyGraded = IsGuestGraded(selectedAccommodationReservation.Id);
-
-                if (isGuestAlreadyGraded)
-                {
+                if (IsGuestGraded(reservationId)) {
+                   
                     MessageBox.Show("Guest is already graded.");
-                }
-                else
-                {
+                }else {
 
-                    bool TimeSpan = accommodationReservationRepository.IsOverFiveDays(selectedAccommodationReservation.ToAccommodationReservation());
-
-                    if (TimeSpan)
+                    if (accommodationReservationRepository.IsOverFiveDays(selectedAccommodationReservation.ToAccommodationReservation()))
                     {
                         GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(guestGradeRepository, selectedAccommodationReservation);
                         gradeGuestWindow.ShowDialog();
@@ -97,6 +91,47 @@ namespace BookingApp.View.Owner
                 }
             }
         }
+        */
+
+
+        private void GuestDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (GuestDataGrid.SelectedItem != null)
+            {
+
+                AccommodationReservationDTO selectedAccommodationReservation = (AccommodationReservationDTO)GuestDataGrid.SelectedItem;
+                int reservationId = guestGradeRepository.GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationReservation.Id)?.ReservationId ?? -1;
+
+                if (IsGuestGraded(reservationId))
+                {
+
+                    MessageBox.Show("Guest is already graded.");
+                }
+                else
+                {
+                    AreDatesValid(selectedAccommodationReservation);
+                   
+                }
+            }
+        }
+
+
+        private void AreDatesValid(AccommodationReservationDTO accommodationReservationDTO)
+        {
+            if(accommodationReservationDTO.EndDate >  DateTime.Now) {
+                MessageBox.Show("Guest stay has not finished yet!");
+            }
+            else { 
+                if (accommodationReservationRepository.IsOverFiveDays(accommodationReservationDTO.ToAccommodationReservation())) {
+                    GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(guestGradeRepository, accommodationReservationDTO);
+                    gradeGuestWindow.ShowDialog();
+                } else {
+
+                    MessageBox.Show("Grading is not possible, it has been more than 5 days.");
+                }
+            }
+        }
 
         private bool IsGuestGraded(int reservationId)
         {
@@ -105,7 +140,7 @@ namespace BookingApp.View.Owner
         }
 
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
