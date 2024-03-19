@@ -14,7 +14,7 @@ namespace BookingApp.DTO
     public class AccommodationReservationDTO : INotifyPropertyChanged
     {
         public int Id { get; set; }
-        //User
+
         private AccommodationDTO accommodation; 
         public AccommodationDTO Accommodation
         {
@@ -29,12 +29,11 @@ namespace BookingApp.DTO
                     accommodation=value;
                     OnPropertyChanged("Accommodation");
                 }
-
             }
 
         }
 
-        private int accommodationId; //da li je neophodno?
+        private int accommodationId; 
         public int AccommodationId
         {
             get
@@ -50,8 +49,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-
 
         private int guestId;
 
@@ -74,31 +71,6 @@ namespace BookingApp.DTO
         public GuestDTO Guest { get; set; }
 
 
-/*
-      private Guest guest; //da li je neophodno?
-
-        public Guest gGuest
-        {
-            get
-            {
-                return guest;
-            }
-            set
-            {
-                if (value != guest)
-                {
-                    guest = value;
-                    OnPropertyChanged("gGuest");
-                }
-            }
-
-        }
-       
-        */
-       
-
-
-
         private DateTime initialDate=DateTime.Now;
         public DateTime InitialDate
         {
@@ -115,9 +87,9 @@ namespace BookingApp.DTO
                 }
 
             }
-
         }
-        //public Guest GGuest { get; set; }
+     
+
         private DateTime endDate=DateTime.Now;
         public DateTime EndDate
         {
@@ -150,7 +122,6 @@ namespace BookingApp.DTO
                     daysToStay = value;
                     OnPropertyChanged("DaysToStay");
                 }
-
             }
         }
         private int numberOfGuests;
@@ -167,7 +138,6 @@ namespace BookingApp.DTO
                     numberOfGuests = value;
                     OnPropertyChanged("NumberOfGuests");
                 }
-
             }
         }
 
@@ -189,12 +159,10 @@ namespace BookingApp.DTO
             accommodationReservation.DaysToStay= this.DaysToStay;
             accommodationReservation.NumberOfGuests= this.NumberOfGuests;
 
-
-
             return accommodationReservation;
         }
 
-        public AccommodationReservationDTO(AccommodationReservation reservation) //ili je bolje samo accommodationReservation
+        public AccommodationReservationDTO(AccommodationReservation reservation) 
         {
             Id= reservation.Id;
             GuestId = reservation.GuestId;
@@ -204,7 +172,6 @@ namespace BookingApp.DTO
             EndDate= reservation.EndDate;
             DaysToStay = reservation.DaysToStay;   
             NumberOfGuests = reservation.NumberOfGuests;
-
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -217,7 +184,5 @@ namespace BookingApp.DTO
             }
 
         }
-
-
     }
 }

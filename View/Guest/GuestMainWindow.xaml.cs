@@ -17,7 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-//using BookingApp.DTO;
 using System.Diagnostics.Metrics;
 using System.Diagnostics.Eventing.Reader;
 
@@ -94,57 +93,62 @@ namespace BookingApp.View.Guest
 
             return AllAccommodations
                 .Where(accommodation =>
-                    IsNameValid(accommodation, nameFilter) &&
-                    IsCityValid(accommodation, cityFilter) &&
-                    IsCountryValid(accommodation, countryFilter) &&
-                    IsTypeValid(accommodation, selectedType) &&
-                    IsGuestNumberValid(accommodation) &&
-                    AreStayDaysValid(accommodation)
+                    IsAccommodationValid(accommodation,nameFilter,selectedType)&&
+                    IsLocationValid(accommodation,cityFilter,countryFilter) &&
+                    IsAccommodationOccupancyValid(accommodation)
                 )
                 .ToList();
         }
 
-        //provera naziva
+        private bool IsAccommodationValid(AccommodationDTO accommodation, string nameFilter, AccommodationType? selectedType)
+        {
+            return IsNameValid(accommodation, nameFilter) && IsTypeValid(accommodation, selectedType);
+        }
+
+
         private bool IsNameValid(AccommodationDTO accommodation, string nameFilter)
         {
             return string.IsNullOrEmpty(nameFilter) || accommodation.Name.ToLower().Contains(nameFilter);
         }
 
-        //provera grada
+        private bool IsLocationValid(AccommodationDTO accommodation, string cityFilter, string countryFilter) 
+        {
+            return IsCityValid(accommodation, cityFilter) && IsCountryValid(accommodation, countryFilter);
+        }
+
+
         private bool IsCityValid(AccommodationDTO accommodation, string cityFilter)
         {
             return string.IsNullOrEmpty(cityFilter) || accommodation.Location.City.ToLower().Contains(cityFilter);
         }
 
-        //provera drzave
         private bool IsCountryValid(AccommodationDTO accommodation, string countryFilter)
         {
             return string.IsNullOrEmpty(countryFilter) || accommodation.Location.Country.ToLower().Contains(countryFilter);
         }
-        //provera tipa
 
         private bool IsTypeValid(AccommodationDTO accommodation, AccommodationType? selectedType)
         {
             return selectedType == null || accommodation.AccommodationType == selectedType;
         }
 
-        //provera broja gostiju
+        private bool IsAccommodationOccupancyValid(AccommodationDTO accommodation)
+        {
+            return IsGuestNumberValid(accommodation) && AreStayDaysValid(accommodation);
+        }
+
         private bool IsGuestNumberValid(AccommodationDTO accommodation)
         {
             int.TryParse(NumberOfGuestsTextBox.Text, out int numberOfGuestsParsed);
             return numberOfGuestsParsed == 0 || accommodation.Capacity >= numberOfGuestsParsed;
         }
-        //provera dana boravka
         private bool AreStayDaysValid(AccommodationDTO accommodation)
         {
             double.TryParse(NumberOfDaysToStayTextBox.Text, out double stayDaysParsed);
             return stayDaysParsed == 0 || accommodation.MinStayDays <= stayDaysParsed;
         }
 
-
-
-
-        private void BookAccommodationButton(object sender, RoutedEventArgs e)
+        private void BookAccommodationClick(object sender, RoutedEventArgs e)
         {
             if (SelectedAccommodation != null)
             {
@@ -158,7 +162,7 @@ namespace BookingApp.View.Guest
         }
 
 
-        private void CancelButton(object sender, RoutedEventArgs e)
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
