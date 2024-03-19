@@ -68,12 +68,7 @@ namespace BookingApp.View.Tourist
         private void GetTours()
         {
             AllTours.Clear();
-            var allImages = imageRepository.GetAll()
-                                    .Where(img => img.EntityType == EntityType.TOUR)
-                                    .Select(img => new ImageDTO(img))
-                                    .ToList();
-
-
+            var allImages = imageRepository.GetAll().Where(img => img.EntityType == EntityType.TOUR).Select(img => new ImageDTO(img)).ToList();
             foreach (var tour in tourRepository.GetAll())
             {
                 var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
@@ -194,7 +189,7 @@ namespace BookingApp.View.Tourist
 
         private bool IsMatchPeopleCount(TourDTO tour, int peopleCount)
         {
-            return peopleCount < 0 || (tour.Capacity >= peopleCount && peopleCount > 0);
+            return peopleCount <= 0 || tour.Capacity >= peopleCount;
         }
 
         private void UpdateTourDataGrid(List<TourDTO> tours)
@@ -237,21 +232,34 @@ namespace BookingApp.View.Tourist
 
         private void ShowAvailableToursOnSameLocation()
         {
-            var locationId = SelectedTour.LocationId;
-            var availableTours = AllTours.Where(tour => tour.LocationId == locationId && tour.Capacity > 0).ToList();
+            var availableTours = GetAvailableToursOnSameLocation();
 
-            if (availableTours.Count == 0)
+            if (!availableTours.Any())
             {
                 ShowMessage("Nema dostupnih tura na ovoj lokaciji.");
                 return;
             }
 
-
-            var availableTourWindow = new AvailableTourWindow(availableTours);
-            availableTourWindow.Show();
-
+            ShowAvailableTourWindow(availableTours);
         }
 
+        private List<TourDTO> GetAvailableToursOnSameLocation()
+        {
+            return AllTours
+                .Where(tour => IsTourAvailableOnSameLocation(tour))
+                .ToList();
+        }
+
+        private bool IsTourAvailableOnSameLocation(TourDTO tour)
+        {
+            return tour.LocationId == SelectedTour?.LocationId && tour.Capacity > 0;
+        }
+
+        private void ShowAvailableTourWindow(List<TourDTO> availableTours)
+        {
+            var availableTourWindow = new AvailableTourWindow(availableTours);
+            availableTourWindow.Show();
+        }
 
 
     }
