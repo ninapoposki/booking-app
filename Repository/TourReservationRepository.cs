@@ -89,9 +89,6 @@ namespace BookingApp.Repository
         {
             int newId = NextId(); 
             TourReservation newReservation = new TourReservation(newId, tourStartDateId, userId, numberOfPeople);
-
-          
-
             tourReservations.Add(newReservation);
             serializer.ToCSV(FilePath, tourReservations); 
             subject.NotifyObservers();

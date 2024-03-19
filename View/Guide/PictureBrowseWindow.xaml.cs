@@ -35,19 +35,25 @@ namespace BookingApp.View.Guide
             LoadImages();
         }
 
-        public void LoadImages()
-        {
-            Images.Clear();
-            foreach(Image image in imageRepository.GetAll())
+            public void LoadImages()
             {
-                Images.Add(new ImageDTO(image));
+                Images.Clear();
+                foreach (Image image in imageRepository.GetAll())
+                {
+                bool isAvailable = image.EntityId == -1 && image.EntityType.ToString().Equals("NONE");
+                    if (isAvailable)
+                    {
+                        Images.Add(new ImageDTO(image));
+                    }
+                }
             }
-        }
-
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("You added a picture!");
-            this.Close();
-        }
+          private void ConfirmClick(object sender, RoutedEventArgs e)
+          {
+            if (selectedImage != null)
+            {
+                MessageBox.Show("You added a picture!");
+                this.Close();
+            }
+          }
     }
 }
