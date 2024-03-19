@@ -31,7 +31,9 @@ namespace BookingApp.DTO
             }
         }
 
+
         public int EntityId { get; set; }
+
 
 
         private EntityType entityType;
@@ -58,7 +60,8 @@ namespace BookingApp.DTO
         {
 
 
-            return new Image(Id, path, EntityId, entityType);
+            return new Image(Id, path,EntityId,entityType);
+
         }
 
         public ImageDTO() { }
@@ -67,7 +70,9 @@ namespace BookingApp.DTO
         public ImageDTO(Image image)
         {
             Id = image.Id;
-            Path = image.Path;
+
+            Path=image.Path;
+
             EntityId = image.EntityId;
             EntityType = image.EntityType;
         }
@@ -79,4 +84,5 @@ namespace BookingApp.DTO
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
+
 

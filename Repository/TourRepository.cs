@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.DTO;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -68,8 +69,8 @@ namespace BookingApp.Repository
             int index = tours.IndexOf(current);
             tours.Remove(current);
             tours.Insert(index, tour);       // keep ascending order of ids in file 
-            serializer.ToCSV(FilePath, tours);
-            subject.NotifyObservers();
+           serializer.ToCSV(FilePath, tours);
+           subject.NotifyObservers();
             return tour;
         }
 
@@ -82,6 +83,18 @@ namespace BookingApp.Repository
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
+        }
+
+
+        public int GetCurrentId()
+        {
+            if (tours.Count == 0) return 1;
+            return tours.Max(t => t.Id);
+        }
+        public Tour? GetById(int id)
+        {
+            return tours.Find(s => s.Id == id);
+
         }
     }
 }

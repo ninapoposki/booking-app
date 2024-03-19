@@ -56,9 +56,9 @@
         </Grid>
 
         <WrapPanel Grid.Row="1"  FlowDirection="LeftToRight" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="200,0,0,0" >
-            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="TryToBookButton" Margin="20,5">Try to book</Button>
+            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="TryToBookClick" Margin="20,5">Try to book</Button>
 
-            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CancelButton" Margin="20,5">Cancel</Button>
+            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CancelClick" Margin="20,5">Cancel</Button>
 
         </WrapPanel>
         

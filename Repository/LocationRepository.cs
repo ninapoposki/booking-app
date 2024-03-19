@@ -29,12 +29,13 @@ namespace BookingApp.Repository
         {
             return serializer.FromCSV(FilePath);
         }
-        
+
         public Location GetById(int id)
         {
             locations = serializer.FromCSV(FilePath);
             return locations.Find(i => i.Id == id);
         }
+
     }
 }
 

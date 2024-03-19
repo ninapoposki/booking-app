@@ -11,6 +11,7 @@ namespace BookingApp.DTO
 {
     public class LocationDTO : INotifyPropertyChanged
     {
+       
         public int Id { get; set; }
 
         private string city;
@@ -50,7 +51,7 @@ namespace BookingApp.DTO
 
 
                     country = value;
-                    OnPropertyChanged("Counrty");
+                    OnPropertyChanged("Country");
                 }
             }
         }
