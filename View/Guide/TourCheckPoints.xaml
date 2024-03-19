@@ -12,7 +12,9 @@
                 <TextBlock x:Name="CheckPointName" FontSize="20" FontWeight="Bold" Margin="200 10 0 10" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Content="Next Checkpoint" Width="100" Margin="10" Click="NextCheckPointClick"></Button>
             </StackPanel>
-        <ListBox x:Name="TouristList" Margin="10" Height="200" Width="500" ItemsSource="{Binding guests}" SelectionMode="Multiple">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" TextAlignment="Center">Waiting for following tourists to arrive:</TextBlock>
+                <ListBox x:Name="TouristList" Margin="10" Height="200" Width="500" ItemsSource="{Binding guests}" SelectionMode="Multiple">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -25,6 +27,7 @@
             </ListBox>
             <Button Content="Mark as Present" Width="100" Margin="10" Click="MarkAsPresentClick"/>
             <Button x:Name="EndName" Content="End tour" Width="100" Margin="10" Click="EndTourClick"/>
+        </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

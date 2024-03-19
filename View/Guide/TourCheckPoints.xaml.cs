@@ -37,7 +37,8 @@ namespace BookingApp.View.Guide
         public List<CheckPointDTO> toursCheckPoints {  get; set; }
         private CheckPointRepository checkPointRepository;
         private CheckPointDTO currentCheckPoint;
-        //private TourStartDate tourStart;
+        private TourStartDate tourStart;
+        
         public TourCheckPoints(TourStartDateDTO selectedStartDate)
         {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace BookingApp.View.Guide
             guests =new ObservableCollection<TourGuestDTO>();
 
 
-            TourStartDate tourStart = this.selectedStartDate.ToTourStartDate();
+            tourStart = this.selectedStartDate.ToTourStartDate();
             tourStart.HasStarted= true;
             tourStartDateRepository.Update(tourStart);
             tourId = this.selectedStartDate.TourId;
@@ -82,15 +83,19 @@ namespace BookingApp.View.Guide
             List<TourReservation> tourReservations = tourReservationRepository.GetByTourDateId(selectedStartDate.Id);
             foreach(TourReservation reservation in tourReservations)
             {
-                foreach(TourGuest guest in tourGuestRepository.GetAll())
-                {
-                    if (guest.TourReservationId == reservation.Id && guest.CheckPointId==-1)
-                    {
-                        guests.Add(new TourGuestDTO(guest));
-                    }
-                }
+               GetTourGuests(reservation);
             }
 
+        }
+        private void GetTourGuests(TourReservation reservation)
+        {
+            foreach (TourGuest guest in tourGuestRepository.GetAll())
+            {
+                if (guest.TourReservationId == reservation.Id && guest.CheckPointId == -1)
+                {
+                    guests.Add(new TourGuestDTO(guest));
+                }
+            }
         }
         private void MarkAsPresentClick(object sender, RoutedEventArgs e)
         {
@@ -111,18 +116,18 @@ namespace BookingApp.View.Guide
                 UpdateUI();
                 LoadTourists();
             }
-            else if(currentCheckPointIndex + 1 == toursCheckPoints.Count && String.Equals(currentCheckPoint.Type,"END"))
-            { 
+        }
+        private void CheckAndFinishTour()
+        {
+            if (currentCheckPoint.Type == "END") {
+                MessageBox.Show("You reached last check point, tour ended!");
                 FinishingTour();
             }
-
         }
          private void FinishingTour()
          {
-                TourStartDate tourStart = selectedStartDate.ToTourStartDate();
                 tourStart.HasFinished = true;
                 tourStartDateRepository.Update(tourStart);
-                MessageBox.Show("Tour has ended");
                 Close();
             
          }
@@ -131,12 +136,16 @@ namespace BookingApp.View.Guide
             if(toursCheckPoints!=null && toursCheckPoints.Count > currentCheckPointIndex)
             {
                 currentCheckPoint = toursCheckPoints[currentCheckPointIndex];
-                CheckPointName.Text = currentCheckPoint.Name;
+                CheckPointName.Text = currentCheckPoint.Type + ":" +currentCheckPoint.Name;
+            }
+            if (currentCheckPointIndex + 1 == toursCheckPoints.Count) {
+                CheckAndFinishTour();
             }
          }
 
         private void EndTourClick(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Tour has ended");
             FinishingTour();
         }
     }

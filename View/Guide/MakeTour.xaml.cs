@@ -75,13 +75,11 @@ namespace BookingApp.View.Guide
         {  
             GetTourLocation();
             GetTourLanguage();
-
             if (!IsAdditionPossible())
             {
                 MessageBox.Show("All fields must be filled properly before adding the tour");
                 return;
             }
-              
                tourRepository.Add(TourDTO.ToTour());
                AddCheckPoints(tourRepository.GetCurrentId());
                AddTourStartDates(tourRepository.GetCurrentId());
