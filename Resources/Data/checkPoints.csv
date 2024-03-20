@@ -1,0 +1,13 @@
+1|Centar|1|START
+2|Jezero|1|STOP
+3|Reka|1|STOP
+4|Trzni centar|1|END
+5|Promenada|2|START
+6|Centar|2|STOP
+7|Dunavski park|2|END
+8|Centar|3|START
+9|Dunavksi|3|STOP
+10|Promenada|3|STOP
+11|Park|3|END
+12|Norreport|4|START
+13|Christiania|4|END

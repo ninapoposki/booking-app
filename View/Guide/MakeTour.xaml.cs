@@ -84,6 +84,7 @@ namespace BookingApp.View.Guide
                AddCheckPoints(tourRepository.GetCurrentId());
                AddTourStartDates(tourRepository.GetCurrentId());
                UpdateImages();
+            MessageBox.Show("Tour added successfully");
         }
         private void GetTourLocation()
         {
