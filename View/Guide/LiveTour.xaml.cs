@@ -56,10 +56,27 @@ namespace BookingApp.View.Guide
                 if (AreToursToday(tourStartDate))
                 {
                     TourDTO newTodayTour = GetTour(tourStartDate);
-                    Tours.Add(newTodayTour);
-                    newTodayTour.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tourStartDate.TourId));
+                    if (!AlreadyExist(newTodayTour.Id))
+                    {
+                        newTodayTour.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tourStartDate.TourId));
+                        Tours.Add(newTodayTour);
+                    }
                 }
             }
+        
+        }
+        
+
+        bool AlreadyExist(int newTourId)
+        {
+            foreach(var tour in Tours)
+            {
+                if(tour.Id == newTourId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         private TourDTO GetTour(TourStartDate tourDate) 
         {
