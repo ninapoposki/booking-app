@@ -78,8 +78,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Make reservation" Margin="5" Padding="10,0" Click="BookAccommodationButton" Height="34" Width="120" />
-            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButton" Width="89" />
+            <Button Content="Make reservation" Margin="5" Padding="10,0" Click="BookAccommodationClick" Height="34" Width="120" />
+            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelClick" Width="89" />
         </StackPanel>
     </Grid>
 </Window>

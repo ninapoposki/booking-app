@@ -35,8 +35,8 @@ namespace BookingApp.View.Guest
         public GuestRepository guestRepository=new GuestRepository();
  
        
-         public ReserveAccommodation(AccommodationDTO accommodationDTO)
-         {
+        public ReserveAccommodation(AccommodationDTO accommodationDTO)
+        {
             InitializeComponent();
             DataContext = this;
             accommodationReservationDTO=new AccommodationReservationDTO();
@@ -46,48 +46,81 @@ namespace BookingApp.View.Guest
             guestRepository = new GuestRepository(); 
             accommodationReservationDTO.AccommodationId = accommodationDTO.Id; 
 
-         }
+        }
 
-
-        private void TryToBookButton(object sender, RoutedEventArgs e)
+        private void TryToBookClick(object sender, RoutedEventArgs e)
         {
-            accommodationReservation=accommodationReservationDTO.ToAccommodationReservation();
-            selectedAccommodation=selectedAccommodationDTO.ToAccommodation();
-            if (accommodationReservationRepository.isValid(accommodationReservation, selectedAccommodation))
+            accommodationReservation = accommodationReservationDTO.ToAccommodationReservation();
+            selectedAccommodation = selectedAccommodationDTO.ToAccommodation();
+            if (!IsGuestDataValid())
             {
-                if (accommodationReservationRepository.AreDatesAvailable(accommodationReservation.InitialDate, accommodationReservation.EndDate, selectedAccommodation.Id))
-                {
-                    guestDTO.UserId = userRepository.GetCurrentGuestUserId();
-                    guestRepository.Add(guestDTO.ToGuest());
-                    accommodationReservationDTO.GuestId = guestRepository.GetCurrentId();
-                    accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation());
-                    MessageBox.Show("Reservation added successfully");
-                    this.Close();
-
-
-                }
-                else
-                {
-                    MessageBox.Show("The requested dates are not available. Here are some alternative options.");
-                    //DateTime startDate, DateTime endDate, int accommodationId, int requiredStayDays
-                    List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindAvailableDates(accommodationReservation.InitialDate, accommodationReservation.EndDate, selectedAccommodation.Id, accommodationReservation.DaysToStay);
-
-                    var dialog = new AvailableDatesWindow(dates);
-                    dialog.ShowDialog();
-                }
-
+                return; 
             }
-            else {
-                MessageBox.Show("The data you entered is not valid");
-                this.Close();
-            }
-            
-            
 
+            if (accommodationReservationRepository.IsValid(accommodationReservation, selectedAccommodation))
+            {   
+                CheckReservationAvailability();
+            }
+            else
+            {
+                HandleInvalidData();
+            }            
+        }
+        private void CheckReservationAvailability()
+        {
+            if (accommodationReservationRepository.AreDatesAvailable(selectedAccommodation.Id, accommodationReservation.InitialDate, accommodationReservation.EndDate))
+            {
+                ProcessValidReservation();
+            }
+            else
+            {
+                HandleUnavailableDates();
+            }
+        }
+
+        private bool IsGuestDataValid()
+        {
+            if (string.IsNullOrWhiteSpace(guestDTO.FirstName) || string.IsNullOrWhiteSpace(guestDTO.LastName))
+            {
+                MessageBox.Show("Please enter guest information (first name and last name) before booking.");
+                return false;
+            }
+            return true;
         }
 
 
-        private void CancelButton(object sender, RoutedEventArgs e)
+        private void ProcessValidReservation()
+        {
+            guestDTO.UserId = userRepository.GetCurrentGuestUserId();
+            guestRepository.Add(guestDTO.ToGuest());
+            accommodationReservationDTO.GuestId = guestRepository.GetCurrentId();
+            accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation());
+            MessageBox.Show("Reservation added successfully");
+            this.Close();
+        }
+
+        private void HandleUnavailableDates()
+        {
+            MessageBox.Show("The requested dates are not available. Here are some alternative options.");
+            List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindAlternativeDates(accommodationReservation, selectedAccommodation.Id);
+            guestDTO.UserId = userRepository.GetCurrentGuestUserId();
+            guestRepository.Add(guestDTO.ToGuest());
+            accommodationReservationDTO.GuestId = guestRepository.GetCurrentId();
+            var dialog = new AvailableDatesWindow(dates, accommodationReservationDTO);
+            dialog.Closed += (sender, args) =>
+            {
+                this.Close();
+            };
+            dialog.ShowDialog();
+        }
+
+        private void HandleInvalidData()
+        {
+            MessageBox.Show("The data you entered is not valid");
+            this.Close();
+        }
+
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

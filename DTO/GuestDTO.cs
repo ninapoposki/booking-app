@@ -40,7 +40,6 @@ namespace BookingApp.DTO
         }
 
         private string firstName;
-
         public string FirstName
         {
             get { return firstName; }
@@ -98,7 +97,6 @@ namespace BookingApp.DTO
 
 
         private User user { get; set; }
-
         public User User
         {
             get { return user; }
@@ -129,7 +127,6 @@ namespace BookingApp.DTO
 
         public GuestDTO() { }
 
-        //d ali GuestDTO da prosledjujem i User user
         public GuestDTO(Guest guest)
         {
 
@@ -138,7 +135,7 @@ namespace BookingApp.DTO
             LastName=guest.LastName;
             PhoneNumber = guest.PhoneNumber;
             Email = guest.Email;
-            User=guest.User; //ovde proveri da li se prosledjuje ili ovako,ako se prosledjueje onda kao po lokaciji radis
+            User=guest.User; 
             UserId = guest.UserId;
         }
         public Guest ToGuest()
@@ -147,7 +144,6 @@ namespace BookingApp.DTO
 
             guest.Id = this.Id;
             guest.FirstName = this.FirstName;
-            // accommodationReservation.Accommodation = this.Accommodation;-ne ide ovo,samo id
             guest.LastName = this.LastName;
             guest.PhoneNumber = this.PhoneNumber;
             guest.Email = this.Email;
@@ -156,7 +152,6 @@ namespace BookingApp.DTO
 
             return guest;
         }
-
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -30,7 +30,7 @@ namespace BookingApp.Repository
         {
             if (_users.Count == 0) return 1;
             return _users[1].Id;
-
+        }
         public int GetCurrentUserId()
         {
 
