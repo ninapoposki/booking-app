@@ -31,12 +31,16 @@ namespace BookingApp.View.Owner
         public AccommodationRepository accommodationRepository { get; set; }
         private ImageRepository imageRepository {  get; set; }
         private LocationRepository locationRepository {  get; set; }
+
+        private UserRepository userRepository { get; set; }
         public ObservableCollection<AccommodationType> Types { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
 
         private ImageDTO selectedImage;
         public List<ImageDTO> Images { get; set; }
-        public AddAccommodation(AccommodationRepository accommodationRepository)
+
+        private User currentUser;
+        public AddAccommodation(AccommodationRepository accommodationRepository, string currentUserUsername)
         {
             InitializeComponent();
             DataContext = this;
@@ -55,8 +59,12 @@ namespace BookingApp.View.Owner
             Types = new ObservableCollection<AccommodationType>(type);
              LoadLocations();
 
-           
-    }
+           userRepository = new UserRepository();
+           // currentUser = userRepository.GetByUserId(currentUserId);
+          // currentUser.Id = currentUserId;
+          currentUser = userRepository.GetByUsername(currentUserUsername);
+
+        }
 
        
         private void LoadLocations()
@@ -84,8 +92,9 @@ namespace BookingApp.View.Owner
             LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
 
             if (selectedLocation != null) Accommodation.IdLocation = selectedLocation.Id;
-          
-            
+
+            Accommodation.OwnerId = currentUser.Id;
+
             if (Accommodation.IsValid) {
                 MessageBox.Show("Dodavanje smeštaja");
                
