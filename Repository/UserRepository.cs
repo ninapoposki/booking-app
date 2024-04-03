@@ -38,5 +38,7 @@ namespace BookingApp.Repository
             return _users.Max(t => t.Id);
 
         }
+
+       
     }
 }

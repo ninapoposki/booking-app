@@ -28,29 +28,37 @@ namespace BookingApp.View.Owner
 
         public Comment SelectedComment { get; set; }
 
-        public User LoggedInUser { get; set; }
+        private User LoggedInUser;
+        private string loggedInUserUsername;
+        public OwnerDTO OwnerDTO { get; set; }
 
         private readonly CommentRepository _repository;
 
         private readonly LocationRepository locationRepository;
+        private readonly UserRepository userRepository;
+        private readonly OwnerRepository ownerRepository;
 
         public readonly AccommodationRepository accommodationRepository;
         public ObservableCollection<AccommodationDTO> AllAccommodation { get; set; }
 
-        public OwnerMainWindow(User user)
+        public OwnerMainWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            LoggedInUser = user;
-            _repository = new CommentRepository();
-            Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
 
             locationRepository = new LocationRepository(); 
             accommodationRepository = new AccommodationRepository();
+            userRepository = new UserRepository();
+            ownerRepository = new OwnerRepository();
             AllAccommodation = new ObservableCollection<AccommodationDTO>();
             var Accoms = accommodationRepository.GetAll();
             AccommodationDataGrid.ItemsSource = Accoms;
             accommodationRepository.Subscribe(this);
+
+            LoggedInUser  = userRepository.GetByUsername(username);
+            loggedInUserUsername = username;
+            
+
             Update();
 
         }
@@ -63,21 +71,24 @@ namespace BookingApp.View.Owner
                 Location location = locationRepository.GetById(acc.IdLocation);
                 AllAccommodation.Add(new AccommodationDTO(acc, location));
 
-                      /*  AccommodationDTO accommodationDTO = new AccommodationDTO(acc, location);
-                        //dodato
-                        if (acc.Images.Any())
-                    {
-                        accommodationDTO.Path = acc.Images.First().Path;
-                    }
-
-                    AllAccommodation.Add(accommodationDTO);*/
+                      
               }
+               OwnerDTO = new OwnerDTO();
+
+              var owner = ownerRepository.GetByUserId(LoggedInUser.Id);
+
+              OwnerDTO.User = LoggedInUser;
+
+                OwnerDTO = new OwnerDTO(owner);
+          
         }
 
 
         private void AddAccommodationClick(object sender, RoutedEventArgs e)
         {
-            AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository);
+            
+            
+            AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository, loggedInUserUsername);
             addAccommodationWindow.ShowDialog();
 
         }
