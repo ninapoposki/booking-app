@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="AvailableDatesWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Dates}" AutoGenerateColumns="False" CanUserAddRows="False" Width="500" Height="300">
+       <!-- <DataGrid ItemsSource="{Binding Dates}" AutoGenerateColumns="False" CanUserAddRows="False" Width="500" Height="300">-->
+        <DataGrid ItemsSource="{Binding Dates}" AutoGenerateColumns="False" CanUserAddRows="False" Width="500" Height="300"
+          SelectedItem="{Binding selectedDate, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Initial Date" Binding="{Binding  InitialDate}" Width="*" />
                 <DataGridTextColumn Header="End Date" Binding="{Binding   EndDate}" Width="*" />
