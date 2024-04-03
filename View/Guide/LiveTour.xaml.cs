@@ -30,6 +30,7 @@ namespace BookingApp.View.Guide
         private TourStartDateRepository tourStartDateRepository;
         private LocationRepository locationRepository;
         private LanguageRepository languageRepository;
+        private TourReservationRepository tourReservationRepository;
         public TourDTO SelectedTour { get; set; }
        
         public LiveTour()
@@ -43,6 +44,7 @@ namespace BookingApp.View.Guide
             tourStartDateRepository = new TourStartDateRepository();
             locationRepository = new LocationRepository();
             languageRepository = new LanguageRepository();
+            tourReservationRepository = new TourReservationRepository();
 
             LoadTodaysTours();
         }
@@ -51,21 +53,24 @@ namespace BookingApp.View.Guide
         {
             foreach(TourStartDate tourStartDate in tourStartDateRepository.GetAll())
             {
-                if (tourStartDate.StartTime.Date == DateTime.Now.Date && tourStartDate.HasStarted==false && tourStartDate.HasFinished==false)
+                if (AreToursToday(tourStartDate))
                 {
-                    int id = tourStartDate.TourId;
-
-                    Tour? todayTour = tourRepository.GetById(id);
-                    Location location = locationRepository.GetById(todayTour.LocationId);
-                    Language language = languageRepository.GetById(todayTour.LanguageId);
-
-                    var newTodayTour = new TourDTO(todayTour, location, language);
+                    TourDTO newTodayTour = GetTour(tourStartDate);
                     Tours.Add(newTodayTour);
-                    newTodayTour.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(id));
+                    newTodayTour.DateTimes = new ObservableCollection<TourStartDateDTO>(UpdateDate(tourStartDate.TourId));
                 }
             }
-
-           
+        }
+        private TourDTO GetTour(TourStartDate tourDate) 
+        {
+            Tour? todayTour = tourRepository.GetById(tourDate.TourId);
+            Location location = locationRepository.GetById(todayTour.LocationId);
+            Language language = languageRepository.GetById(todayTour.LanguageId);
+            return new TourDTO(todayTour, location, language);
+        }
+        private bool AreToursToday(TourStartDate tourStart)
+        {
+            return tourStart.StartTime.Date == todayDate && tourStart.HasStarted == false && tourStart.HasFinished == false;
         }
         private IEnumerable<TourStartDateDTO> UpdateDate(int tourId)
         {
@@ -91,9 +96,7 @@ namespace BookingApp.View.Guide
                 }
             }
         }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -102,8 +105,20 @@ namespace BookingApp.View.Guide
 
         private void StartTourClick(object sender, RoutedEventArgs e)
         {
+            if (!DoReservationExist())
+            {
+                MessageBox.Show("There are no reservations for selected tour and date");
+                return;
+            }
             TourCheckPoints tourCheckPoints = new TourCheckPoints(SelectedTour.SelectedDateTime);
+            tourCheckPoints.Owner = this;
+            tourCheckPoints.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             tourCheckPoints.Show();
+           
+        }
+        private bool DoReservationExist()
+        {
+            return tourReservationRepository.GetByTourDateId(SelectedTour.SelectedDateTime.Id).Count>0;
         }
     }
 }
