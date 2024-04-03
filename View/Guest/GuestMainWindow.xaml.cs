@@ -60,7 +60,6 @@ namespace BookingApp.View.Guest
                                     .Where(img => img.EntityType == EntityType.ACCOMMODATION)
                                     .Select(img => new ImageDTO(img))
                                     .ToList();
-
             foreach (var accommodation in accommodationRepository.GetAll())
             {
                 var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == accommodation.Id).ToList());

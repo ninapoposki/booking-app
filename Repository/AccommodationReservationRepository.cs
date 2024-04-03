@@ -56,11 +56,10 @@ namespace BookingApp.Repository
         {
             List<(DateTime, DateTime)> availablePeriods = new List<(DateTime, DateTime)>();
             DateTime endRange = DateTime.Now.AddMonths(6);
-
             for (DateTime start = reservation.InitialDate; start <= endRange; start = start.AddDays(1))
             {
                 DateTime end = start.AddDays(reservation.DaysToStay - 1);
-                if (AreDatesAvailable(accommodationId, start, end))
+                if (AreDatesAvailable(accommodationId, start, end) && !IsRangeOverlappingWithReservations(reservation, accommodationId, start, end))
                 {
                     availablePeriods.Add((start, end));
                 }
@@ -69,13 +68,84 @@ namespace BookingApp.Repository
             return availablePeriods;
         }
 
+        private bool IsRangeOverlappingWithReservations(AccommodationReservation reservation, int accommodationId, DateTime start, DateTime end)
+        {
+            foreach (var existingReservation in GetReservationsForAccommodation(accommodationId))
+            {
+                if (IsRangeOverlapping(reservation, start, end) || IsDateRangeOverlapping(existingReservation, start, end))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsDateRangeOverlapping(AccommodationReservation reservation, DateTime start, DateTime end)
+        {
+            for (DateTime dateBetween = start.AddDays(1); dateBetween < end; dateBetween = dateBetween.AddDays(1))
+            {
+                if (IsDateOverlapping(reservation, dateBetween))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+        public List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId)
+        {
+            List<(DateTime, DateTime)> availablePeriods = new List<(DateTime, DateTime)>();
+            List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+            reservations.Sort((a, b) => a.InitialDate.CompareTo(b.EndDate));
+            DateTime startDate = reservation.InitialDate;
+            DateTime endDate = reservation.EndDate;
+            for (DateTime start = startDate; start < endDate; start = start.AddDays(1))
+            {
+                DateTime end = start.AddDays(reservation.DaysToStay - 1);
+                if (IsDateRangeAvailable(accommodationId, start, end) && end <= endDate)
+                {
+                    availablePeriods.Add((start, end));
+                }
+            }
+            return availablePeriods;
+        }
+        private bool IsDateRangeAvailable(int accommodationId, DateTime start, DateTime end)
+        {
+            List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
+            return reservations.All(r =>
+                r.AccommodationId != accommodationId ||
+                start >= r.EndDate ||
+                end <= r.InitialDate
+            );
+        }
+
+
+
+
         public bool AreDatesAvailable(int accommodationId, DateTime start, DateTime end)
         {
             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
             reservations.Sort((a, b) => a.InitialDate.CompareTo(b.EndDate));
-
-            return !reservations.Any(r => r.AccommodationId == accommodationId && IsRangeOverlapping(r, start, end));
+            bool allDatesOccupied = true; 
+            for (DateTime date = start; date <= end; date = date.AddDays(1))
+            {
+                bool isAvailable = !reservations.Any(r => r.AccommodationId == accommodationId && IsDateOverlapping(r, date));
+                if (isAvailable)
+                {
+                    allDatesOccupied = false; 
+                }
+            }
+            return !allDatesOccupied; 
         }
+
+        private bool IsDateOverlapping(AccommodationReservation reservation, DateTime date)
+        {
+            return date >= reservation.InitialDate && date <= reservation.EndDate;
+        }
+
 
         public bool IsRangeOverlapping(AccommodationReservation reservation, DateTime start, DateTime end)
         {
