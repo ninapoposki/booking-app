@@ -1,0 +1,105 @@
+﻿<Window x:Class="BookingApp.WPF.View.Tourist.TouristMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+        mc:Ignorable="d"
+        Title="Pretraga i izbor tura" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Grad:" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="CityTextBox" Grid.Column="1" Margin="5"/>
+
+            <Label Content="Država:" Grid.Column="2" Margin="5"/>
+            <TextBox x:Name="CountryTextBox" Grid.Column="3" Margin="5"/>
+
+            <Label Content="Broj dana:" Grid.Column="4" Margin="5"/>
+            <TextBox x:Name="DaysTextBox" Grid.Column="5" Margin="5"/>
+
+            <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
+            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+
+            <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
+            <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
+
+
+            <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />
+        </Grid>
+
+        <DataGrid Grid.Row="1" Margin="10,10,10,18" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" Grid.RowSpan="2">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="Regular"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Opis ture" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="*"/>
+                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
+
+
+                <DataGridTextColumn Header="Broj mjesta" Binding="{Binding Capacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Width="*"/>
+
+                <DataGridTemplateColumn Header="Datumi ture" Width="3*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" 
+                     SelectionMode="Single" 
+                     SelectedItem="{Binding Path=SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ListBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
+                <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="*"/>
+                <DataGridTemplateColumn Header="Slike" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding Images}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path}" Height="50" Margin="2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+
+            <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
+            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
+
+        </StackPanel>
+
+
+    </Grid>
+</Window>

@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BookingApp.DTO;
-using BookingApp.Model;
+using BookingApp.Domain.Model;
 using BookingApp.Repository;
 
 namespace BookingApp.DTO

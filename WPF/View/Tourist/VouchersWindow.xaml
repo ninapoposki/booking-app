@@ -1,0 +1,24 @@
+﻿<Window x:Class="BookingApp.WPF.View.Tourist.VouchersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+        mc:Ignorable="d"
+        Title="Vouchers" Height="350" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <DataGrid Margin="10,10,10,92" AutoGenerateColumns="False" x:Name="VouchersDataGrid" ItemsSource="{Binding Vouchers}" SelectionMode="Single" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Expiry Date" Binding="{Binding ExpiryDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="339,247,0,10" Width="251">
+            <Button Content="Primeni" Margin="5" Click="Apply" Height="32" Width="98"/>
+            <Button Content="Otkaži" Click="Cancel" Width="97" Height="33"/>
+        </StackPanel>
+    </Grid>
+</Window>
