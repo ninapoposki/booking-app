@@ -74,6 +74,27 @@ namespace BookingApp.Repository
         }
 
 
+        public List<Image> FilterImages()
+        {
+            images = serializer.FromCSV(FilePath);
+            List<Image> filteredImages = new List<Image>();
+            foreach (Image image in images)
+            {
+                if (image.EntityType.ToString().Equals("NONE") && image.EntityId == -1)
+                {
+                    filteredImages.Add(image);
+                }
+            }
+            return filteredImages;
+        }
+
+        public Image FindByPath(string path)
+        {
+            Image? image = GetAll().FirstOrDefault(i => i.Path == path);
+            return image;
+        }
+
+
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
