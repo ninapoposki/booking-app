@@ -1,6 +1,8 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.Guide;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,8 +38,8 @@ namespace BookingApp.View.Owner
         public ObservableCollection<AccommodationType> Types { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
 
-        private ImageDTO selectedImage;
-        public List<ImageDTO> Images { get; set; }
+        private ImageDTO SelectedImage;
+        public ObservableCollection<ImageDTO> Images { get; set; }
 
         private User currentUser;
         public AddAccommodation(AccommodationRepository accommodationRepository, string currentUserUsername)
@@ -47,8 +49,8 @@ namespace BookingApp.View.Owner
             Accommodation = new AccommodationDTO();
             this.accommodationRepository = accommodationRepository;
 
-            selectedImage = new ImageDTO();
-            Images = new List<ImageDTO>();
+            Images = new ObservableCollection<ImageDTO>();
+            SelectedImage = new ImageDTO();
             imageRepository = new ImageRepository();
 
 
@@ -82,12 +84,8 @@ namespace BookingApp.View.Owner
         
         private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
         {
-            
-            foreach (ImageDTO image in Images) {
-                image.EntityId = accommodationRepository.GetCurrentId();
-                image.EntityType = EntityType.ACCOMMODATION;
-                imageRepository.Update(image.ToImage());
-            }
+
+            UpdateImages();
 
             LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
 
@@ -114,13 +112,57 @@ namespace BookingApp.View.Owner
             this.Close();
         }
 
-       
-        private void BrowseAndLoadPictureClick(object sender, RoutedEventArgs e)
+        private void UpdateImages()
         {
-            PictureWindow pictureWindow = new PictureWindow();
-            pictureWindow.ShowDialog();
-            selectedImage = pictureWindow.selectedImage;
-            Images.Add(selectedImage);
+            int id = accommodationRepository.GetCurrentId();
+            foreach (ImageDTO image in Images)
+            {
+                image.EntityId = id;
+                image.EntityType = EntityType.ACCOMMODATION;
+                imageRepository.Update(image.ToImage());
+            }
+        }
+
+
+        private void BrowseImageClick(object sender, RoutedEventArgs e)
+        {
+            
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            foreach (Model.Image image in imageRepository.FilterImages())
+            {
+                filter += image.Path.Split("\\")[5] + ";";
+            }
+            filter = filter.TrimEnd(';');
+            openFileDialog.Filter = filter;
+
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Images"));
+            openFileDialog.ShowDialog();
+            AddImage(openFileDialog.FileName);
+        }
+        private void AddImage(string absolutePath)
+        {
+            string relativePath = MakeRelativePath(absolutePath);
+            Model.Image image = imageRepository.FindByPath(relativePath);
+            Images.Add(new ImageDTO(image));
+
+        }
+        private string MakeRelativePath(string absolutPath)
+        {
+            string referencePath = "..\\..\\..\\Resources\\Images\\";
+            string[] pathPieces = absolutPath.Split('\\');
+
+            string relativePath = referencePath + pathPieces[pathPieces.Length - 1];
+            return relativePath.Replace("/", "\\");
+        }
+        private void RemoveImageClick(object sender, RoutedEventArgs e)
+        {
+            if (SelectedImage != null)
+            {
+                Images.Remove(SelectedImage);
+
+            }
         }
 
 
