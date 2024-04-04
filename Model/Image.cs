@@ -34,7 +34,8 @@ namespace BookingApp.Model
             Id= Convert.ToInt32(values[0]);
             Path = values[1];
             EntityId = Convert.ToInt32(values[2]);
-            if (values[3] == "ACCOMMODATION")
+            //da za gostaizbacuje te slike
+            if (values[3] == "ACCOMMODATION") //ovde dodaj GUEST I TOUR da bi mogli da se prikaze
             {
                 EntityType= EntityType.ACCOMMODATION;
             }else if (values[3]=="TOUR"){
