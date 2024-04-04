@@ -66,5 +66,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\IRepositories\" />
+  </ItemGroup>
+
 
 </Project>
