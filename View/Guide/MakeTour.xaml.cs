@@ -194,7 +194,7 @@ namespace BookingApp.View.Guide
         private void AddDateClick(object sender, RoutedEventArgs e)
         {
             var selectedDate = datePicker.SelectedDate;
-            var time = TryTimeParse(timeTextBox.Text);
+            var time = TryTimeParse(Time);
             if (!selectedDate.HasValue || time == null)
             {
                 MessageBox.Show("Please select date and time in good format");
@@ -217,10 +217,7 @@ namespace BookingApp.View.Guide
         }
         private void RemoveDate(object sender, RoutedEventArgs e)
         {
-            if (SelectedDate != null)
-            {
-                TourStartDates.Remove(SelectedDate);
-            }
+                TourStartDates.Remove(SelectedDate);   
         }
         private void AddTourStartDates(int tourId)
         {
@@ -244,10 +241,11 @@ namespace BookingApp.View.Guide
         }
         private void BrowseImageClick(object sender, RoutedEventArgs e)
         {
-            
+            List<Model.Image> images = imageRepository.FilterImages();
+            if (images.Count()==0) return;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
-            foreach(Model.Image image in imageRepository.FilterImages())
+            foreach (Model.Image image in images)
             {
                 filter += image.Path.Split("\\")[5]+";";
             }
@@ -321,6 +319,19 @@ namespace BookingApp.View.Guide
                 {
                     checkPointName = value;
                     OnPropertyChanged("CheckPointName");
+                }
+            }
+        }
+        private string time;
+        public string Time
+        {
+            get { return time; }
+            set
+            {
+                if (time != value)
+                {
+                    time = value;
+                    OnPropertyChanged("Time");
                 }
             }
         }

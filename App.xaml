@@ -4,6 +4,18 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="View/SignInForm.xaml">
     <Application.Resources>
-         
+        <ControlTemplate x:Key="GlobalErrorTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red" Margin="5,0,0,0"/>
+            </Grid>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

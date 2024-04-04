@@ -120,7 +120,7 @@
             <DatePicker Grid.Row="0" Grid.Column="1" x:Name="datePicker" Height="30" DisplayDateStart="{x:Static System:DateTime.Today}"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBox x:Name="timeTextBox" Text="HH:mm" Height="30" Width="90"/>
+                <TextBox x:Name="timeTextBox" Text="{Binding Time}" Height="30" Width="90"/>
                 <Button  Content="Add" Height="30" Click="AddDateClick" Margin="10"/>
             </StackPanel>
 
