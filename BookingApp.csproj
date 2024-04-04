@@ -78,7 +78,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="View\Validation\" />
+    <Folder Include="Domain\IRepositories\" />
   </ItemGroup>
 
 
