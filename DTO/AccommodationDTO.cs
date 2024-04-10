@@ -109,6 +109,7 @@ namespace BookingApp.DTO
         }
 
 
+
         private int minStayDays;
         public int MinStayDays
         {
@@ -153,8 +154,23 @@ namespace BookingApp.DTO
                  }
              }
          }
-        
-     
+
+
+        public int ownerId;
+        public int OwnerId
+        {
+            get { return ownerId; }
+            set
+            {
+                if (ownerId != value)
+                {
+                    ownerId = value;
+                    OnPropertyChanged("OwnerId");
+                }
+            }
+        }
+
+
         public AccommodationDTO()
         {
 
@@ -170,6 +186,7 @@ namespace BookingApp.DTO
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
+            this.OwnerId = accommodation.OwnerId;
 
         }
 
@@ -182,6 +199,7 @@ namespace BookingApp.DTO
             this.Capacity = accommodation.Capacity;
             this.MinStayDays = accommodation.MinStayDays;
             this.CancellationPeriod = accommodation.CancellationPeriod;
+            this.OwnerId= accommodation.OwnerId;
 
         }
 
@@ -196,6 +214,7 @@ namespace BookingApp.DTO
             accommodation.Capacity = this.Capacity;
             accommodation.MinStayDays = this.MinStayDays;
             accommodation.CancellationPeriod = this.CancellationPeriod;
+            accommodation.OwnerId = this.OwnerId;
 
             return accommodation;
         }

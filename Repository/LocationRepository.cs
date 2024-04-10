@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.DTO;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.Repository
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -28,6 +29,44 @@ namespace BookingApp.Repository
         public List<Location> GetAll()
         {
             return serializer.FromCSV(FilePath);
+        }
+
+        public List<string> GetAllCities(string country)
+        {
+            List<Location> locations = serializer.FromCSV(FilePath);
+
+            List<Location> locationsInCountry = locations.Where(loc => loc.Country == country).ToList();
+            List<string> cities = new List<string>();
+            foreach (Location location in locationsInCountry)
+            {
+                cities.Add(location.City);
+            }
+
+            return cities;
+        }
+
+
+
+        public HashSet<string> GetAllCountries()
+        {
+            List<Location> locations = serializer.FromCSV(FilePath);
+
+            HashSet<string> countries = new HashSet<string>();
+            foreach (Location location in locations)
+            {
+                countries.Add(location.Country);
+            }
+
+            return countries;
+        }
+
+
+        public int GetLocationId(string city, string country)
+        {
+            List<Location> locations = serializer.FromCSV(FilePath);
+            Location location = locations.FirstOrDefault(loc => loc.City == city && loc.Country == country);
+
+            return location != null ? location.Id : -1;
         }
 
         public Location GetById(int id)

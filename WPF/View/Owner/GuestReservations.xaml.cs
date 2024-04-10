@@ -63,35 +63,7 @@ namespace BookingApp.WPF.View.Owner
             }
         }
 
-        /*
 
-        private void GuestDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           
-            if (GuestDataGrid.SelectedItem != null) {
-                
-                AccommodationReservationDTO selectedAccommodationReservation = (AccommodationReservationDTO)GuestDataGrid.SelectedItem;
-                int reservationId = guestGradeRepository.GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationReservation.Id)?.ReservationId ?? -1;
-
-                if (IsGuestGraded(reservationId)) {
-                   
-                    MessageBox.Show("Guest is already graded.");
-                }else {
-
-                    if (accommodationReservationRepository.IsOverFiveDays(selectedAccommodationReservation.ToAccommodationReservation()))
-                    {
-                        GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(guestGradeRepository, selectedAccommodationReservation);
-                        gradeGuestWindow.ShowDialog();
-                    }
-                    else
-                    {
-
-                        MessageBox.Show("Grading is not possible, it has been more than 5 days.");
-                    }
-                }
-            }
-        }
-        */
 
 
         private void GuestDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)

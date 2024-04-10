@@ -21,6 +21,8 @@ namespace BookingApp.Domain.Model
         public int CancellationPeriod {  get; set; }
         public List<Image> Images {  get; set; }
 
+        public int OwnerId { get; set; }    
+
      
 
         public Accommodation() {
@@ -29,7 +31,7 @@ namespace BookingApp.Domain.Model
 
         }
 
-        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod)
+        public Accommodation(int id, string name, int idLocation, AccommodationType type, int capacity, int minStayDays, int cancellationPeriod, int ownerId)
         {
             Id = id;
             Name = name;
@@ -39,6 +41,7 @@ namespace BookingApp.Domain.Model
             MinStayDays = minStayDays;
             CancellationPeriod = cancellationPeriod;
             Images = new List<Image>();
+            OwnerId = ownerId;
 
         }
 
@@ -53,6 +56,7 @@ namespace BookingApp.Domain.Model
                 Capacity.ToString(),
                 MinStayDays.ToString(),
                 CancellationPeriod.ToString(),
+                OwnerId.ToString()
                 
 
             };
@@ -76,6 +80,7 @@ namespace BookingApp.Domain.Model
             Capacity = int.Parse(values[4]);
             MinStayDays = int.Parse(values[5]);
             CancellationPeriod = int.Parse(values[6]);
+            OwnerId = int.Parse(values[7]);
         }
     }
 }

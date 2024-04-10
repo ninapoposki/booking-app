@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -11,7 +12,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
         private const string FilePath = "../../../Resources/Data/images.csv";
 
@@ -71,6 +72,27 @@ namespace BookingApp.Repository
             images.Insert(index, image);       // keep ascending order of ids in file 
             serializer.ToCSV(FilePath, images);
             subject.NotifyObservers();
+            return image;
+        }
+
+
+        public List<Image> FilterImages()
+        {
+            images = serializer.FromCSV(FilePath);
+            List<Image> filteredImages = new List<Image>();
+            foreach (Image image in images)
+            {
+                if (image.EntityType.ToString().Equals("NONE") && image.EntityId == -1)
+                {
+                    filteredImages.Add(image);
+                }
+            }
+            return filteredImages;
+        }
+
+        public Image FindByPath(string path)
+        {
+            Image? image = GetAll().FirstOrDefault(i => i.Path == path);
             return image;
         }
 
