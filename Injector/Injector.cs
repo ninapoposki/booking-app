@@ -20,6 +20,15 @@ namespace BookingApp.Injector
             { typeof(IOwnerRepository), new OwnerRepository() },
             { typeof(IUserRepository), new UserRepository() },
             { typeof(IImageRepository), new ImageRepository() },
+            { typeof(ITourRepository), new TourRepository()},
+            { typeof(IVoucherRepository), new VoucherRepository()},
+            { typeof(ITourStartDateRepository), new TourStartDateRepository()},
+            { typeof(ITourReservationRepository), new TourReservationRepository()},
+            {  typeof(ITourGuestRepository), new TourGuestRepository()},
+            {  typeof(ILanguageRepository), new LanguageRepository()},
+            {  typeof(ICheckPointRepository), new CheckPointRepository()},
+
+
         };
         public static T CreateInstance<T>()
         {

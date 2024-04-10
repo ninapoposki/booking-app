@@ -13,7 +13,7 @@ namespace BookingApp.DTO
     {
         public int Id { get; set; }
 
-        public int TourGuestId { get; set; }
+        public int TourReservationId { get; set; }
 
         private string startDate;
         public string StartDate
@@ -90,7 +90,7 @@ namespace BookingApp.DTO
         public VoucherDTO(Voucher voucher)
         {
             Id=voucher.Id;
-            TourGuestId = voucher.TourGuestId;
+            TourReservationId = voucher.TourReservationId;
             StartDate = voucher.StartDate.ToString("dd/MM/yyyy");
             ExpirationDate = voucher.ExpirationDate.ToString("dd/MM/yyyy");
             Description = voucher.Description;
@@ -98,7 +98,7 @@ namespace BookingApp.DTO
         }
         public Voucher ToVoucher()
         {
-            return new Voucher(Id, TourGuestId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);
+            return new Voucher(Id, TourReservationId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
