@@ -54,7 +54,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBox Grid.Row="3" Grid.Column="2" Height="30" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <ComboBox x:Name="languageComboBox" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding LanguageComboBox}" Height="30">
+            <ComboBox x:Name="languageComboBox" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" Height="30">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -117,7 +117,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Pick tour dates" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Grid.Row="1" Content="Tour time"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <DatePicker Grid.Row="0" Grid.Column="1" x:Name="datePicker" Height="30" DisplayDateStart="{x:Static System:DateTime.Today}"/>
+            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding SelectedDate}" x:Name="datePicker" Height="30" DisplayDateStart="{x:Static System:DateTime.Today}"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBox x:Name="timeTextBox" Text="{Binding Time}" Height="30" Width="90"/>
