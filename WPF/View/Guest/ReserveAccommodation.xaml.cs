@@ -66,17 +66,18 @@ namespace BookingApp.WPF.View.Guest
                 HandleInvalidData();
             }            
         }
-        private void CheckReservationAvailability()
-        {
-            if (accommodationReservationRepository.AreDatesAvailable(selectedAccommodation.Id, accommodationReservation.InitialDate, accommodationReservation.EndDate))
-            {
-                ProcessValidReservation();
-            }
-            else
-            {
-                HandleUnavailableDates();
-            }
-        }
+          private void CheckReservationAvailability()
+          {
+              if (accommodationReservationRepository.AreDatesAvailable(selectedAccommodation.Id, accommodationReservation.InitialDate, accommodationReservation.EndDate))
+              {
+                  ProcessValidReservation();
+              }
+              else
+              {
+                  HandleUnavailableDates();
+              }
+     }
+
 
         private bool IsGuestDataValid()
         {
@@ -91,12 +92,22 @@ namespace BookingApp.WPF.View.Guest
 
         private void ProcessValidReservation()
         {
+            //List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindDateRange(accommodationReservation, selectedAccommodation.Id);
+            //        public List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId, int numDays)
+
+            List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindDateRange( accommodationReservation,selectedAccommodation.Id);
             guestDTO.UserId = userRepository.GetCurrentGuestUserId();
             guestRepository.Add(guestDTO.ToGuest());
             accommodationReservationDTO.GuestId = guestRepository.GetCurrentId();
-            accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation());
-            MessageBox.Show("Reservation added successfully");
-            this.Close();
+            // accommodationReservationRepository.Add(accommodationReservationDTO.ToAccommodationReservation());
+            var dialog = new AvailableDatesWindow(dates, accommodationReservationDTO);
+            dialog.Closed += (sender, args) =>
+            {
+                this.Close();
+            };
+            dialog.ShowDialog();
+           // MessageBox.Show("Reservation added successfully");
+            //this.Close();
         }
 
         private void HandleUnavailableDates()

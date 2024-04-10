@@ -83,7 +83,8 @@ namespace BookingApp.WPF.View
         }
         private void OpenOwnerWindow()
         {
-            OwnerMainWindow ownerMainWindow = new OwnerMainWindow();
+
+            OwnerMainWindow ownerMainWindow = new OwnerMainWindow(Username);
             ownerMainWindow.Show();
             Close();
         }

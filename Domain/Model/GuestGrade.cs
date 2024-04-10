@@ -11,7 +11,7 @@ namespace BookingApp.Domain.Model
     {
         public int Id { get; set; }
 
-        public int GuestId { get; set; } //??
+        public int GuestId { get; set; } 
 
         public int ReservationId {  get; set; }
         public AccommodationReservation Reservation;

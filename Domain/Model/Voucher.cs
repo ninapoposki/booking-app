@@ -12,7 +12,7 @@ namespace BookingApp.Domain.Model
     public class Voucher : ISerializable
     {
         public int Id { get; set; }
-        public int TourGuestId { get; set; }
+        public int TourReservationId { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly ExpirationDate { get; set; }
         public string Description {  get; set; }
@@ -20,18 +20,18 @@ namespace BookingApp.Domain.Model
 
         public Voucher() { }
 
-        public Voucher(int id, int tourGuestId, DateOnly startDate, DateOnly expirationDate, string description, Status status)
+        public Voucher(int id, int tourReservationId, DateOnly startDate, DateOnly expirationDate, string description, Status status)
         {
             Id = id;
-            TourGuestId = tourGuestId;
+            TourReservationId = tourReservationId;
             StartDate = startDate;
             ExpirationDate = expirationDate;
             Description = description;
             Status = status;
         }
-        public Voucher(int tourGuestId, DateOnly startDate, DateOnly expirationDate, string description, Status status)
+        public Voucher(int tourReservationId, DateOnly startDate, DateOnly expirationDate, string description, Status status)
         {
-            TourGuestId = tourGuestId;
+            TourReservationId = tourReservationId;
             StartDate = startDate;
             ExpirationDate = expirationDate;
             Description = description;
@@ -41,7 +41,7 @@ namespace BookingApp.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            TourGuestId = Convert.ToInt32(values[1]);
+            TourReservationId = Convert.ToInt32(values[1]);
             StartDate = DateOnly.ParseExact(values[2], "dd/MM/yyyy");
             ExpirationDate = DateOnly.ParseExact(values[3], "dd/MM/yyyy");
             Description = values[4];
@@ -61,7 +61,7 @@ namespace BookingApp.Domain.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                TourGuestId.ToString(),
+                TourReservationId.ToString(),
                 StartDate.ToString("dd/MM/yyyy"),
                 ExpirationDate.ToString("dd/MM/yyyy"),
                 Description,
