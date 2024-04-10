@@ -95,13 +95,9 @@ namespace BookingApp.Repository
             Image? image = GetAll().FirstOrDefault(i => i.Path == path);
             return image;
         }
-
-
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
         }
-
-  
     }
 }
