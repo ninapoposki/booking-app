@@ -13,7 +13,6 @@ namespace BookingApp.DTO
 {
     public class TourDTO : INotifyPropertyChanged
     {
-
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
 
