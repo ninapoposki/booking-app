@@ -37,6 +37,8 @@ namespace BookingApp.WPF.View.Owner
         private UserRepository userRepository { get; set; }
         public ObservableCollection<AccommodationType> Types { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
+        public List<String> CityComboBox { get; set; }
+        public HashSet<String> CountryComboBox { get; set; }
 
         private ImageDTO SelectedImage;
         public ObservableCollection<ImageDTO> Images { get; set; }
@@ -56,10 +58,16 @@ namespace BookingApp.WPF.View.Owner
 
             locationRepository = new LocationRepository();
             LocationComboBox = new List<LocationDTO>();
+            CityComboBox = new List<String>();
+            CountryComboBox = new HashSet<String>();
 
             var type = Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
             Types = new ObservableCollection<AccommodationType>(type);
              LoadLocations();
+            LoadCountries();
+            countryComboBox.SelectionChanged += countryComboBox_SelectionChanged;
+           // LoadCity();
+            
 
            userRepository = new UserRepository();
            // currentUser = userRepository.GetByUserId(currentUserId);
@@ -75,11 +83,28 @@ namespace BookingApp.WPF.View.Owner
             LocationComboBox.Clear();
             foreach (Location location in locationRepository.GetAll()) LocationComboBox.Add(new LocationDTO(location));
         }
-    
-   
+
+        private void LoadCountries()
+        {
+
+            CountryComboBox.Clear();
+            foreach (String country in locationRepository.GetAllCountries()) CountryComboBox.Add(country);
+        }
 
 
-    public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
+        private void LoadCity()
+        {   
+            string selectedCountry = (string)countryComboBox.SelectedItem;
+            if (selectedCountry != null)
+            {
+                CityComboBox.Clear();
+                foreach (String city in locationRepository.GetAllCities(selectedCountry)) CityComboBox.Add(city);
+            }
+        }
+
+
+
+public delegate void AccommodationAddedEventHandler(object sender, EventArgs e);
         public event AccommodationAddedEventHandler AccommodationAdded;
         
         private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
@@ -87,9 +112,10 @@ namespace BookingApp.WPF.View.Owner
 
             UpdateImages();
 
-            LocationDTO selectedLocation = (LocationDTO)locationComboBox.SelectedItem;
+            String selectedCity = (String)cityComboBox.SelectedItem;
+            String selectedCountry = (String)countryComboBox.SelectedItem;
 
-            if (selectedLocation != null) Accommodation.IdLocation = selectedLocation.Id;
+            if (selectedCity != null && selectedCountry!= null) Accommodation.IdLocation = locationRepository.GetLocationId(selectedCity, selectedCountry);
 
             Accommodation.OwnerId = currentUser.Id;
 
@@ -162,6 +188,13 @@ namespace BookingApp.WPF.View.Owner
             {
                 Images.Remove(SelectedImage);
 
+            }
+        }
+        private void countryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (countryComboBox.SelectedItem != null)
+            {
+                LoadCity();
             }
         }
 

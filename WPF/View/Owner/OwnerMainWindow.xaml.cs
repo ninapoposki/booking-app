@@ -52,7 +52,7 @@ namespace BookingApp.WPF.View.Owner
             ownerRepository = new OwnerRepository();
             AllAccommodation = new ObservableCollection<AccommodationDTO>();
             var Accoms = accommodationRepository.GetAll();
-            AccommodationDataGrid.ItemsSource = Accoms;
+           // AccommodationDataGrid.ItemsSource = Accoms;
             accommodationRepository.Subscribe(this);
 
             LoggedInUser  = userRepository.GetByUsername(username);
@@ -104,6 +104,18 @@ namespace BookingApp.WPF.View.Owner
             notifications.ShowDialog();
         }
 
+        private void ReservationsClick(object sender, RoutedEventArgs e)
+        {
+            GuestReservations reservations = new GuestReservations();
+           
+            reservations.ShowDialog();
+        }
+        private void MyGradesClick(object sender, RoutedEventArgs e)
+        {
+            OwnerGrades grades = new OwnerGrades();
+
+            grades.ShowDialog();
+        }
 
 
     }
