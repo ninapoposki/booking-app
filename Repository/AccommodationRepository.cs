@@ -18,6 +18,7 @@ namespace BookingApp.Repository
         private const string FilePath = "../../../Resources/Data/accommodation.csv";
 
         private readonly Serializer<Accommodation> serializer;
+       // private readonly OwnerRepository ownerRepository;
 
         private List<Accommodation> accommodations;
         public Subject subject;
@@ -26,6 +27,7 @@ namespace BookingApp.Repository
         {
             serializer = new Serializer<Accommodation>();
             accommodations = serializer.FromCSV(FilePath);
+           // ownerRepository = new OwnerRepository(); 
             subject = new Subject();
         }
 
@@ -48,6 +50,17 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return accommodation;
         }
+       /* public Owner GetOwnerForAccommodation(int accommodationId)
+        {
+            Accommodation accommodation = GetById(accommodationId);
+            if (accommodation != null)
+            {
+                int ownerId = accommodation.OwnerId;
+                return ownerRepository.GetById(ownerId);
+            }
+            return null; // Ako smeštaj nije pronađen ili vlasnik nije pronađen
+        }*/
+
 
         public int GetCurrentId()
         {
