@@ -50,32 +50,6 @@ namespace BookingApp.WPF.View.Guest
         }
 
 
-        /* public void Update()
-         {
-             AllReservations.Clear();
-
-             /* foreach(var reservation in accommodationReservationRepository.GetAll())
-              {
-                  Accommodation accommodation = accommodationRepository.GetById(reservation.AccommodationId); //da prikaze barem smestaj-a odatle vidi lokaciju i ostalo
-                  //e sad odatle izvlacis ownera i  lokaciju
-                  AllReservations.Add(new AccommodationReservationDTO(reservation, accommodation)); //da bi dobili accommodation
-                 // AllReservations.Add(new AccommodationReservationDTO(reservation)); //samo na prvu loptu da vidim
-
-
-              }*/
-
-        /*foreach (var reservation in accommodationReservationRepository.GetAll())
-        {
-            Accommodation accommodation = accommodationRepository.GetById(reservation.AccommodationId);
-            //Location location = accommodationRepository.GetLocationForAccommodation(reservation.AccommodationId);
-            // var owner = accommodationRepository.GetOwnerForAccommodation(reservation.AccommodationId);
-            Location location = locationRepository.GetById(accommodation.IdLocation);
-            BookingApp.Domain.Model.Owner owner = ownerRepository.GetById(accommodation.OwnerId);
-          //  AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation,location,owner);
-          //  Accommodation accomm=accommodationDTO.ToAccommodation
-            AllReservations.Add(new AccommodationReservationDTO(reservation, accommodation));
-        }
-    }*/
         public void Update()
         {
             AllReservations.Clear();
