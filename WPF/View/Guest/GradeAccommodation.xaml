@@ -1,0 +1,96 @@
+﻿<Window x:Class="BookingApp.WPF.View.Guest.GradeAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+        mc:Ignorable="d"
+        Title="GradeAccommodation" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Prvi red -->
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <!-- Prva kolona -->
+            <StackPanel Grid.Column="0">
+                <!-- Sadržaj prve kolone -->
+                <Label Content="Owner:" Margin="10 0 10 0"/>
+
+
+                <DataGrid Grid.Row="1" Margin="10,0,10,33" ItemsSource="{Binding AllAccommodationReservations}"
+                   SelectedItem="{Binding selectedAccommodationReservation}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Owner.FirstName}" Width="100"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding  Owner.LastName}" Width="100"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding Owner.PhoneNumber}" Width="130"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel>
+                    <Label Grid.Row="1" Grid.Column="2" Content="Images URL*" VerticalAlignment="Center" Height="26"  />
+                    <Button Grid.Row="2" Grid.Column="2" Click="BrowseImageClick">Browse for images</Button>
+                    <ListView Grid.Row="3" Grid.Column="2"  ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" Grid.RowSpan="4">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Path}" Height="80" Width="80" Margin="5"/>
+                                    <Button  Content="Remove" Click="RemoveImageClick" Height="30" Width="50"  Margin="80 0 0 0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+
+            </StackPanel>
+            <!-- druga kolona -->
+            <StackPanel Grid.Column="1">
+
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,10,0" >
+            <Label Content="Grade Accommodation in these categories" Margin="10 0 0 0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,10,0" >
+            <StackPanel Name="Cleanliness" Orientation="Horizontal">
+                <Label Content="Cleanliness:" Margin="50 0 10 0"/>
+                <RadioButton Margin="106 5 0 0" Content="1"  GroupName="CleanlinessGroup" Width="55" />
+                <RadioButton Margin="10 5 0 0" Content="2" GroupName="CleanlinessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CleanlinessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CleanlinessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleanlinessGroup" Width="50" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,10,0" >
+            <StackPanel Name="Correctness" Orientation="Horizontal">
+                <Label Content="Correctness:" Margin="50 0 10 0"/>
+                <RadioButton Margin="100 5 0 0" Content="1"  GroupName="CorrectnessGroup" Width="55" />
+                <RadioButton Margin="10 5 0 0" Content="2" GroupName="CorrectnessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CorrectnessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CorrectnessGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="FollowingRulesGroup" Width="50" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10,10,0" Orientation="Horizontal">
+            <Label Content="Comment:" Margin="50 0 0 0" VerticalAlignment="Center"/>
+            <TextBox x:Name="CommentsTextBox" Width="330" Height="45" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="388,10,10,0">
+            <Button Content="Confirm" Margin="5" Padding="10,0" Click="ConfirmButtonClick" Width="100" Height="30"/>
+            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButtonClick" Width="100" Height="30"/>
+        </StackPanel>
+    </Grid>
+</Window>

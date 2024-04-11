@@ -160,6 +160,13 @@ namespace BookingApp.WPF.View.Guest
             }
         }
 
+        //za MyReservations
+        private void OpenReservationsClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new MyReservationsWindow();
+            dialog.ShowDialog();
+        }
+
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {

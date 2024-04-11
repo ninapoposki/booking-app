@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Domain.IRepositories;
 using BookingApp.Observer;
 using BookingApp.Serializer;
@@ -94,6 +95,7 @@ namespace BookingApp.Repository
             int maxId = owners.Count > 0 ? owners.Max(t => t.Id) : 0;
             return maxId;
         }
+       
 
         public Owner GetByUserId(int userId)
         {

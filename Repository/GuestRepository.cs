@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class GuestRepository
+    public class GuestRepository:IGuestRepository
     {
         private const string FilePath = "../../../Resources/Data/guest.csv";
 

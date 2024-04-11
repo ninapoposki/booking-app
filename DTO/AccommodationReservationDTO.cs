@@ -69,6 +69,9 @@ namespace BookingApp.DTO
         }
 
         public GuestDTO Guest { get; set; }
+        public Accommodation Accommodations{ get; set; }
+        public Owner Owner { get; set; } 
+        public Location Location { get; set; }
 
 
         private DateTime initialDate=DateTime.Now;
@@ -172,6 +175,22 @@ namespace BookingApp.DTO
             EndDate= reservation.EndDate;
             DaysToStay = reservation.DaysToStay;   
             NumberOfGuests = reservation.NumberOfGuests;
+        }
+        //ovo proveri jel uopste sme ovako
+        public AccommodationReservationDTO(AccommodationReservation reservation,Accommodation accommodation,Location location,Owner owner)
+        {
+            Id = reservation.Id;
+            GuestId = reservation.GuestId;
+            AccommodationId = reservation.AccommodationId;
+            Accommodations = accommodation;
+            GuestId = reservation.GuestId;
+            InitialDate = reservation.InitialDate;
+            EndDate = reservation.EndDate;
+            DaysToStay = reservation.DaysToStay;
+            NumberOfGuests = reservation.NumberOfGuests;
+            Location = location;
+            Owner = owner;
+           // Owner = owner;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

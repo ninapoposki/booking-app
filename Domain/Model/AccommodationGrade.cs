@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public class AccommodationGrade
+    public class AccommodationGrade: ISerializable
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
