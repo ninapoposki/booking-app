@@ -14,20 +14,28 @@ namespace BookingApp.Injector
     {
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
+            { typeof(IAccommodationRepository), new AccommodationRepository() },
+            { typeof(IGuestGradeRepository), new GuestGradeRepository() },
+            { typeof(ILocationRepository), new LocationRepository() },
+            { typeof(IOwnerRepository), new OwnerRepository() },
+            { typeof(IUserRepository), new UserRepository() },
+            { typeof(IImageRepository), new ImageRepository() },
+            { typeof(ITourRepository), new TourRepository()},
+            { typeof(IVoucherRepository), new VoucherRepository()},
+            { typeof(ITourStartDateRepository), new TourStartDateRepository()},
+            { typeof(ITourReservationRepository), new TourReservationRepository()},
+            {  typeof(ITourGuestRepository), new TourGuestRepository()},
+            {  typeof(ILanguageRepository), new LanguageRepository()},
+            {  typeof(ICheckPointRepository), new CheckPointRepository()},
+            {  typeof(IAccommodationGradeRepository), new AccommodationGradeRepository()},
+            {  typeof(IAccommodationReservationRepository), new AccommodationReservationRepository()},
+            {  typeof(IGuestRepository), new GuestRepository()},
+
+
+
+
 
         };
-
-        public static void BindComponents()
-        {
-          
-            _implementations.Add(typeof(IAccommodationRepository), new AccommodationRepository());
-            _implementations.Add(typeof(IGuestGradeRepository), new GuestGradeRepository());
-            _implementations.Add(typeof(ILocationRepository), new LocationRepository());
-            _implementations.Add(typeof(IOwnerRepository), new OwnerRepository());
-            _implementations.Add(typeof(IUserRepository), new UserRepository());
-            _implementations.Add(typeof(IImageRepository), new ImageRepository());
-        }
-
         public static T CreateInstance<T>()
         {
             Type type = typeof(T);
