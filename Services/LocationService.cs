@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -43,6 +44,14 @@ namespace BookingApp.Services
             return null;
         }
 
+
+        //irina
+        public LocationDTO GetById(int id)
+        {
+            Location location = locationRepository.GetById(id);
+            return location != null ? new LocationDTO(location) : null;
+        }
+
         public HashSet<string> GetAllCountries() {
             return locationRepository.GetAllCountries();    
         }
@@ -62,6 +71,7 @@ namespace BookingApp.Services
         {
             return locationRepository.GetLocationId(city, country);
         }
+
 
     }
 

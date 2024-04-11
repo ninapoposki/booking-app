@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Injector;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace BookingApp.Services
         public GuestService()
         {
             guestRepository = Injector.Injector.CreateInstance<IGuestRepository>();
+        }
+
+        public Guest Add(Guest guest)
+        {
+            return guestRepository.Add(guest);
         }
     }
 }

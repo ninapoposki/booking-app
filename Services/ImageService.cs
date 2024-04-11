@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,13 @@ namespace BookingApp.Services
 
         public ImageDTO GetByPath(string relativePath) {
             return new ImageDTO(imageRepository.FindByPath(relativePath));
+        }
+
+        //irina
+        public void GetAll(List<ImageDTO> images)
+        {
+            images.Clear();
+            foreach (Image image in imageRepository.GetAll()) images.Add(new ImageDTO(image));
         }
     }
 }
