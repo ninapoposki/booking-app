@@ -49,7 +49,6 @@ namespace BookingApp.WPF.View.Guest
             Update();
         }
 
-
         public void Update()
         {
             AllReservations.Clear();
