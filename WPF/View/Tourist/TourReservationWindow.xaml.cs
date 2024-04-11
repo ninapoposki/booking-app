@@ -211,9 +211,7 @@ namespace BookingApp.WPF.View.Tourist
         private void AddTemporaryGuests(TourReservation newReservation)
         {
             foreach (Tuple<string, int> guest in temporaryGuests)
-
             {
-
                 TourGuest newGuest = new TourGuest
                 {
                     FullName = guest.Item1,
@@ -221,7 +219,6 @@ namespace BookingApp.WPF.View.Tourist
                     TourReservationId = newReservation.Id,
                     CheckPointId = -1 
                 };
-
                 tourGuestRepository.Add(newGuest);
             }
         }

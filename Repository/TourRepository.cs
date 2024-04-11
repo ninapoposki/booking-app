@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.Repository
 {
-    public class TourRepository
+    public class TourRepository:ITourRepository
     {
 
         private const string FilePath = "../../../Resources/Data/tours.csv";
