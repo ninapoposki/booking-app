@@ -23,6 +23,12 @@ namespace BookingApp.Services
             image.EntityType = EntityType.TOUR;
             imageRepository.Update(image.ToImage());
         }
+        public void UpdateAccommodation(ImageDTO image, int accommodationId)
+        {
+            image.EntityId = accommodationId;
+            image.EntityType = EntityType.ACCOMMODATION;
+            imageRepository.Update(image.ToImage());
+        }
         public string FilterImages()
         {
             string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
