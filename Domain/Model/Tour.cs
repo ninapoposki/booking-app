@@ -19,13 +19,13 @@ namespace BookingApp.Domain.Model
         public Location Location { get; set; }
         public int Capacity { get; set; }
         public double Duration {  get; set; }
-        public List<Image> Images { get; set; }
+        
 
         public User User { get; set; }
 
         public Tour() 
         { 
-            Images = new List<Image>();
+           
             Location = new Location();
             Language = new Language();
         }
@@ -38,7 +38,6 @@ namespace BookingApp.Domain.Model
             Location = location;
             Capacity = capacity;
             Duration = duration;
-            Images = new List<Image>();
         }
 
         public Tour(int id, string name, string description, int languageId,int locationId, int capacity, double duration)
@@ -50,7 +49,7 @@ namespace BookingApp.Domain.Model
             LocationId = locationId;
             Capacity = capacity;
             Duration = duration;
-            Images = new List<Image>();
+            //Images = new List<Image>();
         }
 
         public void FromCSV(string[] values)
@@ -60,11 +59,6 @@ namespace BookingApp.Domain.Model
             Description = values[2];
             LanguageId = Convert.ToInt32(values[3]);
             LocationId = Convert.ToInt32(values[4]);    
-            // string[] locationParametars = values[3].Split(",");
-            //Location.Id = Convert.ToInt32(locationParametars[0]);
-            //Location.City = locationParametars[1];
-            //Location.Country = locationParametars[2];   
-            //Language.Name = values[4];
             Capacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
         }

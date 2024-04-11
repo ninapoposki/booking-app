@@ -1,16 +1,18 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
         private const string FilePath = "../../../Resources/Data/images.csv";
 
@@ -93,8 +95,6 @@ namespace BookingApp.Repository
             Image? image = GetAll().FirstOrDefault(i => i.Path == path);
             return image;
         }
-
-
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
