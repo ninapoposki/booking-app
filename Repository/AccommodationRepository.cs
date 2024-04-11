@@ -38,11 +38,7 @@ namespace BookingApp.Repository
         public Accommodation Add(Accommodation accommodation)
         {
             accommodation.Id = NextId();
-            //accommodations = serializer.FromCSV(FilePath);
              accommodations.Add(accommodation);
-            //serializer.ToCSV(FilePath, accommodations);
-            // storage.Save(accommodations);
-           
             
             WriteToFile();
             

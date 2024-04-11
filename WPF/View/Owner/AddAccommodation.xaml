@@ -51,14 +51,14 @@
 
 
         <Label Grid.Row="4" Grid.Column="0" Content="Country*" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="countryComboBox" Grid.Row="5" Grid.Column="0" Margin="5" ItemsSource="{Binding CountryComboBox}"  SelectionChanged="countryComboBox_SelectionChanged" />
+        <ComboBox x:Name="countryComboBox" Grid.Row="5" Grid.Column="0" Margin="5" ItemsSource="{Binding CountryComboBox}"  SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" SelectionChanged="CountryChanged" />
 
 
 
 
 
         <Label Grid.Row="6" Grid.Column="0" Content="City*" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="cityComboBox" Grid.Row="7" Grid.Column="0" Margin="5" ItemsSource="{Binding CityComboBox}"/>
+        <ComboBox x:Name="cityComboBox" Grid.Row="7" Grid.Column="0" Margin="5" ItemsSource="{Binding CityComboBox}"  SelectedItem="{Binding SelectedCity, Mode=TwoWay}" SelectionChanged="CityChanged"/>
 
 
 

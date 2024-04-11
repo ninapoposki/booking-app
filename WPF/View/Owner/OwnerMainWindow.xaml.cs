@@ -88,7 +88,7 @@ namespace BookingApp.WPF.View.Owner
         {
             
             
-            AddAccommodation addAccommodationWindow = new AddAccommodation(accommodationRepository, loggedInUserUsername);
+            AddAccommodation addAccommodationWindow = new AddAccommodation( loggedInUserUsername);
             addAccommodationWindow.ShowDialog();
 
         }
