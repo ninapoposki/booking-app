@@ -46,6 +46,7 @@ namespace BookingApp.WPF.View.Owner
         }
 
         public void Update()
+
         {
             AllAccommodationReservations.Clear();
           
