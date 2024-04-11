@@ -5,36 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
-        Title="GuestReservations" Height="500" Width="800">
+        Title="GuestReservations" Height="550" Width="900">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <!-- Lijevi prostor za dugmad -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Uspravna linija -->
+            <ColumnDefinition Width="5"/>
+            <!-- Razmak između linije i glavnog sadržaja -->
+            <ColumnDefinition Width="*"/>
+            <!-- Glavni sadržaj -->
+        </Grid.ColumnDefinitions>
 
 
-        <TextBlock Grid.Row="0" Text="Guests and their reservations" HorizontalAlignment="Left" FontWeight="Bold" Margin="19,5,0,5"/>
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
+            <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
+                <Image Source="C:\Users\Dajana\Desktop\-\DreamTeam-main\ProjectTourism\ProjectTourism\Images\Guest2\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding OwnerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding OwnerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                </StackPanel>
 
-        <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="GuestDataGridSelectionChanged" SelectionMode="Single" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding Guest.FirstName}" Width="100"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding Guest.LastName}" Width="100"/>
-                <DataGridTextColumn Header="Phone Number" Binding="{Binding Guest.PhoneNumber}" Width="100"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="100"/>
-                <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}" Width="100"/>
-                <DataGridTextColumn Header="Initial Date" Binding="{Binding InitialDate}" Width="85"/>
-                <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="85"/>
-                <DataGridTextColumn Header="Number Of Guests" Binding="{Binding NumberOfGuests}" Width="110"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <StackPanel>
+                    <TextBlock Text="SUPEROWNER" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
+                    <TextBlock Text="Average grade: 4.5" Margin="0,1,0,0" Height="14" FontSize="9" Width="77"/>
+                </StackPanel>
+            </StackPanel>
 
-        <!-- Buttons StackPanel -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
-           
-            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelButtonClick" Width="100"/>
-
+            <Border Height="2" Background="Black" Margin="0 5"/>
+            <Button Content="Home Page" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Reservations" Margin="5 0 5 5" BorderThickness="1" Height="50" Background="White" />
+            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Border Height="2" Background="Black" Margin="0 5"/>
+            <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>
         </StackPanel>
+
+        <Border Grid.Column="1" Background="Black" Width="2"/>
+
+        <!-- Glavni sadržaj -->
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="485*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2" Margin="-7,0,0,0" >
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,6,5,0" Height="30" VerticalAlignment="Top">
+                    <TextBlock Text="Home page" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25"/>
+                    <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="210,0,5,0" FontSize="15" />
+
+                    <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
+                    <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
+                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
+
+
+                    <Button Content="NOTIFICATIONS" Width="140" Margin="5,0" BorderThickness="0" Background="White" FontSize="15"  />
+
+                    <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
+                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
+
+                    <Button Content="HELP" Width="107" BorderThickness="0" Background="White" FontSize="15"/>
+
+                </StackPanel>
+            </Border>
+
+            <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="GuestDataGridSelectionChanged" SelectionMode="Single" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding Guest.FirstName}" Width="100"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding Guest.LastName}" Width="100"/>
+                    <DataGridTextColumn Header="Phone Number" Binding="{Binding Guest.PhoneNumber}" Width="100"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="100"/>
+                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}" Width="100"/>
+                    <DataGridTextColumn Header="Initial Date" Binding="{Binding InitialDate}" Width="85"/>
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="85"/>
+                    <DataGridTextColumn Header="Number Of Guests" Binding="{Binding NumberOfGuests}" Width="110"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+           
+
+        </Grid>
     </Grid>
 </Window>
