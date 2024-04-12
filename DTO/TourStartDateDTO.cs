@@ -85,19 +85,16 @@ namespace BookingApp.DTO
 
         public TourStartDateDTO(TourStartDate tourStartDate)
         {
-
             Id = tourStartDate.Id;
             TourId = tourStartDate.TourId;
             StartTime = tourStartDate.StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
             HasStarted = tourStartDate.HasStarted;
             HasFinished = tourStartDate.HasFinished;
-
-
         }
 
         public TourStartDate ToTourStartDate()
         {
-            return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
+            return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),HasStarted,HasFinished);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

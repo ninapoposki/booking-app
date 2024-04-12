@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -16,7 +17,7 @@ namespace BookingApp.Services
 
         public LocationService()
         {
-            locationRepository=Injector.Injector.CreateInstance<ILocationRepository>();
+            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
 
         public void GetAll(List<LocationDTO> locations)
@@ -35,6 +36,11 @@ namespace BookingApp.Services
                 }
             }
             return null;
+        }
+
+        public Location GetById(int id)
+        {
+            return locationRepository.GetById(id);
         }
     }
 }

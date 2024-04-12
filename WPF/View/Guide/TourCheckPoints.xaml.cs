@@ -17,6 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using BookingApp.WPF.ViewModel;
+using System.Runtime.CompilerServices;
+using BookingApp.WPF.ViewModel.Guide;
 
 namespace BookingApp.WPF.View.Guide
 {
@@ -25,128 +29,39 @@ namespace BookingApp.WPF.View.Guide
     /// </summary>
     public partial class TourCheckPoints : Window
     {
-        private int tourId;
-        private int currentCheckPointIndex=0;
-        private TourRepository tourRepository;
-        private TourStartDateRepository tourStartDateRepository;
-        private TourStartDateDTO selectedStartDate;
-        private TourGuestRepository tourGuestRepository;
-        private TourReservationRepository tourReservationRepository;
-        public List<TourGuestDTO> presentTourists {  get; set; }
-        public ObservableCollection<TourGuestDTO> guests {  get; set; }
-        public List<CheckPointDTO> toursCheckPoints {  get; set; }
-        private CheckPointRepository checkPointRepository;
-        private CheckPointDTO currentCheckPoint;
-        private TourStartDate tourStart;
+        private TourCheckPointsVM tourCheckPointsVM;
         
         public TourCheckPoints(TourStartDateDTO selectedStartDate)
         {
             InitializeComponent();
-            DataContext = this;
-            this.selectedStartDate = selectedStartDate;
-          
-           
-            tourRepository = new TourRepository();
-            checkPointRepository = new CheckPointRepository();
-            tourGuestRepository = new TourGuestRepository();
-            tourReservationRepository = new TourReservationRepository();
-            tourStartDateRepository = new TourStartDateRepository();
-            guests =new ObservableCollection<TourGuestDTO>();
-
-
-            tourStart = this.selectedStartDate.ToTourStartDate();
-            tourStart.HasStarted= true;
-            tourStartDateRepository.Update(tourStart);
-            tourId = this.selectedStartDate.TourId;
-
-            presentTourists= new List<TourGuestDTO>();
-            toursCheckPoints= new List<CheckPointDTO>();
-            LoadCheckPoints();
-            LoadTourists();
-            UpdateUI();
-          
-        }
-        private void LoadCheckPoints()
-        {
-            List<CheckPoint> checkPoints= checkPointRepository.GetByTourId(tourId);
-            foreach(CheckPoint checkPoint in checkPoints)
-            {
-                toursCheckPoints.Add(new CheckPointDTO(checkPoint));
-            }
-            
-            UpdateUI();
-           
-        }
-        private void LoadTourists()
-        {
-            guests.Clear();
-            List<TourReservation> tourReservations = tourReservationRepository.GetByTourDateId(selectedStartDate.Id);
-            foreach(TourReservation reservation in tourReservations)
-            {
-               GetTourGuests(reservation);
-            }
-
-        }
-        private void GetTourGuests(TourReservation reservation)
-        {
-            foreach (TourGuest guest in tourGuestRepository.GetAll())
-            {
-                if (guest.TourReservationId == reservation.Id && guest.CheckPointId == -1)
-                {
-                    guests.Add(new TourGuestDTO(guest));
-                }
-            }
+            tourCheckPointsVM=new TourCheckPointsVM(selectedStartDate);
+            DataContext = tourCheckPointsVM;
         }
         private void MarkAsPresentClick(object sender, RoutedEventArgs e)
         {
-            foreach(TourGuestDTO tourGuest in TouristList.SelectedItems)
-            {
-                TourGuest guest = tourGuest.ToTourGuest();
-                guest.CheckPointId = currentCheckPoint.Id; 
-                tourGuestRepository.Update(guest);
-            }
-            MessageBox.Show("Tourist marked as present!");
+            tourCheckPointsVM.MarkAsPresentClick();
         }
 
         private void NextCheckPointClick(object sender, RoutedEventArgs e)
         {
-            if(currentCheckPointIndex+1<toursCheckPoints.Count) 
-            {
-                currentCheckPointIndex++;
-                UpdateUI();
-                LoadTourists();
-            }
-        }
-        private void CheckAndFinishTour()
-        {
-            if (currentCheckPoint.Type == "END") {
-                MessageBox.Show("You reached last check point, tour ended!");
-                FinishingTour();
-            }
+            tourCheckPointsVM.NextCheckPointClick();
         }
          private void FinishingTour()
          {
-                tourStart.HasFinished = true;
-                tourStartDateRepository.Update(tourStart);
-                Close();
+              tourCheckPointsVM.FinishingTour();
+              Close();
             
-         }
-         private void UpdateUI()
-         {
-            if(toursCheckPoints!=null && toursCheckPoints.Count > currentCheckPointIndex)
-            {
-                currentCheckPoint = toursCheckPoints[currentCheckPointIndex];
-                CheckPointName.Text = currentCheckPoint.Type + ":" +currentCheckPoint.Name;
-            }
-            if (currentCheckPointIndex + 1 == toursCheckPoints.Count) {
-                CheckAndFinishTour();
-            }
          }
 
         private void EndTourClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Tour has ended");
             FinishingTour();
+        }
+
+        private void TouristListSelectionChaged(object sender, SelectionChangedEventArgs e)
+        {
+            tourCheckPointsVM.TouristListSelectionChaged(sender,e);
         }
     }
 }

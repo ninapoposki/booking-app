@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.WPF.View.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,16 @@ namespace BookingApp.Services
         {
             CheckPoint newCheckPoint = new CheckPoint(checkPoint.Name, tourId, checkPoint.Type);
             checkPointRepository.Add(newCheckPoint);
+        }
+
+        public List<CheckPointDTO> GetByTourId(int id)
+        {
+            List<CheckPointDTO> checkPoints = new List<CheckPointDTO>();
+            foreach (CheckPoint checkPoint in checkPointRepository.GetByTourId(id))
+            {
+                checkPoints.Add(new CheckPointDTO(checkPoint));
+            }
+            return checkPoints;
         }
     }
 }
