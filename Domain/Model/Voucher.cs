@@ -15,7 +15,7 @@ namespace BookingApp.Domain.Model
         public int TourReservationId { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly ExpirationDate { get; set; }
-        public string Description {  get; set; }
+        public string Description { get; set; }
         public Status Status { get; set; }
 
         public Voucher() { }

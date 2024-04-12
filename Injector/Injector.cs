@@ -26,7 +26,7 @@ namespace BookingApp.Injector
             { typeof(ITourReservationRepository), new TourReservationRepository()},
             {  typeof(ITourGuestRepository), new TourGuestRepository()},
             {  typeof(ILanguageRepository), new LanguageRepository()},
-            {  typeof(ICheckPointRepository), new CheckPointRepository()},
+            {  typeof(ICheckPointRepository), new CheckPointRepository()}
 
 
         };
