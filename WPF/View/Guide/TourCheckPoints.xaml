@@ -9,13 +9,17 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="CheckPointName" FontSize="20" FontWeight="Bold" Margin="200 10 0 10" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="Next Checkpoint" Width="100" Margin="10" Click="NextCheckPointClick"></Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock  Text="{Binding CheckPointType}" FontSize="20" FontWeight="Bold" Margin="200 10 0 10" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock  Text=":" FontSize="20" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{Binding CheckPointName}" FontSize="20" FontWeight="Bold" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            <Button Content="Next Checkpoint" Width="100" Margin="10" Click="NextCheckPointClick"></Button>
             </StackPanel>
             <StackPanel>
                 <TextBlock FontWeight="Bold" TextAlignment="Center">Waiting for following tourists to arrive:</TextBlock>
-                <ListBox x:Name="TouristList" Margin="10" Height="200" Width="500" ItemsSource="{Binding guests}" SelectionMode="Multiple">
-                <ListBox.ItemTemplate>
+                <ListBox x:Name="TouristList" Margin="10" Height="200" Width="500" ItemsSource="{Binding Guests}" SelectionMode="Multiple" SelectionChanged="TouristListSelectionChaged">
+                    <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding FullName}"/>

@@ -20,16 +20,17 @@ namespace BookingApp.Domain.Model
         public bool HasFinished {  get; set; }
         public TourStartDate() { }
 
-        public TourStartDate(int id,int tourId, DateTime startTime)
+        public TourStartDate(int id,int tourId, DateTime startTime,bool hasStarted,bool hasFinished)
         {
             Id = id;
             TourId = tourId;
             StartTime = startTime;
+            HasStarted = hasStarted;
+            HasFinished = hasFinished;
         }
 
         public TourStartDate( int tourId, DateTime startTime)
         {
-            
             TourId = tourId;
             StartTime = startTime;
             HasStarted = false;
