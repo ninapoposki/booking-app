@@ -39,13 +39,12 @@ namespace BookingApp.Services
                     tourDTOs.Add(newTodayTour);
                 }
             }
-            return tourDTOs;
-          
+            return tourDTOs;      
         }
 
         private bool AreToursToday(TourStartDate tourStart)
         {
-            return tourStart.StartTime.Date == DateTime.Today && tourStart.HasStarted == false && tourStart.HasFinished == false;
+            return tourStart.StartTime.Date == DateTime.Today && (tourStart.TourStatus.ToString().Equals("INACTIVE") || tourStart.TourStatus.ToString().Equals("ACTIVE"));
         }
         
         public IEnumerable<TourStartDateDTO> UpdateDate(int tourId)
@@ -64,16 +63,36 @@ namespace BookingApp.Services
         public void UpdateStartTime(int id)
         {
             TourStartDate? tourStart = tourStartDateRepository.Get(id);
-            tourStart.HasStarted = true;
+            tourStart.TourStatus = TourStatus.ACTIVE;
             tourStartDateRepository.Update(tourStart);   
         }
 
         public void UpdateEndTime(int id)
         {
             TourStartDate? tourStart=tourStartDateRepository.Get(id);
-            tourStart.HasFinished = true;
+            tourStart.TourStatus=TourStatus.FINISHED;
             tourStartDateRepository.Update(tourStart);
             
+        }
+
+        public TourDTO GetActiveTour()
+        {
+            foreach(TourStartDate tourStart in tourStartDateRepository.GetAll())
+            {
+                if (tourStart.TourStatus.ToString().Equals("ACTIVE"))
+                {
+                    return tourService.GetTour(tourStart.TourId);
+                }
+
+            }
+            return null;
+        }
+       
+        public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
+        {
+            TourStartDate? startDate=tourStartDateRepository.Get(selectedDateId);
+            startDate.CurrentCheckPointId = checkPointId;
+            tourStartDateRepository.Update(startDate);
         }
     }
 }

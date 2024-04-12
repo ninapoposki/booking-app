@@ -44,7 +44,12 @@ namespace BookingApp.WPF.ViewModel.Guide
 
         private void LoadTodaysTours()
         {
-            foreach(TourDTO tour in tourStartDateService.GetTours())
+            if (IsAnyTourActive())
+            {
+                return;
+            }
+
+            foreach (TourDTO tour in tourStartDateService.GetTours())
             {
                 if (!AlreadyExist(tour.Id))
                 {
@@ -53,6 +58,18 @@ namespace BookingApp.WPF.ViewModel.Guide
                 }
             }        
            
+        }
+        private bool IsAnyTourActive()
+        {
+            TourDTO activeTour=new TourDTO();
+            if (tourStartDateService.GetActiveTour() != null)
+            {
+                activeTour=tourStartDateService.GetActiveTour();
+                activeTour.DateTimes = new ObservableCollection<TourStartDateDTO>(tourStartDateService.UpdateDate(activeTour.Id));
+                Tours.Add(activeTour);
+                return true;
+            }
+            return false;
         }
         private bool AlreadyExist(int newTourId)
         {
@@ -64,11 +81,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 }
             }
             return false;
-        }
-        private TourDTO GetTour(TourStartDate tourDate)
-        { 
-            TourDTO tour=tourService.GetTour(tourDate.TourId);
-            return tour;
         }
 
         public void StartTourClick()

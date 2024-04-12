@@ -24,12 +24,15 @@ namespace BookingApp.Services
             checkPointRepository.Add(newCheckPoint);
         }
 
-        public List<CheckPointDTO> GetByTourId(int id)
+        public List<CheckPointDTO> GetByTourId(int id,int currentCheckPointId)
         {
             List<CheckPointDTO> checkPoints = new List<CheckPointDTO>();
             foreach (CheckPoint checkPoint in checkPointRepository.GetByTourId(id))
             {
-                checkPoints.Add(new CheckPointDTO(checkPoint));
+                if (checkPoint.Id >= currentCheckPointId)
+                {
+                    checkPoints.Add(new CheckPointDTO(checkPoint));
+                }
             }
             return checkPoints;
         }

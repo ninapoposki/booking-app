@@ -29,7 +29,7 @@ namespace BookingApp.WPF.ViewModel.Guide
 
 
          private CheckPointDTO currentCheckPoint;
-         //private TourStartDate tourStart;
+         
          private TourStartDateDTO selectedStartDate;
          public List<TourGuestDTO> PresentTourists { get; set; }
          public ObservableCollection<TourGuestDTO> Guests { get; set; }
@@ -57,12 +57,10 @@ namespace BookingApp.WPF.ViewModel.Guide
              tourStartDateService.UpdateStartTime(selectedStartDate.Id);
              LoadCheckPoints();
              LoadTourists();
-             UpdateUI();
-
          }
          private void LoadCheckPoints()
-         {
-             ToursCheckPoints=checkPointService.GetByTourId(tourId);
+         {  
+             ToursCheckPoints=checkPointService.GetByTourId(tourId,selectedStartDate.CurrentCheckPointId);
              UpdateUI();
 
          }
@@ -113,6 +111,7 @@ namespace BookingApp.WPF.ViewModel.Guide
                  currentCheckPoint = ToursCheckPoints[currentCheckPointIndex];
                  CheckPointName = currentCheckPoint.Name;
                  CheckPointType = currentCheckPoint.Type;
+                 tourStartDateService.UpdateCurrentCheckPoint(currentCheckPoint.Id,selectedStartDate.Id);
             }
              if (currentCheckPointIndex + 1 == ToursCheckPoints.Count)
              {

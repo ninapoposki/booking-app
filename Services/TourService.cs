@@ -40,6 +40,6 @@ namespace BookingApp.Services
             Language language = languageService.GetById(todayTour.LanguageId);
             return new TourDTO(todayTour, location, language);
         }
-
+        
     }
 }
