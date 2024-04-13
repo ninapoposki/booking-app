@@ -200,11 +200,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 Images.Remove(SelectedImage);
             }
         }
-        public void LiveTourClick()
-        {
-            LiveTour liveTour = new LiveTour();
-            liveTour.ShowDialog();
-        }
 
         private string country;
         public string Country
@@ -244,11 +239,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                     OnPropertyChanged("Time");
                 }
             }
-        }
-        public void UpcomingToursClick()
-        {
-            UpcomigTours upcomingTours=new UpcomigTours();
-            upcomingTours.ShowDialog();
         }
     }
 }

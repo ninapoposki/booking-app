@@ -82,16 +82,21 @@ namespace BookingApp.WPF.View.Guide
 
         private void LiveTourClick(object sender, RoutedEventArgs e)
         {
-            MakeTourVM.LiveTourClick();
+            LiveTour liveTour = new LiveTour();
+            liveTour.Owner = this;
+            liveTour.WindowStartupLocation= WindowStartupLocation.CenterOwner;
+            liveTour.ShowDialog();
         }
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void UpcomingToursClick(object sender, RoutedEventArgs e)
         {
-            MakeTourVM.UpcomingToursClick();
+            UpcomigTours upcomingTours = new UpcomigTours();
+            upcomingTours.Owner = this;
+            upcomingTours.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            upcomingTours.ShowDialog();
         }
     }
 }

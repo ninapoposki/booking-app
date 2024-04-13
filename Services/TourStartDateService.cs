@@ -41,13 +41,11 @@ namespace BookingApp.Services
             tourStart.TourStatus = TourStatus.ACTIVE;
             tourStartDateRepository.Update(tourStart);   
         }
-
         public void UpdateEndTime(int id)
         {
             TourStartDate? tourStart=tourStartDateRepository.Get(id);
             tourStart.TourStatus=TourStatus.FINISHED;
             tourStartDateRepository.Update(tourStart);
-            
         }
         public TourDTO GetActiveTour()
         {
@@ -57,8 +55,7 @@ namespace BookingApp.Services
                 {
                     return tourService.GetTour(tourStart.TourId);
                 }
-            }
-            return null;
+            }return null;
         }      
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
