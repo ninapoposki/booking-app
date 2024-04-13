@@ -16,9 +16,10 @@ namespace BookingApp.Services
     public class AccommodationReservationService
     {
         private IAccommodationReservationRepository accommodationReservationRepository;
+
         private AccommodationService accommodationService;
         private GuestService guestService;
-        private GuestGradeService guestGradeService;
+        private UserService userService;
         
 
         public AccommodationReservationService()
@@ -26,10 +27,12 @@ namespace BookingApp.Services
             accommodationReservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationService = new AccommodationService();
             guestService = new GuestService();
-            guestGradeService = new GuestGradeService();
+            userService = new UserService();
+          
 
         }
-
+      
+      
         
         public bool IsOverFiveDays(AccommodationReservationDTO accommodationReservationDTO)
         {
@@ -56,5 +59,52 @@ namespace BookingApp.Services
         }
 
         
+
+        public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId)
+        {
+            return accommodationReservationRepository.FindAlternativeDates(reservation, accommodationId);
+        }
+        public bool IsValid(AccommodationReservation reservation, Accommodation accommodation)
+        {
+            return accommodationReservationRepository.IsValid(reservation, accommodation);
+        }
+        public List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId)
+        {
+            return accommodationReservationRepository.FindDateRange(reservation, accommodationId);
+        }
+
+        public bool AreDatesAvailable(int accommodationId, DateTime start, DateTime end)
+        {
+            return accommodationReservationRepository.AreDatesAvailable(accommodationId, start, end);
+        }
+
+        public AccommodationReservation Add(AccommodationReservation reservation)
+        {
+            return accommodationReservationRepository.Add(reservation);
+        }
+      
+
+        public AccommodationReservation ProcessAlternativeDates(AccommodationReservation reservation, int accommodationId, Guest guest)
+        {
+           // var dates = accommodationReservationRepository.FindAlternativeDates(reservation, accommodationId);
+            guest.UserId = userService.GetCurrentGuestUserId();
+            guestService.Add(guest);
+            reservation.GuestId = guestService.GetCurrentId();
+            return reservation;
+        }
+        
+
+        public AccommodationReservation ProcessDateRange(AccommodationReservation reservation, int accommodationId, Guest guest)
+        {
+           // List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindDateRange(reservation, accommodationId);
+            guest.UserId = userService.GetCurrentGuestUserId();
+            guestService.Add(guest);
+
+            reservation.GuestId = guestService.GetCurrentId();
+
+            return reservation;
+        }
+
+
     }
 }
