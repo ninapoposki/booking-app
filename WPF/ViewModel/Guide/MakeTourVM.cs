@@ -199,6 +199,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             }
         }
 
+
         //Slike
         private void UpdateImages()
         {
@@ -243,6 +244,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             liveTour.ShowDialog();
 
         }
+
 
         private string country;
 
