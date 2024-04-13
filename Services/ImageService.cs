@@ -47,10 +47,37 @@ namespace BookingApp.Services
         }
 
         //irina
-        public void GetAll(List<ImageDTO> images)
+        /*public void GetAll(List<ImageDTO> images)
         {
             images.Clear();
             foreach (Image image in imageRepository.GetAll()) images.Add(new ImageDTO(image));
+        }*/
+        //irina
+        public List<Image> GetAllImages()
+        {
+            return imageRepository.GetAll();
         }
+       /* public List<ImageDTO> GetAll()
+        {
+            var images = new List<ImageDTO>();
+            foreach (Image image in imageRepository.GetAll())
+            {
+                images.Add(new ImageDTO(image));
+            }
+            return images;
+        }*/
+
+        public List<ImageDTO> GetImagesByAccommodation(int accommodationId, List<ImageDTO> allImages)
+        {
+            return allImages.Where(img => img.EntityId == accommodationId).ToList();
+        }
+        
+        public List<ImageDTO>GetImagesForEntityType(EntityType entityType)
+        {
+            return imageRepository.GetAll()
+            .Where(img => img.EntityType == entityType)
+            .Select(img => new ImageDTO(img)).ToList();
+        }
+
     }
 }

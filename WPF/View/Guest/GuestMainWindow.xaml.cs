@@ -16,7 +16,7 @@ namespace BookingApp.WPF.View.Guest
 
         private void SearchClick(object sender, RoutedEventArgs e)
         {
-            GuestMainWindowVM.Search();
+            GuestMainWindowVM.SearchClick();
         }
 
         private void BookAccommodationClick(object sender, RoutedEventArgs e)
