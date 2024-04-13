@@ -17,7 +17,7 @@ using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
-    public class TouristMainWindowVM : ViewModelBase,INotifyPropertyChanged
+    public class TouristMainWindowVM : ViewModelBase
     {
 
 
@@ -69,9 +69,9 @@ namespace BookingApp.WPF.ViewModel.Tourist
             foreach (var tour in tourService.GetAll())
             {
                 var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
-                LocationDTO location = locationService.GetById(tour.LocationId);
-                LanguageDTO language = languageService.GetById(tour.LanguageId);
-                var dateTimes = new ObservableCollection<TourStartDateDTO>(tourStartDateService.UpdateDates(tour.Id));
+                LocationDTO location = locationService.GetByIdDTO(tour.LocationId);
+                LanguageDTO language = languageService.GetByIdDTO(tour.LanguageId);
+                var dateTimes = new ObservableCollection<TourStartDateDTO>(tourStartDateService.GetTourDates(tour.Id));
                 AllTours.Add(new TourDTO(tour.ToTour(), location.ToLocation(), language.ToLanguage()) { Images = matchingImages,DateTimes=dateTimes });
             }
         }
@@ -267,12 +267,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+   
     }
 }
