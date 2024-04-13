@@ -16,107 +16,46 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModel.Owner;
 
 namespace BookingApp.WPF.View.Owner
 {
     /// summary>
     /// Interaction logic for OwnerMainWindow.xaml
     /// </summary>
-    public partial class OwnerMainWindow : Window, IObserver
+    public partial class OwnerMainWindow : Window
     {
-        public static ObservableCollection<Comment> Comments { get; set; }
-
-        public Comment SelectedComment { get; set; }
-
-        private User LoggedInUser;
-        private string loggedInUserUsername;
-        public OwnerDTO OwnerDTO { get; set; }
-
-        private readonly CommentRepository _repository;
-
-        private readonly LocationRepository locationRepository;
-        private readonly UserRepository userRepository;
-        private readonly OwnerRepository ownerRepository;
-
-        public readonly AccommodationRepository accommodationRepository;
-        public ObservableCollection<AccommodationDTO> AllAccommodation { get; set; }
-
+        public OwnerMainWindowVM OwnerMainWindowVM { get; set; }
+        
         public OwnerMainWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
-
-            locationRepository = new LocationRepository(); 
-            accommodationRepository = new AccommodationRepository();
-            userRepository = new UserRepository();
-            ownerRepository = new OwnerRepository();
-            AllAccommodation = new ObservableCollection<AccommodationDTO>();
-            var Accoms = accommodationRepository.GetAll();
-           // AccommodationDataGrid.ItemsSource = Accoms;
-            accommodationRepository.Subscribe(this);
-
-            LoggedInUser  = userRepository.GetByUsername(username);
-            loggedInUserUsername = username;
-            
-
-            Update();
-
+            OwnerMainWindowVM = new OwnerMainWindowVM(username);
+            DataContext = OwnerMainWindowVM;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
-
-        public void Update()
-        {
-            AllAccommodation.Clear();
-           
-              foreach (Accommodation acc in accommodationRepository.GetAll()) { 
-                Location location = locationRepository.GetById(acc.IdLocation);
-                AllAccommodation.Add(new AccommodationDTO(acc, location));
-
-                      
-              }
-               OwnerDTO = new OwnerDTO();
-
-              var owner = ownerRepository.GetByUserId(LoggedInUser.Id);
-
-              OwnerDTO.User = LoggedInUser;
-
-                OwnerDTO = new OwnerDTO(owner);
-          
-        }
-
-
+        
         private void AddAccommodationClick(object sender, RoutedEventArgs e)
         {
-            
-            
-            AddAccommodation addAccommodationWindow = new AddAccommodation( loggedInUserUsername);
-            addAccommodationWindow.ShowDialog();
-
+            OwnerMainWindowVM.AddAccommodationClick();
         }
       
         private void GradeGuestClick(object sender, RoutedEventArgs e)
         {
-            GuestReservations guestReservations = new GuestReservations();
-            guestReservations.ShowDialog();
+            OwnerMainWindowVM.GradeGuestClick();
         }
         private void NotificationsClick(object sender, RoutedEventArgs e)
         {
-            Notifications notifications = new Notifications();
-            notifications.ShowDialog();
+           OwnerMainWindowVM.NotificationsClick();
         }
 
         private void ReservationsClick(object sender, RoutedEventArgs e)
         {
-            GuestReservations reservations = new GuestReservations();
-           
-            reservations.ShowDialog();
+            OwnerMainWindowVM.ReservationsClick();
         }
         private void MyGradesClick(object sender, RoutedEventArgs e)
         {
-            OwnerGrades grades = new OwnerGrades();
-
-            grades.ShowDialog();
+            OwnerMainWindowVM.MyGradesClick();
         }
-
-
     }
 }

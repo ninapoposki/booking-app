@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace BookingApp.Domain.IRepositories
     public interface IGuestGradeRepository
     {
         List<GuestGrade> GetAll();
+        bool IsGuestGraded(int reservationId);
+        int GetReservationId(AccommodationReservationDTO selectedAccommodationReservation);
         GuestGrade Add(GuestGrade grade);
         int NextId();
         void Delete(GuestGrade guestGrade);

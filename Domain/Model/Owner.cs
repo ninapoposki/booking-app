@@ -17,6 +17,7 @@ namespace BookingApp.Domain.Model
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         
+        public string Role { get; set; }
 
 
 
@@ -25,13 +26,14 @@ namespace BookingApp.Domain.Model
             User = new User();
         }
 
-        public Owner(int id, String firstName, String lastName, String phoneNumber, int userId)
+        public Owner(int id, String firstName, String lastName, String phoneNumber, int userId, string role)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.PhoneNumber = phoneNumber;
             this.UserId = userId;
+            this.Role = role;
         }
 
         public void FromCSV(string[] values)
@@ -41,6 +43,7 @@ namespace BookingApp.Domain.Model
             LastName = values[2];
             PhoneNumber = values[3];
             UserId = int.Parse(values[4]);
+            Role = values[5];
         }
 
         public string[] ToCSV()
@@ -51,7 +54,8 @@ namespace BookingApp.Domain.Model
                 FirstName,
                 LastName,
                 PhoneNumber,
-                UserId.ToString()
+                UserId.ToString(),
+                Role
             };
             return csvValues;
         }

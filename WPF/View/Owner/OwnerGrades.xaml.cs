@@ -29,6 +29,7 @@ namespace BookingApp.WPF.View.Owner
         public readonly GuestRepository guestRepository;
         public readonly AccommodationRepository accommodationRepository;
         private readonly AccommodationReservationRepository accommodationReservationRepository;
+        private readonly AccommodationGradeRepository accommodationGradeRepository;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public AccommodationReservationDTO SelectedAccommodationReservation { get; set; }
         public OwnerGrades()
@@ -39,6 +40,7 @@ namespace BookingApp.WPF.View.Owner
             guestRepository = new GuestRepository();
             guestGradeRepository = new GuestGradeRepository();
             accommodationRepository = new AccommodationRepository();
+            accommodationGradeRepository = new AccommodationGradeRepository();
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             SelectedAccommodationReservation = new AccommodationReservationDTO();
             Update();
@@ -57,6 +59,8 @@ namespace BookingApp.WPF.View.Owner
 
                 var accomm = accommodationRepository.GetById(accommodationReservation.AccommodationId);
                 accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
+
+
 
                 AllAccommodationReservations.Add(accommodationReservationDTO);
             }

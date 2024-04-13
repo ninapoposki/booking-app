@@ -13,12 +13,12 @@ namespace BookingApp.Services
     public class AccommodationService
     {
         private IAccommodationRepository accommodationRepository;
-        private IUserRepository userRepository;
+        
 
         public AccommodationService()
         {
             accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
-            userRepository = Injector.Injector.CreateInstance<IUserRepository>();
+            
         }
         public Accommodation Add(Accommodation accommodation)
         {
@@ -28,17 +28,10 @@ namespace BookingApp.Services
         {
            return accommodationRepository.GetCurrentId();
         }
-
-        public User FindUser( string currentUsername)
-        {
-            return userRepository.GetByUsername(currentUsername);
-           // image.EntityType = EntityType.TOUR;
-            //imageRepository.Update(image.ToImage());
-        }
-
-        public void UpdateUser(AccommodationDTO accommodation,string currentUsername ) { 
-            accommodation.OwnerId = FindUser(currentUsername).Id;
-        }
         
+        public Accommodation GetById(int id)
+        {
+            return accommodationRepository.GetById(id);
+        }
     }
 }
