@@ -22,16 +22,19 @@
 
         <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
             <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
-                <Image Source="C:\Users\Dajana\Desktop\-\DreamTeam-main\ProjectTourism\ProjectTourism\Images\Guest2\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+                <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding OwnerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding OwnerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="SUPEROWNER" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
-                    <TextBlock Text="Average grade: 4.5" Margin="0,1,0,0" Height="14" FontSize="9" Width="77"/>
+                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"/>
+                         <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
 

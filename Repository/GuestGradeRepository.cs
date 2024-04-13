@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -29,6 +30,15 @@ namespace BookingApp.Repository
         public List<GuestGrade> GetAll()
         {
             return serializer.FromCSV(FilePath);
+        }
+        public bool IsGuestGraded(int reservationId)
+        {
+            return GetAll().Any(grade => grade.ReservationId == reservationId);
+        }
+
+        public int GetReservationId(AccommodationReservationDTO selectedAccommodationReservation)
+        {
+            return GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationReservation.Id)?.ReservationId ?? -1;
         }
 
         public GuestGrade Add(GuestGrade guestGrade)

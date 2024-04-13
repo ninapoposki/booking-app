@@ -31,16 +31,7 @@ namespace BookingApp.WPF.View.Owner
     /// </summary>
     public partial class AddAccommodation : Window
     {
-        private ImageRepository imageRepository { get; set; }
-        public AccommodationRepository accommodationRepository { get; set; }
-        public AccommodationDTO Accommodation { get; set; }
-        private ImageDTO SelectedImage;
-        public ObservableCollection<ImageDTO> Images { get; set; }
-        private LocationRepository locationRepository { get; set; }
-        private User currentUser;
-        private UserRepository userRepository { get; set; }
         
-
         public AddAccommodationVM AddAccommodationVM { get; set; }
         public AddAccommodation( string currentUserUsername)
         {
@@ -48,31 +39,23 @@ namespace BookingApp.WPF.View.Owner
             AddAccommodationVM = new AddAccommodationVM(currentUserUsername);
             DataContext = AddAccommodationVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
-           
         }
 
-        
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Otkazivanje dodavanja smeštaja");
+            MessageBox.Show("Cancelling adding accommodation");
              this.DialogResult = false;
              this.Close();
         }
         private void BrowseImageClick(object sender, RoutedEventArgs e)
         {
-
-
             AddAccommodationVM.BrowseImageClick();
         }
 
         private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
         {
-
             AddAccommodationVM.AddAccommodationButtonClick();
             Close();
-
-
         }
         private void CountryChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -94,6 +94,21 @@ namespace BookingApp.DTO
             }
         }
 
+        private string role;
+
+        public string Role
+        {
+            get { return role; }
+            set
+            {
+                if (value != role)
+                {
+                    role = value;
+                    OnPropertyChanged("Role");
+                }
+            }
+        }
+
 
         public OwnerDTO() { }
 
@@ -106,6 +121,7 @@ namespace BookingApp.DTO
             PhoneNumber = owner.PhoneNumber;
             User = owner.User;
             UserId = owner.UserId;
+            Role = owner.Role;
         }
         public Owner ToOwner()
         {
@@ -116,6 +132,7 @@ namespace BookingApp.DTO
             owner.LastName = this.LastName;
             owner.PhoneNumber = this.PhoneNumber;
             owner.UserId = this.UserId;
+            owner.Role = this.Role;
 
 
             return owner;

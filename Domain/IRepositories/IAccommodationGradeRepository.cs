@@ -14,6 +14,9 @@ namespace BookingApp.Domain.IRepositories
         List<AccommodationGrade> GetAll();
         AccommodationGrade Add(AccommodationGrade accommodationGrade);
         int NextId();
+        public AccommodationGrade GetById(int id);
+        List<AccommodationGrade> GetByOwnerId(int ownerId);
+        public List<double> GetAverageGrades(int ownerId);
         void Delete(AccommodationGrade accommodationGrade);
         AccommodationGrade Update(AccommodationGrade accommodationGrade);
         void Subscribe(IObserver observer);

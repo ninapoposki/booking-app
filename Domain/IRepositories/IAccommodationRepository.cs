@@ -18,6 +18,8 @@ namespace BookingApp.Domain.IRepositories
         void Delete(Accommodation accommodation);
         Accommodation Update(Accommodation accommodation);
         //List<Accommodation> GetAllByOwner(string owner);
+        public Accommodation GetById(int id);
         void Subscribe(IObserver observer);
+
     }
 }

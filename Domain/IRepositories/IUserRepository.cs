@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace BookingApp.Domain.IRepositories
     public interface IUserRepository
     {
 
-        User GetByUsername(string username);
+        User GetByUsername(string username); 
         int GetCurrentGuestUserId();
         void SetCurrentUserId(int UserId);
       

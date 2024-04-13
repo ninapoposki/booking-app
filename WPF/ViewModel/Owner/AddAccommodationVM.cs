@@ -19,30 +19,21 @@ namespace BookingApp.WPF.ViewModel.Owner
 {
     public class AddAccommodationVM : ViewModelBase
     {
-
         private ImageService imageService;
         private AccommodationService accommodationService;
         private LocationService locationService;
         private UserService userService;
-
-        public AccommodationDTO Accommodation { get; set; }
-       
-        
         public ObservableCollection<AccommodationType> Types { get; set; }
+        public ObservableCollection<ImageDTO> Images { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
         public List<String> CityComboBox { get; set; }
         public HashSet<String> CountryComboBox { get; set; }
-
+        public AccommodationDTO accommodationDTO { get; set; }
         private ImageDTO SelectedImage;
         public string SelectedCountry { get; set; }
         
-        public ObservableCollection<ImageDTO> Images { get; set; }
-
-        
-
         public AddAccommodationVM(string currentUserUsername)
         {
-
             imageService = new ImageService();
             accommodationService = new AccommodationService();
             locationService = new LocationService();
@@ -52,40 +43,29 @@ namespace BookingApp.WPF.ViewModel.Owner
             CityComboBox = new List<String>();
             CountryComboBox = new HashSet<String>();
 
-
-            Accommodation = new AccommodationDTO();
-           
-
-            Images = new ObservableCollection<ImageDTO>();
-            SelectedImage = new ImageDTO();
-
-            accommodationService.UpdateUser(Accommodation, currentUserUsername);
-            
+            accommodationDTO = new AccommodationDTO();
 
             var type = Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
             Types = new ObservableCollection<AccommodationType>(type);
+            Images = new ObservableCollection<ImageDTO>();
+            SelectedImage = new ImageDTO();
+
             
+            userService.UpdateUser(accommodationDTO, currentUserUsername);
             LoadCountries();
             LoadCity();
 
-
-            
-          
-           
         }
         public void CountryChanged()
         {
             LoadCity();
         }
         
-
         private void LoadCountries()
         {
-
             CountryComboBox.Clear();
             foreach (String country in locationService.GetAllCountries()) CountryComboBox.Add(country);
         }
-
 
         private void LoadCity()
         {
@@ -99,32 +79,17 @@ namespace BookingApp.WPF.ViewModel.Owner
 
         public void AddAccommodationButtonClick()
         {
-
             UpdateImages();
-
             String selectedCountry = SelectedCountry;
 
-            if (SelectedCity != null && selectedCountry != null) Accommodation.IdLocation = locationService.GetLocationId(SelectedCity, selectedCountry);
+            if (SelectedCity != null && selectedCountry != null) accommodationDTO.IdLocation = locationService.GetLocationId(SelectedCity, selectedCountry);
 
+            if (accommodationDTO.IsValid) {
+                MessageBox.Show("Accommodation added successfully!");
+                accommodationService.Add(accommodationDTO.ToAccommodation());
 
-            if (Accommodation.IsValid)
-            {
-                MessageBox.Show("Dodavanje smeštaja");
-
-                accommodationService.Add(Accommodation.ToAccommodation());
-               
-            }
-            else MessageBox.Show("Accommodation cannot be created. Not all field are valid.");
-
+            } else MessageBox.Show("Accommodation cannot be created. Not all field are valid.");
         }
-
-
-       /* private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Otkazivanje dodavanja smeštaja");
-            //this.DialogResult = false;
-            //this.Close();
-        }*/
 
         public void UpdateImages()
         { 
@@ -134,7 +99,6 @@ namespace BookingApp.WPF.ViewModel.Owner
                 imageService.UpdateAccommodation(image, id);
             }
         }
-
 
         public void BrowseImageClick()
         {
@@ -163,18 +127,9 @@ namespace BookingApp.WPF.ViewModel.Owner
             if (SelectedImage != null)
             {
                 Images.Remove(SelectedImage);
-
             }
         }
       
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private List<string> cities;
         public List<string> Cities
         {
