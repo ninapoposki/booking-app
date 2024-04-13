@@ -56,8 +56,7 @@ namespace BookingApp.Services
                 {
                     return tourService.GetTour(tourStart.TourId);
                 }
-            }
-            return null;
+            }return null;
         }      
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
