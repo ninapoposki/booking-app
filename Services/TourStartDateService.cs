@@ -21,45 +21,20 @@ namespace BookingApp.Services
             tourStartDateRepository=Injector.Injector.CreateInstance<ITourStartDateRepository>();
             tourService=new TourService();
         }
-
         public void Add(DateTime tourStartDate,int tourId)
         {
             TourStartDate tourDates = new TourStartDate(tourId, tourStartDate);
             tourStartDateRepository.Add(tourDates);
         }
-
-        public List<TourDTO> GetTours()
-        {
-            List<TourDTO> tourDTOs = new List<TourDTO>();
-            foreach(TourStartDate tourStartDate in tourStartDateRepository.GetAll())
-            {
-                if(AreToursToday(tourStartDate))
-                {
-                    TourDTO newTodayTour = tourService.GetTour(tourStartDate.TourId);
-                    tourDTOs.Add(newTodayTour);
-                }
-            }
-            return tourDTOs;      
-        }
-
-        private bool AreToursToday(TourStartDate tourStart)
-        {
-            return tourStart.StartTime.Date == DateTime.Today && (tourStart.TourStatus.ToString().Equals("INACTIVE") || tourStart.TourStatus.ToString().Equals("ACTIVE"));
-        }
-        
-        public IEnumerable<TourStartDateDTO> UpdateDate(int tourId)
+        public IEnumerable<TourStartDateDTO> GetTourDates(int tourId)
         {
             var dateTimesForTour = new List<TourStartDateDTO>();
             foreach (var startTime in tourStartDateRepository.GetByTourId(tourId))
             {
-                if (AreToursToday(startTime))
-                {
-                    dateTimesForTour.Add(new TourStartDateDTO(startTime));
-                }
+                dateTimesForTour.Add(new TourStartDateDTO(startTime));
             }
             return dateTimesForTour;
         }
-
         public void UpdateStartTime(int id)
         {
             TourStartDate? tourStart = tourStartDateRepository.Get(id);
@@ -74,7 +49,6 @@ namespace BookingApp.Services
             tourStartDateRepository.Update(tourStart);
             
         }
-
         public TourDTO GetActiveTour()
         {
             foreach(TourStartDate tourStart in tourStartDateRepository.GetAll())
@@ -83,16 +57,20 @@ namespace BookingApp.Services
                 {
                     return tourService.GetTour(tourStart.TourId);
                 }
-
             }
             return null;
-        }
-       
+        }      
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
             TourStartDate? startDate=tourStartDateRepository.Get(selectedDateId);
             startDate.CurrentCheckPointId = checkPointId;
             tourStartDateRepository.Update(startDate);
+        }
+        public void UpdateTourStatus(int selectedDateId)
+        {
+            TourStartDate? startDate = tourStartDateRepository.Get(selectedDateId);
+            startDate.TourStatus = TourStatus.CANCELED;
+            tourStartDateRepository.Update(startDate);  
         }
     }
 }

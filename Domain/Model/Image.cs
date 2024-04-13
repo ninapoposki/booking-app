@@ -40,16 +40,10 @@ namespace BookingApp.Domain.Model
                 EntityType= EntityType.ACCOMMODATION;
             }else if (values[3]=="TOUR"){
                 EntityType= EntityType.TOUR;
-            }
-            else
-            {
-
+            }else{
                 EntityType = EntityType.NONE;
-
             }
-            
         }
-        
         public string[] ToCSV()
         {
             string[] csvValues =

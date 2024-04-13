@@ -72,7 +72,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         private void LoadCountry()
         {
             Country=locationService.GetCountry(SelectedCity);
-
         }
         public void CityChanged()
         {
@@ -82,43 +81,24 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             GetTourLocation();
             GetTourLanguage();
-            if (!IsAdditionPossible())
-            {
-                MessageBox.Show("All fields must be filled properly before adding the tour");
-                return;
-            }
             tourService.Add(TourDTO.ToTour());
             AddCheckPoints(tourService.GetCurrentId());
             AddTourStartDates(tourService.GetCurrentId());
             UpdateImages();
-            MessageBox.Show("Tour added successfully");
         }
         private void GetTourLocation()
         {
             if (SelectedCity == null)
-            {
-                MessageBox.Show("Choose a tour city!");
-                return;
-            }
+            {MessageBox.Show("Choose a tour city!"); return;}
             TourDTO.LocationId = SelectedCity.Id;
 
         }
         private void GetTourLanguage()
         {
             if (SelectedLanguage == null)
-            {
-                MessageBox.Show("Choose a tour language!");
-                return;
-            }
+            {MessageBox.Show("Choose a tour language!"); return;}
             TourDTO.LanguageId = SelectedLanguage.Id;
-
         }
-        private bool IsAdditionPossible()
-        {
-            return Images.Count() > 0 && TourStartDates.Count() > 0;
-        }
-
-        //kljucne tacke
         public void AddCheckPointClick()
         {
             CheckPointDTO newCheckPoint = new CheckPointDTO { Name = CheckPointName, Type = "STOP" };
@@ -128,22 +108,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
 
         private void UpdateCheckPointTypes()
-        {
-
+        { 
             for (int i = 0; i < CheckPoints.Count; i++)
             {
-                if (i == 0)
-                {
-                    CheckPoints[i].Type = "START";
-                }
-                else if (i == CheckPoints.Count - 1)
-                {
-                    CheckPoints[i].Type = "END";
-                }
-                else
-                {
-                    CheckPoints[i].Type = "STOP";
-                }
+                if (i == 0) { CheckPoints[i].Type = "START"; }
+                else if (i == CheckPoints.Count - 1) { CheckPoints[i].Type = "END"; }
+                else { CheckPoints[i].Type = "STOP"; }
             }
         }
         public void RemoveCheckPointClick()
@@ -154,7 +124,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 UpdateCheckPointTypes();
             }
         }
-
         private void AddCheckPoints(int tourId)
         {
             foreach (CheckPointDTO checkPoint in CheckPoints)
@@ -162,8 +131,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 checkPointService.Add(checkPoint, tourId);
             }
         }
-
-        //Datumi
         public void AddDate()
         {
             var time = TryTimeParse(Time);
@@ -198,8 +165,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 tourStartDateService.Add(tourDate, tourId);
             }
         }
-
-        //Slike
         private void UpdateImages()
         {
             int id = tourService.GetCurrentId();
@@ -220,7 +185,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             string relativePath = MakeRelativePath(absolutePath);
             Images.Add(imageService.GetByPath(relativePath));
-
         }
         private string MakeRelativePath(string absolutPath)
         {
@@ -236,16 +200,13 @@ namespace BookingApp.WPF.ViewModel.Guide
                 Images.Remove(SelectedImage);
             }
         }
-
         public void LiveTourClick()
         {
             LiveTour liveTour = new LiveTour();
             liveTour.ShowDialog();
-
         }
 
         private string country;
-
         public string Country
         {
             get { return country; }
@@ -283,6 +244,11 @@ namespace BookingApp.WPF.ViewModel.Guide
                     OnPropertyChanged("Time");
                 }
             }
+        }
+        public void UpcomingToursClick()
+        {
+            UpcomigTours upcomingTours=new UpcomigTours();
+            upcomingTours.ShowDialog();
         }
     }
 }

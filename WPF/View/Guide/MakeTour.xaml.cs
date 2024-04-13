@@ -88,6 +88,10 @@ namespace BookingApp.WPF.View.Guide
         {
             Close();
         }
-      
+
+        private void UpcomingToursClick(object sender, RoutedEventArgs e)
+        {
+            MakeTourVM.UpcomingToursClick();
+        }
     }
 }
