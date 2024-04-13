@@ -20,10 +20,7 @@ namespace BookingApp.DTO
         private string startTime;
         public string StartTime
         {
-
             get { return startTime; }
-
-
             set
             {
 
@@ -32,32 +29,37 @@ namespace BookingApp.DTO
 
                     startTime = value;
                     OnPropertyChanged("StartTime");
-
-
                 }
 
+            }
+        }
+
+        private DateTime startDateTime;
+        public DateTime StartDateTime
+        {
+            get { return startDateTime; }
+            set
+            {
+                if (value != startDateTime)
+                { 
+                    startDateTime = value;
+                    OnPropertyChanged("StartDateTime");
+                }
             }
         }
 
         private TourStatus tourStatus;
         public TourStatus TourStatus
         {
-
             get { return tourStatus; }
-
-
             set
             {
-
                 if (value != tourStatus)
                 {
 
                     tourStatus = value;
                     OnPropertyChanged("TourStatus");
-
-
                 }
-
             }
         }
 
@@ -68,6 +70,7 @@ namespace BookingApp.DTO
             Id = tourStartDate.Id;
             TourId = tourStartDate.TourId;
             StartTime = tourStartDate.StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            StartDateTime = tourStartDate.StartTime;
             TourStatus= tourStartDate.TourStatus;
             CurrentCheckPointId=tourStartDate.CurrentCheckPointId;
         }
@@ -82,8 +85,6 @@ namespace BookingApp.DTO
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-
     }
 }
 

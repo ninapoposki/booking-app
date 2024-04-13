@@ -30,10 +30,11 @@ namespace BookingApp.Services
             {
                 guests=tourGuestService.GetGuests(reservation);
             }
-
-            return guests;
-            
+            return guests;  
         }
-
+        public List<TourReservation> GetReservationsByStartDate(int id)
+        {
+            return tourReservationRepository.GetAll().FindAll(t=>t.TourStartDateId==id);
+        }
     }
 }
