@@ -30,7 +30,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
         public int Id { get; set; }
 
         private string name;
@@ -50,7 +49,6 @@ namespace BookingApp.DTO
 
             }
         }
-
         private string description;
         public string Description
         {
@@ -65,10 +63,8 @@ namespace BookingApp.DTO
                     description = value;
                     OnPropertyChanged("Description");
                 }
-
             }
         }
-
         public Language Language { get; set; }
         public Location Location { get; set; }
        public int LocationId { get; set; }
@@ -91,7 +87,6 @@ namespace BookingApp.DTO
 
             }
         }
-
         private double duration;
         public double Duration
         {
@@ -110,12 +105,7 @@ namespace BookingApp.DTO
             }
         }
 
-
-
-        public TourDTO()
-        {
-
-        }
+        public TourDTO() { }
         public TourDTO(Tour tour, Location location,Language language)
         {
             Id = tour.Id;

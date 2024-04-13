@@ -23,10 +23,15 @@ namespace BookingApp.Services
             foreach (Language language in languageRepository.GetAll()) languages.Add(new LanguageDTO(language));
         }
 
+
         public LanguageDTO GetById(int id)
         {
             Language language = languageRepository.GetById(id);
             return new LanguageDTO(language);
+
+        public Language GetById(int id) 
+        { 
+            return languageRepository.GetById(id);
         }
     }
 }

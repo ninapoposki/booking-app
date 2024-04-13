@@ -33,19 +33,11 @@ namespace BookingApp.Services
         {
             return tourRepository.GetCurrentId();
         }
-
         public Tour Add(Tour tour)
         {
             return tourRepository.Add(tour);
         }
-        //arijana
-        public List<TourDTO> GetAll() {
-
-            List<Tour> tours = tourRepository.GetAll();
-            List<TourDTO> tourDTOs=tours.Select(t => new TourDTO(t)).ToList();
-            return tourDTOs;
-        
-        }
+        //arijana 
         public TourDTO GetById(int id)
         {
             Tour tour = tourRepository.GetById(id);
@@ -89,5 +81,21 @@ namespace BookingApp.Services
             return false;
         }
 
+        public TourDTO GetTour(int id)
+        {
+            Tour? todayTour = tourRepository.GetById(id);
+            Location location = locationService.GetById(todayTour.LocationId);
+            Language language = languageService.GetById(todayTour.LanguageId);
+            return new TourDTO(todayTour, location, language);
+        }
+       public List<TourDTO> GetAll()
+       {
+            List<TourDTO> tourDTOs = new List<TourDTO>();
+            foreach(Tour tour in tourRepository.GetAll())
+            {
+               tourDTOs.Add(GetTour(tour.Id));
+            }
+            return tourDTOs;
+       }
     }
 }

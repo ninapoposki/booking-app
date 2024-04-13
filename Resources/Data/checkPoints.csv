@@ -1,2 +1,30 @@
-1|mesto|1|START
-2|trg|1|END
+1|Centar|1|START
+2|Jezero|1|STOP
+3|Reka|1|STOP
+4|Trzni centar|1|END
+5|Promenada|2|START
+6|Centar|2|STOP
+7|Dunavski park|2|END
+8|Centar|3|START
+9|Promenada|3|END
+10|Luka|4|START
+11|Centar|4|STOP
+12|Park|4|STOP
+13|Luka|4|END
+14|jsjs|5|START
+15|sjjw|5|STOP
+16|jaje|5|END
+17|proba|6|START
+18|probuljica|6|END
+19|Anja|7|START
+20|Maamamam|7|STOP
+21|Govno|7|END
+22|jaje|8|START
+23|pape|8|STOP
+24|slatko|8|END
+25|proba|9|START
+26|proba|9|STOP
+27|proba|9|END
+28|Prva tacka|10|START
+29|Druga tacka|10|STOP
+30|treca tacja|10|END

@@ -15,14 +15,12 @@ namespace BookingApp.DTO
         public int Id { get; set; }
 
         public int TourId { get; set; }
+        public int CurrentCheckPointId { get; set; }
 
         private string startTime;
         public string StartTime
         {
-
             get { return startTime; }
-
-
             set
             {
 
@@ -31,73 +29,55 @@ namespace BookingApp.DTO
 
                     startTime = value;
                     OnPropertyChanged("StartTime");
-
-
                 }
 
             }
         }
 
-        private bool hasStarted;
-
-        public bool HasStarted
+        private DateTime startDateTime;
+        public DateTime StartDateTime
         {
-
-            get { return hasStarted; }
-
-
+            get { return startDateTime; }
             set
             {
-
-                if (value != hasStarted)
-                {
-
-                    hasStarted = value;
-                    OnPropertyChanged("HasStarted");
-
-
+                if (value != startDateTime)
+                { 
+                    startDateTime = value;
+                    OnPropertyChanged("StartDateTime");
                 }
-
             }
         }
-        private bool hasFinished;
-        public bool HasFinished
+
+        private TourStatus tourStatus;
+        public TourStatus TourStatus
         {
-
-            get { return hasFinished; }
-
-
+            get { return tourStatus; }
             set
             {
-
-                if (value != hasFinished)
+                if (value != tourStatus)
                 {
 
-                    hasFinished = value;
-                    OnPropertyChanged("HasFinished");
-
-
+                    tourStatus = value;
+                    OnPropertyChanged("TourStatus");
                 }
-
             }
         }
+
         public TourStartDateDTO() { }
 
         public TourStartDateDTO(TourStartDate tourStartDate)
         {
-
             Id = tourStartDate.Id;
             TourId = tourStartDate.TourId;
             StartTime = tourStartDate.StartTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-            HasStarted = tourStartDate.HasStarted;
-            HasFinished = tourStartDate.HasFinished;
-
-
+            StartDateTime = tourStartDate.StartTime;
+            TourStatus= tourStartDate.TourStatus;
+            CurrentCheckPointId=tourStartDate.CurrentCheckPointId;
         }
 
         public TourStartDate ToTourStartDate()
         {
-            return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture));
+            return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),tourStatus,CurrentCheckPointId);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -105,8 +85,6 @@ namespace BookingApp.DTO
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-
     }
 }
 
