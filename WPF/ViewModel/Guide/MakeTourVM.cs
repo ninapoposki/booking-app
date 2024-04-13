@@ -206,6 +206,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             liveTour.ShowDialog();
         }
 
+
         private string country;
         public string Country
         {

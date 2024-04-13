@@ -26,6 +26,7 @@ namespace BookingApp.Services
             TourStartDate tourDates = new TourStartDate(tourId, tourStartDate);
             tourStartDateRepository.Add(tourDates);
         }
+
         public IEnumerable<TourStartDateDTO> GetTourDates(int tourId)
         {
             var dateTimesForTour = new List<TourStartDateDTO>();
@@ -41,13 +42,11 @@ namespace BookingApp.Services
             tourStart.TourStatus = TourStatus.ACTIVE;
             tourStartDateRepository.Update(tourStart);   
         }
-
         public void UpdateEndTime(int id)
         {
             TourStartDate? tourStart=tourStartDateRepository.Get(id);
             tourStart.TourStatus=TourStatus.FINISHED;
             tourStartDateRepository.Update(tourStart);
-            
         }
         public TourDTO GetActiveTour()
         {

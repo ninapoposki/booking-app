@@ -31,19 +31,19 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Grad:" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="CityTextBox" Grid.Column="1" Margin="5"/>
+            <TextBox x:Name="CityTextBox" Text="{Binding CityFilter, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="5"/>
 
             <Label Content="Država:" Grid.Column="2" Margin="5"/>
-            <TextBox x:Name="CountryTextBox" Grid.Column="3" Margin="5"/>
+            <TextBox x:Name="CountryTextBox" Text="{Binding CountryFilter, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Margin="5"/>
 
-            <Label Content="Broj dana:" Grid.Column="4" Margin="5"/>
-            <TextBox x:Name="DaysTextBox" Grid.Column="5" Margin="5"/>
+            <Label Content="Trajanje:" Grid.Column="4" Margin="5"/>
+            <TextBox x:Name="DaysTextBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Margin="5"/>
 
             <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
-            <ComboBox x:Name="LanguageComboBox" Grid.Column="7" Margin="5" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedValuePath="Id"/>
-
+            <ComboBox x:Name="LanguageComboBox"  SelectedItem="{Binding SelectedLanguage , UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Languages}" Grid.Column="7" Margin="5"  DisplayMemberPath="Name" SelectedValuePath="Id"/>
+            
             <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
-            <TextBox x:Name="PeopleTextBox" Grid.Column="9" Margin="5"/>
+            <TextBox x:Name="PeopleTextBox" Text="{Binding PeopleCount , UpdateSourceTrigger=PropertyChanged}"  Grid.Column="9" Margin="5"/>
 
 
             <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />

@@ -38,5 +38,15 @@ namespace BookingApp.Services
         public ImageDTO GetByPath(string relativePath) {
             return new ImageDTO(imageRepository.FindByPath(relativePath));
         }
+
+        public List<ImageDTO> GetAll()
+        {
+            var images = new List<ImageDTO>();
+            foreach (Image image in imageRepository.GetAll())
+            {
+                images.Add(new ImageDTO(image));
+            }
+            return images;
+        }
     }
 }

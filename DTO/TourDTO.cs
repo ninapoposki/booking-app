@@ -118,7 +118,20 @@ namespace BookingApp.DTO
             Capacity = tour.Capacity;
             Duration = tour.Duration;
         }
-       public Tour ToTour()
+
+        public TourDTO(Tour tour)
+        {
+            Id = tour.Id;
+            Name = tour.Name;
+            Description = tour.Description;
+           
+            LanguageId = tour.LanguageId;
+            
+            LocationId = tour.LocationId;
+            Capacity = tour.Capacity;
+            Duration = tour.Duration;
+        }
+        public Tour ToTour()
        {
             return new Tour(Id, name, description, LanguageId, LocationId, capacity, duration);
            

@@ -12,6 +12,7 @@ namespace BookingApp.Services
 {
     public class TourGuestService
     {
+
         private ITourGuestRepository tourGuestRepository;
 
         public TourGuestService() 
@@ -35,11 +36,24 @@ namespace BookingApp.Services
             }
             return guests;
         }
-        public void UpdatePresentGuest(TourGuestDTO tourGuest,CheckPointDTO currentCheckPoint)
+
+        public void UpdatePresentGuest(TourGuestDTO tourGuest, CheckPointDTO currentCheckPoint)
         {
-            TourGuest guest=tourGuest.ToTourGuest();
+            TourGuest guest = tourGuest.ToTourGuest();
             guest.CheckPointId = currentCheckPoint.Id;
             tourGuestRepository.Update(guest);
         }
+        public void AddGuest(string fullName, int age, int reservationId)
+        {
+            TourGuest newGuest = new TourGuest
+            {
+                FullName = fullName,
+                Age = age,
+                TourReservationId = reservationId,
+                CheckPointId = -1  
+            };
+            tourGuestRepository.Add(newGuest);
+        }
+
     }
 }

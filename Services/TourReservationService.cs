@@ -14,15 +14,31 @@ namespace BookingApp.Services
     {
         private ITourReservationRepository tourReservationRepository;
         private TourGuestService tourGuestService;
-        public TourReservationService() 
+        private UserService userService;
+        public TourReservationService()
         {
-            tourReservationRepository=Injector.Injector.CreateInstance<ITourReservationRepository>();
-            tourGuestService=new TourGuestService();
+            tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
+            tourGuestService = new TourGuestService();
+            userService = new UserService();
         }
         public bool DoReservationExists(int tourStartId)
         {
-            return tourReservationRepository.GetByTourDateId(tourStartId).Count>0;
+            return tourReservationRepository.GetByTourDateId(tourStartId).Count > 0;
         }
+        
+        public bool TryCreateReservation(int tourStartId, int userId,string username, int numberOfGuests, out int reservationId)
+        {
+            var currentUserId = userService.GetByUsername(username);
+            var reservation = tourReservationRepository.AddNewReservation(tourStartId, currentUserId.Id, numberOfGuests);
+            if (reservation == null)
+            {
+                reservationId = -1;
+                return false;
+            }
+            reservationId = reservation.Id;
+            return true;
+        }
+   
         public List<TourGuestDTO> GetByStartDate(int id)
         { 
             List<TourGuestDTO> guests = new List<TourGuestDTO>();   
@@ -38,3 +54,4 @@ namespace BookingApp.Services
         }
     }
 }
+

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace BookingApp.Services
             languages.Clear();
             foreach (Language language in languageRepository.GetAll()) languages.Add(new LanguageDTO(language));
         }
+
+
+        public LanguageDTO GetById(int id)
+        {
+            Language language = languageRepository.GetById(id);
+            return new LanguageDTO(language);
 
         public Language GetById(int id) 
         { 

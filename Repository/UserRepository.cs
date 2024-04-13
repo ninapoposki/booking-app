@@ -59,19 +59,15 @@ namespace BookingApp.Repository
         {
             currentUserId = userId;
         }
-        public int GetCurrentUserId()
+       public int GetCurrentUserId()
         {
-            // Provera da li je neki korisnik trenutno ulogovan
-            if (currentUserId != 0)
-            {
-                // Vraća ID trenutno ulogovanog korisnika
+            if (currentUserId != 0) { 
+
                 return currentUserId;
             }
             else
             {
-                // Ako nijedan korisnik nije ulogovan, možete vratiti neku vrednost koja to označava
-                // Na primer, -1 ili baciti izuzetak
-                return -1; // ili throw new Exception("Nema ulogovanog korisnika.");
+                return -1; 
             }
         }
 
