@@ -24,5 +24,10 @@ namespace BookingApp.Services
         {
             return guestRepository.Add(guest);
         }
+
+        public int GetCurrentId()
+        {
+            return guestRepository.GetCurrentId();  
+        }
     }
 }

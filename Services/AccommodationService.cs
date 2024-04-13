@@ -4,6 +4,7 @@ using BookingApp.DTO;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,14 @@ namespace BookingApp.Services
     {
         private IAccommodationRepository accommodationRepository;
         private IUserRepository userRepository;
-
+        private LocationService locationService;
+        private ImageService imageService;
         public AccommodationService()
         {
             accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
             userRepository = Injector.Injector.CreateInstance<IUserRepository>();
+            imageService = new ImageService();
+            locationService = new LocationService();
         }
         public Accommodation Add(Accommodation accommodation)
         {
@@ -27,6 +31,12 @@ namespace BookingApp.Services
         public int GetCurrentId()
         {
            return accommodationRepository.GetCurrentId();
+        }
+        public List<AccommodationDTO> GetAll()
+        {
+            List<Accommodation> accommodations = accommodationRepository.GetAll();
+            List<AccommodationDTO> accommodationDTOs = accommodations.Select(acc => new AccommodationDTO(acc)).ToList();
+            return accommodationDTOs;
         }
 
         public User FindUser( string currentUsername)
@@ -39,6 +49,9 @@ namespace BookingApp.Services
         public void UpdateUser(AccommodationDTO accommodation,string currentUsername ) { 
             accommodation.OwnerId = FindUser(currentUsername).Id;
         }
-        
+       
+
     }
+
 }
+

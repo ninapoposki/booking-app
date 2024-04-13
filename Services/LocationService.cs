@@ -52,6 +52,7 @@ namespace BookingApp.Services
             return location != null ? new LocationDTO(location) : null;
         }
 
+
         public HashSet<string> GetAllCountries() {
             return locationRepository.GetAllCountries();    
         }
@@ -71,6 +72,7 @@ namespace BookingApp.Services
         {
             return locationRepository.GetLocationId(city, country);
         }
+
 
 
     }
