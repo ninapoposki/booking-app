@@ -37,11 +37,12 @@ namespace BookingApp.Services
             }
             return null;
         }
-        public LocationDTO GetById(int id) { 
-        
-            Location location=locationRepository.GetById(id);
-            return location != null ? new LocationDTO(location) : null;
+        public LocationDTO GetByIdDTO(int id)
+        {
 
+            Location location = locationRepository.GetById(id);
+            return location != null ? new LocationDTO(location) : null;
+        }
         public Location GetById(int id)
         {
             return locationRepository.GetById(id);

@@ -41,11 +41,7 @@ namespace BookingApp.WPF.View.Tourist
             DataContext = tourReservationWindowVM;
         }
 
-        public void Update()
-        {
-            tourReservationWindowVM.Update();
-        }
-
+    
         private void CancelTour(object sender, RoutedEventArgs e)
         {
 
@@ -53,7 +49,6 @@ namespace BookingApp.WPF.View.Tourist
             this.Close();
         }
 
-        
 
         private void Vouchers(object sender, RoutedEventArgs e)
         {

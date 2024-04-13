@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
-    public class TourReservationWindowVM:ViewModelBase,INotifyPropertyChanged
+    public class TourReservationWindowVM:ViewModelBase
     {
 
         public TourReservationDTO TourReservationDTO { get; set; }
@@ -41,11 +41,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
             Reservations = new ObservableCollection<TourReservationDTO>();
             userService = new UserService();
             maxGuests = 0;
-            Update();
+            
         }
 
-        public void Update() { }
-
+       
 
         public void ConfirmTourReservation()
         {
@@ -233,8 +232,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
        
         public void FinishReservation()
-        {
-            
+        { 
             var user=userService.GetByUsername(username);
             if (!tourReservationService.TryCreateReservation(selectedTour.SelectedDateTime.Id, user.Id,username, maxGuests, out int reservationId))
             {
@@ -271,12 +269,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
              NameSurname= string.Empty;
             Age = 0;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+      
 
     }
 
