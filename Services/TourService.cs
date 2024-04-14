@@ -67,19 +67,20 @@ namespace BookingApp.Services
             }
         }
 
-        public bool UpdateTourCapacity(int tourId,  out int remainingCapacity)
+        public bool UpdateTourCapacity(int tourId, int numberOfGuests, out int remainingCapacity)
         {
             var tour = tourRepository.GetById(tourId);
             if (tour != null)
             {
-                tour.Capacity --; 
+                tour.Capacity -= numberOfGuests;
                 tourRepository.Update(tour);
-               remainingCapacity = tour.Capacity;  
+                remainingCapacity = tour.Capacity;
                 return true;
             }
-            remainingCapacity = 0;  
+            remainingCapacity = 0;
             return false;
         }
+
 
         public TourDTO GetTour(int id)
         {

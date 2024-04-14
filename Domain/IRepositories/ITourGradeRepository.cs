@@ -1,6 +1,5 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Observer;
-using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +8,12 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.IRepositories
 {
-    public interface IVoucherRepository
+    public interface ITourGradeRepository
     {
-        List<Voucher> GetAll();
-        Voucher Add(Voucher voucher);
+        TourGrade Add(TourGrade tourGrade);
         int NextId();
-        void Delete(Voucher voucher);
-        Voucher Update(Voucher voucher);
+        void Delete(TourGrade tourGrade);
+        TourGrade Update(TourGrade tourGrade);
         void Subscribe(IObserver observer);
-        Voucher GetById(int id);
-
-       
-
-
     }
 }

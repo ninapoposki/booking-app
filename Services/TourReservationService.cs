@@ -25,8 +25,8 @@ namespace BookingApp.Services
         {
             return tourReservationRepository.GetByTourDateId(tourStartId).Count > 0;
         }
-        
-        public bool TryCreateReservation(int tourStartId, int userId,string username, int numberOfGuests, out int reservationId)
+
+        public bool TryCreateReservation(int tourStartId, int userId, string username, int numberOfGuests, out int reservationId)
         {
             var currentUserId = userService.GetByUsername(username);
             var reservation = tourReservationRepository.AddNewReservation(tourStartId, currentUserId.Id, numberOfGuests);
@@ -38,20 +38,19 @@ namespace BookingApp.Services
             reservationId = reservation.Id;
             return true;
         }
-   
+
         public List<TourGuestDTO> GetByStartDate(int id)
-        { 
-            List<TourGuestDTO> guests = new List<TourGuestDTO>();   
-            foreach(TourReservation reservation in tourReservationRepository.GetByTourDateId(id)) 
+        {
+            List<TourGuestDTO> guests = new List<TourGuestDTO>();
+            foreach (TourReservation reservation in tourReservationRepository.GetByTourDateId(id))
             {
-                guests=tourGuestService.GetGuests(reservation);
+                guests = tourGuestService.GetGuests(reservation);
             }
-            return guests;  
+            return guests;
         }
         public List<TourReservation> GetReservationsByStartDate(int id)
         {
-            return tourReservationRepository.GetAll().FindAll(t=>t.TourStartDateId==id);
+            return tourReservationRepository.GetAll().FindAll(t => t.TourStartDateId == id);
         }
     }
 }
-

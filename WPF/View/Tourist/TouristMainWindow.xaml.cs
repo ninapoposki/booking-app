@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using BookingApp.DTO;
 using System.Runtime.CompilerServices;
 using BookingApp.WPF.ViewModel.Tourist;
+using BookingApp.Services;
 
 namespace BookingApp.WPF.View.Tourist
 {
@@ -28,6 +29,7 @@ namespace BookingApp.WPF.View.Tourist
     public partial class TouristMainWindow : Window
     {
         public TouristMainWindowVM  touristMainWinodowVM { get; set; }
+        
        
 
         public TouristMainWindow(string username)

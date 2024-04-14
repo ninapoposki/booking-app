@@ -97,6 +97,7 @@ namespace BookingApp.DTO
             Description = voucher.Description;
             Status= voucher.Status;
         }
+
         public Voucher ToVoucher()
         {
             return new Voucher(Id,UserId, TourReservationId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);

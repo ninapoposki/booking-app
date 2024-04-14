@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
@@ -77,5 +78,20 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+
+        public void RefreshVouchers()
+        {
+            vouchers = serializer.FromCSV(FilePath);
+        }
+
+      
+
+        public Voucher? GetById(int id)
+        {
+            RefreshVouchers(); // Osvežavamo listu vaucera
+            return vouchers.Find(s => s.Id == id);
+        }
+
+
     }
 }
