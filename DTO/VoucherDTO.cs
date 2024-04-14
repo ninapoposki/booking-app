@@ -12,7 +12,7 @@ namespace BookingApp.DTO
     public class VoucherDTO: INotifyPropertyChanged
     {
         public int Id { get; set; }
-
+        public int UserId {  get; set; }
         public int TourReservationId { get; set; }
 
         private string startDate;
@@ -90,15 +90,17 @@ namespace BookingApp.DTO
         public VoucherDTO(Voucher voucher)
         {
             Id=voucher.Id;
+            UserId=voucher.UserId;
             TourReservationId = voucher.TourReservationId;
             StartDate = voucher.StartDate.ToString("dd/MM/yyyy");
             ExpirationDate = voucher.ExpirationDate.ToString("dd/MM/yyyy");
             Description = voucher.Description;
             Status= voucher.Status;
         }
+
         public Voucher ToVoucher()
         {
-            return new Voucher(Id, TourReservationId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);
+            return new Voucher(Id,UserId, TourReservationId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

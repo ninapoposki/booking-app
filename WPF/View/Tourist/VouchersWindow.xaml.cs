@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.ViewModel.Tourist;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,18 +20,26 @@ namespace BookingApp.WPF.View.Tourist
     /// </summary>
     public partial class VouchersWindow : Window
     {
+        public VouchersWindowVM vouchersWindowVM { get; set; }
         public VouchersWindow()
         {
 
             InitializeComponent();
+            vouchersWindowVM = new VouchersWindowVM();
+            DataContext = vouchersWindowVM;
+            Update();
+        }
 
-            DataContext = this;
+        public void Update()
+        {
+            vouchersWindowVM.Update();
+
 
         }
 
         private void Apply(object sender, RoutedEventArgs e) { 
         
-       
+            vouchersWindowVM.Apply();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

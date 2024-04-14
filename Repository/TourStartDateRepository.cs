@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class TourStartDateRepository
+    public class TourStartDateRepository:ITourStartDateRepository
     {
         private const string FilePath = "../../../Resources/Data/tourStartDates.csv";
 
@@ -35,7 +36,10 @@ namespace BookingApp.Repository
         {
             return tourStartDates.FindAll(tsd => tsd.TourId == id);
         }
-
+        public TourStartDate? Get(int id)
+        {
+          return tourStartDates.Find(tsd=>tsd.Id == id);
+        }
         public TourStartDate Add(TourStartDate tourStartDate)
         {
             tourStartDate.Id = NextId();

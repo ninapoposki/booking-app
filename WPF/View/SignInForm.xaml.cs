@@ -7,6 +7,7 @@ using BookingApp.WPF.View.Tourist;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Security.Cryptography.Pkcs;
 
 namespace BookingApp.WPF.View
 {
@@ -17,7 +18,7 @@ namespace BookingApp.WPF.View
     {
 
         private readonly UserRepository _repository;
-
+        public int UserId { get; set; }
         private string _username;
         public string Username
         {
@@ -60,7 +61,7 @@ namespace BookingApp.WPF.View
                 return;
             }
             UserRepository.Instance.SetCurrentUserId(user.Id);
-
+            UserId = user.Id;
             HandleUserSignIn(user.UserType);   
         }
         private void HandleUserSignIn(UserType type) { 
@@ -97,13 +98,13 @@ namespace BookingApp.WPF.View
         private void OpenGuideWindow()
         {
            
-            MakeTour makeTour = new MakeTour();
+            MakeTour makeTour = new MakeTour(UserId);
             makeTour.Show();
             Close();
         }
         private void OpenTouristWindow()
         {
-            TouristMainWindow touristMainWindow = new TouristMainWindow();
+            TouristMainWindow touristMainWindow = new TouristMainWindow(Username);
             touristMainWindow.Show();
             Close();
         }

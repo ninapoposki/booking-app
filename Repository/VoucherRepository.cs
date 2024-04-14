@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -6,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
-    public class VoucherRepository
+    public class VoucherRepository:IVoucherRepository
     {
         private const string FilePath = "../../../Resources/Data/vouchers.csv";
 
@@ -76,5 +78,20 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+
+        public void RefreshVouchers()
+        {
+            vouchers = serializer.FromCSV(FilePath);
+        }
+
+      
+
+        public Voucher? GetById(int id)
+        {
+            RefreshVouchers(); // Osvežavamo listu vaucera
+            return vouchers.Find(s => s.Id == id);
+        }
+
+
     }
 }
