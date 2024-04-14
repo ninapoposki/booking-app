@@ -192,6 +192,19 @@ namespace BookingApp.DTO
             Owner = owner;
            // Owner = owner;
         }
+        public AccommodationReservationDTO(AccommodationReservation reservation, Accommodation accommodation)
+        {
+            Id = reservation.Id;
+            GuestId = reservation.GuestId;
+            AccommodationId = reservation.AccommodationId;
+            Accommodations = accommodation;
+            GuestId = reservation.GuestId;
+            InitialDate = reservation.InitialDate;
+            EndDate = reservation.EndDate;
+            DaysToStay = reservation.DaysToStay;
+            NumberOfGuests = reservation.NumberOfGuests;
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

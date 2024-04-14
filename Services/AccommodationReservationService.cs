@@ -20,22 +20,17 @@ namespace BookingApp.Services
         private AccommodationService accommodationService;
         private GuestService guestService;
         private UserService userService;
-
-        
-
+        private LocationService locationService;
+        private OwnerService ownerService;
         public AccommodationReservationService()
         {
             accommodationReservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationService = new AccommodationService();
             guestService = new GuestService();
             userService = new UserService();
-          
-
-
+            locationService= new LocationService();
+            ownerService = new OwnerService();
         }
-      
-      
-        
         public bool IsOverFiveDays(AccommodationReservationDTO accommodationReservationDTO)
         {
             return accommodationReservationRepository.IsOverFiveDays(accommodationReservationDTO.ToAccommodationReservation());
@@ -48,20 +43,14 @@ namespace BookingApp.Services
             return accommodationReservationDTOs;
         }
         
-
-    
        public AccommodationReservationDTO GetAllInfo(AccommodationReservationDTO accommodationReservationDTO)
         {
-            
               var guest = guestService.GetById(accommodationReservationDTO.GuestId);
               accommodationReservationDTO.Guest = new GuestDTO(guest);
               var accomm = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
              accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
             return accommodationReservationDTO;
         }
-
-        
-
         public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId)
         {
             return accommodationReservationRepository.FindAlternativeDates(reservation, accommodationId);
@@ -85,10 +74,8 @@ namespace BookingApp.Services
             return accommodationReservationRepository.Add(reservation);
         }
       
-
         public AccommodationReservation ProcessAlternativeDates(AccommodationReservation reservation, int accommodationId, Guest guest)
         {
-           // var dates = accommodationReservationRepository.FindAlternativeDates(reservation, accommodationId);
             guest.UserId = userService.GetCurrentGuestUserId();
             guestService.Add(guest);
             reservation.GuestId = guestService.GetCurrentId();
@@ -98,18 +85,25 @@ namespace BookingApp.Services
 
         public AccommodationReservation ProcessDateRange(AccommodationReservation reservation, int accommodationId, Guest guest)
         {
-           // List<(DateTime, DateTime)> dates = accommodationReservationRepository.FindDateRange(reservation, accommodationId);
             guest.UserId = userService.GetCurrentGuestUserId();
             guestService.Add(guest);
-
             reservation.GuestId = guestService.GetCurrentId();
-
             return reservation;
         }
 
-        //proba sad
-        //novaywdufy
-
-
+         public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
+         {
+            var accommodation = accommodationService.GetById(reservationDTO.AccommodationId);
+            var location = locationService.GetById(accommodation.IdLocation);
+            var owner = ownerService.GetById(accommodation.OwnerId);
+            var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation,location.ToLocation(),owner);
+            return accommodationReservationDTO;
+            
+         }
+        public void Delete(AccommodationReservation accommodationReservation)
+        {
+            accommodationReservationRepository.Delete(accommodationReservation);
+        }
+      
     }
 }
