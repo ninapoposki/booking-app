@@ -15,10 +15,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         private TourService tourService;
         private TourStartDateService tourStartDateService;
         private VoucherService voucherService;
+        private int userId;
         public ObservableCollection<TourDTO> UpcomingTours { get; set; }
         public TourDTO SelectedTour { get; set; }
-        public UpcomingToursVM()
+        public UpcomingToursVM(int userId)
         {
+            this.userId = userId;
             tourService = new TourService();
             tourStartDateService = new TourStartDateService();
             voucherService = new VoucherService();
@@ -28,7 +30,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void LoadUpcomingTours()
         {
-            foreach (TourDTO tour in tourService.GetAll())
+            foreach (TourDTO tour in tourService.GetAllForUser(userId))
             {
                 List<TourStartDateDTO> filteredDates = GetUpcomingTourDates(tour.Id);
                 if (filteredDates.Count > 0)

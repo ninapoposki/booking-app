@@ -21,10 +21,10 @@ namespace BookingApp.WPF.View.Guide
     public partial class UpcomigTours : Window
     {
         private UpcomingToursVM UpcomingToursVM {  get; set; }
-        public UpcomigTours()
+        public UpcomigTours(int userId)
         {
             InitializeComponent();
-            UpcomingToursVM = new UpcomingToursVM();
+            UpcomingToursVM = new UpcomingToursVM(userId);
             DataContext = UpcomingToursVM;
         }
         private void CancelTourClick(object sender, RoutedEventArgs e)

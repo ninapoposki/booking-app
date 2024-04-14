@@ -1,0 +1,118 @@
+﻿<Window x:Class="BookingApp.WPF.View.Guide.TourStatistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+        mc:Ignorable="d"
+        Title="TourStatistics" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="10">Finished tours</TextBlock>
+            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
+                <Border BorderThickness="2" BorderBrush="Black">
+                    <ItemsControl ItemsSource="{Binding FinishedTours}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="Chocolate" MouseDown="ItemClicked" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="2.5*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="0,0,0,5"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center"    >
+                                            <TextBlock Text="{Binding SelectedDateTime.StartTime}" Margin="0,0,0,5"/>
+                                            <TextBlock Text="{Binding Location}" Margin="0,0,0,5"/>
+                                            <TextBlock Text="{Binding Language}" Margin="0,0,0,5"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="10">
+            <TextBlock Text="Visitor Statistics" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="10"/>
+            <Border Height="200" BorderBrush="Black" BorderThickness="2" Margin="0,0,0,0">
+                <StackPanel Orientation="Vertical" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                    <TextBlock FontSize="15" FontWeight="Bold" Padding="5">Age range</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="0-18" Width="50" Padding="10"/>
+                        <TextBlock Text="Number of tourists:" Width="120" Padding="10"/>
+                        <TextBox Text="{Binding YoungVisitorsCount}" Width="30" Height="30" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="18-50" Width="50" Padding="10"/>
+                        <TextBlock Text="Number of tourists:" Width="120" Padding="10"/>
+                        <TextBox Text="{Binding AdultVisitorsCount}" Width="30" Height="30" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="50+" Width="50" Padding="10"/>
+                        <TextBlock Text="Number of tourists:" Width="120" Padding="10"/>
+                        <TextBox Text="{Binding SeniorVisitorsCount}" Width="30" Height="30" IsReadOnly="True"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0"  Grid.Row="0" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="10">Most visited tour</TextBlock>
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="15">
+                <TextBlock TextAlignment="Center" FontSize="13">Choose a year</TextBlock>
+                <ComboBox  Width="150" Height="30" ItemsSource="{Binding YearComboBox}" SelectedItem="{Binding SelectedYear}" SelectionChanged="YearChanged"></ComboBox>
+            </StackPanel>
+            <ScrollViewer Grid.Row="2" Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="10">
+                <Border BorderBrush="Black" BorderThickness="2">
+                    <ItemsControl ItemsSource="{Binding BestTours}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Chocolate" BorderThickness="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,0,0,5" Padding="5"/>
+                                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding SelectedDateTime.StartTime}" Margin="0,0,0,5"/>
+                                                <TextBlock Text="{Binding Location}" Margin="0,0,0,5"/>
+                                                <TextBlock Text="{Binding Language}" Margin="0,0,0,5"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <TextBlock Text="Number of tourists in total:" Padding="10" VerticalAlignment="Center"/>
+                                            <TextBox Text="{Binding NumberOfTourists}" Width="30" Height="30" IsReadOnly="True" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

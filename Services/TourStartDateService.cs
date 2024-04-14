@@ -26,7 +26,6 @@ namespace BookingApp.Services
             TourStartDate tourDates = new TourStartDate(tourId, tourStartDate);
             tourStartDateRepository.Add(tourDates);
         }
-
         public IEnumerable<TourStartDateDTO> GetTourDates(int tourId)
         {
             var dateTimesForTour = new List<TourStartDateDTO>();
@@ -56,8 +55,7 @@ namespace BookingApp.Services
                 {
                     return tourService.GetTour(tourStart.TourId);
                 }
-            }
-            return null;
+            }return null;
         }      
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
@@ -70,6 +68,24 @@ namespace BookingApp.Services
             TourStartDate? startDate = tourStartDateRepository.Get(selectedDateId);
             startDate.TourStatus = TourStatus.CANCELED;
             tourStartDateRepository.Update(startDate);  
+        }
+        public List<TourDTO> GetAllFinishedTours(int userId)
+        {
+            List<TourDTO> finishedTours = new List<TourDTO>();
+            foreach (TourDTO tour in tourService.GetAllForUser(userId))
+            {
+                var finishedDates = GetTourDates(tour.Id).Where(t => t.TourStatus == TourStatus.FINISHED);
+                foreach (TourStartDateDTO tourStart in finishedDates)
+                {
+                    TourDTO tourDTO = tourService.GetTour(tourStart.TourId);
+                    tourDTO.SelectedDateTime = tourStart;
+                    finishedTours.Add(tourDTO);
+                }
+            }return finishedTours;
+        }
+        public List<TourDTO> GetByYear(int year, int userId)
+        {
+            return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
         }
     }
 }

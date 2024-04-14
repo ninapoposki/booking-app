@@ -19,20 +19,18 @@ namespace BookingApp.WPF.ViewModel.Guide
     public class LiveTourVM:ViewModelBase
     {
         public ObservableCollection<TourDTO> Tours { get; set; }
-
+        private int userId;
         private TourService tourService;
         private TourStartDateService tourStartDateService;
         private LocationService locationService;
         private LanguageService languageService;
         private TourReservationService tourReservationService;
         public TourDTO SelectedTour { get; set; }
-
-        public LiveTourVM()
+        public LiveTourVM(int userId)
         {
-           
            Tours = new ObservableCollection<TourDTO>();
            SelectedTour = new TourDTO();
-           
+           this.userId=userId;
            tourService = new TourService();
            tourStartDateService = new TourStartDateService();
            tourReservationService = new TourReservationService();
@@ -44,7 +42,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         private void LoadTodaysTours()
         {
             if (IsAnyTourActive()) return;
-            foreach (TourDTO tour in tourService.GetAll())
+            foreach (TourDTO tour in tourService.GetAllForUser(userId))
             {
                     List<TourStartDateDTO> tourDates = GetFilteredTourDates(tour.Id);
                     if (tourDates.Count > 0)
