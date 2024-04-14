@@ -21,12 +21,16 @@ namespace BookingApp.WPF.View.Guest
 
         private void BookAccommodationClick(object sender, RoutedEventArgs e)
         {
-            GuestMainWindowVM.BookAccommodation();
+            GuestMainWindowVM.BookAccommodationClick();
         }
 
         private void OpenReservationsClick(object sender, RoutedEventArgs e)
         {
-            GuestMainWindowVM.OpenReservations();
+            GuestMainWindowVM.OpenReservationsClick();
+        }
+        private void OpenNotificationsClick(object sender, RoutedEventArgs e)
+        {
+            GuestMainWindowVM.OpenNotificationsClick();
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)

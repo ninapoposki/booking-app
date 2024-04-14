@@ -20,5 +20,8 @@ namespace BookingApp.Domain.IRepositories
         public void Delete(ReservationRequest reservationRequest);
         public ReservationRequest Update(ReservationRequest reservationRequest);
         public void Subscribe(IObserver observer);
+        List<(DateTime, DateTime)> GenerateNewDateRange(DateTime startDate, int daysToStay);
+        (DateTime, DateTime) GetInitialDateRange();
+
     }
 }

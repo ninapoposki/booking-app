@@ -18,6 +18,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ImageDTO SelectedImage { get; set; }
         public AccommodationGradeDTO accommodationGradeDTO { get; set; }
+
         public GradeAccommodationVM(AccommodationReservationDTO accommodationReservationDTO)
         {
             selectedAccommodationReservation = accommodationReservationDTO;
@@ -74,9 +75,6 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationGradeDTO.Cleanliness = CleannessRadio;
             accommodationGradeDTO.Correctness = CorrectnessRadio;
             accommodationGradeDTO.Comment = Comments;
-            // accommodationGradeDTO.OwnerId = selectedAccommodationReservation.OwnerId; smisli??
-            //dodaj ownera nekako sad iz rezervacije preko accommodationa
-            // accommodationGradeDTO.ReservationId = selectedAccommodationReservation.Id;
             var linkedAccommodationGradeDTO = AccommodationGradeService.GetOneAccommodationGrade(selectedAccommodationReservation, accommodationGradeDTO);
             AccommodationGradeService.Add(linkedAccommodationGradeDTO.ToAccommodationGrade());
 
