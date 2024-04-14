@@ -18,13 +18,12 @@ namespace BookingApp.Domain.Model
         public string Status { get; set; }
         public RequestStatus RequestStatus { get; set; }
         public string Comment { get; set; }
+        public Accommodation Accommodation {  get; set; }
         
-        
-
         public ReservationRequest()
         {
-            
             AccommodationReservation = new AccommodationReservation();
+            Accommodation = new Accommodation();   
         }
 
         public ReservationRequest(int id, int reservationId, DateTime newInitialDate, DateTime newEndDate, RequestStatus requestStatus, string comment)

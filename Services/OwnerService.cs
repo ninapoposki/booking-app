@@ -39,7 +39,6 @@ namespace BookingApp.Services
         {
              ownerRepository.UpdateOwnerRole(ownerDTO.ToOwner(), Role);
         }
-        
 
     }
 }

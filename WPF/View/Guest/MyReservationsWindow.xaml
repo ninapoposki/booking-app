@@ -30,6 +30,7 @@
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
             <Button Content="Rate" Margin="5" Padding="10,0" Click="RateAccommodationClick" Height="34" Width="120"/>
             <Button Content="Cancel Reservation" Margin="5" Padding="10,0" Click="CancelReservationClick" Height="34" Width="130"/>
+            <Button Content="Change Reservation" Margin="5" Padding="10,0" Click="ChangeReservationClick" Height="34" Width="130"/>
 
         </StackPanel>
     </Grid>

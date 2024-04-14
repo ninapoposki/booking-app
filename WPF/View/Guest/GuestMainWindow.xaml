@@ -83,6 +83,8 @@
             <Button Content="Make reservation" Margin="5" Padding="10,0" Click="BookAccommodationClick" Height="34" Width="120" />
             <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelClick" Width="89" />
             <Button Content="My reservations" Margin="5" Padding="10,0" Click="OpenReservationsClick" Width="105" />
+            <Button Content="Notifications" Margin="5" Padding="10,0" Click="OpenNotificationsClick" Height="34" Width="120" />
+
 
         </StackPanel>
     </Grid>

@@ -92,7 +92,7 @@ namespace BookingApp.DTO
             }
         }
 
-        private String comment;
+        private String comment="";
         public String Comment
         {
             get { return comment; }
@@ -105,8 +105,29 @@ namespace BookingApp.DTO
                 }
             }
         }
+
         public string Message { get; set; }
         public AccommodationReservationDTO AccommodationReservation { get; set; }
+
+        private AccommodationDTO accommodation;
+        public AccommodationDTO Accommodation
+        {
+            get
+            {
+                return accommodation;
+            }
+            set
+            {
+                if (value != accommodation)
+                {
+                    accommodation = value;
+                    OnPropertyChanged("Accommodation");
+                }
+            }
+
+        }
+        //public Accommodation Accommodation { get; set; }
+
         public ReservationRequestDTO()
         {
 

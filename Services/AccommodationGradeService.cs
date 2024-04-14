@@ -64,9 +64,7 @@ namespace BookingApp.Services
             var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
             var owner = ownerService.GetById(accommodation.OwnerId);
             var location = locationService.GetById(accommodation.IdLocation);
-            //AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(selectedAccommodationReservation.ToAccommodationReservation(),accommodation,location, owner);
-
-            accommodationGradeDTO.OwnerId = accommodation.OwnerId; //ili preko repoziturojuma probaj
+            accommodationGradeDTO.OwnerId = accommodation.OwnerId; 
             accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
 
             return accommodationGradeDTO;
@@ -80,7 +78,6 @@ namespace BookingApp.Services
         {
             return accommodationGradeRepository.IsReservationGraded(reservationId);
         }
-        //bolje je ovo da buse u reservation
         public int GetReservationId(AccommodationReservation accommodationReservation) 
         {
             return accommodationGradeRepository.GetReservationId(accommodationReservation);

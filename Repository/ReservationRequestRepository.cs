@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
+
     public  class ReservationRequestRepository : IReservationRequestRepository
+
     {
         private const string FilePath = "../../../Resources/Data/reservationRequests.csv";
 
@@ -68,6 +70,26 @@ namespace BookingApp.Repository
                 return 1;
             }
             return reservationRequests.Max(c => c.Id) + 1;
+        }
+        public List<(DateTime, DateTime)> GenerateNewDateRange(DateTime startDate, int daysToStay)
+        {
+            List<(DateTime, DateTime)> dates = new List<(DateTime, DateTime)>();
+
+            DateTime endDate = startDate.AddYears(1); // Računa krajnji datum
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                dates.Add((date, date.AddDays(daysToStay - 1))); // Dodaje par datuma sa željenom razlikom
+            }
+
+            return dates;
+        }
+
+        public (DateTime, DateTime) GetInitialDateRange()
+        {
+            DateTime today = DateTime.Today;
+            DateTime oneYearFromNow = today.AddYears(1);
+            return (today, oneYearFromNow);
         }
 
         public void Delete(ReservationRequest reservationRequest)

@@ -150,7 +150,7 @@ namespace BookingApp.WPF.ViewModel.Guest
                 .ToList();
         }
 
-        public void BookAccommodation()
+        public void BookAccommodationClick()
         {
             if (SelectedAccommodation != null)
             {
@@ -163,13 +163,18 @@ namespace BookingApp.WPF.ViewModel.Guest
             }
         }
 
-        public void OpenReservations()
+        public void OpenReservationsClick()
         {
             var dialog = new MyReservationsWindow();
             dialog.ShowDialog();
         }
+        public void OpenNotificationsClick()
+        {
+            var dialog = new GuestNotifications();
+            dialog.ShowDialog();
+        }
 
 
-       
+
     }
 }
