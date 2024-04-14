@@ -13,7 +13,7 @@ namespace BookingApp.Services
     public class TourGuestService
     {
 
-        private ITourGuestRepository tourGuestRepository;
+        private ITourGuestRepository tourGuestRepository; 
 
         public TourGuestService() 
         {
@@ -54,6 +54,5 @@ namespace BookingApp.Services
             };
             tourGuestRepository.Add(newGuest);
         }
-
     }
 }

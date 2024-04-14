@@ -57,14 +57,8 @@ namespace BookingApp.Services
         public int GetTourCapacity(int tourId)
         {
             Tour tour = tourRepository.GetById(tourId);
-            if (tour != null)
-            {
-                return tour.Capacity;
-            }
-            else
-            {
-                return -1; 
-            }
+            if (tour != null) { return tour.Capacity; }
+            else { return -1; }
         }
 
         public bool UpdateTourCapacity(int tourId,  out int remainingCapacity)
@@ -90,12 +84,12 @@ namespace BookingApp.Services
         }
        public List<TourDTO> GetAll()
        {
-            List<TourDTO> tourDTOs = new List<TourDTO>();
-            foreach(Tour tour in tourRepository.GetAll())
-            {
-               tourDTOs.Add(GetTour(tour.Id));
-            }
-            return tourDTOs;
+            return tourRepository.GetAll().Select(tour => GetTour(tour.Id)).ToList();
        }
+       public List<TourDTO> GetAllForUser(int userId)
+       {
+            return tourRepository.GetAll().Where(tour => tour.UserId == userId).Select(tour => GetTour(tour.Id)).ToList();
+       }
+
     }
 }

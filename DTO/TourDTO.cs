@@ -15,7 +15,7 @@ namespace BookingApp.DTO
     {
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
-
+        public int UserId {  get; set; }
         private TourStartDateDTO selectedDateTime;
 
         public TourStartDateDTO SelectedDateTime
@@ -30,15 +30,25 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private int numberOfTourists;
+        public int NumberOfTourists
+        {
+            get { return numberOfTourists; }
+            set
+            {
+                if (value != numberOfTourists)
+                {
+                    numberOfTourists = value;
+                    OnPropertyChanged("NumberOfTourists");
+                }
+            }
+        }
         public int Id { get; set; }
 
         private string name;
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
             set
             {
                 if (value != name)
@@ -52,10 +62,7 @@ namespace BookingApp.DTO
         private string description;
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get { return description; }
             set
             {
                 if (value != description)
@@ -73,10 +80,7 @@ namespace BookingApp.DTO
         private int capacity;
         public int Capacity
         {
-            get
-            {
-                return capacity;
-            }
+            get { return capacity; }
             set
             {
                 if (value != capacity)
@@ -90,10 +94,7 @@ namespace BookingApp.DTO
         private double duration;
         public double Duration
         {
-            get
-            {
-                return duration;
-            }
+            get { return duration; }
             set
             {
                 if (value != duration)
@@ -104,7 +105,6 @@ namespace BookingApp.DTO
 
             }
         }
-
         public TourDTO() { }
         public TourDTO(Tour tour, Location location,Language language)
         {
@@ -118,27 +118,22 @@ namespace BookingApp.DTO
             Capacity = tour.Capacity;
             Duration = tour.Duration;
         }
-
         public TourDTO(Tour tour)
         {
             Id = tour.Id;
             Name = tour.Name;
             Description = tour.Description;
-           
             LanguageId = tour.LanguageId;
-            
+            UserId=tour.UserId;
             LocationId = tour.LocationId;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
         }
         public Tour ToTour()
-       {
-            return new Tour(Id, name, description, LanguageId, LocationId, capacity, duration);
-           
-       }
-
+        {
+            return new Tour(Id, name, description, LanguageId, LocationId, capacity, duration,UserId);   
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)

@@ -36,8 +36,9 @@ namespace BookingApp.WPF.ViewModel.Guide
         public LocationDTO SelectedCity { get; set; }
         public CheckPointDTO SelectedCheckPoint { get; set; }
         public ObservableCollection<CheckPointDTO> CheckPoints { get; set; }
-        public MakeTourVM()
+        public MakeTourVM(int userId)
         {
+           
             tourService = new TourService();
             tourStartDateService = new TourStartDateService();
             checkPointService = new CheckPointService();
@@ -53,6 +54,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             SelectedDate = DateTime.Now;
 
             TourDTO = new TourDTO();
+            TourDTO.UserId=userId;
             SelectedCity = new LocationDTO();
 
             Images = new ObservableCollection<ImageDTO>();
