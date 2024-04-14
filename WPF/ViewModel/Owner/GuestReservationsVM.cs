@@ -19,6 +19,8 @@ namespace BookingApp.WPF.ViewModel.Owner
     {
         public  GuestGradeService guestGradeService;
         private AccommodationReservationService accommodationReservationService;
+        public GuestService guestService;
+        public AccommodationService accommodationService;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public AccommodationReservationDTO SelectedAccommodationReservation { get; set; }
 
@@ -28,6 +30,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             accommodationReservationService = new AccommodationReservationService();
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             SelectedAccommodationReservation = new AccommodationReservationDTO();
+            guestService = new GuestService();
+            accommodationService = new AccommodationService();
             Update();
         }
         public void Update()
@@ -35,11 +39,27 @@ namespace BookingApp.WPF.ViewModel.Owner
             AllAccommodationReservations.Clear();
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
             {
-                var updatedDTO = accommodationReservationService.GetAllInfo(accommodationReservationDTO);
+                var updatedDTO = accommodationReservationDTO;
+                updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
+                updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
                 AllAccommodationReservations.Add(updatedDTO);
             }
         }
+        public GuestDTO GetGuest(int guestId)
+        {
+            var guest = guestService.GetById(guestId);
+            GuestDTO guestDTO = new GuestDTO(guest);
 
+            return guestDTO;
+        }
+
+        public AccommodationDTO GetAccommodation(int accommodationId)
+        {
+            var accommodation = accommodationService.GetById(accommodationId);
+            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
+
+            return accommodationDTO;
+        }
         public void GuestDataGrid(AccommodationReservationDTO selectedAccommodationReservation)
         {
                 int reservationId = guestGradeService.GetReservationId(selectedAccommodationReservation);

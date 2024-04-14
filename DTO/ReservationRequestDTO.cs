@@ -105,12 +105,12 @@ namespace BookingApp.DTO
                 }
             }
         }
-
+        public string Message { get; set; }
+        public AccommodationReservationDTO AccommodationReservation { get; set; }
         public ReservationRequestDTO()
         {
 
         }
-
         public ReservationRequestDTO(ReservationRequest reservationRequest)
         {
             this.Id = reservationRequest.Id;
@@ -119,12 +119,8 @@ namespace BookingApp.DTO
             this.newEndDate = reservationRequest.NewEndDate;
             this.RequestStatus = reservationRequest.RequestStatus;
             this.Comment = reservationRequest.Comment;
-            
-
         }
         
-
-
         public ReservationRequest ToReservationRequest()
         {
             var reservationRequest = new ReservationRequest();
@@ -140,7 +136,6 @@ namespace BookingApp.DTO
             return reservationRequest;
         }
 
-        
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

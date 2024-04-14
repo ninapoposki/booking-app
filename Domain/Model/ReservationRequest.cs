@@ -12,17 +12,19 @@ namespace BookingApp.Domain.Model
     {
         public int Id { get; set; }
         public int ReservationId { get; set; }
+        public AccommodationReservation AccommodationReservation { get; set; }
         public DateTime NewInitialDate { get; set; }
         public DateTime NewEndDate { get; set; }
         public string Status { get; set; }
         public RequestStatus RequestStatus { get; set; }
         public string Comment { get; set; }
         
+        
 
         public ReservationRequest()
         {
             
-
+            AccommodationReservation = new AccommodationReservation();
         }
 
         public ReservationRequest(int id, int reservationId, DateTime newInitialDate, DateTime newEndDate, RequestStatus requestStatus, string comment)

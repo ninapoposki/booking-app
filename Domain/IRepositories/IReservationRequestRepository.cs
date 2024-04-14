@@ -17,6 +17,7 @@ namespace BookingApp.Domain.IRepositories
         public int GetCurrentId();
         public ReservationRequest GetById(int id);
         public int NextId();
+        public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment);
         public void Delete(ReservationRequest reservationRequest);
         public ReservationRequest Update(ReservationRequest reservationRequest);
         public void Subscribe(IObserver observer);
