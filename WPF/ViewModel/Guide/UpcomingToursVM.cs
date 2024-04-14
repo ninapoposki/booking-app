@@ -63,10 +63,7 @@ namespace BookingApp.WPF.ViewModel.Guide
                    
                     tourStartDateService.UpdateTourStatus(SelectedTour.SelectedDateTime.Id);
                     SelectedTour.DateTimes.Remove(SelectedTour.SelectedDateTime);
-                    if(SelectedTour.SelectedDateTime == null) 
-                    {
-                    UpcomingTours.Remove(SelectedTour);
-                    }
+                    if(SelectedTour.SelectedDateTime == null) { UpcomingTours.Remove(SelectedTour); }
             }
             else { MessageBox.Show("Chosen tour can not be canceled!"); }
         }

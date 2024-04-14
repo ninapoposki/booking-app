@@ -36,7 +36,6 @@ namespace BookingApp.WPF.ViewModel.Guide
            tourReservationService = new TourReservationService();
            languageService= new LanguageService();
            locationService= new LocationService();
-
             LoadTodaysTours();
         }
         private void LoadTodaysTours()
