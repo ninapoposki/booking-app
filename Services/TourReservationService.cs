@@ -51,6 +51,7 @@ namespace BookingApp.Services
         public List<TourReservation> GetReservationsByStartDate(int id)
         {
             return tourReservationRepository.GetAll().FindAll(t => t.TourStartDateId == id);
+
         }
         public List<TourGuestDTO> GetFinishedToursGuests(int tourStartDateId)
         {
@@ -68,4 +69,3 @@ namespace BookingApp.Services
         }
     }
 }
-

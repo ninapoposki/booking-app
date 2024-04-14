@@ -26,10 +26,23 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private readonly TourReservationService tourReservationService;
         private readonly TourStartDateService tourStartDateService;
         private readonly UserService userService;
+        private readonly VoucherService voucherService;
         private string username;
         public ObservableCollection<TourReservationDTO> Reservations { get; set; }
         private int currentGuestCount = 0;
         private int maxGuests;
+        private VoucherDTO selectedVoucher;
+        public ObservableCollection<VoucherDTO> AllVouchers { get; set; }
+        
+        public VoucherDTO SelectedVoucher
+        {
+            get => selectedVoucher;
+            set
+            {
+                selectedVoucher = value;
+                OnPropertyChanged(nameof(SelectedVoucher));
+            }
+        }
         public TourReservationWindowVM(TourDTO selectedTour,string username)
         {
             this.username = username;
@@ -40,12 +53,35 @@ namespace BookingApp.WPF.ViewModel.Tourist
             tourGuestService = new TourGuestService();
             Reservations = new ObservableCollection<TourReservationDTO>();
             userService = new UserService();
+            voucherService = new VoucherService();
+            selectedVoucher= new VoucherDTO();
+            AllVouchers = new ObservableCollection<VoucherDTO>();
             maxGuests = 0;
+           
+            Update();
+
             
         }
 
-       
 
+        public void Update()
+        {
+
+            GetVouchers();
+        }
+
+        public void GetVouchers()
+        {
+
+            AllVouchers.Clear();
+           
+            List<VoucherDTO> vouchers = voucherService.GetAll().Where(v => v.Status == Domain.Model.Status.VALID).ToList();
+            foreach (VoucherDTO voucher in vouchers)
+            {
+                AllVouchers.Add(voucher);
+            }
+            AllVouchers.Insert(0, new VoucherDTO { Description = "Ne koristi vaučer" });
+        }
         public void ConfirmTourReservation()
         {
             if (!ValidateInput(out int numberOfPeople, out int age))
@@ -99,8 +135,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
-        private int ttxtNumberOfPeople;
-        public int txtNumberOfPeople
+        private string ttxtNumberOfPeople;
+        public string txtNumberOfPeople
         {
             get => ttxtNumberOfPeople;
             set
@@ -129,10 +165,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
-        private int age;
+        private string age;
       
 
-        public int Age
+        public string Age
         {
             get => age;
             set
@@ -144,13 +180,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         public void ProcessGuestAddition(int numberOfPeople, int age)
         {
+            age = Convert.ToInt32(Age);
             maxGuests = numberOfPeople;
-            AddGuest(NameSurname, Age);
+            AddGuest(NameSurname, age);
         }
 
         public bool ValidateInput(out int numberOfPeople, out int age)
-        { numberOfPeople = ttxtNumberOfPeople;
-            age = Age;
+        { numberOfPeople = Convert.ToInt32(txtNumberOfPeople);
+            age = Convert.ToInt32(Age);
             if ( numberOfPeople <= 0)
             {MessageBox.Show("Unesite validan broj ljudi.");
                 return false; }
@@ -161,8 +198,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             { maxGuests = numberOfPeople;
                 RemainingGuestsToAdd = maxGuests;
                 IsInputEnabled = false;}
-            return true;
-        }
+            return true;}
 
         private bool ValidateTourCapacity(int numberOfPeople)
         {
@@ -202,13 +238,13 @@ namespace BookingApp.WPF.ViewModel.Tourist
             ShowGuestAddedMessage();
         }
 
-        public void UpdateTourCapacity()
+        public void UpdateTourCapacity(int numberOfGuestsToAdd)
         {
-            int remainingCapacity;  
-            bool success = tourService.UpdateTourCapacity(selectedTour.Id,out remainingCapacity);
+            // Sada šaljemo broj gostiju koji se dodaje kao argument metode.
+            bool success = tourService.UpdateTourCapacity(selectedTour.Id, numberOfGuestsToAdd, out int remainingCapacity);
             if (success)
             {
-                MessageBox.Show($"Kapacitet ažuriran.");
+                MessageBox.Show($"Kapacitet ažuriran. Preostalo mesta: {remainingCapacity}.");
             }
             else
             {
@@ -230,7 +266,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
             ResetGuestInputFields();
         }
-       
+     
+
         public void FinishReservation()
         { 
             var user=userService.GetByUsername(username);
@@ -239,10 +276,27 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 MessageBox.Show("Nije moguće kreirati rezervaciju.");
                 return;
             }
+            if (SelectedVoucher != null && SelectedVoucher.Description != "Ne koristi vaučer")
+            {
+                SelectedVoucher.Status = Status.USED;
+                SelectedVoucher.TourReservationId = reservationId;
+                voucherService.UpdateVoucherFromDTO(SelectedVoucher);
+              
+            }
+            Update();
+
             AddTemporaryGuests(reservationId);
-            UpdateTourCapacity();
-            UpdateTourInformation(reservationId);
-        }
+          int remainingCapacity;
+          if (tourService.UpdateTourCapacity(selectedTour.Id, maxGuests, out remainingCapacity)) {
+              MessageBox.Show($"Kapacitet ture ažuriran. Preostalo mesta: {remainingCapacity}.");
+          } else {
+              MessageBox.Show("Došlo je do greške prilikom ažuriranja kapaciteta ture.");
+          }
+           
+       
+         }
+
+     
 
         public void AddTemporaryGuests(int reservationId)
         {
@@ -255,9 +309,9 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public void UpdateTourInformation(int reservationId)
         {
             int guestsToAdd = temporaryGuests.Count;
-            if (tourService.UpdateTourCapacity(selectedTour.Id, out int remainingCapacity))
+            if (tourService.UpdateTourCapacity(selectedTour.Id, guestsToAdd, out int remainingCapacity))
             {
-                MessageBox.Show($"VAŠA REZERVACIJA JE USPJEŠNO KREIRANA!!! \n Sa {temporaryGuests.Count} gostiju. \nPREOSTALO MJESTA NA TURI: {tourService.GetTourCapacity(selectedTour.Id)}");
+                MessageBox.Show($"VAŠA REZERVACIJA JE USPJEŠNO KREIRANA!!! \n Sa {guestsToAdd} gostiju. \nPREOSTALO MJESTA NA TURI: {remainingCapacity}");
             }
             else
             {
@@ -267,7 +321,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public void ResetGuestInputFields()
         {
              NameSurname= string.Empty;
-            Age = 0;
+            Age = string.Empty;
         }
       
 

@@ -19,5 +19,6 @@ namespace BookingApp.Domain.IRepositories
          List<TourReservation> GetByTourDateId(int id);
          void Subscribe(IObserver observer);
          TourReservation AddNewReservation(int tourStartDateId, int userId, int numberOfPeople);
+       
     }
 }
