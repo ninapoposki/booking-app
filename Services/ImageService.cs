@@ -30,6 +30,12 @@ namespace BookingApp.Services
             image.EntityType = EntityType.ACCOMMODATION;
             imageRepository.Update(image.ToImage());
         }
+        public void UpdateGuestImages(ImageDTO image, int accommodationGradeId)
+        {
+            image.EntityId = accommodationGradeId;
+            image.EntityType = EntityType.GUEST;
+            imageRepository.Update(image.ToImage());
+        }
         public string FilterImages()
         {
             string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
@@ -46,26 +52,11 @@ namespace BookingApp.Services
             return new ImageDTO(imageRepository.FindByPath(relativePath));
         }
 
-        //irina
-        /*public void GetAll(List<ImageDTO> images)
-        {
-            images.Clear();
-            foreach (Image image in imageRepository.GetAll()) images.Add(new ImageDTO(image));
-        }*/
-        //irina
+       
         public List<Image> GetAllImages()
         {
             return imageRepository.GetAll();
         }
-       /* public List<ImageDTO> GetAll()
-        {
-            var images = new List<ImageDTO>();
-            foreach (Image image in imageRepository.GetAll())
-            {
-                images.Add(new ImageDTO(image));
-            }
-            return images;
-        }*/
 
         public List<ImageDTO> GetImagesByAccommodation(int accommodationId, List<ImageDTO> allImages)
         {

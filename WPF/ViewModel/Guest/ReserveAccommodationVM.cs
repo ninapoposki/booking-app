@@ -49,7 +49,6 @@ namespace BookingApp.WPF.ViewModel.Guest
                 HandleInvalidData();
             }
         }
-
         private void CheckReservationAvailability()
         {
             if (accommodationReservationService.AreDatesAvailable(selectedAccommodationDTO.Id, accommodationReservationDTO.InitialDate, accommodationReservationDTO.EndDate))
@@ -62,11 +61,9 @@ namespace BookingApp.WPF.ViewModel.Guest
             }
         }
 
-        
         public void ProcessValidReservation()
         {
             List<(DateTime, DateTime)> dates = accommodationReservationService.FindDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
-           // var novo = accommodationReservationService.ProcessDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest());
             accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.ProcessDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest()));
             var dialog = new AvailableDatesWindow(dates, accommodationReservationDTO);
             dialog.Closed += (sender, args) =>
@@ -95,38 +92,5 @@ namespace BookingApp.WPF.ViewModel.Guest
         {
             MessageBox.Show("The data you entered is not valid");
         }
-        /* private void ProcessValidReservation()
-         {
-             List<(DateTime, DateTime)> dates = accommodationReservationService.FindDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
-             guestDTO.UserId = userService.GetCurrentGuestUserId();
-             guestService.Add(guestDTO.ToGuest());
-             accommodationReservationDTO.GuestId = guestService.GetCurrentId();
-
-             var dialog = new AvailableDatesWindow(dates, accommodationReservationDTO);
-             dialog.Closed += (sender, args) =>
-             {
-                 RequestClose?.Invoke(this, EventArgs.Empty); 
-
-
-             };
-             dialog.ShowDialog();
-         }
-
-         private void HandleUnavailableDates()
-         {
-             MessageBox.Show("The requested dates are not available. Here are some alternative options.");
-             List<(DateTime, DateTime)> dates = accommodationReservationService.FindAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
-             guestDTO.UserId = userService.GetCurrentGuestUserId();
-             guestService.Add(guestDTO.ToGuest());
-             accommodationReservationDTO.GuestId = guestService.GetCurrentId();
-
-             var dialog = new AvailableDatesWindow(dates, accommodationReservationDTO);
-             dialog.Closed += (sender, args) =>
-             {
-                 RequestClose?.Invoke(this, EventArgs.Empty); // Pokretanje događaja za zatvaranje
-
-             };
-             dialog.ShowDialog();
-         }*/
     }
 }

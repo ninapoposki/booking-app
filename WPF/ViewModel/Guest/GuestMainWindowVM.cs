@@ -104,28 +104,21 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationService = new AccommodationService();
             imageService = new ImageService();
             locationService = new LocationService();
-
             AllAccommodations = new ObservableCollection<AccommodationDTO>();
             Images = new ObservableCollection<ImageDTO>();
             Types = new ObservableCollection<AccommodationType>(Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>());
-
-           
             Update();
         }
 
         public void Update()
         {
             AllAccommodations.Clear();
-            //var allImages = imageService.GetAll().Where(img => img.EntityType == EntityType.ACCOMMODATION).ToList();
             var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
 
             foreach (var accommodation in accommodationService.GetAll())
             {
-                // var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == accommodation.Id).ToList());
                 var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
-
                 LocationDTO location = locationService.GetById(accommodation.IdLocation);
-
                 AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
             }
         }

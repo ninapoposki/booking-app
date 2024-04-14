@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BookingApp.Domain.Model
 {
 
-    public enum EntityType {NONE,TOUR,ACCOMMODATION };
+    public enum EntityType {NONE,TOUR,ACCOMMODATION,GUEST};
 
     public class Image : ISerializable
     {
@@ -40,6 +40,10 @@ namespace BookingApp.Domain.Model
                 EntityType= EntityType.ACCOMMODATION;
             }else if (values[3]=="TOUR"){
                 EntityType= EntityType.TOUR;
+            }
+            else if (values[3] == "GUEST")
+            {
+                EntityType = EntityType.GUEST;
             }
             else
             {

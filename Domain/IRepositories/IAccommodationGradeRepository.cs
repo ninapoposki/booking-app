@@ -20,6 +20,9 @@ namespace BookingApp.Domain.IRepositories
         void Delete(AccommodationGrade accommodationGrade);
         AccommodationGrade Update(AccommodationGrade accommodationGrade);
         void Subscribe(IObserver observer);
+        int GetCurrentId();
+        bool IsReservationGraded(int reservationId);
+        int GetReservationId(AccommodationReservation reservation);
 
 
     }

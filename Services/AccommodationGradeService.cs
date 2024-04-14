@@ -16,12 +16,16 @@ namespace BookingApp.Services
         private IAccommodationGradeRepository accommodationGradeRepository;
         private UserService userService;
         private OwnerService ownerService;
+        private AccommodationService accommodationService;
+        private LocationService locationService;
 
         public AccommodationGradeService()
         {
             accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();
             userService = new UserService();
             ownerService = new OwnerService();
+            accommodationService= new AccommodationService();
+            locationService = new LocationService();
             
         }
 
@@ -37,5 +41,36 @@ namespace BookingApp.Services
             return accommodationGradeDTOs;
         }
 
+        public AccommodationGrade Add(AccommodationGrade grade)
+        {
+            return accommodationGradeRepository.Add(grade);
+        }
+
+        public AccommodationGradeDTO GetOneAccommodationGrade(AccommodationReservationDTO accommodationReservationDTO,AccommodationGradeDTO accommodationGradeDTO)
+        { 
+            var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
+            var owner = ownerService.GetById(accommodation.OwnerId);
+            var location = locationService.GetById(accommodation.IdLocation);
+            //AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(selectedAccommodationReservation.ToAccommodationReservation(),accommodation,location, owner);
+
+            accommodationGradeDTO.OwnerId = accommodation.OwnerId; //ili preko repoziturojuma probaj
+            accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
+
+            return accommodationGradeDTO;
+
+        }
+        public int GetCurrentId()
+        {
+            return accommodationGradeRepository.GetCurrentId();
+        }
+        public bool IsReservationGraded(int reservationId)
+        {
+            return accommodationGradeRepository.IsReservationGraded(reservationId);
+        }
+        //bolje je ovo da buse u reservation
+        public int GetReservationId(AccommodationReservation accommodationReservation) 
+        {
+            return accommodationGradeRepository.GetReservationId(accommodationReservation);
+        }
     }
 }
