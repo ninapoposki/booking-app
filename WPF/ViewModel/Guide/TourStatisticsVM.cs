@@ -22,7 +22,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         public List<TourGuestDTO> Guests { get; set; }
         public List<string> YearComboBox { get; set; }
         public string SelectedYear { get; set; }
-
         private TourStartDateService tourStartDateService;
         private TourReservationService tourReservationService;
         public TourStatisticsVM(int userId)
@@ -30,7 +29,6 @@ namespace BookingApp.WPF.ViewModel.Guide
             this.userId = userId;
             FinishedTours = new ObservableCollection<TourDTO>();
             BestTours = new ObservableCollection<TourDTO>();
-
             tourStartDateService = new TourStartDateService();
             tourReservationService = new TourReservationService();
             Guests = new List<TourGuestDTO>();
@@ -77,18 +75,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         public void UpdateTouristNumbersForBestTours()
         {
-            foreach (TourDTO bestTour in BestTours)
-            {
-                bestTour.NumberOfTourists = maxNumberOfGuests; 
-            }
+            foreach (TourDTO bestTour in BestTours) { bestTour.NumberOfTourists = maxNumberOfGuests; }
         }
         private void LoadFinishedTours()
         {
             List<TourDTO> finishedTours = tourStartDateService.GetAllFinishedTours(userId);
-            foreach (TourDTO tour in finishedTours)
-            {
-                FinishedTours.Add(tour);
-            }
+            foreach (TourDTO tour in finishedTours) { FinishedTours.Add(tour); }
         }
         public void LoadStatistics(TourDTO tour)
         {

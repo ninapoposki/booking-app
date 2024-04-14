@@ -18,14 +18,12 @@ namespace BookingApp.WPF.ViewModel.Guide
     public class MakeTourVM : ViewModelBase
     {
         public TourDTO TourDTO { get; set; }
-        //servisi
         private TourService tourService;
         private LocationService locationService;
         private LanguageService languageService;
         private CheckPointService checkPointService;
         private TourStartDateService tourStartDateService;
         private ImageService imageService;
-        //combobox
         public List<LanguageDTO> LanguageComboBox { get; set; }
         public LanguageDTO SelectedLanguage { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
@@ -38,33 +36,25 @@ namespace BookingApp.WPF.ViewModel.Guide
         public ObservableCollection<CheckPointDTO> CheckPoints { get; set; }
         public MakeTourVM(int userId)
         {
-           
             tourService = new TourService();
             tourStartDateService = new TourStartDateService();
             checkPointService = new CheckPointService();
             imageService = new ImageService();
             languageService = new LanguageService();
             locationService = new LocationService();
-
             LanguageComboBox = new List<LanguageDTO>();
             LocationComboBox = new List<LocationDTO>();
             SelectedLanguage = new LanguageDTO();
-
             TourStartDates = new ObservableCollection<DateTime>();
             SelectedDate = DateTime.Now;
-
             TourDTO = new TourDTO();
             TourDTO.UserId=userId;
             SelectedCity = new LocationDTO();
-
             Images = new ObservableCollection<ImageDTO>();
             SelectedImage = new ImageDTO();
-
             CheckPoints = new ObservableCollection<CheckPointDTO>();
             SelectedCheckPoint = new CheckPointDTO();
-
             LoadLanguagesAndCities();
-
         }
         private void LoadLanguagesAndCities()
         {
@@ -90,15 +80,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void GetTourLocation()
         {
-            if (SelectedCity == null)
-            {MessageBox.Show("Choose a tour city!"); return;}
+            if (SelectedCity == null) { MessageBox.Show("Choose a tour city!"); return; }
             TourDTO.LocationId = SelectedCity.Id;
-
         }
         private void GetTourLanguage()
         {
-            if (SelectedLanguage == null)
-            {MessageBox.Show("Choose a tour language!"); return;}
+            if (SelectedLanguage == null) { MessageBox.Show("Choose a tour language!"); return; }
             TourDTO.LanguageId = SelectedLanguage.Id;
         }
         public void AddCheckPointClick()
@@ -128,10 +115,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void AddCheckPoints(int tourId)
         {
-            foreach (CheckPointDTO checkPoint in CheckPoints)
-            {
-                checkPointService.Add(checkPoint, tourId);
-            }
+            foreach (CheckPointDTO checkPoint in CheckPoints) { checkPointService.Add(checkPoint, tourId); }
         }
         public void AddDate()
         {
@@ -162,18 +146,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void AddTourStartDates(int tourId)
         {
-            foreach (DateTime tourDate in TourStartDates)
-            {
-                tourStartDateService.Add(tourDate, tourId);
-            }
+            foreach (DateTime tourDate in TourStartDates) { tourStartDateService.Add(tourDate, tourId); }
         }
         private void UpdateImages()
         {
             int id = tourService.GetCurrentId();
-            foreach (ImageDTO image in Images)
-            {
-              imageService.Update(image, id);
-            }
+            foreach (ImageDTO image in Images) { imageService.Update(image, id); }
         }
         public void BrowseImageClick()
         {
@@ -197,13 +175,8 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         public void RemoveImageClick()
         {
-            if (SelectedImage != null)
-            {
-                Images.Remove(SelectedImage);
-            }
+            if (SelectedImage != null) { Images.Remove(SelectedImage); }
         }
-
-
         private string country;
         public string Country
         {

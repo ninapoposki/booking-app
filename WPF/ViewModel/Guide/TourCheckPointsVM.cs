@@ -20,40 +20,30 @@ namespace BookingApp.WPF.ViewModel.Guide
     {
          private int tourId;
          private int currentCheckPointIndex = 0;
-         //servisi
          private TourService tourService;
          private TourStartDateService tourStartDateService;
          private TourGuestService tourGuestService;
          private TourReservationService tourReservationService;
          private CheckPointService checkPointService;
-
-
          private CheckPointDTO currentCheckPoint;
-         
          private TourStartDateDTO selectedStartDate;
          public List<TourGuestDTO> PresentTourists { get; set; }
          public ObservableCollection<TourGuestDTO> Guests { get; set; }
          public List<CheckPointDTO> ToursCheckPoints { get; set; }
          public List<TourGuestDTO> SelectedTourists { get; set; }
-            
-
         public TourCheckPointsVM(TourStartDateDTO selectedStartDate)
          {
-
              this.selectedStartDate = selectedStartDate;
-
              tourService = new TourService();
              checkPointService = new CheckPointService();
              tourGuestService = new TourGuestService();
              tourReservationService = new TourReservationService();
              tourStartDateService = new TourStartDateService();
-
              Guests = new ObservableCollection<TourGuestDTO>();
              tourId = this.selectedStartDate.TourId;
              PresentTourists = new List<TourGuestDTO>();
              ToursCheckPoints = new List<CheckPointDTO>();
              SelectedTourists= new List<TourGuestDTO>();
-
              tourStartDateService.UpdateStartTime(selectedStartDate.Id);
              LoadCheckPoints();
              LoadTourists();
@@ -62,7 +52,6 @@ namespace BookingApp.WPF.ViewModel.Guide
          {  
              ToursCheckPoints=checkPointService.GetByTourId(tourId,selectedStartDate.CurrentCheckPointId);
              UpdateUI();
-
          }
          private void LoadTourists()
          {
@@ -71,7 +60,6 @@ namespace BookingApp.WPF.ViewModel.Guide
              {
                 Guests.Add(guests);
              }
-
          }
          public void MarkAsPresentClick()
          {
@@ -80,9 +68,8 @@ namespace BookingApp.WPF.ViewModel.Guide
                 tourGuestService.UpdatePresentGuest(tourGuest, currentCheckPoint);
              }
              MessageBox.Show("Tourist marked as present!");
-            LoadTourists();
+             LoadTourists();
          }
-
          public void NextCheckPointClick()
          {
              if (currentCheckPointIndex + 1 < ToursCheckPoints.Count)
@@ -118,15 +105,12 @@ namespace BookingApp.WPF.ViewModel.Guide
                  CheckAndFinishTour();
              }
          }
-
          public void EndTourClick()
          {
              MessageBox.Show("Tour has ended");
              FinishingTour();
          }
-
          private string checkPointName;
-
          public string CheckPointName
          {
              get { return checkPointName; }
@@ -139,9 +123,7 @@ namespace BookingApp.WPF.ViewModel.Guide
                  }
              }
          }
-
          private string checkPointType;
-
          public string CheckPointType
          {
              get { return checkPointType; }
@@ -153,14 +135,9 @@ namespace BookingApp.WPF.ViewModel.Guide
                      OnPropertyChanged("CheckPointType");
                  }
              }
-
          }
         public void TouristListSelectionChaged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelectedTourists == null)
-            {
-                SelectedTourists = new List<TourGuestDTO>();
-            }
             foreach (TourGuestDTO tourGuest in e.AddedItems)
             {
                 if (!SelectedTourists.Contains(tourGuest))
@@ -170,14 +147,10 @@ namespace BookingApp.WPF.ViewModel.Guide
             }
             foreach (TourGuestDTO tourGuest in e.RemovedItems)
             {
-                if (!SelectedTourists.Contains(tourGuest))
-                {
-                    SelectedTourists.Remove(tourGuest);
-                }
+                SelectedTourists.Remove(tourGuest);
             }
         }
     }
-
 }
 
 
