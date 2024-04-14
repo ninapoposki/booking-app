@@ -33,10 +33,12 @@ namespace BookingApp.WPF.View.Guide
     public partial class MakeTour : Window
     {
         public MakeTourVM MakeTourVM { get; set; }
-        public MakeTour()
+        private int userId;
+        public MakeTour(int userId)
         {
             InitializeComponent();
-            MakeTourVM = new MakeTourVM();
+            this.userId = userId;
+            MakeTourVM = new MakeTourVM(userId);
             DataContext = MakeTourVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
@@ -82,7 +84,7 @@ namespace BookingApp.WPF.View.Guide
 
         private void LiveTourClick(object sender, RoutedEventArgs e)
         {
-            LiveTour liveTour = new LiveTour();
+            LiveTour liveTour = new LiveTour(userId);
             liveTour.Owner = this;
             liveTour.WindowStartupLocation= WindowStartupLocation.CenterOwner;
             liveTour.ShowDialog();
@@ -93,10 +95,18 @@ namespace BookingApp.WPF.View.Guide
         }
         private void UpcomingToursClick(object sender, RoutedEventArgs e)
         {
-            UpcomigTours upcomingTours = new UpcomigTours();
+            UpcomigTours upcomingTours = new UpcomigTours(userId);
             upcomingTours.Owner = this;
             upcomingTours.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             upcomingTours.ShowDialog();
+        }
+
+        private void FinishedTourClick(object sender, RoutedEventArgs e)
+        {
+            FinishedTour finishedTour = new FinishedTour(userId);
+            finishedTour.Owner = this;
+            finishedTour.WindowStartupLocation=WindowStartupLocation.CenterOwner;
+            finishedTour.ShowDialog();
         }
     }
 }

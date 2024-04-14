@@ -15,7 +15,7 @@ namespace BookingApp.DTO
     {
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
-
+        public int UserId {  get; set; }
         private TourStartDateDTO selectedDateTime;
 
         public TourStartDateDTO SelectedDateTime
@@ -104,7 +104,6 @@ namespace BookingApp.DTO
 
             }
         }
-
         public TourDTO() { }
         public TourDTO(Tour tour, Location location,Language language)
         {
@@ -118,27 +117,22 @@ namespace BookingApp.DTO
             Capacity = tour.Capacity;
             Duration = tour.Duration;
         }
-
         public TourDTO(Tour tour)
         {
             Id = tour.Id;
             Name = tour.Name;
             Description = tour.Description;
-           
             LanguageId = tour.LanguageId;
-            
+            UserId=tour.UserId;
             LocationId = tour.LocationId;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
         }
         public Tour ToTour()
-       {
-            return new Tour(Id, name, description, LanguageId, LocationId, capacity, duration);
-           
-       }
-
+        {
+            return new Tour(Id, name, description, LanguageId, LocationId, capacity, duration,UserId);   
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)

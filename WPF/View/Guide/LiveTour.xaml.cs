@@ -28,10 +28,10 @@ namespace BookingApp.WPF.View.Guide
     {
         
        public LiveTourVM LiveTourVM { get; set; }
-        public LiveTour()
+        public LiveTour(int userId)
         {
             InitializeComponent();
-            LiveTourVM = new LiveTourVM();
+            LiveTourVM = new LiveTourVM(userId);
             DataContext = LiveTourVM;
         }
  

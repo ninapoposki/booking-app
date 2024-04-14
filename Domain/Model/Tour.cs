@@ -19,17 +19,15 @@ namespace BookingApp.Domain.Model
         public Location Location { get; set; }
         public int Capacity { get; set; }
         public double Duration {  get; set; }
-        
-
-        public User User { get; set; }
-
+        public int UserId {  get; set; }
+        public User User {  get; set; }
         public Tour() 
         { 
            
             Location = new Location();
             Language = new Language();
         }
-        public Tour(int id, string name, string description, Language language, Location location, int capacity, double duration)
+        public Tour(int id, string name, string description, Language language, Location location, int capacity, double duration, int userId)
         {
             Id = id;
             Name = name;
@@ -38,9 +36,10 @@ namespace BookingApp.Domain.Model
             Location = location;
             Capacity = capacity;
             Duration = duration;
+            UserId = userId;
         }
 
-        public Tour(int id, string name, string description, int languageId,int locationId, int capacity, double duration)
+        public Tour(int id, string name, string description, int languageId,int locationId, int capacity, double duration,int userId)
         {
             Id = id;
             Name = name;
@@ -49,7 +48,7 @@ namespace BookingApp.Domain.Model
             LocationId = locationId;
             Capacity = capacity;
             Duration = duration;
-            //Images = new List<Image>();
+            UserId=userId;
         }
 
         public void FromCSV(string[] values)
@@ -61,6 +60,7 @@ namespace BookingApp.Domain.Model
             LocationId = Convert.ToInt32(values[4]);    
             Capacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
+            UserId= Convert.ToInt32(values[7]);
         }
 
         public string[] ToCSV()
@@ -73,7 +73,8 @@ namespace BookingApp.Domain.Model
                 LanguageId.ToString(),
                 LocationId.ToString(),
                 Capacity.ToString(),
-                Duration.ToString()
+                Duration.ToString(),
+                UserId.ToString(),
 
         };
             return csvValues;

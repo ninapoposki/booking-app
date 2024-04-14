@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
-    public class AvailableTourWindowVM:ViewModelBase,INotifyPropertyChanged
+    public class AvailableTourWindowVM:ViewModelBase
     {
         public TourDTO SelectedTour { get; set; }
 
@@ -48,13 +48,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
 
 
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
