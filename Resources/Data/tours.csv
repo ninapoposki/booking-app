@@ -1,8 +1,11 @@
-1|Tura Kopenhagen|Lepo|1|8|2|10
-2|Tura Novi Sad|Predivno|2|6|0|10
-3|Novi Sad tura|Lepo|2|6|1|10
-4|Tura danska|Lepo|3|8|6|10
-5|jja|ajja|1|1|10|10
-6|Anja|anja|1|1|10|10
-7|Nemanja tura|Lepa|4|7|33|10
-8|Proba tura|daj boze da radi|1|2|10|10
+1|Tura Kopenhagen|Lepo|1|8|2|10|3
+2|Tura Novi Sad|Predivno|2|6|0|10|3
+3|Novi Sad tura|Lepo|2|6|1|10|3
+4|Tura danska|Lepo|3|8|6|10|3
+5|jja|ajja|1|1|10|10|3
+6|Anja|anja|1|1|10|10|3
+7|Nemanja tura|Lepa|4|7|33|10|3
+8|Proba tura|daj boze da radi|1|2|10|10|3
+9|Proba|proba da li radi live|1|2|20|3|3
+10|Tura da li radi|Probica|3|1|10|40|3
+11|Turica Aki|proba user|2|6|10|30|7

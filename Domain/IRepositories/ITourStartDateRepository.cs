@@ -13,6 +13,7 @@ namespace BookingApp.Domain.IRepositories
     {
          List<TourStartDate> GetAll();
          List<TourStartDate> GetByTourId(int id);
+         TourStartDate? Get(int id);
          TourStartDate Add(TourStartDate tourStartDate);
          int NextId();
          void Delete(TourStartDate tourStartDate);

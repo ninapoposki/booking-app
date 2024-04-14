@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -99,5 +100,7 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+
+       
     }
 }

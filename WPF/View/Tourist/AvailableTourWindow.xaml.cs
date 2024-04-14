@@ -1,5 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Repository;
+using BookingApp.WPF.ViewModel.Tourist;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,44 +23,26 @@ namespace BookingApp.WPF.View.Tourist
     /// </summary>
     public partial class AvailableTourWindow : Window
     {
-        public TourDTO SelectedTour { get; set; }
-        
-        public ObservableCollection<TourDTO> AvailableTours { get; set; }
-
-        public AvailableTourWindow(List<TourDTO> availableTours)
+      public AvailableTourWindowVM availableTourWindowVM { get; set; }
+        public AvailableTourWindow(List<TourDTO> availableTours, string username)
         {
-            
-            InitializeComponent();
-            AvailableTours = new ObservableCollection<TourDTO>(availableTours);
-            DataContext = this;
-        }
 
+            InitializeComponent();
+            availableTourWindowVM=new AvailableTourWindowVM(availableTours,username);
+            DataContext = availableTourWindowVM;
+           
+        }
 
         private void BookTour(object sender, RoutedEventArgs e)
         {
 
-            if (SelectedTour == null)
-            {
-
-
-                MessageBox.Show("Molimo Vas da odaberete turu koju želite da rezervižšete.");
-
-                return;
-            }
-            else
-            {
-                TourReservationWindow tourReservationWindow = new TourReservationWindow(SelectedTour);
-                tourReservationWindow.Show();
-
-            }
-
-
+            availableTourWindowVM.BookTour();
         }
 
         private void CancelTour(object sender, RoutedEventArgs e)
         {
 
-            this.Close();
+            Close();
         }
     }
 }
