@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public  class ReservationRequestRepository:IReservationRequestRepository
+
+    public  class ReservationRequestRepository : IReservationRequestRepository
+
     {
         private const string FilePath = "../../../Resources/Data/reservationRequests.csv";
 
@@ -109,6 +111,24 @@ namespace BookingApp.Repository
             serializer.ToCSV(FilePath, reservationRequests);
             subject.NotifyObservers();
             return reservationRequest;
+        }
+
+        public void UpdateStatus(int accommodationReservationId, RequestStatus status, string Comment)
+        {
+            List<ReservationRequest> requests = serializer.FromCSV(FilePath);
+
+            ReservationRequest reservationRequest = requests.Find(r => r.Id == accommodationReservationId);
+            if (reservationRequest != null)
+            {
+                reservationRequest.RequestStatus = status;
+                reservationRequest.Comment = Comment;
+                serializer.ToCSV(FilePath, requests);
+                subject.NotifyObservers();
+            }
+            else
+            {
+                throw new Exception("Cannot find request");
+            }
         }
         private void WriteToFile()
         {

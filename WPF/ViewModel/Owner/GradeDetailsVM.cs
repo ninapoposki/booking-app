@@ -28,7 +28,7 @@ namespace BookingApp.WPF.ViewModel.Owner
 
         public void UpdateImages()
         {
-            var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
+            var allImages = imageService.GetImagesForEntityType(EntityType.GUEST);
             var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(AccommodationGrade.Id, allImages));
             AccommodationGrade.Images = matchingImages;
         }

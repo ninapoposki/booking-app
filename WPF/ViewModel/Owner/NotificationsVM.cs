@@ -34,10 +34,29 @@ namespace BookingApp.WPF.ViewModel.Owner
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
             {
                 if (IsWithinFiveDays(accommodationReservationDTO) && !IsGuestGraded(accommodationReservationDTO.Id)) {
-                    var updatedDTO = accommodationReservationService.GetAllInfo(accommodationReservationDTO);
-                AllAccommodationReservations.Add(updatedDTO);
+                    var updatedDTO = accommodationReservationDTO;
+                    updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
+                    updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
+
+                    AllAccommodationReservations.Add(updatedDTO);
                 }
             }
+        }
+        
+        public GuestDTO GetGuest(int guestId)
+        {
+            var guest = guestService.GetById(guestId);
+            GuestDTO guestDTO = new GuestDTO(guest);
+
+            return guestDTO;
+        }
+
+        public AccommodationDTO GetAccommodation(int accommodationId)
+        {
+            var accommodation = accommodationService.GetById(accommodationId);
+            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
+
+            return accommodationDTO;
         }
 
         private bool IsWithinFiveDays(AccommodationReservationDTO accommodationReservationDTO)

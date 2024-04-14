@@ -53,41 +53,7 @@ namespace BookingApp.Services
             return accommodationGradeRepository.GetReservationId(selectedAccommodationGrade);
         }
 
-        public AccommodationGradeDTO GetAllInfo(AccommodationGradeDTO accommodationGradeDTO)
-        {
-
-            var owner = ownerService.GetById(accommodationGradeDTO.OwnerId);
-            accommodationGradeDTO.Owner = new OwnerDTO(owner);
-            var accommres = accommodationReservationService.GetById(accommodationGradeDTO.ReservationId);
-            accommodationGradeDTO.AccommodationReservation = new AccommodationReservationDTO(accommres);
-            int guestId = accommres.GuestId;
-            accommodationGradeDTO.AccommodationReservation.Guest = GetGuestFromAccommodationGrade(guestId);
-            int accommodationId = accommres.AccommodationId;
-            accommodationGradeDTO.AccommodationReservation.Accommodation = GetAccommodationFromAccommodationGrade(accommodationId);
-            return accommodationGradeDTO;
-        }
-
-        public GuestDTO GetGuestFromAccommodationGrade(int guestId)
-        {
-            var guest = guestService.GetById(guestId);
-            GuestDTO guestDTO = new GuestDTO(guest);
-
-            return guestDTO;
-        }
-
-        public AccommodationDTO GetAccommodationFromAccommodationGrade(int accommodationId)
-        {
-            var accommodation = accommodationService.GetById(accommodationId);
-            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
-
-            return accommodationDTO;
-        }
-
-        public bool isGuestGraded(int reservationId) //resi
-        {
-            return guestGradeService.IsGuestGraded(reservationId);
-        }
-
+        
         public AccommodationGrade Add(AccommodationGrade grade)
         {
             return accommodationGradeRepository.Add(grade);

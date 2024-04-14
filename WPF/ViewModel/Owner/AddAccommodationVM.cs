@@ -38,19 +38,15 @@ namespace BookingApp.WPF.ViewModel.Owner
             accommodationService = new AccommodationService();
             locationService = new LocationService();
             userService = new UserService();
-
             LocationComboBox = new List<LocationDTO>();
             CityComboBox = new List<String>();
             CountryComboBox = new HashSet<String>();
-
             accommodationDTO = new AccommodationDTO();
 
             var type = Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>();
             Types = new ObservableCollection<AccommodationType>(type);
             Images = new ObservableCollection<ImageDTO>();
             SelectedImage = new ImageDTO();
-
-            
             userService.UpdateUser(accommodationDTO, currentUserUsername);
             LoadCountries();
             LoadCity();
@@ -81,7 +77,6 @@ namespace BookingApp.WPF.ViewModel.Owner
         {
             UpdateImages();
             String selectedCountry = SelectedCountry;
-
             if (SelectedCity != null && selectedCountry != null) accommodationDTO.IdLocation = locationService.GetLocationId(SelectedCity, selectedCountry);
 
             if (accommodationDTO.IsValid) {

@@ -14,21 +14,29 @@ namespace BookingApp.Services
     public class ReservationRequestService
     {
         private IReservationRequestRepository reservationRequestRepository;
-        private AccommodationReservationService accommodationReservationService;
+
+        public AccommodationReservationService accommodationReservationService;
         private AccommodationService accommodationService;
-        public ReservationRequestService() {
+
+
+        public ReservationRequestService()
+        {
             reservationRequestRepository = Injector.Injector.CreateInstance<IReservationRequestRepository>();
-            accommodationReservationService=new AccommodationReservationService();
+            accommodationReservationService = new AccommodationReservationService();
             accommodationService=new AccommodationService();
         }
-
-        public ReservationRequestDTO GetRequest(int reservationRequestId)
+        public List<ReservationRequestDTO> GetAll()
         {
-            var reservationRequest = reservationRequestRepository.GetById(reservationRequestId);
-            var reservationRequestDTO = new ReservationRequestDTO(reservationRequest);
-            return reservationRequestDTO;
+            List<ReservationRequest> reservationRequests = reservationRequestRepository.GetAll();
+            List<ReservationRequestDTO> reservationRequestsDTOs = reservationRequests.Select(resreq => new ReservationRequestDTO(resreq)).ToList();
+            return reservationRequestsDTOs;
         }
-
+        
+        public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment)
+        {
+            reservationRequestRepository.UpdateStatus(accommodationReservationId, status, comment);
+        }
+      
         public void SetNewDates(DateTime initialDate, DateTime endDate,int reservationId)
         {
             var reservationRequest = new ReservationRequest
@@ -39,6 +47,7 @@ namespace BookingApp.Services
                 RequestStatus=RequestStatus.ONHOLD,
             };
             reservationRequestRepository.Add(reservationRequest);
+
         }
         public List<(DateTime, DateTime)> GenerateNewDateRange( int daysToStay)
         {

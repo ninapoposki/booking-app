@@ -59,20 +59,7 @@ namespace BookingApp.DTO
 
 
 
-        /*  private int maxDays;
-          public int MaxDays
-          {
-              get { return maxDays; }
-              set
-              {
-                  if (maxDays != value)
-                  {
-                      maxDays = value;
-                      OnPropertyChanged("MaxDays");
-                  }
-              }
-          }
-        */
+       
 
         private int cleanless;
         public int Cleanless
@@ -127,7 +114,6 @@ namespace BookingApp.DTO
             this.Id = guestGrade.Id;
             this.ReservationId = guestGrade.ReservationId;
             this.GuestId = guestGrade.GuestId;
-            //this.MaxDays = guestGrade.MaxDays;
             this.Cleanless = guestGrade.Cleanless;
             this.RulesFollowing = guestGrade.RulesFollowing;
             this.Comment = guestGrade.Comment;

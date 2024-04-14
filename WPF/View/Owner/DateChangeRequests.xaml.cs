@@ -24,7 +24,7 @@ namespace BookingApp.WPF.View.Owner
         public DateChangeRequests()
         {
             InitializeComponent();
-            DateChangeRequestsVM = new DateChangeRequestsVM();
+            DateChangeRequestsVM = new DateChangeRequestsVM(commentTextBox);
             DataContext = DateChangeRequestsVM;
         }
 

@@ -53,15 +53,6 @@ namespace BookingApp.Services
             accommodationReservationRepository.UpdateDate(accommodationReservationId, InitialDate, EndDate);
         }
 
-
-       public AccommodationReservationDTO GetAllInfo(AccommodationReservationDTO accommodationReservationDTO)
-        {
-              var guest = guestService.GetById(accommodationReservationDTO.GuestId);
-              accommodationReservationDTO.Guest = new GuestDTO(guest);
-              var accomm = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
-             accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
-            return accommodationReservationDTO;
-        }
         public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId)
         {
             return accommodationReservationRepository.FindAlternativeDates(reservation, accommodationId);
