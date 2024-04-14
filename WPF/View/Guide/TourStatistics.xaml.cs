@@ -36,5 +36,10 @@ namespace BookingApp.WPF.View.Guide
             TourStatisticsVM.SelectedTour = tour;
             TourStatisticsVM.LoadStatistics(tour);
         }
+
+        private void YearChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TourStatisticsVM.YearChanged();
+        }
     }
 }

@@ -83,5 +83,9 @@ namespace BookingApp.Services
                 }
             }return finishedTours;
         }
+        public List<TourDTO> GetByYear(int year, int userId)
+        {
+            return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
+        }
     }
 }

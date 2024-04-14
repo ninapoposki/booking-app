@@ -30,15 +30,25 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private int numberOfTourists;
+        public int NumberOfTourists
+        {
+            get { return numberOfTourists; }
+            set
+            {
+                if (value != numberOfTourists)
+                {
+                    numberOfTourists = value;
+                    OnPropertyChanged("NumberOfTourists");
+                }
+            }
+        }
         public int Id { get; set; }
 
         private string name;
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
             set
             {
                 if (value != name)
@@ -52,10 +62,7 @@ namespace BookingApp.DTO
         private string description;
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get { return description; }
             set
             {
                 if (value != description)
@@ -73,10 +80,7 @@ namespace BookingApp.DTO
         private int capacity;
         public int Capacity
         {
-            get
-            {
-                return capacity;
-            }
+            get { return capacity; }
             set
             {
                 if (value != capacity)
@@ -90,10 +94,7 @@ namespace BookingApp.DTO
         private double duration;
         public double Duration
         {
-            get
-            {
-                return duration;
-            }
+            get { return duration; }
             set
             {
                 if (value != duration)
