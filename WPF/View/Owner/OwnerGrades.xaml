@@ -77,12 +77,13 @@
 
                     <TextBlock Text="These are the grades that guests gave you: " Margin="5" Grid.ColumnSpan="4" Grid.Row="1"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <ItemsControl  Grid.Column="1" Grid.Row="1" ItemsSource="{Binding AllAccommodationReservations}">
-                <ItemsControl.ItemTemplate>
+                <ListBox  Grid.Column="1" Grid.Row="1" ItemsSource="{Binding AllOwnerGrades}" SelectedItem="{Binding SelectedAccommodationGrade}">
+                    <ListBox.ItemTemplate>
                     <DataTemplate>
 
-                        <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1" Padding="10" Margin="10">
-                    <Grid>
+                            <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1" Padding="10" Margin="10" CornerRadius="10">
+                               
+                                <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="250"/>
@@ -99,40 +100,41 @@
                         </Grid.RowDefinitions>
                         <!-- Prvi red -->
                         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="{Binding Guest.FirstName}" Margin=" 5"/>
-                        <TextBlock Text="{Binding Guest.LastName}" Margin="5"/>
+                                        <TextBlock Text="{Binding AccommodationReservation.Guest.FirstName}" Margin=" 5"/>
+                                        <TextBlock Text="{Binding AccommodationReservation.Guest.LastName}" Margin="5"/>
+                                       
 
-                    </StackPanel>
+                                    </StackPanel>
                         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" Margin="5">
                               <TextBlock Text="Cleanness: " HorizontalAlignment="Left" Margin="5"/>
-                              <TextBlock Text="{Binding GuestGrade.Cleanness}" HorizontalAlignment="Center" Margin="5"/>
+                                        <TextBlock Text="{Binding Cleanliness}" HorizontalAlignment="Center" Margin="5"/>
                         </StackPanel>
                             <!-- Drugi red -->
                                     <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="{Binding Accommodation.Name}" HorizontalAlignment="Center" Margin="5"/>
+                                        <TextBlock Text="{Binding AccommodationReservation.Accommodation.Name}" HorizontalAlignment="Center" Margin="5"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Owner's correctness: " HorizontalAlignment="Left" Margin="5"/>
-                            <TextBlock Text="{Binding GuestGrade.OwnersCorectness}" HorizontalAlignment="Center" Margin="5"/>
+                                        <TextBlock Text="{Binding Correctness}" HorizontalAlignment="Center" Margin="5"/>
                         </StackPanel>
                         
                         
                         <!-- Treći red -->
                         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="{Binding InitialDate}"/>
+                            <TextBlock Text="{Binding AccommodationReservation.InitialDate}"/>
                             <TextBlock Text=" - "/>
-                            <TextBlock Text="{Binding EndDate}"/>
+                            <TextBlock Text="{Binding AccommodationReservation.EndDate}"/>
                         </StackPanel>
                          <!-- dugme -->
                         <StackPanel Grid.RowSpan="2" Grid.Column="4" Grid.Row="4">
-                            <Button Content="View" Margin="5" Padding="10,0" Click="AddAccommodationClick" Width="50" Height="20" Grid.Column="3" Grid.Row="1" />
+                                        <Button Content="View" Click="GradeDetailsClick" Margin="5" Padding="10,0"  Width="50" Height="20" Grid.Column="3" Grid.Row="1" />
                         </StackPanel>
                     </Grid>
                 </Border>
 
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
             </ScrollViewer>
 
 

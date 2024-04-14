@@ -42,7 +42,18 @@ namespace BookingApp.Services
             List<AccommodationReservationDTO> accommodationReservationDTOs = accommodationReservations.Select(accres => new AccommodationReservationDTO(accres)).ToList();
             return accommodationReservationDTOs;
         }
-        
+
+        public AccommodationReservation GetById(int id)
+        {
+            return accommodationReservationRepository.GetById(id);
+        }
+
+        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate)
+        {
+            accommodationReservationRepository.UpdateDate(accommodationReservationId, InitialDate, EndDate);
+        }
+
+
        public AccommodationReservationDTO GetAllInfo(AccommodationReservationDTO accommodationReservationDTO)
         {
               var guest = guestService.GetById(accommodationReservationDTO.GuestId);

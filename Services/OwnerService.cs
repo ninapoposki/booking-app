@@ -23,6 +23,10 @@ namespace BookingApp.Services
         {
             return ownerRepository.GetByUserId(userId);
         }
+        public Owner GetById(int id)
+        {
+            return ownerRepository.GetById(id);
+        }
        
         public OwnerDTO UpdateOwner(int userId)
         {

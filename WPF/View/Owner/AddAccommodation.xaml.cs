@@ -21,7 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
-using BookingApp.WPF.ViewModel.Guide;
+using BookingApp.WPF.ViewModel.Owner;
 using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.View.Owner

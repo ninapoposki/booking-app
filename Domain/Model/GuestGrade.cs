@@ -44,7 +44,7 @@ namespace BookingApp.Domain.Model
         public string[] ToCSV()
         {
             string[] csvValues =
-             {
+            {
                   Id.ToString(),
                   ReservationId.ToString(),
                   GuestId.ToString(),

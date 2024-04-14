@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
+using BookingApp.WPF.ViewModel.Owner;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +22,22 @@ namespace BookingApp.WPF.View.Owner
     /// </summary>
     public partial class GradeDetails : Window
     {
-        public GradeDetails()
+        public GradeDetailsVM GradeDetailsVM;
+        public GradeDetails(AccommodationGradeDTO selectedAccommodationGrade)
         {
             InitializeComponent();
+            GradeDetailsVM = new GradeDetailsVM(selectedAccommodationGrade);
+            DataContext = GradeDetailsVM;
         }
+        private void PreviousClick(object sender, RoutedEventArgs e)
+        {
+            GradeDetailsVM.PreviousClick();
+        }
+        private void NextClick(object sender, RoutedEventArgs e)
+        {
+            GradeDetailsVM.NextClick();
+        }
+
+       
     }
 }

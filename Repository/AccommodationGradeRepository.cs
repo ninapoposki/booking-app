@@ -95,6 +95,11 @@ namespace BookingApp.Repository
             return averageGrades;
         }
 
+        public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade)
+        {
+            return GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationGrade.Id)?.ReservationId ?? -1;
+        }
+
         public void Delete(AccommodationGrade accommodationGrade)
         {
             accommodationGrades = serializer.FromCSV(FilePath);

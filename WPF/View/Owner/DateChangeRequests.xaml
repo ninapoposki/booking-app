@@ -1,0 +1,119 @@
+﻿<Window x:Class="BookingApp.WPF.View.Owner.DateChangeRequests"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+        mc:Ignorable="d"
+        Title="DateChangeRequests" Height="550" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <!-- Lijevi prostor za dugmad -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Uspravna linija -->
+            <ColumnDefinition Width="5"/>
+            <!-- Razmak između linije i glavnog sadržaja -->
+            <ColumnDefinition Width="*"/>
+            <!-- Glavni sadržaj -->
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
+            <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
+                <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"/>
+                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <Border Height="2" Background="Black" Margin="0 5"/>
+            <Button Content="Home Page" Margin="5 0 5 5" BorderThickness="1" Height="50" Background="White"/>
+            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
+            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
+            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
+            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Border Height="2" Background="Black" Margin="0 5"/>
+            <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>
+        </StackPanel>
+
+        <Border Grid.Column="1" Background="Black" Width="2"/>
+
+        <!-- Glavni sadržaj -->
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="485*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2" Margin="-7,0,0,0" >
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,6,5,0" Height="30" VerticalAlignment="Top" >
+                    <TextBlock Text="Date change requests" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25"/>
+                    <WrapPanel HorizontalAlignment="Right">
+                        <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="90,0,5,0" FontSize="15" />
+
+                        <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
+                        <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
+                        <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
+
+
+                        <Button Content="NOTIFICATIONS" Width="140" Margin="5,0" BorderThickness="0" Background="White" FontSize="15"  />
+
+                        <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
+                        <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
+
+                        <Button Content="HELP" Width="107" BorderThickness="0" Background="White" FontSize="15" HorizontalAlignment="Right"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- First Row -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Respond to guests requests:" HorizontalAlignment="Left" Margin="5"/>
+
+                <!-- Second Row -->
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Height=" 350">
+                    <DataGrid AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Guest" Width="*" />
+                            <DataGridTextColumn Header="Accommodation" Width="*" />
+                            <DataGridTextColumn Header="Previous date" Width="*" />
+                            <DataGridTextColumn Header="New date" Width="*" />
+                            <DataGridTextColumn Header="Status" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+
+                <!-- Third Row -->
+                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Comment:" VerticalAlignment="Center"/>
+                    <TextBox Width="290" Height="70" Margin="5"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,50,10" HorizontalAlignment="Right" Height="50" >
+                    <Button Content="Accept" Width="100"  Margin="5" Click="AcceptButtonClick"/>
+                    <Button Content="Decline" Width="100" Margin="15,5,5,5" Click="DeclineButtonClick"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

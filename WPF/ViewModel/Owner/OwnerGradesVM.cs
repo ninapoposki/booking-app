@@ -13,39 +13,50 @@ namespace BookingApp.WPF.ViewModel.Owner
 {
     public class OwnerGradesVM : ViewModelBase
     {
-
-       // public GuestGradeService guestGradeService;
+        public OwnerService ownerService;
+        public UserService userService;
         private AccommodationGradeService accommodationGradeService;
+        
         public ObservableCollection<AccommodationGradeDTO> AllOwnerGrades { get; set; }
         public AccommodationGradeDTO SelectedAccommodationGrade { get; set; }
+        public int ownerId;
 
-        public OwnerGradesVM() {
-           // guestGradeService = new GuestGradeService();
+        public OwnerGradesVM(string username) {
+            ownerService = new OwnerService();
+            userService = new UserService();
             accommodationGradeService = new AccommodationGradeService();
             AllOwnerGrades = new ObservableCollection<AccommodationGradeDTO>();
             SelectedAccommodationGrade = new AccommodationGradeDTO();
+            ownerId = ownerService.GetByUserId(userService.GetByUsername(username).Id).Id;
             Update();
         }
         public void Update()
         {
             AllOwnerGrades.Clear();
+           
             foreach (AccommodationGradeDTO accommodationGradeDTO in accommodationGradeService.GetAll())
             {
-               // var updatedDTO = accommodationReservationService.GetAllInfo(accommodationReservationDTO);
-               // AllAccommodationReservations.Add(updatedDTO);
+                if(ownerId == accommodationGradeDTO.OwnerId && accommodationGradeService.isGuestGraded(accommodationGradeDTO.ReservationId)) { 
+                    var updatedDTO = accommodationGradeService.GetAllInfo(accommodationGradeDTO);
+                    AllOwnerGrades.Add(updatedDTO);
+                }
             }
         }
 
-       /*
-        public void GuestDataGridSelectionChanged()
+        public void GradeDetailsClick()
         {
-            if (SelectedAccommodationReservation != null)
+            
+            if (SelectedAccommodationGrade != null)
             {
-                GuestDataGrid(SelectedAccommodationReservation);
+                GradeDetails details = new GradeDetails(SelectedAccommodationGrade);
+                details.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select an accommodation grade first.");
             }
         }
 
-        */
-        
+
     }
 }

@@ -57,5 +57,9 @@ namespace BookingApp.WPF.View.Owner
         {
             OwnerMainWindowVM.MyGradesClick();
         }
+        private void RequestsClick(object sender, RoutedEventArgs e)
+        {
+            OwnerMainWindowVM.RequestsClick();
+        }
     }
 }

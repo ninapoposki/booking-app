@@ -3,6 +3,7 @@ using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.WPF.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,55 +24,23 @@ namespace BookingApp.WPF.View.Owner
     /// <summary>
     /// Interaction logic for OwnerGrades.xaml
     /// </summary>
-    public partial class OwnerGrades : Window, IObserver
+    public partial class OwnerGrades : Window
     {
-        public readonly GuestGradeRepository guestGradeRepository;
-        public readonly GuestRepository guestRepository;
-        public readonly AccommodationRepository accommodationRepository;
-        private readonly AccommodationReservationRepository accommodationReservationRepository;
-        private readonly AccommodationGradeRepository accommodationGradeRepository;
-        public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
-        public AccommodationReservationDTO SelectedAccommodationReservation { get; set; }
-        public OwnerGrades()
+        public OwnerGradesVM OwnerGradesVM;
+       
+        public OwnerGrades(string username)
         {
             InitializeComponent();
-            DataContext = this;
-            accommodationReservationRepository = new AccommodationReservationRepository();
-            guestRepository = new GuestRepository();
-            guestGradeRepository = new GuestGradeRepository();
-            accommodationRepository = new AccommodationRepository();
-            accommodationGradeRepository = new AccommodationGradeRepository();
-            AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
-            SelectedAccommodationReservation = new AccommodationReservationDTO();
-            Update();
+            OwnerGradesVM = new OwnerGradesVM(username);
+            DataContext = OwnerGradesVM;
+            
         }
 
-        public void Update()
+        private void GradeDetailsClick(object sender, RoutedEventArgs e)
         {
-            AllAccommodationReservations.Clear();
-
-            foreach (AccommodationReservation accommodationReservation in accommodationReservationRepository.GetAll())
-            {
-                var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservation);
-
-                var guest = guestRepository.GetById(accommodationReservation.GuestId);
-                accommodationReservationDTO.Guest = new GuestDTO(guest);
-
-                var accomm = accommodationRepository.GetById(accommodationReservation.AccommodationId);
-                accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
-
-
-
-                AllAccommodationReservations.Add(accommodationReservationDTO);
-            }
+            OwnerGradesVM.GradeDetailsClick();
         }
 
-        private void AddAccommodationClick(object sender, RoutedEventArgs e)
-        {
-
-            GradeDetails details = new GradeDetails();
-            details.ShowDialog();
-
-        }
+       
     }
 }
