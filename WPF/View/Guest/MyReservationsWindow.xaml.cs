@@ -19,6 +19,11 @@ namespace BookingApp.WPF.View.Guest
             MyReservationsVM.RateAccommodationClick();
         }
 
+        private void ChangeReservationClick(object sender, RoutedEventArgs e)
+        {
+            MyReservationsVM.ChangeReservationClick();
+        }
+
         private void CancelReservationClick(object sender, RoutedEventArgs e)
         {
             MyReservationsVM.CancelReservationClick();

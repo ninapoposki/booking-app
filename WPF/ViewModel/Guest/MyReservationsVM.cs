@@ -3,6 +3,7 @@ using BookingApp.Services;
 using BookingApp.WPF.View.Guest;
 using BookingApp.WPF.View.Owner;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -14,6 +15,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         private readonly AccommodationGradeService accommodationGradeService;
         private readonly CancelledReservationsService cancelledReservationsService;
         private readonly AccommodationService accommodationService;
+        private readonly ReservationRequestService reservationRequestService;
 
         public ObservableCollection<AccommodationReservationDTO> AllReservations { get; }
 
@@ -40,14 +42,15 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationGradeService = new AccommodationGradeService();
             cancelledReservationsService = new CancelledReservationsService();
             accommodationService = new AccommodationService();
+            reservationRequestService = new ReservationRequestService();
             AllReservations = new ObservableCollection<AccommodationReservationDTO>();
-            accommodationDTO=new AccommodationDTO();
+            accommodationDTO = new AccommodationDTO();
             Update();
         }
 
         public void Update()
         {
-           
+
             AllReservations.Clear();
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
             {
@@ -100,9 +103,8 @@ namespace BookingApp.WPF.ViewModel.Guest
 
         public void CancelReservationClick()
         {
-            //dodaj -kad se ne selektuje nikakva rezervacija
             accommodationDTO = accommodationService.GetAccommodation(SelectedReservation.AccommodationId);
-            if(cancelledReservationsService.IsCancellationPeriodValid(accommodationDTO.ToAccommodation(), SelectedReservation.ToAccommodationReservation()))
+            if (cancelledReservationsService.IsCancellationPeriodValid(accommodationDTO.ToAccommodation(), SelectedReservation.ToAccommodationReservation()))
             {
                 cancelledReservationsService.CancelReservation(accommodationService.GetById(accommodationDTO.Id), SelectedReservation.ToAccommodationReservation());
                 MessageBox.Show("Your reservation has been successfully cancelled!");
@@ -120,6 +122,23 @@ namespace BookingApp.WPF.ViewModel.Guest
 
                 }
             }
+        }
+        public void ChangeReservationClick()
+        {
+          
+            if (SelectedReservation != null)
+            {
+                List<(DateTime, DateTime)> dates = reservationRequestService.GenerateNewDateRange(SelectedReservation.DaysToStay);
+
+                 SelectedReservation = accommodationReservationService.GetOneReservation(SelectedReservation);
+                var dialog = new ChangeReservation(dates, SelectedReservation);
+                dialog.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("You didn't choose reservation!");
+                }
+            
         }
     }
 }

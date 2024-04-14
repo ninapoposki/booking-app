@@ -55,6 +55,7 @@ namespace BookingApp.WPF.View.Guest
             int followingRules = GetSelectedRadioButtonValue(Correctness);
             string comment = CommentsTextBox.Text;
             GradeAccommodationVM.ConfirmButtonClick(cleanness, followingRules);
+            MessageBox.Show("You graded reservation successfully!");
             Close();
         }
         private void BrowseImageClick(object sender, RoutedEventArgs e)

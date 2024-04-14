@@ -58,7 +58,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         {
             if (selectedDate != null)
             {
-                SelectedReservation.InitialDate = selectedDate.InitialDate;
+                SelectedReservation.InitialDate = selectedDate.InitialDate; 
                 SelectedReservation.EndDate = selectedDate.EndDate;
 
                 accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation()); 
