@@ -85,8 +85,13 @@ namespace BookingApp.WPF.ViewModel.Owner
         }
         public void MyGradesClick()
         {
-            OwnerGrades grades = new OwnerGrades();
+            OwnerGrades grades = new OwnerGrades(loggedInUserUsername);
             grades.ShowDialog();
+        }
+        public void RequestsClick()
+        {
+            DateChangeRequests datechanges = new DateChangeRequests();
+            datechanges.ShowDialog();
         }
 
         private double averageGrade;

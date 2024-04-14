@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -17,6 +18,7 @@ namespace BookingApp.Domain.IRepositories
         public AccommodationGrade GetById(int id);
         List<AccommodationGrade> GetByOwnerId(int ownerId);
         public List<double> GetAverageGrades(int ownerId);
+        public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade);
         void Delete(AccommodationGrade accommodationGrade);
         AccommodationGrade Update(AccommodationGrade accommodationGrade);
         void Subscribe(IObserver observer);

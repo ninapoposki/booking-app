@@ -43,7 +43,7 @@
             <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click ="MyGradesClick"/>
             <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
             <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click="ReservationsClick"/>
-            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click="RequestsClick"/>
             <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
             <Border Height="2" Background="Black" Margin="0 5"/>
             <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>

@@ -23,7 +23,8 @@ namespace BookingApp.Services
 
         public Guest GetById(int id)
         {
-            return guestRepository.GetById(id); 
+            return guestRepository.GetById(id);
+        }
 
         public Guest Add(Guest guest)
         {

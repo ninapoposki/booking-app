@@ -27,6 +27,21 @@ namespace BookingApp.Repository
             subject = new Subject();
         }
 
+        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate)
+        {
+            List<AccommodationReservation> reservations = serializer.FromCSV(FilePath);
+
+            AccommodationReservation currentReservation = reservations.Find(r => r.Id == accommodationReservationId);
+            if (currentReservation != null) {
+                currentReservation.InitialDate = InitialDate;
+                currentReservation.EndDate = EndDate;
+                serializer.ToCSV(FilePath, reservations);
+                subject.NotifyObservers();
+            } else { 
+                throw new Exception("Cannot find reservation");
+            }
+        }
+
         public List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId)
         {
             return accommodationReservations.Where(r => r.AccommodationId == accommodationId).ToList();
@@ -188,6 +203,13 @@ namespace BookingApp.Repository
         {
             return serializer.FromCSV(FilePath);
           
+        }
+
+        public AccommodationReservation GetById(int id)
+        {
+
+            accommodationReservations = serializer.FromCSV(FilePath);
+            return accommodationReservations.Find(i => i.Id == id);
         }
 
         public AccommodationReservation Add(AccommodationReservation accommodationReservation)

@@ -41,6 +41,8 @@ namespace BookingApp.Repository
             return GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationReservation.Id)?.ReservationId ?? -1;
         }
 
+        
+
         public GuestGrade Add(GuestGrade guestGrade)
         {
             guestGrade.Id = NextId();

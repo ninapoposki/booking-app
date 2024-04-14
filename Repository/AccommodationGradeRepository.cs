@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -95,6 +96,11 @@ namespace BookingApp.Repository
             }
 
             return averageGrades;
+        }
+
+        public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade)
+        {
+            return GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationGrade.Id)?.ReservationId ?? -1;
         }
 
         public void Delete(AccommodationGrade accommodationGrade)
