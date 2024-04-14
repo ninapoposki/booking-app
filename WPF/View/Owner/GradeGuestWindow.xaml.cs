@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModel.Owner;
 
 namespace BookingApp.WPF.View.Owner
 {
@@ -24,21 +25,22 @@ namespace BookingApp.WPF.View.Owner
     
     public partial class GradeGuestWindow : Window
     {
-        public GuestGradeRepository guestGradeRepository { get; set; }
-        public AccommodationReservationDTO selectedAccommodationReservation;
-        public GuestGradeDTO guestGradeDTO { get; set; }
-        public GradeGuestWindow(GuestGradeRepository guestGradeRepository,AccommodationReservationDTO accommodationReservationDTO)
+       
+        public GradeGuestVM GradeGuestVM {  get; set; }
+        public GradeGuestWindow(AccommodationReservationDTO accommodationReservationDTO)
         {
             InitializeComponent();
-            selectedAccommodationReservation = accommodationReservationDTO;
-            DataContext = selectedAccommodationReservation;
+            
+           
+            GradeGuestVM = new GradeGuestVM(accommodationReservationDTO);
+            DataContext = GradeGuestVM;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            this.guestGradeRepository = new GuestGradeRepository();
-            guestGradeDTO = new GuestGradeDTO();
         }
 
         private int GetSelectedRadioButtonValue(StackPanel panel)
         {
+            
             foreach (var radioButton in panel.Children)
             {
                 if (radioButton is RadioButton && ((RadioButton)radioButton).IsChecked == true)
@@ -46,25 +48,18 @@ namespace BookingApp.WPF.View.Owner
                     return int.Parse(((RadioButton)radioButton).Content.ToString());
                 }
             }
-            return 0; 
+            return 0;
         }
 
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
-            int cleanness = GetSelectedRadioButtonValue(Cleanness);
-            int followingRules = GetSelectedRadioButtonValue(FollowingTheRules);
-
-            string comment = CommentsTextBox.Text;
-
-            guestGradeDTO.Cleanless = cleanness;
-            guestGradeDTO.RulesFollowing = followingRules;
-            guestGradeDTO.Comment = comment;
-
-            guestGradeDTO.GuestId = selectedAccommodationReservation.GuestId;
-            guestGradeDTO.ReservationId = selectedAccommodationReservation.Id;
-            guestGradeRepository.Add(guestGradeDTO.ToGuestGrade());
-            this.DialogResult = true;
+             int cleanness = GetSelectedRadioButtonValue(Cleanness);
+             int followingRules = GetSelectedRadioButtonValue(FollowingTheRules);
+             string comment = CommentsTextBox.Text;
+            // GradeGuestVM.CleannessRadio = cleanness;
+            // GradeGuestVM.FollowingTheRulesRadio = followingRules;
+            GradeGuestVM.ConfirmButtonClick(cleanness, followingRules);
             Close();
 
         }

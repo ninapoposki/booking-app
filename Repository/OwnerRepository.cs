@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Domain.IRepositories;
 using BookingApp.Observer;
 using BookingApp.Serializer;
@@ -60,16 +61,55 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public Owner Update(Owner owner)
+         public Owner Update(Owner owner)
+         {
+             owners = serializer.FromCSV(FilePath);
+             Owner current = owners.Find(t => t.Id == owner.Id);
+             int index = owners.IndexOf(current);
+             owners.Remove(current);
+             owners.Insert(index, owner);
+             serializer.ToCSV(FilePath, owners);
+             subject.NotifyObservers();
+             return owner;
+         }
+        public Owner UpdateOwner(Owner owner) //za role
         {
-            owners = serializer.FromCSV(FilePath);
+            List<Owner> owners = serializer.FromCSV(FilePath);
+
             Owner current = owners.Find(t => t.Id == owner.Id);
-            int index = owners.IndexOf(current);
-            owners.Remove(current);
-            owners.Insert(index, owner);
-            serializer.ToCSV(FilePath, owners);
-            subject.NotifyObservers();
-            return owner;
+            if (current != null)
+            {
+                int index = owners.IndexOf(current);
+                owners.Remove(current);
+                owners.Insert(index, owner);
+                serializer.ToCSV(FilePath, owners);
+                subject.NotifyObservers();
+                return owner;
+            }
+            else
+            {
+                // Ako vlasnik sa datim Id nije pronađen, možete uraditi nešto, na primer, baciti izuzetak ili vratiti null
+                throw new Exception("Vlasnik sa datim Id nije pronađen.");
+            }
+
+        }
+
+        public void UpdateOwnerRole(Owner owner, string role) //za role
+        {
+            List<Owner> owners = serializer.FromCSV(FilePath);
+
+            Owner current = owners.Find(t => t.Id == owner.Id);
+            if (current != null)
+            {
+                int index = owners.IndexOf(current);
+                owners.Remove(current);
+                owner.Role = role;
+                owners.Insert(index, owner);
+                serializer.ToCSV(FilePath, owners);
+                subject.NotifyObservers();
+               
+            }
+           
         }
 
 
@@ -94,10 +134,10 @@ namespace BookingApp.Repository
             int maxId = owners.Count > 0 ? owners.Max(t => t.Id) : 0;
             return maxId;
         }
+       
 
         public Owner GetByUserId(int userId)
         {
-            // Pretraga vlasnika na osnovu ID-ja korisnika
             return owners.FirstOrDefault(owner => owner.UserId == userId);
         }
 

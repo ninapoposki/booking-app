@@ -1,5 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.DTO;
+using BookingApp.Serializer;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,20 +13,32 @@ namespace BookingApp.Services
 {
     public class UserService
     {
-
         private IUserRepository userRepository;
-       
-
 
         public UserService()
         {
             userRepository = Injector.Injector.CreateInstance<IUserRepository>();
         }
-    
-        public User GetByUsername(string username)
-        {
 
+        public User GetByUsername(string username) 
+        { 
             return userRepository.GetByUsername(username);
         }
+
+        public int GetCurrentGuestUserId()
+        {
+           return userRepository.GetCurrentGuestUserId();
+        }
+
+        public User FindUser(string currentUsername)
+        {
+            return userRepository.GetByUsername(currentUsername);
+        }
+
+        public void UpdateUser(AccommodationDTO accommodation, string currentUsername)
+        {
+            accommodation.OwnerId = FindUser(currentUsername).Id;
+        }
+   
     }
 }

@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -10,7 +11,7 @@ using System.Windows;
 
 namespace BookingApp.Repository
 {
-    public class AccommodationReservationRepository
+    public class AccommodationReservationRepository:IAccommodationReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/accommodationreservation.csv";
 
@@ -24,6 +25,21 @@ namespace BookingApp.Repository
             serializer = new Serializer<AccommodationReservation>();
             accommodationReservations = serializer.FromCSV(FilePath);
             subject = new Subject();
+        }
+
+        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate)
+        {
+            List<AccommodationReservation> reservations = serializer.FromCSV(FilePath);
+
+            AccommodationReservation currentReservation = reservations.Find(r => r.Id == accommodationReservationId);
+            if (currentReservation != null) {
+                currentReservation.InitialDate = InitialDate;
+                currentReservation.EndDate = EndDate;
+                serializer.ToCSV(FilePath, reservations);
+                subject.NotifyObservers();
+            } else { 
+                throw new Exception("Cannot find reservation");
+            }
         }
 
         public List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId)
@@ -189,6 +205,13 @@ namespace BookingApp.Repository
           
         }
 
+        public AccommodationReservation GetById(int id)
+        {
+
+            accommodationReservations = serializer.FromCSV(FilePath);
+            return accommodationReservations.Find(i => i.Id == id);
+        }
+
         public AccommodationReservation Add(AccommodationReservation accommodationReservation)
         {
             accommodationReservation.Id = NextId();
@@ -213,13 +236,23 @@ namespace BookingApp.Repository
             return accommodationReservations.Max(c => c.Id) + 1;
         }
 
+        /*  public void Delete(AccommodationReservation accommodationReservation)
+          {
+              accommodationReservations = serializer.FromCSV(FilePath);
+              AccommodationReservation founded = accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
+              serializer.ToCSV(FilePath, accommodationReservations);
+              subject.NotifyObservers();
+          }*/
         public void Delete(AccommodationReservation accommodationReservation)
         {
             accommodationReservations = serializer.FromCSV(FilePath);
             AccommodationReservation founded = accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
-            serializer.ToCSV(FilePath, accommodationReservations);
-            subject.NotifyObservers();
+            accommodationReservations.Remove(founded); 
+            WriteToFile(); 
+            subject.NotifyObservers(); 
+           
         }
+
 
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
