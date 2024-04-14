@@ -16,11 +16,13 @@ namespace BookingApp.Services
         private IAccommodationRepository accommodationRepository;
         private LocationService locationService;
         private ImageService imageService;
+        private OwnerService ownerService;
         public AccommodationService()
         {
             accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
             imageService = new ImageService();
             locationService = new LocationService();
+            ownerService = new OwnerService();
 
         }
         public Accommodation Add(Accommodation accommodation)
@@ -29,13 +31,19 @@ namespace BookingApp.Services
         }
         public int GetCurrentId()
         {
-           return accommodationRepository.GetCurrentId();
+            return accommodationRepository.GetCurrentId();
         }
 
-        
+
         public Accommodation GetById(int id)
         {
             return accommodationRepository.GetById(id);
+        }
+        public AccommodationDTO GetAccommodation(int accommodationId)
+        {
+            var accommodation=accommodationRepository.GetById(accommodationId);
+            var accommodationDTO = new AccommodationDTO(accommodation);
+            return accommodationDTO;
         }
 
         public List<AccommodationDTO> GetAll()
@@ -44,10 +52,7 @@ namespace BookingApp.Services
             List<AccommodationDTO> accommodationDTOs = accommodations.Select(acc => new AccommodationDTO(acc)).ToList();
             return accommodationDTOs;
         }
-
-      
-
-
+       
     }
 
 }

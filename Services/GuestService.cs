@@ -19,8 +19,6 @@ namespace BookingApp.Services
         {
             guestRepository = Injector.Injector.CreateInstance<IGuestRepository>();
         }
-
-
         public Guest GetById(int id)
         {
             return guestRepository.GetById(id);

@@ -30,6 +30,8 @@ namespace BookingApp.Injector
             {  typeof(IAccommodationGradeRepository), new AccommodationGradeRepository()},
             {  typeof(IAccommodationReservationRepository), new AccommodationReservationRepository()},
             {  typeof(IGuestRepository), new GuestRepository()},
+            {  typeof(ICancelledReservationsRepository), new CancelledReservationsRepository()},
+
 
 
 

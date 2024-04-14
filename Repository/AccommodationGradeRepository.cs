@@ -57,29 +57,26 @@ namespace BookingApp.Repository
             accommodationGrades = serializer.FromCSV(FilePath);
             return accommodationGrades.Find(i => i.Id == id);
         }
+        public int GetCurrentId()
+        {
+            accommodationGrades = serializer.FromCSV(FilePath);
+            int maxId = accommodationGrades.Count > 0 ?accommodationGrades.Max(t => t.Id) : 0;
+            return maxId + 1;
+        }
+        public bool IsReservationGraded(int reservationId)
+        {
+            return GetAll().Any(grade => grade.ReservationId == reservationId);
+        }
+        public int GetReservationId(AccommodationReservation accommodationReservation)
+        {
+            return GetAll().FirstOrDefault(g => g.ReservationId == accommodationReservation.Id)?.ReservationId ?? -1;
+        }
         public List<AccommodationGrade> GetByOwnerId(int ownerId)
         {
             return GetAll().Where(ag => ag.OwnerId == ownerId).ToList();
         }
 
-        /*  public List<double> GetAverageGrades()
-          {
-              List<double> averageGrades = new List<double>();
 
-              foreach (AccommodationGrade accommodationGrade in GetAll())
-              {
-                  if (accommodationGrade != null)
-                  {
-                      double gradeSum = 0;
-                      gradeSum += accommodationGrade.Cleanliness;
-                      gradeSum += accommodationGrade.Correctness;
-                      double averageGrade = gradeSum / 2.0;
-                      averageGrades.Add(averageGrade);
-                  }
-              }
-
-              return averageGrades;
-          }*/
 
         public List<double> GetAverageGrades(int ownerId)
         {

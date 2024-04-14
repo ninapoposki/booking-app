@@ -20,6 +20,8 @@ namespace BookingApp.Services
         private AccommodationService accommodationService;
         private GuestGradeService guestGradeService;
         private AccommodationReservationService accommodationReservationService;
+        private LocationService locationService;
+
 
         public AccommodationGradeService()
         {
@@ -30,7 +32,7 @@ namespace BookingApp.Services
             guestGradeService = new GuestGradeService();
             accommodationService = new AccommodationService();
             accommodationReservationService = new AccommodationReservationService();
-            
+            locationService = new LocationService();
         }
 
         public List<double> GetAverageGrades(string username)
@@ -44,6 +46,7 @@ namespace BookingApp.Services
             List<AccommodationGradeDTO> accommodationGradeDTOs = accommodationGrades.Select(accg => new AccommodationGradeDTO(accg)).ToList();
             return accommodationGradeDTOs;
         }
+
 
         public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade)
         {
@@ -80,9 +83,42 @@ namespace BookingApp.Services
             return accommodationDTO;
         }
 
-        public bool isGuestGraded(int reservationId)
+        public bool isGuestGraded(int reservationId) //resi
         {
             return guestGradeService.IsGuestGraded(reservationId);
+        }
+
+        public AccommodationGrade Add(AccommodationGrade grade)
+        {
+            return accommodationGradeRepository.Add(grade);
+        }
+
+        public AccommodationGradeDTO GetOneAccommodationGrade(AccommodationReservationDTO accommodationReservationDTO,AccommodationGradeDTO accommodationGradeDTO)
+        { 
+            var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
+            var owner = ownerService.GetById(accommodation.OwnerId);
+            var location = locationService.GetById(accommodation.IdLocation);
+            //AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(selectedAccommodationReservation.ToAccommodationReservation(),accommodation,location, owner);
+
+            accommodationGradeDTO.OwnerId = accommodation.OwnerId; //ili preko repoziturojuma probaj
+            accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
+
+            return accommodationGradeDTO;
+
+        }
+        public int GetCurrentId()
+        {
+            return accommodationGradeRepository.GetCurrentId();
+        }
+        public bool IsReservationGraded(int reservationId)
+        {
+            return accommodationGradeRepository.IsReservationGraded(reservationId);
+        }
+        //bolje je ovo da buse u reservation
+        public int GetReservationId(AccommodationReservation accommodationReservation) 
+        {
+            return accommodationGradeRepository.GetReservationId(accommodationReservation);
+
         }
     }
 }

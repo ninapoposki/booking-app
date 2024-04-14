@@ -34,7 +34,6 @@ namespace BookingApp.WPF.View.Guest
             InitializeComponent();
             ReserveAccommodationVM = new ReserveAccommodationVM(selectedAccommodationDTO);
             DataContext = ReserveAccommodationVM;
-            //PROVERI DA LI OVO SME!!!
             ReserveAccommodationVM.RequestClose += (sender, args) =>
             {
                 Close(); 
