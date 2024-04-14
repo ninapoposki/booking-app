@@ -31,7 +31,8 @@ namespace BookingApp.Services
             List<ReservationRequestDTO> reservationRequestsDTOs = reservationRequests.Select(resreq => new ReservationRequestDTO(resreq)).ToList();
             return reservationRequestsDTOs;
         }
-        
+       
+
         public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment)
         {
             reservationRequestRepository.UpdateStatus(accommodationReservationId, status, comment);
@@ -53,12 +54,6 @@ namespace BookingApp.Services
         {
             (DateTime initialDate, DateTime endDate) = reservationRequestRepository.GetInitialDateRange();
             return  reservationRequestRepository.GenerateNewDateRange(initialDate, daysToStay);
-        }
-        public List<ReservationRequestDTO> GetAll()
-        {
-            List<ReservationRequest> reservationRequests = reservationRequestRepository.GetAll();
-            List<ReservationRequestDTO> reservationRequestDTOs = reservationRequests.Select(resreq => new ReservationRequestDTO(resreq)).ToList();
-            return reservationRequestDTOs;
         }
 
         public ReservationRequestDTO GetOneRequest(ReservationRequestDTO requestDTO)
