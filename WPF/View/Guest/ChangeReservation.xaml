@@ -60,7 +60,9 @@
 
                                     <TextBlock Text="{Binding NewInitialDate}" Grid.Column="0"  Grid.Row="0" Margin="5"/>
                                     <TextBlock Text="{Binding NewEndDate}" Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <Button Content="Send Request" Click="SendRequestClick"  Grid.Column="2" Grid.Row="0" Margin="5"/>
+                                    <Button Grid.Column="2" Grid.Row="0" Margin="5" Padding="0" BorderThickness="0" Background="Transparent" Click="SendRequestClick">
+                                        <TextBlock Text="Send Request" FontSize="12" FontWeight="Bold"  Foreground="ForestGreen" Cursor="Hand"/>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </DataTemplate>

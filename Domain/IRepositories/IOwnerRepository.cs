@@ -14,7 +14,6 @@ namespace BookingApp.Domain.IRepositories
         Owner Add(Owner owner);
         int NextId();
         Owner Update(Owner owner);
-      
         Owner GetByUser(User user);
         Owner GetById(int id);
         int GetCurrentId();

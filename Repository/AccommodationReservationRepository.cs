@@ -235,14 +235,6 @@ namespace BookingApp.Repository
             }
             return accommodationReservations.Max(c => c.Id) + 1;
         }
-
-        /*  public void Delete(AccommodationReservation accommodationReservation)
-          {
-              accommodationReservations = serializer.FromCSV(FilePath);
-              AccommodationReservation founded = accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
-              serializer.ToCSV(FilePath, accommodationReservations);
-              subject.NotifyObservers();
-          }*/
         public void Delete(AccommodationReservation accommodationReservation)
         {
             accommodationReservations = serializer.FromCSV(FilePath);

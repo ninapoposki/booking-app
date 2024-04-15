@@ -38,7 +38,6 @@ namespace BookingApp.Repository
             if (owners.Count < 1){ return 1; }
             return owners.Max(c => c.Id) + 1;
         }
-        
          public Owner Update(Owner owner) {
              owners = serializer.FromCSV(FilePath);
              Owner current = owners.Find(t => t.Id == owner.Id);
@@ -49,7 +48,6 @@ namespace BookingApp.Repository
              subject.NotifyObservers();
              return owner;
          }
-       
         public Owner GetByUser(User user)  {
             owners = serializer.FromCSV(FilePath);
             return owners.FirstOrDefault(guest => guest.User.Id == user.Id);

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -71,6 +72,7 @@ namespace BookingApp.DTO
                 }
             }
         }
+        public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public string Message { get; set; }
         public AccommodationReservationDTO AccommodationReservation { get; set; }
         private AccommodationDTO accommodation;

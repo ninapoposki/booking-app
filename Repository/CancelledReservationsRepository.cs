@@ -59,7 +59,7 @@ namespace BookingApp.Repository
         }
         public bool IsCancellationPeriodValid( Accommodation accommodation, DateTime initialDate)
         {
-            if (accommodation.CancellationPeriod == 0) // ako nije postavljen period otkazivanja, dozvoli otkazivanje 24h pre
+            if (accommodation.CancellationPeriod == 0) 
             {
                 DateTime currentDate = DateTime.Now;
                 TimeSpan timeUntilCheckIn = initialDate - currentDate;
