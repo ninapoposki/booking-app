@@ -60,7 +60,10 @@ namespace BookingApp.WPF.View.Tourist
            touristMainWinodowVM.BookTour();
         }
 
-     
+        private void RateTour(object sender, RoutedEventArgs e)
+        {
+           touristMainWinodowVM.RateTour();
+        }
 
     }
 }

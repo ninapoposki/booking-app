@@ -1,4 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
+using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +14,46 @@ namespace BookingApp.Services
     {
 
         private ITourGradeRepository tourGradeRepository;
+        private UserService userService;
+        private TourService tourService;
+       private TourReservationService tourReservationService;
+        
 
         public TourGradeService()
         {
             tourGradeRepository=Injector.Injector.CreateInstance<ITourGradeRepository>();
+            userService = new UserService();
+           
+          tourReservationService = new TourReservationService();
+            tourService = new TourService();
+
         }
+
+        public TourGrade Add(TourGrade grade)
+        {
+            return tourGradeRepository.Add(grade);
+        }
+        public TourGradeDTO GetOneTourGrade(TourReservationDTO tourReservationDTO, TourGradeDTO tourGradeDTO)
+        {
+            var tour = tourService.GetById(tourReservationDTO.TourStartDateId);
+
+
+            return tourGradeDTO;
+
+        }
+
+        public bool IsTourGraded(int tourStartDateId, int userId)
+        {
+            var reservations = tourReservationService.GetReservationsByStartDate(tourStartDateId);
+            var userReservations = reservations.Where(r => r.UserId == userId).Select(r => r.Id);
+
+            return tourGradeRepository.GetAll().Any(g => userReservations.Contains(g.TourReservationId));
+        }
+
+        public int GetCurrentId()
+        {
+            return tourGradeRepository.GetCurrentId();
+        }
+
     }
 }

@@ -97,7 +97,7 @@
 
             <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
             <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
-
+            <Button Content="Oceni turu" Margin="5" Padding="10,0" Click="RateTour" Width="89" />
         </StackPanel>
 
 
