@@ -14,10 +14,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
 {
     public class VouchersWindowVM:ViewModelBase
     {
-
-       
-        
-      
         public TourReservationService tourReservationService;
         public ObservableCollection<VoucherDTO> AllVouchers { get; set; }
         public VoucherService voucherService;

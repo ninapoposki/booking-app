@@ -30,6 +30,19 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private string path;
+        public string Path
+        {
+            get { return path; }
+            set
+            {
+                if (value != path)
+                {
+                    path = value;
+                    OnPropertyChanged("Path");
+                }
+            }
+        }
         private int numberOfTourists;
         public int NumberOfTourists
         {
@@ -140,7 +153,6 @@ namespace BookingApp.DTO
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
-
         }
     }
 }

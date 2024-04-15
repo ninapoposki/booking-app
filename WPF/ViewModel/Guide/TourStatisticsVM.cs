@@ -24,6 +24,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         public string SelectedYear { get; set; }
         private TourStartDateService tourStartDateService;
         private TourReservationService tourReservationService;
+        private ImageService imageService;
         public TourStatisticsVM(int userId)
         {
             this.userId = userId;
@@ -31,6 +32,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             BestTours = new ObservableCollection<TourDTO>();
             tourStartDateService = new TourStartDateService();
             tourReservationService = new TourReservationService();
+            imageService = new ImageService();
             Guests = new List<TourGuestDTO>();
             YearComboBox = new List<string>();
             SelectedYear = "";
@@ -70,8 +72,9 @@ namespace BookingApp.WPF.ViewModel.Guide
                 maxNumberOfGuests = guestsCount;
                 BestTours.Clear();
                 BestTours.Add(tour);
+                tour.Path = imageService.GetFirstPath(tour.Id, "TOUR");
             }
-            else if (guestsCount == maxNumberOfGuests) { BestTours.Add(tour); }
+            else if (guestsCount == maxNumberOfGuests) { BestTours.Add(tour); tour.Path = imageService.GetFirstPath(tour.Id, "TOUR"); }
         }
         public void UpdateTouristNumbersForBestTours()
         {
@@ -80,7 +83,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         private void LoadFinishedTours()
         {
             List<TourDTO> finishedTours = tourStartDateService.GetAllFinishedTours(userId);
-            foreach (TourDTO tour in finishedTours) { FinishedTours.Add(tour); }
+            foreach (TourDTO tour in finishedTours) { FinishedTours.Add(tour); tour.Path = imageService.GetFirstPath(tour.Id, "TOUR"); }
         }
         public void LoadStatistics(TourDTO tour)
         {
