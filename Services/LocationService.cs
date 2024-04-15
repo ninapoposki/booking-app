@@ -17,7 +17,7 @@ namespace BookingApp.Services
 
         public LocationService()
         {
-            locationRepository=Injector.Injector.CreateInstance<ILocationRepository>();
+            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
         }
 
         public void GetAll(List<LocationDTO> locations)
@@ -29,9 +29,6 @@ namespace BookingApp.Services
         public List<Location> GetAllLocations() { 
             return locationRepository.GetAll();
         }
-
-       
-
         public string GetCountry(LocationDTO city)
         {
             foreach (Location location in locationRepository.GetAll())
@@ -43,16 +40,12 @@ namespace BookingApp.Services
             }
             return null;
         }
-
-
         //irina
         public LocationDTO GetById(int id)
         {
             Location location = locationRepository.GetById(id);
             return location != null ? new LocationDTO(location) : null;
         }
-
-
         public HashSet<string> GetAllCountries() {
             return locationRepository.GetAllCountries();    
         }
@@ -61,19 +54,22 @@ namespace BookingApp.Services
         {
             return locationRepository.GetAllCities(country);
         }
-/*
-        public void GetAllCountries(HashSet<string> countries)
-        {
-            countries.Clear();
-            foreach (string country in locationRepository.GetAllCountries()) countries.Add(country);
-        }*/
         
         public int GetLocationId(string city, string country)
         {
             return locationRepository.GetLocationId(city, country);
         }
 
+        public LocationDTO GetByIdDTO(int id)
+        {
 
+            Location location = locationRepository.GetById(id);
+            return location != null ? new LocationDTO(location) : null;
+        }
+        public Location GetById(int id)
+        {
+            return locationRepository.GetById(id);
+        }
 
     }
 

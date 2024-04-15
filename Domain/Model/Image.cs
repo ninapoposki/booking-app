@@ -45,15 +45,10 @@ namespace BookingApp.Domain.Model
             {
                 EntityType = EntityType.GUEST;
             }
-            else
-            {
-
+           else{
                 EntityType = EntityType.NONE;
-
             }
-            
         }
-        
         public string[] ToCSV()
         {
             string[] csvValues =

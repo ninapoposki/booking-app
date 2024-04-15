@@ -36,7 +36,10 @@ namespace BookingApp.Repository
         {
             return tourStartDates.FindAll(tsd => tsd.TourId == id);
         }
-
+        public TourStartDate? Get(int id)
+        {
+          return tourStartDates.Find(tsd=>tsd.Id == id);
+        }
         public TourStartDate Add(TourStartDate tourStartDate)
         {
             tourStartDate.Id = NextId();

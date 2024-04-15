@@ -32,7 +32,7 @@ namespace BookingApp.Injector
             {  typeof(IGuestRepository), new GuestRepository()},
             {  typeof(ICancelledReservationsRepository), new CancelledReservationsRepository()},
             {  typeof(IReservationRequestRepository), new ReservationRequestRepository()},
-
+            { typeof(ITourGradeRepository), new TourGradeRepository()},
 
         };
         public static T CreateInstance<T>()
