@@ -12,33 +12,11 @@ namespace BookingApp.DTO
     public class TourGradeDTO : INotifyPropertyChanged
     {
         public int Id { get; set; }
-
-        private int tourReservationId;
-
-        public int TourReservationId
-        {
-            get
-            {
-                return tourReservationId;
-            }
-            set
-            {
-                if (value != tourReservationId)
-                {
-                    tourReservationId = value;
-                    OnPropertyChanged("TourReservationId");
-                }
-            }
-
-        }
-
+        public int TourReservationId {  get; set; }
         private int guideKnowledge;
         public int GuideKnowledge
         {
-            get
-            {
-                return guideKnowledge;
-            }
+            get { return guideKnowledge; }
             set
             {
                 if (value != guideKnowledge)
@@ -48,14 +26,10 @@ namespace BookingApp.DTO
                 }
             }
         }
-
         private Validity validity;
         public Validity Validity
         {
-            get
-            {
-                return validity;
-            }
+            get { return validity; }
             set
             {
                 if (value != validity)
@@ -65,15 +39,10 @@ namespace BookingApp.DTO
                 }
             }
         }
-
         private int languageKnowledge;
         public int LanguageKnowledge
         {
-
-            get
-            {
-                return languageKnowledge;
-            }
+            get { return languageKnowledge; }
             set
             {
                 if (value != languageKnowledge)
@@ -83,14 +52,10 @@ namespace BookingApp.DTO
                 }
             }
         }
-
         private int tourAttractions;
         public int TourAttractions
         {
-            get
-            {
-                return tourAttractions;
-            }
+            get { return tourAttractions; }
             set
             {
                 if (value != tourAttractions)
@@ -104,11 +69,7 @@ namespace BookingApp.DTO
         private string comment;
         public string Comment
         {
-
-            get
-            {
-                return comment;
-            }
+            get { return comment; }
             set
             {
                 if (value != comment)
@@ -118,30 +79,64 @@ namespace BookingApp.DTO
                 }
             }
         }
-
+        private string path;
+        public string Path
+        {
+            get { return path; }
+            set
+            {
+                if (value != path)
+                {
+                    path = value;
+                    OnPropertyChanged("Path");
+                }
+            }
+        }
+        private string fullName;
+        public string FullName
+        {
+            get { return fullName; }
+            set
+            {
+                if (value != fullName)
+                {
+                    fullName = value;
+                    OnPropertyChanged("FullName");
+                }
+            }
+        }
+        private string checkPointName;
+        public string CheckPointName
+        {
+            get { return checkPointName; }
+            set
+            {
+                if (value != checkPointName)
+                {
+                    checkPointName = value;
+                    OnPropertyChanged("CheckPointName");
+                }
+            }
+        }
         public TourGradeDTO() { }
-
-        public TourGradeDTO(TourGradeDTO tourGrade)
+        public TourGradeDTO(TourGrade tourGrade)
         {
             this.Id= tourGrade.Id;
             this.TourReservationId = tourGrade.TourReservationId;
             this.GuideKnowledge = tourGrade.GuideKnowledge;
             this.LanguageKnowledge = tourGrade.LanguageKnowledge;
-            this.TourAttractions=tourGrade.TourAttractions;
+            this.TourAttractions = tourGrade.TourAtrractions;
             this.Comment = tourGrade.Comment;
             this.Validity=tourGrade.Validity;
         }
-
         public TourGrade ToTourGrade()
         {
-
-            return new TourGrade(Id, tourReservationId, guideKnowledge, languageKnowledge,tourAttractions,comment);
+            return new TourGrade(Id, TourReservationId, guideKnowledge, languageKnowledge,tourAttractions,comment);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

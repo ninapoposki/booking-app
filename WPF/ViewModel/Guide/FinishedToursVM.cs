@@ -43,5 +43,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                 }
             }
         }
+
     }
 }
