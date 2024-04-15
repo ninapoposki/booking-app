@@ -43,7 +43,8 @@ namespace BookingApp.Services
 
         public void UpdateOwnerRole(OwnerDTO ownerDTO, String Role)
         {
-             ownerRepository.UpdateOwnerRole(ownerDTO.ToOwner(), Role);
+            ownerDTO.Role = Role;
+            ownerRepository.Update(ownerDTO.ToOwner());
         }
 
     }

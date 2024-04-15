@@ -14,9 +14,10 @@ namespace BookingApp.WPF.ViewModel.Guest
     {
         private readonly ReservationRequestService reservationRequestService;
         private readonly ImageService imageService;
-        private readonly AccommodationService accommodationService;
+        private readonly AccommodationReservationService accommodationReservationService;
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
+        public int currentIndex = 0;
 
 
         private ReservationRequestDTO _selectedReservationRequest;
@@ -32,12 +33,13 @@ namespace BookingApp.WPF.ViewModel.Guest
                 }
             }
         }
+      
         public GuestNotificationsVM()
         {
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             SelectedReservationRequest = new ReservationRequestDTO();
             reservationRequestService = new ReservationRequestService();
-            accommodationService = new AccommodationService();
+            accommodationReservationService = new AccommodationReservationService();
             imageService = new ImageService();
             Images = new ObservableCollection<ImageDTO>();
             Update();
@@ -45,13 +47,17 @@ namespace BookingApp.WPF.ViewModel.Guest
 
         public void Update()
         {
-
             AllReservationRequests.Clear();
+            var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
             foreach (ReservationRequestDTO reservationRequestDTO in reservationRequestService.GetAll())
             {
                 var requestDTO = reservationRequestService.GetOneRequest(reservationRequestDTO);
+                var reservationDTO=accommodationReservationService.GetById(requestDTO.ReservationId);
+                var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(reservationDTO.AccommodationId, allImages));
+                requestDTO.Images = matchingImages;
                 AllReservationRequests.Add(requestDTO);
             }
         }
+     
     }
 }

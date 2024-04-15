@@ -61,58 +61,17 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-         public Owner Update(Owner owner)
-         {
-             owners = serializer.FromCSV(FilePath);
-             Owner current = owners.Find(t => t.Id == owner.Id);
-             int index = owners.IndexOf(current);
-             owners.Remove(current);
-             owners.Insert(index, owner);
-             serializer.ToCSV(FilePath, owners);
-             subject.NotifyObservers();
-             return owner;
-         }
-        public Owner UpdateOwner(Owner owner) //za role
+        public Owner Update(Owner owner)
         {
-            List<Owner> owners = serializer.FromCSV(FilePath);
-
+            owners = serializer.FromCSV(FilePath);
             Owner current = owners.Find(t => t.Id == owner.Id);
-            if (current != null)
-            {
-                int index = owners.IndexOf(current);
-                owners.Remove(current);
-                owners.Insert(index, owner);
-                serializer.ToCSV(FilePath, owners);
-                subject.NotifyObservers();
-                return owner;
-            }
-            else
-            {
-                // Ako vlasnik sa datim Id nije pronađen, možete uraditi nešto, na primer, baciti izuzetak ili vratiti null
-                throw new Exception("Vlasnik sa datim Id nije pronađen.");
-            }
-
+            int index = owners.IndexOf(current);
+            owners.Remove(current);
+            owners.Insert(index, owner);
+            serializer.ToCSV(FilePath, owners);
+            subject.NotifyObservers();
+            return owner;
         }
-
-        public void UpdateOwnerRole(Owner owner, string role) //za role
-        {
-            List<Owner> owners = serializer.FromCSV(FilePath);
-
-            Owner current = owners.Find(t => t.Id == owner.Id);
-            if (current != null)
-            {
-                int index = owners.IndexOf(current);
-                owners.Remove(current);
-                owner.Role = role;
-                owners.Insert(index, owner);
-                serializer.ToCSV(FilePath, owners);
-                subject.NotifyObservers();
-               
-            }
-           
-        }
-
-
         public Owner GetByUser(User user)
         {
             owners = serializer.FromCSV(FilePath);

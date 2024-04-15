@@ -15,8 +15,6 @@ namespace BookingApp.Domain.IRepositories
         int NextId();
         void Delete(Owner owner);
         Owner Update(Owner owner);
-        Owner UpdateOwner(Owner owner);
-        void UpdateOwnerRole(Owner owner, string role);
         Owner GetByUser(User user);
         Owner GetById(int id);
         int GetCurrentId();
