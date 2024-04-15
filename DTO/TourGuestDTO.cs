@@ -70,8 +70,6 @@ namespace BookingApp.DTO
             Age=tourGuest.Age;
             TourReservationId = tourGuest.TourReservationId;
            
-
-
         }
 
         public TourGuest ToTourGuest()

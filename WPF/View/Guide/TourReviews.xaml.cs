@@ -28,5 +28,14 @@ namespace BookingApp.WPF.View.Guide
             TourReviewsVM=new TourReviewsVM(tour);
             DataContext = TourReviewsVM;
         }
+
+        private void ReportReviewClick(object sender, RoutedEventArgs e)
+        {
+         var button = sender as Button;
+         var tourGrade = button.DataContext as TourGradeDTO;
+         TourReviewsVM.SelectedReview = tourGrade;
+         TourReviewsVM.ReportReviewClick();
+        }
+        
     }
 }
