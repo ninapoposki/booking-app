@@ -1,6 +1,9 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Observer;
 using BookingApp.Serializer;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class GuestRepository
+    public class GuestRepository:IGuestRepository
     {
         private const string FilePath = "../../../Resources/Data/guest.csv";
 
@@ -93,6 +96,7 @@ namespace BookingApp.Repository
             return maxId;
         }
 
+        
 
         public void Subscribe(IObserver observer)
         {
