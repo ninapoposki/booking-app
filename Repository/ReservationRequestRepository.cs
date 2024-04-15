@@ -117,7 +117,7 @@ namespace BookingApp.Repository
         {
             List<ReservationRequest> requests = serializer.FromCSV(FilePath);
 
-            ReservationRequest reservationRequest = requests.Find(r => r.Id == accommodationReservationId);
+            ReservationRequest reservationRequest = requests.Find(r => r.ReservationId == accommodationReservationId);
             if (reservationRequest != null)
             {
                 reservationRequest.RequestStatus = status;

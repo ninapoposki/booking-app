@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         private readonly AccommodationService accommodationService;
         private readonly ImageService imageService;
         private readonly LocationService locationService;
+        private readonly OwnerService ownerService;
 
         public ObservableCollection<AccommodationDTO> AllAccommodations { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
@@ -104,22 +106,65 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationService = new AccommodationService();
             imageService = new ImageService();
             locationService = new LocationService();
+            ownerService = new OwnerService();
             AllAccommodations = new ObservableCollection<AccommodationDTO>();
             Images = new ObservableCollection<ImageDTO>();
             Types = new ObservableCollection<AccommodationType>(Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>());
             Update();
         }
 
+        /*0|Hilton|1|APARTMENT|5|2|6|1
+1|Maria|1|CABIN|8|5|5|1
+2|Plaza|3|HOUSE|5|5|20|1
+3|Valamar|2|APARTMENT|8|4|0|5
+4|Park|3|HOUSE|4|5|70|1
+5|President|5|APARTMENT|6|2|2|5
+6|Sunshine|1|APARTMENT|5|5|5|1
+7|uefhab|3|HOUSE|5|8|2|1
+8|fahiekga|2|HOUSE|5|5|15|1
+9|gggggggggg|2|APARTMENT|5|5|1|1
+10|ymkrykry6k|2|APARTMENT|5|5|1|1
+11|fhsrfhx|1|APARTMENT|5|5|1|1
+12|hdfnxb|2|APARTMENT|5|5|1|5
+13|gaha|1|APARTMENT|5|5|1|1
+14|tdgncrgsf|1|APARTMENT|5|8|1|1
+15|he|5|HOUSE|5|5|1|1
+16|DAJANA|6|APARTMENT|8|8|8|1
+17|petak|2|APARTMENT|5|5|1|5*/
+
         public void Update()
         {
-            AllAccommodations.Clear();
-            var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
-
+               AllAccommodations.Clear();
+                var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
+                AddSuperOwnerAccommodation(allImages);
+               AddOwnerAccommodation(allImages); 
+        }
+        public void AddSuperOwnerAccommodation(List<ImageDTO> allImages)
+        {
             foreach (var accommodation in accommodationService.GetAll())
             {
-                var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
-                LocationDTO location = locationService.GetById(accommodation.IdLocation);
-                AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
+                var owner = ownerService.GetByIdDTO(accommodation.OwnerId);
+                if (owner.Role == "SUPEROWNER")
+                {
+                    var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
+                    LocationDTO location = locationService.GetById(accommodation.IdLocation);
+                    AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
+                }
+                else { continue; }
+            }
+        }
+        public void AddOwnerAccommodation(List<ImageDTO> allImages)
+        {
+            foreach (var accommodation in accommodationService.GetAll())
+            {
+                var owner = ownerService.GetByIdDTO(accommodation.OwnerId);
+                if (owner.Role == "OWNER")
+                {
+                    var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
+                    LocationDTO location = locationService.GetById(accommodation.IdLocation);
+                    AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
+                }
+                else { continue; }
             }
         }
 
