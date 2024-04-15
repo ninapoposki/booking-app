@@ -60,7 +60,6 @@ namespace BookingApp.Repository
             return countries;
         }
 
-
         public int GetLocationId(string city, string country)
         {
             List<Location> locations = serializer.FromCSV(FilePath);

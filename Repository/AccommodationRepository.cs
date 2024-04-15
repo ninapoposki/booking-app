@@ -12,75 +12,60 @@ using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
-    public class AccommodationRepository : IAccommodationRepository
-    {
+    public class AccommodationRepository : IAccommodationRepository{
         private const string FilePath = "../../../Resources/Data/accommodation.csv";
         private readonly Serializer<Accommodation> serializer;
         private List<Accommodation> accommodations;
         public Subject subject;
-        public AccommodationRepository()
-        {
+        public AccommodationRepository() {
             serializer = new Serializer<Accommodation>();
             accommodations = serializer.FromCSV(FilePath);
             subject = new Subject();
         }
-        public List<Accommodation> GetAll()
-        {
+        public List<Accommodation> GetAll() {
             return serializer.FromCSV(FilePath);
         }
-        public Accommodation Add(Accommodation accommodation)
-        {
+        public Accommodation Add(Accommodation accommodation) {
             accommodation.Id = NextId();
-            accommodations.Add(accommodation);
-            WriteToFile();
+             accommodations.Add(accommodation);
+            WriteToFile(); 
             subject.NotifyObservers();
             return accommodation;
         }
-        public int GetCurrentId()
-        {
+        public int GetCurrentId(){
             accommodations = serializer.FromCSV(FilePath);
             int maxId = accommodations.Count > 0 ? accommodations.Max(t => t.Id) : 0;
             return maxId + 1;
         }
-        public Accommodation GetById(int id)
-        {
+        public Accommodation GetById(int id) {
             accommodations = serializer.FromCSV(FilePath);
             return accommodations.Find(i => i.Id == id);
         }
-        public int NextId()
-        {
+        public int NextId() {
             accommodations = serializer.FromCSV(FilePath);
-            if (accommodations.Count < 1)
-            {
-                return 1;
-            }
+            if (accommodations.Count < 1) {  return 1; }
             return accommodations.Max(c => c.Id) + 1;
         }
-        public void Delete(Accommodation accommodation)
-        {
+        public void Delete(Accommodation accommodation)  {
             accommodations = serializer.FromCSV(FilePath);
             Accommodation founded = accommodations.Find(c => c.Id == accommodation.Id);
             accommodations.Remove(founded);
             serializer.ToCSV(FilePath, accommodations);
             subject.NotifyObservers();
         }
-        public Accommodation Update(Accommodation accommodation)
-        {
+        public Accommodation Update(Accommodation accommodation){
             var existing = accommodations.FindIndex(a => a.Id == accommodation.Id);
-            if (existing != -1)
-            {
+            if (existing != -1){
                 accommodations[existing] = accommodation;
                 WriteToFile();
                 subject.NotifyObservers();
             }
             return accommodation;
         }
-        private void WriteToFile()
-        {
+        private void WriteToFile(){
             serializer.ToCSV(FilePath, accommodations);
         }
-        public void Subscribe(IObserver observer)
-        {
+        public void Subscribe(IObserver observer) {
             subject.Subscribe(observer);
         }
     }
