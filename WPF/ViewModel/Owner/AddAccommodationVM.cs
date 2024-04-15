@@ -79,11 +79,11 @@ namespace BookingApp.WPF.ViewModel.Owner
             String selectedCountry = SelectedCountry;
             if (SelectedCity != null && selectedCountry != null) accommodationDTO.IdLocation = locationService.GetLocationId(SelectedCity, selectedCountry);
 
-            if (accommodationDTO.IsValid) {
+           // if (accommodationDTO.IsValid) {
                 MessageBox.Show("Accommodation added successfully!");
                 accommodationService.Add(accommodationDTO.ToAccommodation());
 
-            } else MessageBox.Show("Accommodation cannot be created. Not all field are valid.");
+            //} else MessageBox.Show("Accommodation cannot be created. Not all field are valid.");
         }
 
         public void UpdateImages()

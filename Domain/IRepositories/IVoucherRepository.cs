@@ -17,6 +17,10 @@ namespace BookingApp.Domain.IRepositories
         void Delete(Voucher voucher);
         Voucher Update(Voucher voucher);
         void Subscribe(IObserver observer);
+        Voucher GetById(int id);
+
        
+
+
     }
 }

@@ -31,7 +31,7 @@
                 <DataGrid Grid.Row="1" Margin="10,0,10,33" ItemsSource="{Binding AllAccommodationReservations}"
                           SelectedItem="{Binding selectedAccommodationReservation}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Guest.FirstName}" Width="100"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding selectedAccommodationReservation.Guest.FirstName}" Width="100"/>
                         <DataGridTextColumn Header="Surname" Binding="{Binding Guest.LastName}" Width="100"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="130"/>
                         <DataGridTextColumn Header="Phone number" Binding="{Binding Guest.PhoneNumber}" Width="130"/>

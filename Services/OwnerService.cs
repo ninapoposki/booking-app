@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace BookingApp.Services
               var owner = ownerRepository.GetByUserId(userId);
               var ownerDTO = new OwnerDTO(owner);
               return ownerDTO;
+        }
+        public OwnerDTO GetByIdDTO(int id)
+        {
+            var ownerDTO = new OwnerDTO(ownerRepository.GetByUserId(id));
+            return ownerDTO;
         }
 
         public void UpdateOwnerRole(OwnerDTO ownerDTO, String Role)
