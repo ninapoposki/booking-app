@@ -13,28 +13,19 @@ namespace BookingApp.Repository
 {
     public class OwnerRepository : IOwnerRepository
     {
-
         private const string FilePath = "../../../Resources/Data/owner.csv";
-
         private readonly Serializer<Owner> serializer;
-
         private List<Owner> owners;
         public Subject subject;
-
-        public OwnerRepository()
-        {
+        public OwnerRepository() {
             serializer = new Serializer<Owner>();
             owners = serializer.FromCSV(FilePath);
             subject = new Subject();
         }
-
-        public List<Owner> GetAll()
-        {
+        public List<Owner> GetAll() {
             return serializer.FromCSV(FilePath);
         }
-
-        public Owner Add(Owner owner)
-        {
+        public Owner Add(Owner owner){
             owner.Id = NextId();
             owners = serializer.FromCSV(FilePath);
             owners.Add(owner);
@@ -42,27 +33,13 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return owner;
         }
-        public int NextId()
-        {
+        public int NextId(){
             owners = serializer.FromCSV(FilePath);
-            if (owners.Count < 1)
-            {
-                return 1;
-            }
+            if (owners.Count < 1){ return 1; }
             return owners.Max(c => c.Id) + 1;
         }
-
-        public void Delete(Owner owner)
-        {
-            owners = serializer.FromCSV(FilePath);
-            Owner founded = owners.Find(c => c.Id == owner.Id);
-            owners.Remove(founded);
-            serializer.ToCSV(FilePath, owners);
-            subject.NotifyObservers();
-        }
-
-         public Owner Update(Owner owner)
-         {
+        
+         public Owner Update(Owner owner) {
              owners = serializer.FromCSV(FilePath);
              Owner current = owners.Find(t => t.Id == owner.Id);
              int index = owners.IndexOf(current);
@@ -72,80 +49,25 @@ namespace BookingApp.Repository
              subject.NotifyObservers();
              return owner;
          }
-        public Owner UpdateOwner(Owner owner) //za role
-        {
-            List<Owner> owners = serializer.FromCSV(FilePath);
-
-            Owner current = owners.Find(t => t.Id == owner.Id);
-            if (current != null)
-            {
-                int index = owners.IndexOf(current);
-                owners.Remove(current);
-                owners.Insert(index, owner);
-                serializer.ToCSV(FilePath, owners);
-                subject.NotifyObservers();
-                return owner;
-            }
-            else
-            {
-                // Ako vlasnik sa datim Id nije pronađen, možete uraditi nešto, na primer, baciti izuzetak ili vratiti null
-                throw new Exception("Vlasnik sa datim Id nije pronađen.");
-            }
-
-        }
-
-        public void UpdateOwnerRole(Owner owner, string role) //za role
-        {
-            List<Owner> owners = serializer.FromCSV(FilePath);
-
-            Owner current = owners.Find(t => t.Id == owner.Id);
-            if (current != null)
-            {
-                int index = owners.IndexOf(current);
-                owners.Remove(current);
-                owner.Role = role;
-                owners.Insert(index, owner);
-                serializer.ToCSV(FilePath, owners);
-                subject.NotifyObservers();
-               
-            }
-           
-        }
-
-
-        public Owner GetByUser(User user)
-        {
+       
+        public Owner GetByUser(User user)  {
             owners = serializer.FromCSV(FilePath);
             return owners.FirstOrDefault(guest => guest.User.Id == user.Id);
         }
-
-
-        public Owner GetById(int id)
-        {
-
+        public Owner GetById(int id) {
             owners = serializer.FromCSV(FilePath);
             return owners.Find(i => i.Id == id);
-
         }
-
-        public int GetCurrentId()
-        {
+        public int GetCurrentId() {
             owners = serializer.FromCSV(FilePath);
             int maxId = owners.Count > 0 ? owners.Max(t => t.Id) : 0;
             return maxId;
         }
-       
-
-        public Owner GetByUserId(int userId)
-        {
+        public Owner GetByUserId(int userId){
             return owners.FirstOrDefault(owner => owner.UserId == userId);
         }
-
-
-        public void Subscribe(IObserver observer)
-        {
+        public void Subscribe(IObserver observer){
             subject.Subscribe(observer);
         }
-
     }
 }

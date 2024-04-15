@@ -14,14 +14,12 @@ namespace BookingApp.WPF.ViewModel.Owner
 {
     public class NotificationsVM : ViewModelBase
     {
-        public  GuestGradeService guestGradeService;
-        public GuestService guestService;
+        public GuestGradeService guestGradeService;
         public AccommodationService accommodationService;
         public AccommodationReservationService accommodationReservationService;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public NotificationsVM() {
             guestGradeService = new GuestGradeService();
-            guestService = new GuestService();
             accommodationService = new AccommodationService();
             accommodationReservationService = new AccommodationReservationService();
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
@@ -45,7 +43,8 @@ namespace BookingApp.WPF.ViewModel.Owner
         
         public GuestDTO GetGuest(int guestId)
         {
-            var guest = guestService.GetById(guestId);
+            //var guest = guestService.GetById(guestId);
+            var guest = accommodationReservationService.guestService.GetById(guestId);
             GuestDTO guestDTO = new GuestDTO(guest);
 
             return guestDTO;

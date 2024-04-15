@@ -17,8 +17,8 @@ namespace BookingApp.Services
     {
         private IAccommodationReservationRepository accommodationReservationRepository;
 
-        private AccommodationService accommodationService;
-        private GuestService guestService;
+        public AccommodationService accommodationService;
+        public GuestService guestService;
         private UserService userService;
         private LocationService locationService;
         private OwnerService ownerService;
@@ -96,8 +96,9 @@ namespace BookingApp.Services
          public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
          {
             var accommodation = accommodationService.GetByIdDTO(reservationDTO.AccommodationId);
-            var location = locationService.GetById(accommodation.IdLocation);
-            var owner = ownerService.GetById(accommodation.OwnerId);
+            var location = locationService.GetByIdDTO(accommodation.IdLocation);
+           //var owner = ownerService.GetById(accommodation.OwnerId);
+            var owner = ownerService.GetByUserId(accommodation.OwnerId);
             var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation.ToAccommodation(),location.ToLocation(),owner);
             accommodationReservationDTO.Accommodation = new AccommodationDTO(accommodation.ToAccommodation());//ISTO OVO URADI I ZA PRIKAZ U OCENI
             return accommodationReservationDTO;
