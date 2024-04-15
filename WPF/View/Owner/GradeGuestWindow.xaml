@@ -12,8 +12,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/> 
-            <RowDefinition Height="*"/> 
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"/>
@@ -26,8 +26,8 @@
             <StackPanel Grid.Column="0">
                 <!-- Sadržaj prve kolone -->
                 <Label Content="Guest:" Margin="10 0 10 0"/>
-           
-               
+
+
                 <DataGrid Grid.Row="1" Margin="10,0,10,33" ItemsSource="{Binding AllAccommodationReservations}"
                           SelectedItem="{Binding selectedAccommodationReservation}">
                     <DataGrid.Columns>
@@ -43,22 +43,22 @@
             </StackPanel>
             <!-- druga kolona -->
             <StackPanel Grid.Column="1">
-               
+
             </StackPanel>
         </StackPanel>
 
-       
+
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,10,0" >
             <Label Content="Grade selected Guest in these categories" Margin="10 0 0 0"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,10,0" >
             <StackPanel Name="Cleanness" Orientation="Horizontal">
                 <Label Content="Cleanness:" Margin="50 0 10 0"/>
-                <RadioButton Margin="148 5 0 0" Content="1"  GroupName="CleannesGroup" Width="55" />
+                <RadioButton Margin="148 5 0 0" Content="1"  GroupName="CleannesGroup" Width="55"  />
                 <RadioButton Margin="10 5 0 0" Content="2" GroupName="CleannesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CleannesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CleannesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleannesGroup" Width="50" />
+                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CleannesGroup" Width="50"  />
+                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CleannesGroup" Width="50"  />
+                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleannesGroup" Width="50"  />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,10,0" >
@@ -73,7 +73,7 @@
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10,10,0" Orientation="Horizontal">
             <Label Content="Comment:" Margin="50 0 0 0" VerticalAlignment="Center"/>
-            <TextBox x:Name="CommentsTextBox" Width="310" Height="50" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0"/>
+            <TextBox x:Name="CommentsTextBox" Text="{Binding Comments}" Width="310" Height="50" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="388,10,10,0">

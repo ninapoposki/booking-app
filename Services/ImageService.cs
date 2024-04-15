@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,18 @@ namespace BookingApp.Services
             image.EntityType = EntityType.TOUR;
             imageRepository.Update(image.ToImage());
         }
+        public void UpdateAccommodation(ImageDTO image, int accommodationId)
+        {
+            image.EntityId = accommodationId;
+            image.EntityType = EntityType.ACCOMMODATION;
+            imageRepository.Update(image.ToImage());
+        }
+        public void UpdateGuestImages(ImageDTO image, int accommodationGradeId)
+        {
+            image.EntityId = accommodationGradeId;
+            image.EntityType = EntityType.GUEST;
+            imageRepository.Update(image.ToImage());
+        }
         public string FilterImages()
         {
             string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
@@ -38,7 +51,29 @@ namespace BookingApp.Services
         public ImageDTO GetByPath(string relativePath) {
             return new ImageDTO(imageRepository.FindByPath(relativePath));
         }
+        public string GetFirstPath(int entityId,string type)
+        {
+            Image? image=imageRepository.GetAll().Find(i => i.EntityId == entityId && i.EntityType.ToString().Equals(type));
+            if (image != null) return image.Path;
+            return null;
+        }
+        }       
+        public List<Image> GetAllImages()
+        {
+            return imageRepository.GetAll();
+        }
 
+        public List<ImageDTO> GetImagesByAccommodation(int accommodationId, List<ImageDTO> allImages)
+        {
+            return allImages.Where(img => img.EntityId == accommodationId).ToList();
+        }
+        
+        public List<ImageDTO>GetImagesForEntityType(EntityType entityType)
+        {
+            return imageRepository.GetAll()
+            .Where(img => img.EntityType == entityType)
+            .Select(img => new ImageDTO(img)).ToList();
+        }
         public List<ImageDTO> GetAll()
         {
             var images = new List<ImageDTO>();

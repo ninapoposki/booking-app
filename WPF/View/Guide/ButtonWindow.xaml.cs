@@ -17,10 +17,10 @@ namespace BookingApp.WPF.View.Guide
     /// <summary>
     /// Interaction logic for FinishedTour.xaml
     /// </summary>
-    public partial class FinishedTour : Window
+    public partial class ButtonWindow : Window
     {
         private int userId;
-        public FinishedTour(int userId)
+        public ButtonWindow(int userId)
         {
             InitializeComponent();
             DataContext = this;
@@ -36,7 +36,10 @@ namespace BookingApp.WPF.View.Guide
         }
         private void SeeTourReviewsClick(object sender, RoutedEventArgs e)
         {
-
+            FinishedTours finishedTours=new FinishedTours(userId);
+            finishedTours.Owner = this;
+            finishedTours.WindowStartupLocation= WindowStartupLocation.CenterOwner;
+            finishedTours.ShowDialog();
         }
     }
 }

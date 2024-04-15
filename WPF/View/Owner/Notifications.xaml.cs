@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.WPF.ViewModel.Owner;
 
 namespace BookingApp.WPF.View.Owner
 {
@@ -24,70 +25,18 @@ namespace BookingApp.WPF.View.Owner
     /// </summary>
     public partial class Notifications : Window
     {
-
-        public readonly GuestGradeRepository guestGradeRepository;
-        public readonly GuestRepository guestRepository;
-        public readonly AccommodationRepository accommodationRepository;
-        private readonly AccommodationReservationRepository accommodationReservationRepository;
-        public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
+        public NotificationsVM NotificationsVM { get; set; }
         
         public Notifications()
         {
             InitializeComponent();
-            
-            DataContext = this;
-            accommodationReservationRepository = new AccommodationReservationRepository();
-            guestRepository = new GuestRepository();
-            guestGradeRepository = new GuestGradeRepository();
-            accommodationRepository = new AccommodationRepository();
-            AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
-            
-
-            Update();
-        }
-
-
-        public void Update()
-        {
-            AllAccommodationReservations.Clear();
-            
-            foreach (AccommodationReservation accommodationReservation in accommodationReservationRepository.GetAll())
-            {
-                if (IsWithinFiveDays(accommodationReservation))
-                {
-                    if (IsGuestGraded( accommodationReservation.Id) == false)
-                    {
-                        var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservation);
-                        var guest = guestRepository.GetById(accommodationReservation.GuestId);
-                        accommodationReservationDTO.Guest = new GuestDTO(guest);
-                        var accomm = accommodationRepository.GetById(accommodationReservation.AccommodationId);
-                        accommodationReservationDTO.Accommodation = new AccommodationDTO(accomm);
-
-
-                        AllAccommodationReservations.Add(accommodationReservationDTO);
-                    }
-                }
-            }
-
+            NotificationsVM = new NotificationsVM();
+            DataContext = NotificationsVM;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
         }
 
-        private bool IsWithinFiveDays(AccommodationReservation accommodationReservation)
-        {
-            DateTime currentDate = DateTime.Now;
-            DateTime endDate = accommodationReservation.EndDate;
-            //DateTime dateTime = new DateTime(endDate.Year, endDate.Month, endDate.Day);
-            TimeSpan difference = currentDate - endDate;
-            return difference.Days < 5 && difference.Days >= 0;
-        }
-
-
-
-        private bool IsGuestGraded(int reservationId)
-        {
-            // Provera da li gost ima ocenu za datu rezervaciju
-            return guestGradeRepository.GetAll().Any(grade =>grade.ReservationId == reservationId);
-        }
+        
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
