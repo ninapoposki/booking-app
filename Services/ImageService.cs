@@ -57,7 +57,7 @@ namespace BookingApp.Services
             if (image != null) return image.Path;
             return null;
         }
-        }       
+              
         public List<Image> GetAllImages()
         {
             return imageRepository.GetAll();
