@@ -87,5 +87,9 @@ namespace BookingApp.Services
         {
             return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
         }
+
+      
+
+
     }
 }

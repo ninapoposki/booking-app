@@ -15,11 +15,13 @@ namespace BookingApp.Services
         private ITourReservationRepository tourReservationRepository;
         private TourGuestService tourGuestService;
         private UserService userService;
+        private TourStartDateService tourStartDateService;
         public TourReservationService()
         {
             tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
             tourGuestService = new TourGuestService();
             userService = new UserService();
+            tourStartDateService = new TourStartDateService();
         }
         public bool DoReservationExists(int tourStartId)
         {
@@ -66,6 +68,30 @@ namespace BookingApp.Services
                     }
                 }
             }return guests;
+        }
+
+
+        public TourReservationDTO GetReservationByTourId(int tourId)
+        {
+            // Dohvatanje svih TourStartDate za datu turu
+            var tourStartDates = tourStartDateService.GetTourDates(tourId);
+            foreach (var tourStartDate in tourStartDates)
+            {
+                // Za svaki TourStartDate, dohvatamo prvu rezervaciju
+                var reservation = tourReservationRepository.GetByTourDateId(tourStartDate.Id).FirstOrDefault();
+                if (reservation != null)
+                {
+                    // Ako postoji rezervacija, vraćamo kao DTO
+                    return new TourReservationDTO
+                    {
+                        Id = reservation.Id,
+                        TourStartDateId = reservation.TourStartDateId,
+                        UserId = reservation.UserId,
+                        GuestsNumber = reservation.GuestsNumber
+                    };
+                }
+            }
+            return null; // Ako nema datuma početka ili rezervacija, vraća null
         }
     }
 }

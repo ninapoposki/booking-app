@@ -11,7 +11,7 @@ namespace BookingApp.Domain.Model
     public class TourGrade : ISerializable
     {
         public int Id { get; set; }
-        public int TourGuestId { get; set; }
+        public int TourReservationId { get; set; }
         public int GuideKnowledge { get; set; }
 
         public int LanguageKnowledge { get; set; }  
@@ -22,10 +22,10 @@ namespace BookingApp.Domain.Model
 
         public TourGrade() { }
 
-        public TourGrade(int id, int tourGuestId, int guideKnowledge, int languageKnowledge, int tourAtrractions, string comment)
+        public TourGrade(int id, int tourReservationId, int guideKnowledge, int languageKnowledge, int tourAtrractions, string comment)
         {
             Id = id;
-            TourGuestId = tourGuestId;
+            TourReservationId = tourReservationId;
             GuideKnowledge = guideKnowledge;
             LanguageKnowledge = languageKnowledge;
             TourAtrractions = tourAtrractions;
@@ -39,7 +39,7 @@ namespace BookingApp.Domain.Model
             {
 
                 Id.ToString(),
-                TourGuestId.ToString(),
+                TourReservationId.ToString(),
                 GuideKnowledge.ToString(),
                 LanguageKnowledge.ToString(),
                 TourAtrractions.ToString(),
@@ -53,7 +53,7 @@ namespace BookingApp.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourGuestId= int.Parse(values[1]);
+            TourReservationId= int.Parse(values[1]);
             GuideKnowledge= int.Parse(values[2]);
             LanguageKnowledge= int.Parse(values[3]);
             TourAtrractions= int.Parse(values[4]);
