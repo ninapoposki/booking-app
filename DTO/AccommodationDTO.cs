@@ -64,7 +64,21 @@ namespace BookingApp.DTO
                 }
             }
         }
-        
+
+        private Owner owner;
+        public Owner Owner
+        {
+            get { return owner; }
+            set
+            {
+                if (owner != value)
+                {
+                    owner = value;
+                    OnPropertyChanged("Owner");
+                }
+            }
+        }
+
 
         private int idLocation;
         public int IdLocation
@@ -189,6 +203,20 @@ namespace BookingApp.DTO
             this.OwnerId = accommodation.OwnerId;
 
         }
+        public AccommodationDTO(Accommodation accommodation, Location location,Owner owner)
+        {
+            this.Id = accommodation.Id;
+            this.Name = accommodation.Name;
+            this.IdLocation = accommodation.IdLocation;
+            this.Location = location;
+            this.AccommodationType = accommodation.AccommodationType;
+            this.Capacity = accommodation.Capacity;
+            this.MinStayDays = accommodation.MinStayDays;
+            this.CancellationPeriod = accommodation.CancellationPeriod;
+            this.OwnerId = accommodation.OwnerId;
+            this.Owner = accommodation.Owner;
+
+        }
 
         public AccommodationDTO(Accommodation accommodation)
         {
@@ -274,7 +302,7 @@ namespace BookingApp.DTO
                 foreach (var property in ValidatedProperties)
                 {
                     if (this[property] != null)
-                        return false;
+                        return false; 
                 }
 
                 return true;

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public class AccommodationGrade
+    public class AccommodationGrade: ISerializable
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
+        public Owner Owner { get; set; }
         public int ReservationId { get; set; }
+        public AccommodationReservation AccommodationReservation { get; set; }
        // public AccommodationReservation Reservation; //mislim da nam ovo ne treba
        //Owner owner i slicno mislim da nam ne treba
         public int Cleanliness { get; set; }
@@ -22,7 +24,8 @@ namespace BookingApp.Domain.Model
 
         public AccommodationGrade()
         {
-
+            Owner = new Owner();
+            AccommodationReservation = new AccommodationReservation();
         }
 
         public AccommodationGrade(int id, int reservationId, int ownerId, int cleanliness, int correctness, string comment)
