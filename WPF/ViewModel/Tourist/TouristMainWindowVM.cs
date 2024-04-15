@@ -27,6 +27,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private readonly TourStartDateService tourStartDateService;
         private readonly ImageService imageService;
         private string loggedInUserUsername;
+        private readonly TourGradeService tourGradeService;
         public int loggedInUserId;
         public ObservableCollection<TourDTO> AllTours { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
@@ -43,6 +44,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             locationService = new LocationService();
             languageService = new LanguageService();
             userService = new UserService();
+            tourGradeService = new TourGradeService();
             SelectedLanguage = new LanguageDTO();
             SelectedTour = new TourDTO();
             imageService = new ImageService();
@@ -266,7 +268,92 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
+        /* public void TourGradeDataGrid(TourDTO selectedTour)
+         {
+             int tourId = selectedTour.Id;
 
-   
+             if (tourGradeService.IsTourGraded(tourId))
+             {
+                 MessageBox.Show("Tour is already graded.");
+             }
+             else
+             {
+                 IsTourFinished(selectedTour);
+             }
+         }
+         */
+        /* private void IsTourFinished(TourDTO selectedTour)
+         {
+             var tourStart = tourStartDateService.GetById(selectedTour.Id);
+             if (tourStart != null && tourStart.TourStatus == TourStatus.FINISHED)
+             {
+                 OpenTourGradeWindow(selectedTour);
+             }
+             else
+             {
+                 MessageBox.Show("Tura još uvek nije završena.");
+             }
+
+         }*/
+
+        /* private void OpenTourGradeWindow(TourDTO selectedTour)
+         {
+             TourGradeWindow tourGradeWindow = new TourGradeWindow(selectedTour);
+             tourGradeWindow.Show();
+         }*/
+        /*   public void RateTour()
+          {
+
+               if (SelectedTour == null)
+               {
+                   MessageBox.Show("Molimo Vas da odaberete turu koju želite da rezervišete.");
+                   return;
+               }
+               int tourId = tourService.GetById(SelectedTour.ToTour());
+               if (tourGradeService.IsTourGraded(tourId, loggedInUserId))
+               {
+                   MessageBox.Show("Već ste ocenili ovu turu.");
+               }
+               else
+               {
+                   IsTourFinished(SelectedTour);
+               }
+           }*/
+
+
+        public void RateTour()
+        {
+
+            if (SelectedTour == null)
+            {
+                MessageBox.Show("Molimo Vas da odaberete turu koju želite da rezervišete.");
+                return;
+            }
+
+            var tourStartDate = GetTourStartDateByTourId(SelectedTour.Id);
+            if (tourStartDate == null || tourStartDate.TourStatus != TourStatus.FINISHED)
+            {
+                MessageBox.Show("Tura još uvek nije završena.");
+                return;
+            }
+            if (tourGradeService.IsTourGraded(tourStartDate.Id,loggedInUserId))
+            {
+                MessageBox.Show("Već ste ocenili ovu turu.");
+                return;
+            }
+            StartTourGrade(SelectedTour);
+
+        }
+       
+        private TourStartDateDTO GetTourStartDateByTourId(int tourId)
+        {
+            return tourStartDateService.GetTourDates(tourId).FirstOrDefault(t => t.TourStatus == TourStatus.FINISHED);
+        }
+
+        private void StartTourGrade(TourDTO tour)
+        {
+            TourGradeWindow tourGradeWindow = new TourGradeWindow(SelectedTour);
+            tourGradeWindow.Show();
+        }
     }
 }

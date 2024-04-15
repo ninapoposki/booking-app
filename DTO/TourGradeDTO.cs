@@ -15,20 +15,20 @@ namespace BookingApp.DTO
 
         public int Id { get; set; }
 
-        private int tourGuestId;
+        private int tourReservationId;
 
-        public int TourGuestId
+        public int TourReservationId
         {
             get
             {
-                return tourGuestId;
+                return tourReservationId;
             }
             set
             {
-                if (value != tourGuestId)
+                if (value != tourReservationId)
                 {
-                    tourGuestId = value;
-                    OnPropertyChanged("TourGuestId");
+                    tourReservationId = value;
+                    OnPropertyChanged("TourReservationId");
                 }
             }
 
@@ -109,7 +109,7 @@ namespace BookingApp.DTO
         public TourGradeDTO(TourGradeDTO tourGrade)
         {
             this.Id= tourGrade.Id;
-            this.TourGuestId = tourGrade.TourGuestId;
+            this.TourReservationId = tourGrade.TourReservationId;
             this.GuideKnowledge = tourGrade.GuideKnowledge;
             this.LanguageKnowledge = tourGrade.LanguageKnowledge;
             this.TourAttractions=tourGrade.TourAttractions;
@@ -119,7 +119,7 @@ namespace BookingApp.DTO
         public TourGrade ToTourGrade()
         {
 
-            return new TourGrade(Id, tourGuestId, guideKnowledge, languageKnowledge,tourAttractions,comment);
+            return new TourGrade(Id, tourReservationId, guideKnowledge, languageKnowledge,tourAttractions,comment);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
