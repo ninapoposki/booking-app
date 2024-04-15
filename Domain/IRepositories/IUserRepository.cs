@@ -15,7 +15,9 @@ namespace BookingApp.Domain.IRepositories
         User GetByUsername(string username); 
         int GetCurrentGuestUserId();
         void SetCurrentUserId(int UserId);
-      
+
+        int GetCurrentUserId();
+
         //stavila sve fje videcemo sta ide u servis?
     }
 }

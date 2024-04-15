@@ -7,11 +7,14 @@
         mc:Ignorable="d"
         Title="Vouchers" Height="350" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid Margin="10,10,10,92" AutoGenerateColumns="False" x:Name="VouchersDataGrid" ItemsSource="{Binding Vouchers}" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid Margin="10,10,10,92" AutoGenerateColumns="False" x:Name="VouchersDataGrid" ItemsSource="{Binding AllVouchers}" SelectedItem="{Binding SelectedVoucher, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate }" Width="*"/>
+                <DataGridTextColumn Header="Expiry Date" Binding="{Binding ExpirationDate}" Width="*"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
-                <DataGridTextColumn Header="Expiry Date" Binding="{Binding ExpiryDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
             </DataGrid.Columns>
 
         </DataGrid>
