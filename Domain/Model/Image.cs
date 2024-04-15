@@ -9,7 +9,7 @@ namespace BookingApp.Domain.Model
 {
 
 
-    public enum EntityType { NONE, TOUR, ACCOMMODATION,TOURGRADE };
+    public enum EntityType { NONE, TOUR, ACCOMMODATION,TOURGRADE,GUEST };
 
     public class Image : ISerializable
     {

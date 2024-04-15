@@ -11,8 +11,6 @@ namespace BookingApp.DTO
 {
     public class TourGradeDTO : INotifyPropertyChanged
     {
-
-
         public int Id { get; set; }
 
         private int tourReservationId;
@@ -47,6 +45,23 @@ namespace BookingApp.DTO
                 {
                     guideKnowledge = value;
                     OnPropertyChanged("GuideKnowledge");
+                }
+            }
+        }
+
+        private Validity validity;
+        public Validity Validity
+        {
+            get
+            {
+                return validity;
+            }
+            set
+            {
+                if (value != validity)
+                {
+                    validity = value;
+                    OnPropertyChanged("Validity");
                 }
             }
         }
@@ -114,6 +129,7 @@ namespace BookingApp.DTO
             this.LanguageKnowledge = tourGrade.LanguageKnowledge;
             this.TourAttractions=tourGrade.TourAttractions;
             this.Comment = tourGrade.Comment;
+            this.Validity=tourGrade.Validity;
         }
 
         public TourGrade ToTourGrade()

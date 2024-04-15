@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
+    public enum Validity { YES, NO };   
     public class TourGrade : ISerializable
     {
         public int Id { get; set; }
@@ -15,7 +16,7 @@ namespace BookingApp.Domain.Model
         public int GuideKnowledge { get; set; }
 
         public int LanguageKnowledge { get; set; }  
-
+        public Validity Validity { get; set; }
         public int TourAtrractions { get; set; }
 
         public string Comment { get; set; }
@@ -30,21 +31,20 @@ namespace BookingApp.Domain.Model
             LanguageKnowledge = languageKnowledge;
             TourAtrractions = tourAtrractions;
             Comment = comment;
-         
+            Validity=Validity.YES;
         }
     
         public string[] ToCSV()
         {
             string[] csvValues =
             {
-
                 Id.ToString(),
                 TourReservationId.ToString(),
                 GuideKnowledge.ToString(),
                 LanguageKnowledge.ToString(),
                 TourAtrractions.ToString(),
-                Comment
-
+                Comment,
+                Validity.ToString(),
             };
             return csvValues;
 
@@ -58,6 +58,8 @@ namespace BookingApp.Domain.Model
             LanguageKnowledge= int.Parse(values[3]);
             TourAtrractions= int.Parse(values[4]);
             Comment = values[5];
+            if (values[6] == "YES") { Validity= Validity.YES; }
+            else {  Validity= Validity.NO; }
         }
     }
 }
