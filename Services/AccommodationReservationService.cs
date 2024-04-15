@@ -93,16 +93,37 @@ namespace BookingApp.Services
             return reservation;
         }
 
-         public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
-         {
+          public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
+          {
+             var accommodation = accommodationService.GetByIdDTO(reservationDTO.AccommodationId);
+             var location = locationService.GetById(accommodation.IdLocation);
+             var owner = ownerService.GetById(accommodation.OwnerId);
+             var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation.ToAccommodation(),location.ToLocation(),owner);
+             accommodationReservationDTO.Accommodation = new AccommodationDTO(accommodation.ToAccommodation());//ISTO OVO URADI I ZA PRIKAZ U OCENI
+             accommodationReservationDTO.OwnerDTO=new OwnerDTO(owner);
+             return accommodationReservationDTO;
+
+          }
+       /* public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
+        {
             var accommodation = accommodationService.GetByIdDTO(reservationDTO.AccommodationId);
             var location = locationService.GetById(accommodation.IdLocation);
             var owner = ownerService.GetById(accommodation.OwnerId);
-            var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation.ToAccommodation(),location.ToLocation(),owner);
-            accommodationReservationDTO.Accommodation = new AccommodationDTO(accommodation.ToAccommodation());//ISTO OVO URADI I ZA PRIKAZ U OCENI
+
+            // Postavi ime i prezime vlasnika u OwnerDTO
+            var ownerDTO = new OwnerDTO
+            {
+                FirstName = owner.FirstName,
+                LastName = owner.LastName
+            };
+
+            var accommodationReservationDTO = new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(), accommodation.ToAccommodation(), location.ToLocation(), ownerDTO.ToOwner());
+            accommodationReservationDTO.Accommodation = new AccommodationDTO(accommodation.ToAccommodation());
+            accommodationReservationDTO.OwnerDTO = ownerDTO;
             return accommodationReservationDTO;
-            
-         }
+        }*/
+
+
         public void Delete(AccommodationReservation accommodationReservation)
         {
             accommodationReservationRepository.Delete(accommodationReservation);

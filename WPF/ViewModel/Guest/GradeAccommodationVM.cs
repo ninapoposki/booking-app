@@ -18,7 +18,21 @@ namespace BookingApp.WPF.ViewModel.Guest
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ImageDTO SelectedImage { get; set; }
         public AccommodationGradeDTO accommodationGradeDTO { get; set; }
+        /*private AccommodationReservationDTO _selectedAccommodationReservation;
 
+        public AccommodationReservationDTO selectedAccommodationReservation
+        {
+            get => _selectedAccommodationReservation;
+            set
+            {
+                if (_selectedAccommodationReservation != value)
+                {
+                    _selectedAccommodationReservation = value;
+                    OnPropertyChanged(nameof(selectedAccommodationReservation));
+                }
+            }
+        }
+        */
         public GradeAccommodationVM(AccommodationReservationDTO accommodationReservationDTO)
         {
             selectedAccommodationReservation = accommodationReservationDTO;
@@ -65,8 +79,6 @@ namespace BookingApp.WPF.ViewModel.Guest
             }
         }
 
-
-
         public void ConfirmButtonClick(int cleanness, int followingrules)
         {
             UpdateImages();
@@ -77,9 +89,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationGradeDTO.Comment = Comments;
             var linkedAccommodationGradeDTO = AccommodationGradeService.GetOneAccommodationGrade(selectedAccommodationReservation, accommodationGradeDTO);
             AccommodationGradeService.Add(linkedAccommodationGradeDTO.ToAccommodationGrade());
-
         }
-
 
         private int cleannessRadio;
         public int CleannessRadio

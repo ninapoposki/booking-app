@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
         mc:Ignorable="d"
         Title="GradeAccommodation" Height="450" Width="800">
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,13 +22,14 @@
             <!-- Prva kolona za Owner -->
             <StackPanel>
                 <Label Content="Owner:" Margin="0 0 5 0"/>
-                <DataGrid ItemsSource="{Binding AllAccommodationReservations}" SelectedItem="{Binding selectedAccommodationReservation}">
+                <DataGrid ItemsSource="{Binding selectedAccommodationReservation}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Owner.FirstName}" Width="100"/>
-                        <DataGridTextColumn Header="Surname" Binding="{Binding Owner.LastName}" Width="100"/>
-                        <DataGridTextColumn Header="Phone number" Binding="{Binding Owner.PhoneNumber}" Width="130"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding OwnerDTO.FirstName}" Width="100"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding OwnerDTO.LastName}" Width="100"/>
+                        <DataGridTextColumn Header="Phone number" Binding="{Binding OwnerDTO.PhoneNumber}" Width="130"/>
                     </DataGrid.Columns>
                 </DataGrid>
+
             </StackPanel>
             <!-- Druga kolona za slike -->
             <StackPanel  Margin=" 70 5 0 5" Grid.Column="0">

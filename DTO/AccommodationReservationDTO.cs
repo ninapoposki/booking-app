@@ -67,6 +67,7 @@ namespace BookingApp.DTO
                 }
             }
         }
+        public OwnerDTO OwnerDTO { get; set; }
 
         public GuestDTO Guest { get; set; }
         public Accommodation Accommodations{ get; set; }

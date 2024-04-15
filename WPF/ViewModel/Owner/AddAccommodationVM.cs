@@ -124,21 +124,6 @@ namespace BookingApp.WPF.ViewModel.Owner
                 Images.Remove(SelectedImage);
             }
         }
-      
-        private List<string> cities;
-        public List<string> Cities
-        {
-            get { return cities; }
-            set
-            {
-                if (cities != value)
-                {
-                    cities = value;
-                    OnPropertyChanged("Cities");
-                }
-            }
-        }
-
         private string selectedCity;
         public string SelectedCity
         {
