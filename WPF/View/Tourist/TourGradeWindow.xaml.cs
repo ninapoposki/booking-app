@@ -26,10 +26,10 @@ namespace BookingApp.WPF.View.Tourist
         public TourGradeWindowVM tourGradeWindowVM { get; set; }
         
         
-        public TourGradeWindow(TourDTO selectedTour)//treba selected date
+        public TourGradeWindow(int tourStartDateId)//treba selected date
         {
             InitializeComponent();
-            tourGradeWindowVM = new TourGradeWindowVM(selectedTour);
+            tourGradeWindowVM = new TourGradeWindowVM(tourStartDateId);
             DataContext = tourGradeWindowVM;
         }
         private int GetSelectedRadioButtonValue(StackPanel panel)
