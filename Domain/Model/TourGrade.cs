@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public enum Validity { YES, NO };   
+    public enum Validity { YES, NO };
+    
+
     public class TourGrade : ISerializable
     {
         public int Id { get; set; }
