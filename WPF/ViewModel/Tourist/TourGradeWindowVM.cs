@@ -16,18 +16,19 @@ namespace BookingApp.WPF.ViewModel.Tourist
     public class TourGradeWindowVM : ViewModelBase
     {
         public TourDTO SelectedTour { get; set; }
-        private TourStartDateService TourStartDateService { get; set; }
+        private TourStartDateService TourStartDateService;
         private readonly TourService tourService;
         private TourReservationService tourReservationService;
         public TourReservationDTO selectedTourReservation;
          public ImageService imageService;
+        private int tourStartDateId;
         private TourGradeService tourGradeService { get; set; }
         public TourGradeDTO tourGradeDTO { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
          public ImageDTO SelectedImage { get; set; }
-        public TourGradeWindowVM(TourDTO selectedTour)
+        public TourGradeWindowVM(int tourStartDateId)
         {
-
+            this.tourStartDateId = tourStartDateId;
             SelectedTour = new TourDTO();
             tourService = new TourService();
             TourStartDateService = new TourStartDateService();
@@ -36,31 +37,24 @@ namespace BookingApp.WPF.ViewModel.Tourist
             tourReservationService = new TourReservationService();
             imageService = new ImageService();
             Images = new ObservableCollection<ImageDTO>();
-            selectedTourReservation = tourReservationService.GetReservationByTourId(selectedTour.Id);
+            selectedTourReservation = tourReservationService.GetReservationByTourId(tourStartDateId);
         }
 
         public void Confirm(int knowledge, int language, int attractions)
         {
-
-            KnowledgeRadio = knowledge;
-            LanguageRadio = language;
-            AttractionsRadio = attractions;
-            tourGradeDTO.GuideKnowledge = KnowledgeRadio;
-            tourGradeDTO.LanguageKnowledge = LanguageRadio;
-            tourGradeDTO.TourAttractions = AttractionsRadio;
-            tourGradeDTO.Comment = Comment;
-            tourGradeDTO.TourReservationId = selectedTourReservation.Id;
-
-            tourGradeService.Add(new TourGrade
-            {
-                GuideKnowledge = knowledge,
-                LanguageKnowledge = language,
-                TourAtrractions = attractions,
-                Comment = comment,
-                TourReservationId = selectedTourReservation.Id
-            });
+            tourGradeService.Add(MakeTourGrade(knowledge,language,attractions).ToTourGrade());
             Update();
             MessageBox.Show("Ocijenili ste turu.");
+        }
+
+        public TourGradeDTO MakeTourGrade(int knowledge, int language, int attractions)
+        {
+            tourGradeDTO.GuideKnowledge = knowledge;
+            tourGradeDTO.LanguageKnowledge = language;
+            tourGradeDTO.TourAttractions = attractions;
+            tourGradeDTO.Comment = comment;
+            tourGradeDTO.TourReservationId = selectedTourReservation.Id;
+            return tourGradeDTO;
         }
 
          private void Update()

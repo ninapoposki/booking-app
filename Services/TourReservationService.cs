@@ -67,31 +67,19 @@ namespace BookingApp.Services
                         guests.Add(new TourGuestDTO(tourGuest));
                     }
                 }
-            }return guests;
+            } return guests;
+        }
+        public TourReservationDTO GetReservationByTourId(int tourStartDateId){
+            TourReservation? tourReservation= tourReservationRepository.GetAll().Find(t => t.TourStartDateId == tourStartDateId);
+            return new TourReservationDTO(tourReservation);
         }
 
-
-        public TourReservationDTO GetReservationByTourId(int tourId)
+      public bool CheckIfReserved(int tourStartDateId)
         {
-            // Dohvatanje svih TourStartDate za datu turu
-            var tourStartDates = tourStartDateService.GetTourDates(tourId);
-            foreach (var tourStartDate in tourStartDates)
-            {
-                // Za svaki TourStartDate, dohvatamo prvu rezervaciju
-                var reservation = tourReservationRepository.GetByTourDateId(tourStartDate.Id).FirstOrDefault();
-                if (reservation != null)
-                {
-                    // Ako postoji rezervacija, vraćamo kao DTO
-                    return new TourReservationDTO
-                    {
-                        Id = reservation.Id,
-                        TourStartDateId = reservation.TourStartDateId,
-                        UserId = reservation.UserId,
-                        GuestsNumber = reservation.GuestsNumber
-                    };
-                }
-            }
-            return null; // Ako nema datuma početka ili rezervacija, vraća null
+            TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t=>t.HasArrived==true && t.CheckPointId!=-1);
+            if (guests != null)
+                return true;
+            return false;
         }
     }
 }

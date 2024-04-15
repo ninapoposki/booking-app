@@ -14,7 +14,7 @@ namespace BookingApp.Services
     {
 
         private ITourGuestRepository tourGuestRepository; 
-
+        
         public TourGuestService() 
         {
             tourGuestRepository=Injector.Injector.CreateInstance<ITourGuestRepository>();
@@ -54,5 +54,12 @@ namespace BookingApp.Services
             };
             tourGuestRepository.Add(newGuest);
         }
+
+      
+
+
+
+
+        
     }
 }
