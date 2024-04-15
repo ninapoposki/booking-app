@@ -26,7 +26,7 @@ namespace BookingApp.WPF.View.Tourist
         public TourGradeWindowVM tourGradeWindowVM { get; set; }
         
         
-        public TourGradeWindow(TourDTO selectedTour)
+        public TourGradeWindow(TourDTO selectedTour)//treba selected date
         {
             InitializeComponent();
             tourGradeWindowVM = new TourGradeWindowVM(selectedTour);

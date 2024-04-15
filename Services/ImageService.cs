@@ -33,7 +33,7 @@ namespace BookingApp.Services
         {
             image.EntityId = tourGradeId;
             image.EntityType = EntityType.TOURGRADE;
-
+        }
         public void UpdateAccommodation(ImageDTO image, int accommodationId)
         {
             image.EntityId = accommodationId;
@@ -67,7 +67,7 @@ namespace BookingApp.Services
             if (image != null) return image.Path;
             return null;
         }
-        }       
+              
         public List<Image> GetAllImages()
         {
             return imageRepository.GetAll();

@@ -63,7 +63,7 @@ namespace BookingApp.Services
         { 
             var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
             var owner = ownerService.GetById(accommodation.OwnerId);
-            var location = locationService.GetById(accommodation.IdLocation);
+            var location = locationService.GetByIdDTO(accommodation.IdLocation);
             accommodationGradeDTO.OwnerId = accommodation.OwnerId; 
             accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
 
