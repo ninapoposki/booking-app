@@ -40,12 +40,6 @@ namespace BookingApp.Services
             }
             return null;
         }
-        //irina
-        public LocationDTO GetById(int id)
-        {
-            Location location = locationRepository.GetById(id);
-            return location != null ? new LocationDTO(location) : null;
-        }
         public HashSet<string> GetAllCountries() {
             return locationRepository.GetAllCountries();    
         }

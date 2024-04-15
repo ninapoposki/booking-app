@@ -118,7 +118,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             foreach (var accommodation in accommodationService.GetAll())
             {
                 var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
-                LocationDTO location = locationService.GetById(accommodation.IdLocation);
+                LocationDTO location = locationService.GetByIdDTO(accommodation.IdLocation);
                 AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
             }
         }
