@@ -20,8 +20,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private string username;
         public AvailableTourWindowVM(List<TourDTO> availableTours, string username)
         {
-
-            
             AvailableTours = new ObservableCollection<TourDTO>(availableTours);
             SelectedTour = new TourDTO();
             this.username = username;

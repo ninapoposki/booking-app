@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Owner;
 using System;
@@ -27,7 +28,7 @@ namespace BookingApp.WPF.ViewModel.Owner
 
         public OwnerGradesVM(string username) {
             ownerService = new OwnerService();
-            userService = new UserService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             guestGradeService = new GuestGradeService();
             accommodationGradeService = new AccommodationGradeService();
             accommodationService = new AccommodationService();

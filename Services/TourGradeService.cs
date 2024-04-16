@@ -18,13 +18,13 @@ namespace BookingApp.Services
         private TourService tourService;
         private TourReservationService tourReservationService;
         private CheckPointService checkPointService;
-        public TourGradeService()
+        public TourGradeService(ICheckPointRepository checkPointRepository,ITourGradeRepository tourGradeRepository,ITourReservationRepository tourReservationRepository, ITourGuestRepository tourGuestRepository, IUserRepository userRepository, ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourGradeRepository=Injector.Injector.CreateInstance<ITourGradeRepository>();
-            tourReservationService = new TourReservationService();
-            tourGuestService=new TourGuestService();
-            checkPointService=new CheckPointService();
-            tourService = new TourService();
+            this.tourGradeRepository = tourGradeRepository;
+            tourReservationService = new TourReservationService(tourReservationRepository,tourGuestRepository,userRepository,tourStartDateRepository,tourRepository,languageRepository,locationRepository);
+            tourGuestService=new TourGuestService(tourGuestRepository);
+            checkPointService=new CheckPointService(checkPointRepository);
+            tourService = new TourService(tourRepository,languageRepository,locationRepository);
         }
 
         public TourGrade Add(TourGrade grade)

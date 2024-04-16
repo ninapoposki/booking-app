@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -27,7 +28,7 @@ namespace BookingApp.WPF.ViewModel.Owner
 
         public OwnerMainWindowVM(string username) {
             ownerDTO = new OwnerDTO();
-            userService = new UserService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             ownerService = new OwnerService();
             accommodationGradeService = new AccommodationGradeService();
 

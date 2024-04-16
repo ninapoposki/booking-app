@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
@@ -46,15 +47,21 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public TourReservationWindowVM(TourDTO selectedTour,string username)
         {
             this.username = username;
-            tourService = new TourService();
-            tourStartDateService = new TourStartDateService();
-            tourReservationService = new TourReservationService();
-            this.selectedTour= selectedTour;    
-            tourGuestService = new TourGuestService();
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            this.selectedTour= selectedTour;
+            tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
             Reservations = new ObservableCollection<TourReservationDTO>();
-            userService = new UserService();
-            voucherService = new VoucherService();
-            selectedVoucher= new VoucherDTO();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
+            voucherService = new VoucherService(Injector.Injector.CreateInstance<IVoucherRepository>(), Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                 Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                 Injector.Injector.CreateInstance<ILanguageRepository>(),
+                 Injector.Injector.CreateInstance<ILocationRepository>());
+            selectedVoucher = new VoucherDTO();
             AllVouchers = new ObservableCollection<VoucherDTO>();
             maxGuests = 0;
            

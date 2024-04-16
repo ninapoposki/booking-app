@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
@@ -20,7 +21,6 @@ namespace BookingApp.WPF.ViewModel.Guide
     {
          private int tourId;
          private int currentCheckPointIndex = 0;
-         private TourService tourService;
          private TourStartDateService tourStartDateService;
          private TourGuestService tourGuestService;
          private TourReservationService tourReservationService;
@@ -33,12 +33,14 @@ namespace BookingApp.WPF.ViewModel.Guide
          public List<TourGuestDTO> SelectedTourists { get; set; }
         public TourCheckPointsVM(TourStartDateDTO selectedStartDate)
          {
-             this.selectedStartDate = selectedStartDate;
-             tourService = new TourService();
-             checkPointService = new CheckPointService();
-             tourGuestService = new TourGuestService();
-             tourReservationService = new TourReservationService();
-             tourStartDateService = new TourStartDateService();
+            this.selectedStartDate = selectedStartDate;
+             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
+             tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
+             tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+              Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+              Injector.Injector.CreateInstance<ILanguageRepository>(),
+              Injector.Injector.CreateInstance<ILocationRepository>());
+             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
              Guests = new ObservableCollection<TourGuestDTO>();
              tourId = this.selectedStartDate.TourId;
              PresentTourists = new List<TourGuestDTO>();

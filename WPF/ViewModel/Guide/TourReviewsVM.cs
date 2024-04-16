@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -19,8 +20,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         public TourReviewsVM(TourDTO tour) 
         {
             SelectedTour = tour;
-            tourGradeService= new TourGradeService();
-            imageService = new ImageService();
+            tourGradeService= new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(),Injector.Injector.CreateInstance<ITourGradeRepository>(),
+                Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             TourReviews= new ObservableCollection<TourGradeDTO>();
             LoadReviews();
         }

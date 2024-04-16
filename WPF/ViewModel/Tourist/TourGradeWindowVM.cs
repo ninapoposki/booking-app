@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Tourist;
@@ -16,11 +17,9 @@ namespace BookingApp.WPF.ViewModel.Tourist
     public class TourGradeWindowVM : ViewModelBase
     {
         public TourDTO SelectedTour { get; set; }
-        private TourStartDateService TourStartDateService;
-        private readonly TourService tourService;
         private TourReservationService tourReservationService;
         public TourReservationDTO selectedTourReservation;
-         public ImageService imageService;
+        public ImageService imageService;
         private int tourStartDateId;
         private TourGradeService tourGradeService { get; set; }
         public TourGradeDTO tourGradeDTO { get; set; }
@@ -30,12 +29,17 @@ namespace BookingApp.WPF.ViewModel.Tourist
         {
             this.tourStartDateId = tourStartDateId;
             SelectedTour = new TourDTO();
-            tourService = new TourService();
-            TourStartDateService = new TourStartDateService();
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
             tourGradeDTO = new TourGradeDTO();
-            tourGradeService = new TourGradeService();
-            tourReservationService = new TourReservationService();
-            imageService = new ImageService();
+            tourGradeService = new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(), Injector.Injector.CreateInstance<ITourGradeRepository>(),
+                Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             Images = new ObservableCollection<ImageDTO>();
             selectedTourReservation = tourReservationService.GetReservationByTourId(tourStartDateId);
         }

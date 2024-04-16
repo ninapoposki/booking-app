@@ -16,12 +16,12 @@ namespace BookingApp.Services
         private TourGuestService tourGuestService;
         private UserService userService;
         private TourStartDateService tourStartDateService;
-        public TourReservationService()
+        public TourReservationService(ITourReservationRepository tourReservationRepository,ITourGuestRepository tourGuestRepository,IUserRepository userRepository, ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
-            tourGuestService = new TourGuestService();
-            userService = new UserService();
-            tourStartDateService = new TourStartDateService();
+            this.tourReservationRepository = tourReservationRepository;
+            tourGuestService = new TourGuestService(tourGuestRepository);
+            userService = new UserService(userRepository);
+            tourStartDateService = new TourStartDateService(tourStartDateRepository,tourRepository,languageRepository,locationRepository);
         }
         public bool DoReservationExists(int tourStartId)
         {

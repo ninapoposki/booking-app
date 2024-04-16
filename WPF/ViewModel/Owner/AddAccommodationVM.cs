@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.Services;
 using System.Security.Cryptography.Xml;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -34,10 +35,10 @@ namespace BookingApp.WPF.ViewModel.Owner
         
         public AddAccommodationVM(string currentUserUsername)
         {
-            imageService = new ImageService();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             accommodationService = new AccommodationService();
-            locationService = new LocationService();
-            userService = new UserService();
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             LocationComboBox = new List<LocationDTO>();
             CityComboBox = new List<String>();
             CountryComboBox = new HashSet<String>();

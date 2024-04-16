@@ -24,8 +24,11 @@ namespace BookingApp.WPF.ViewModel.Guide
             this.userId = userId;
             FinishedTours = new ObservableCollection<TourDTO>();
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
-            tourReservationService = new TourReservationService();
-            imageService = new ImageService();  
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(),Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());  
             LoadFinishedTours();
         }
         private void LoadFinishedTours()

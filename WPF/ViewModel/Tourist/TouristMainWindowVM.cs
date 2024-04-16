@@ -27,7 +27,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private readonly TourStartDateService tourStartDateService;
         private readonly ImageService imageService;
         private string loggedInUserUsername;
-        private readonly TourGradeService tourGradeService;
         public int loggedInUserId;
         public ObservableCollection<TourDTO> AllTours { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
@@ -40,17 +39,16 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public TouristMainWindowVM(string username)
         {
 
-            tourService = new TourService();
-            locationService = new LocationService();
-            languageService = new LanguageService();
-            userService = new UserService();
-            tourGradeService = new TourGradeService();
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
+            languageService = new LanguageService(Injector.Injector.CreateInstance<ILanguageRepository>());
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             SelectedLanguage = new LanguageDTO();
             SelectedTour = new TourDTO();
-            imageService = new ImageService();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             loggedInUserUsername=username;
             loggedInUserId=userService.GetByUsername(loggedInUserUsername).Id;
-            tourStartDateService = new TourStartDateService();
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             AllTours = new ObservableCollection<TourDTO>();
             Images = new ObservableCollection<ImageDTO>();
             Languages = new List<LanguageDTO>();
@@ -62,7 +60,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
             GetTours();
             GetLanguages();
         }
-
 
         public void GetTours()
         {

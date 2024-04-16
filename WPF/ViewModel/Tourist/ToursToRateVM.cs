@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Tourist;
 using System;
@@ -18,7 +19,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public TourDTO SelectedTour { get; set; }   
         private TourStartDateService tourStartDateService;
         private TourService tourService;
-        private TourGuestService tourGuestService;
         private TourReservationService tourReservationService;
         
         private int userId;
@@ -27,10 +27,12 @@ namespace BookingApp.WPF.ViewModel.Tourist
             this.userId = userId;
             FinishedTours = new ObservableCollection<TourDTO>();
             SelectedTour=new TourDTO();
-            tourStartDateService = new TourStartDateService();
-            tourService = new TourService();
-            tourGuestService = new TourGuestService();
-            tourReservationService = new TourReservationService();
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+              Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+              Injector.Injector.CreateInstance<ILanguageRepository>(),
+              Injector.Injector.CreateInstance<ILocationRepository>());
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             LoadFinishedTours();
         }
 

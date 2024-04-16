@@ -14,9 +14,9 @@ namespace BookingApp.Services
     {
         private ICheckPointRepository checkPointRepository;
 
-        public CheckPointService()
+        public CheckPointService(ICheckPointRepository checkPointRepository)
         {
-            checkPointRepository=Injector.Injector.CreateInstance<ICheckPointRepository>();
+            this.checkPointRepository = checkPointRepository;
         }
         public void Add(CheckPointDTO checkPoint,int tourId)
         {
