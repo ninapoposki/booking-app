@@ -73,25 +73,14 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return voucher;
         }
-
         public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);
         }
-
-        public void RefreshVouchers()
-        {
-            vouchers = serializer.FromCSV(FilePath);
-        }
-
-      
-
         public Voucher? GetById(int id)
         {
-            RefreshVouchers(); // Osvežavamo listu vaucera
+            vouchers = serializer.FromCSV(FilePath);
             return vouchers.Find(s => s.Id == id);
         }
-
-
     }
 }
