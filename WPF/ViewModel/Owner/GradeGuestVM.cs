@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -20,7 +21,8 @@ namespace BookingApp.WPF.ViewModel.Owner
 
             
             this.SelectedAccommodationReservation = accommodationReservationDTO;
-            GuestGradeService = new GuestGradeService();
+            GuestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
             guestGradeDTO = new GuestGradeDTO();
         }
 

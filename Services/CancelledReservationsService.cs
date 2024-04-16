@@ -14,11 +14,12 @@ namespace BookingApp.Services
         private ICancelledReservationsRepository cancelledReservationsRepository;
         private AccommodationReservationService accommodationReservationService;
         private ReservationRequestService reservationRequestService;
-        public CancelledReservationsService()
+        public CancelledReservationsService(ICancelledReservationsRepository cancelledReservationsRepository, IAccommodationReservationRepository accommodationReservationRepository, IGuestRepository guestRepository, IUserRepository userRepository, IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository, IOwnerRepository ownerRepository,
+            IReservationRequestRepository reservationRequestRepository)
         {
-            cancelledReservationsRepository = Injector.Injector.CreateInstance<ICancelledReservationsRepository>();
-            accommodationReservationService=new AccommodationReservationService();
-            reservationRequestService=new ReservationRequestService();
+            this.cancelledReservationsRepository = cancelledReservationsRepository;
+            accommodationReservationService=new AccommodationReservationService(accommodationReservationRepository,guestRepository,userRepository,accommodationRepository,imageRepository,locationRepository,ownerRepository);
+            reservationRequestService=new ReservationRequestService(reservationRequestRepository,accommodationReservationRepository,guestRepository,userRepository,accommodationRepository,imageRepository,locationRepository,ownerRepository);
         }
         public void CancelReservation( Accommodation accommodation,AccommodationReservation accommodationReservation)
         {

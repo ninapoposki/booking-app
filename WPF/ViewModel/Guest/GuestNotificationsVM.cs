@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -38,9 +39,22 @@ namespace BookingApp.WPF.ViewModel.Guest
         {
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             SelectedReservationRequest = new ReservationRequestDTO();
-            reservationRequestService = new ReservationRequestService();
-            accommodationReservationService = new AccommodationReservationService();
-            imageService = new ImageService();
+            reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             Images = new ObservableCollection<ImageDTO>();
             Update();
         }

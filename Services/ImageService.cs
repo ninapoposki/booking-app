@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,8 +15,8 @@ namespace BookingApp.Services
     public class ImageService
     {
         private IImageRepository imageRepository;
-        public ImageService() { 
-            imageRepository=Injector.Injector.CreateInstance<IImageRepository>();
+        public ImageService(IImageRepository imageRepository) { 
+            this.imageRepository = imageRepository;
         }
 
         public void Update(ImageDTO image,int tourId)
@@ -23,6 +24,13 @@ namespace BookingApp.Services
             image.EntityId = tourId;
             image.EntityType = EntityType.TOUR;
             imageRepository.Update(image.ToImage());
+        }
+
+
+        public void UpdateForGrade(ImageDTO image, int tourGradeId)
+        {
+            image.EntityId = tourGradeId;
+            image.EntityType = EntityType.TOURGRADE;
         }
         public void UpdateAccommodation(ImageDTO image, int accommodationId)
         {
@@ -50,7 +58,14 @@ namespace BookingApp.Services
 
         public ImageDTO GetByPath(string relativePath) {
             return new ImageDTO(imageRepository.FindByPath(relativePath));
-        }       
+        }
+        public string GetFirstPath(int entityId,string type)
+        {
+            Image? image=imageRepository.GetAll().Find(i => i.EntityId == entityId && i.EntityType.ToString().Equals(type));
+            if (image != null) return image.Path;
+            return null;
+        }
+              
         public List<Image> GetAllImages()
         {
             return imageRepository.GetAll();

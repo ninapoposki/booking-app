@@ -14,10 +14,10 @@ namespace BookingApp.Services
     {
 
         private ITourGuestRepository tourGuestRepository; 
-
-        public TourGuestService() 
+        
+        public TourGuestService(ITourGuestRepository tourGuestRepository) 
         {
-            tourGuestRepository=Injector.Injector.CreateInstance<ITourGuestRepository>();
+            this.tourGuestRepository=tourGuestRepository;
         }
         public List<TourGuest> GetAll()
         {
@@ -50,9 +50,19 @@ namespace BookingApp.Services
                 FullName = fullName,
                 Age = age,
                 TourReservationId = reservationId,
-                CheckPointId = -1  
+                CheckPointId = -1,
+                HasArrived = false
+               
             };
             tourGuestRepository.Add(newGuest);
         }
+
+        public void MarkGuestAsArrived(TourGuestDTO tourGuestDTO)
+        {
+            TourGuest tourGuest = tourGuestDTO.ToTourGuest();
+            tourGuest.HasArrived = true;
+            tourGuestRepository.Update(tourGuest);
+        }
+
     }
 }

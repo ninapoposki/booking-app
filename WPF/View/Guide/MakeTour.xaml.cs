@@ -103,10 +103,10 @@ namespace BookingApp.WPF.View.Guide
 
         private void FinishedTourClick(object sender, RoutedEventArgs e)
         {
-            FinishedTour finishedTour = new FinishedTour(userId);
-            finishedTour.Owner = this;
-            finishedTour.WindowStartupLocation=WindowStartupLocation.CenterOwner;
-            finishedTour.ShowDialog();
+            ButtonWindow buttonWindow = new ButtonWindow(userId);
+            buttonWindow.Owner = this;
+            buttonWindow.WindowStartupLocation=WindowStartupLocation.CenterOwner;
+            buttonWindow.ShowDialog();
         }
     }
 }

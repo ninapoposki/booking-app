@@ -17,12 +17,13 @@ namespace BookingApp.Services
         private UserService userService;
         private OwnerService ownerService;
         private AccommodationService accommodationService;
-        public AccommodationGradeService()
+        public AccommodationGradeService(IAccommodationGradeRepository accommodationGradeRepository,IUserRepository userRepository,IOwnerRepository ownerRepository,
+            IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository)
         {
-            accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();
-            userService = new UserService();
-            ownerService = new OwnerService();
-            accommodationService = new AccommodationService();
+            this.accommodationGradeRepository = accommodationGradeRepository;
+            userService = new UserService(userRepository);
+            ownerService = new OwnerService(ownerRepository);
+            accommodationService = new AccommodationService(accommodationRepository,imageRepository,locationRepository,ownerRepository);
         }
 
         public List<double> GetAverageGrades(string username)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using BookingApp.Domain.IRepositories;
 using BookingApp.DTO;
 using BookingApp.Services;
 
@@ -49,7 +50,13 @@ namespace BookingApp.WPF.ViewModel.Guest
 
         public AvailableDatesWindowVM(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
-            accommodationReservationService = new AccommodationReservationService();
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+               Injector.Injector.CreateInstance<IGuestRepository>(),
+               Injector.Injector.CreateInstance<IUserRepository>(),
+               Injector.Injector.CreateInstance<IAccommodationRepository>(),
+               Injector.Injector.CreateInstance<IImageRepository>(),
+               Injector.Injector.CreateInstance<ILocationRepository>(),
+               Injector.Injector.CreateInstance<IOwnerRepository>());
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { InitialDate = r.Item1, EndDate = r.Item2 }).ToList());
             SelectedReservation = accommodationReservation;
         }
