@@ -45,8 +45,6 @@ namespace BookingApp.Repository
             return cities;
         }
 
-
-
         public HashSet<string> GetAllCountries()
         {
             List<Location> locations = serializer.FromCSV(FilePath);
@@ -60,11 +58,9 @@ namespace BookingApp.Repository
             return countries;
         }
 
-        public int GetLocationId(string city, string country)
-        {
+        public int GetLocationId(string city, string country){
             List<Location> locations = serializer.FromCSV(FilePath);
-            Location location = locations.FirstOrDefault(loc => loc.City == city && loc.Country == country);
-
+            Location location = locations.FirstOrDefault(loc => loc.City == city );
             return location != null ? location.Id : -1;
         }
 

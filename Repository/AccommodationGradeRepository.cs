@@ -99,32 +99,6 @@ namespace BookingApp.Repository
         {
             return GetAll().FirstOrDefault(g => g.ReservationId == selectedAccommodationGrade.Id)?.ReservationId ?? -1;
         }
-
-        public void Delete(AccommodationGrade accommodationGrade)
-        {
-            accommodationGrades = serializer.FromCSV(FilePath);
-            AccommodationGrade founded = accommodationGrades.Find(c => c.Id == accommodationGrade.Id);
-            accommodationGrades.Remove(founded);
-            serializer.ToCSV(FilePath, accommodationGrades);
-            subject.NotifyObservers();
-        }
-
-        public AccommodationGrade Update(AccommodationGrade accommodationGrade)
-        {
-            accommodationGrades = serializer.FromCSV(FilePath);
-            AccommodationGrade current = accommodationGrades.Find(t => t.Id == accommodationGrade.Id);
-            int index = accommodationGrades.IndexOf(current);
-            accommodationGrades.Remove(current);
-            accommodationGrades.Insert(index, accommodationGrade);        
-            serializer.ToCSV(FilePath, accommodationGrades);
-            subject.NotifyObservers();
-            return accommodationGrade;
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            subject.Subscribe(observer);
-        }
     }
 
 }

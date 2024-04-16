@@ -16,11 +16,7 @@ namespace BookingApp.Services
         private IAccommodationGradeRepository accommodationGradeRepository;
         private UserService userService;
         private OwnerService ownerService;
-        private GuestService guestService;
         private AccommodationService accommodationService;
-        private GuestGradeService guestGradeService;
-        private AccommodationReservationService accommodationReservationService;
-        private LocationService locationService;
 
 
         public AccommodationGradeService()
@@ -28,11 +24,7 @@ namespace BookingApp.Services
             accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();
             userService = new UserService();
             ownerService = new OwnerService();
-            guestService = new GuestService();
-            guestGradeService = new GuestGradeService();
             accommodationService = new AccommodationService();
-            accommodationReservationService = new AccommodationReservationService();
-            locationService = new LocationService();
         }
 
         public List<double> GetAverageGrades(string username)
@@ -46,13 +38,6 @@ namespace BookingApp.Services
             List<AccommodationGradeDTO> accommodationGradeDTOs = accommodationGrades.Select(accg => new AccommodationGradeDTO(accg)).ToList();
             return accommodationGradeDTOs;
         }
-
-
-        public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade)
-        {
-            return accommodationGradeRepository.GetReservationId(selectedAccommodationGrade);
-        }
-
         
         public AccommodationGrade Add(AccommodationGrade grade)
         {
@@ -63,7 +48,6 @@ namespace BookingApp.Services
         { 
             var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
             var owner = ownerService.GetById(accommodation.OwnerId);
-            var location = locationService.GetById(accommodation.IdLocation);
             accommodationGradeDTO.OwnerId = accommodation.OwnerId; 
             accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
 

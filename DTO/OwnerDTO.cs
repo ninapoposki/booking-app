@@ -13,8 +13,7 @@ namespace BookingApp.DTO
         public int id;
         public int Id {
             get { return id; }
-            set {
-                if (value != id) {
+            set { if (value != id) {
                     id = value;
                     OnPropertyChanged("Id");
                 }
@@ -23,8 +22,7 @@ namespace BookingApp.DTO
         private string firstName;
         public string FirstName   {
             get { return firstName; }
-            set {
-                if (value != firstName) {
+            set { if (value != firstName) {
                     firstName = value;
                     OnPropertyChanged("FirstName");
                 }
@@ -33,8 +31,7 @@ namespace BookingApp.DTO
         public string lastName;
         public string LastName {
             get { return lastName; }
-            set {
-                if (value != lastName) {
+            set { if (value != lastName) {
                     lastName = value;
                     OnPropertyChanged("LastName");
                 }
@@ -43,8 +40,7 @@ namespace BookingApp.DTO
         public string phoneNumber;
         public string PhoneNumber{
             get { return phoneNumber; }
-            set {
-                if (value != phoneNumber) {
+            set { if (value != phoneNumber) {
                     phoneNumber = value;
                     OnPropertyChanged("PhoneNumber");
                 }
@@ -53,8 +49,7 @@ namespace BookingApp.DTO
         private User user { get; set; }
         public User User {
             get { return user; }
-            set {
-                if (value != user){
+            set { if (value != user){
                     user = value;
                     OnPropertyChanged("User");
                 }
@@ -63,8 +58,7 @@ namespace BookingApp.DTO
         private int userId { get; set; }
         public int UserId {
             get { return userId; }
-            set {
-                if (value != userId) {
+            set { if (value != userId) {
                     userId = value;
                     OnPropertyChanged("UserId");
                 }
@@ -73,8 +67,7 @@ namespace BookingApp.DTO
         private string role;
         public string Role{
             get { return role; }
-            set  {
-                if (value != role) {
+            set  {  if (value != role) {
                     role = value;
                     OnPropertyChanged("Role");
                 }

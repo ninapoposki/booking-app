@@ -19,101 +19,59 @@ namespace BookingApp.DTO
         public int id;
         public int Id {
             get { return id; }
-            set { if (id != value) {
-                    id = value;
-                    OnPropertyChanged("Id");
-                }
-            }
+            set { if (id != value) { id = value; OnPropertyChanged("Id"); } }
         }
         private String name;
         public String Name{
             get { return name; }
-            set { if (name != value)  {
-                    name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
+            set { if (name != value)  { name = value;  OnPropertyChanged("Name"); } }
         }
         private Location location;
         public Location Location {
             get { return location; }
-            set { if (location != value) {
-                    location = value;
-                    OnPropertyChanged("Location");
-                }
-            }
+            set { if (location != value) { location = value; OnPropertyChanged("Location");} }
         }
         private Owner owner;
         public Owner Owner {
             get { return owner; }
-            set { if (owner != value) {
-                    owner = value;
-                    OnPropertyChanged("Owner");
-                }
-            }
+            set { if (owner != value) { owner = value;  OnPropertyChanged("Owner"); } }
         }
         private int idLocation;
         public int IdLocation {
             get { return idLocation; }
-            set{ if (idLocation != value) {
-                    idLocation = value;
-                    OnPropertyChanged("IdLocation");
-                }
-            }
+            set{ if (idLocation != value) { idLocation = value; OnPropertyChanged("IdLocation"); } }
         }
         private AccommodationType accommodationType;
         public AccommodationType AccommodationType{
             get { return accommodationType; }
-            set{ if (accommodationType != value) {
-                    accommodationType = value;
-                    OnPropertyChanged("AccommodationType");
-                }
-            }
+            set{ if (accommodationType != value) { accommodationType = value; OnPropertyChanged("AccommodationType"); } }
         }
         private int capacity;
         public int Capacity {
             get { return capacity; }
-            set { if (capacity != value) {
-                    capacity = value;
-                    OnPropertyChanged("Capacity");
-                }
+            set { if (capacity != value) { capacity = value;  OnPropertyChanged("Capacity"); }
             }
         }
         private int minStayDays;
         public int MinStayDays {
             get { return minStayDays; }
-            set { if (minStayDays != value) {
-                    minStayDays = value;
-                    OnPropertyChanged("MinStayDays");
-                }
+            set { if (minStayDays != value) { minStayDays = value; OnPropertyChanged("MinStayDays"); }
             }
         }
         private int cancellationPeriod = 1; 
         public int CancellationPeriod {
             get { return cancellationPeriod; }
-            set { if (cancellationPeriod != value){
-                    cancellationPeriod = value;
-                    OnPropertyChanged("CancellationPeriod");
-                }
-            }
+            set { if (cancellationPeriod != value){ cancellationPeriod = value; OnPropertyChanged("CancellationPeriod"); } }
         }
         private List<Image> image;
          public List<Image> Image {
              get { return image; }
-             set {  if (image != value){
-                     image = value;
-                     OnPropertyChanged("Images");
-                 }
-             }
+             set {  if (image != value){ image = value; OnPropertyChanged("Images"); } }
          }
         public int ownerId;
         public int OwnerId{
             get { return ownerId; }
-            set{  if (ownerId != value){
-                    ownerId = value;
-                    OnPropertyChanged("OwnerId");
-                }
-            }
+            set{  if (ownerId != value){ ownerId = value; OnPropertyChanged("OwnerId"); } }
         }
         public AccommodationDTO(){  }
         public AccommodationDTO(Accommodation accommodation,Location location){
@@ -153,5 +111,5 @@ namespace BookingApp.DTO
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-    }
+     }
 }

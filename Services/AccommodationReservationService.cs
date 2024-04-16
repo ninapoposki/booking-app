@@ -47,10 +47,10 @@ namespace BookingApp.Services
         {
             return accommodationReservationRepository.GetById(id);
         }
-
-        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate)
-        {
-            accommodationReservationRepository.UpdateDate(accommodationReservationId, InitialDate, EndDate);
+        public void UpdateDate(AccommodationReservationDTO accommodationReservationDTO, DateTime initialDate, DateTime endTime) {
+            accommodationReservationDTO.InitialDate = initialDate;
+            accommodationReservationDTO.EndDate = endTime;
+            accommodationReservationRepository.Update(accommodationReservationDTO.ToAccommodationReservation());
         }
 
         public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId)
@@ -93,14 +93,17 @@ namespace BookingApp.Services
             return reservation;
         }
 
+        
+
           public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO)
           {
              var accommodation = accommodationService.GetByIdDTO(reservationDTO.AccommodationId);
-             var location = locationService.GetById(accommodation.IdLocation);
-             var owner = ownerService.GetById(accommodation.OwnerId);
+             var location = locationService.GetByIdDTO(accommodation.IdLocation);
+             var owner = ownerService.GetByUserId(accommodation.OwnerId);
              var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation.ToAccommodation(),location.ToLocation(),owner);
              accommodationReservationDTO.Accommodation = new AccommodationDTO(accommodation.ToAccommodation());//ISTO OVO URADI I ZA PRIKAZ U OCENI
              accommodationReservationDTO.OwnerDTO=new OwnerDTO(owner);
+             accommodationReservationDTO.Guest = new GuestDTO(guestService.GetById(reservationDTO.GuestId));
              return accommodationReservationDTO;
 
           }

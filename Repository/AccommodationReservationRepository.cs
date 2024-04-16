@@ -11,79 +11,46 @@ using System.Windows;
 
 namespace BookingApp.Repository
 {
-    public class AccommodationReservationRepository:IAccommodationReservationRepository
-    {
+    public class AccommodationReservationRepository:IAccommodationReservationRepository {
         private const string FilePath = "../../../Resources/Data/accommodationreservation.csv";
-
         private readonly Serializer<AccommodationReservation> serializer;
-       
         private List<AccommodationReservation> accommodationReservations; 
         public Subject subject; 
-
-        public AccommodationReservationRepository()
-        {
+        public AccommodationReservationRepository() {
             serializer = new Serializer<AccommodationReservation>();
             accommodationReservations = serializer.FromCSV(FilePath);
             subject = new Subject();
         }
-
-        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate)
-        {
-            List<AccommodationReservation> reservations = serializer.FromCSV(FilePath);
-
-            AccommodationReservation currentReservation = reservations.Find(r => r.Id == accommodationReservationId);
-            if (currentReservation != null) {
-                currentReservation.InitialDate = InitialDate;
-                currentReservation.EndDate = EndDate;
-                serializer.ToCSV(FilePath, reservations);
-                subject.NotifyObservers();
-            } else { 
-                throw new Exception("Cannot find reservation");
-            }
-        }
-
-        public List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId)
-        {
+      
+        public List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId){
             return accommodationReservations.Where(r => r.AccommodationId == accommodationId).ToList();
         }
-        public bool IsCapacityValid(int numberOfGuests, int maxGuests)
-        {
+        public bool IsCapacityValid(int numberOfGuests, int maxGuests) {
             return numberOfGuests <= maxGuests;
         }
-        public bool AreDatesValid(DateTime initialDate, DateTime endDate)
-        {
+        public bool AreDatesValid(DateTime initialDate, DateTime endDate){
             return initialDate < endDate;
         }
-
-        public bool AreStayDaysValid(int daysToStay, int minimumStayDays)
-        {
+        public bool AreStayDaysValid(int daysToStay, int minimumStayDays){
             return daysToStay >= minimumStayDays; //inicijalno je true
         }
-
-        public bool IsValid(AccommodationReservation reservation,Accommodation accommodation)
-        {
+        public bool IsValid(AccommodationReservation reservation,Accommodation accommodation) {
             return IsCapacityValid(reservation.NumberOfGuests, accommodation.Capacity) &&
                 AreStayDaysValid(reservation.DaysToStay, accommodation.MinStayDays) && 
                 AreDatesValid(reservation.InitialDate, reservation.EndDate); //vraca true ako je sve tacno
-
         }
-
-        public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId)
-        {
+        public List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId){
             List<(DateTime, DateTime)> availablePeriods = new List<(DateTime, DateTime)>();
             DateTime endRange = DateTime.Now.AddMonths(6);
-            for (DateTime start = reservation.InitialDate; start <= endRange; start = start.AddDays(1))
-            {
+            for (DateTime start = reservation.InitialDate; start <= endRange; start = start.AddDays(1)) {
                 DateTime end = start.AddDays(reservation.DaysToStay - 1);
                 if (AreDatesAvailable(accommodationId, start, end) && !IsRangeOverlappingWithReservations(reservation, accommodationId, start, end))
                 {
                     availablePeriods.Add((start, end));
                 }
             }
-
             return availablePeriods;
         }
-
         private bool IsRangeOverlappingWithReservations(AccommodationReservation reservation, int accommodationId, DateTime start, DateTime end)
         {
             foreach (var existingReservation in GetReservationsForAccommodation(accommodationId))
@@ -107,10 +74,6 @@ namespace BookingApp.Repository
             }
             return false;
         }
-
-
-
-
         public List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId)
         {
             List<(DateTime, DateTime)> availablePeriods = new List<(DateTime, DateTime)>();
@@ -137,10 +100,6 @@ namespace BookingApp.Repository
                 end <= r.InitialDate
             );
         }
-
-
-
-
         public bool AreDatesAvailable(int accommodationId, DateTime start, DateTime end)
         {
             List<AccommodationReservation> reservations = GetReservationsForAccommodation(accommodationId);
@@ -156,13 +115,10 @@ namespace BookingApp.Repository
             }
             return !allDatesOccupied; 
         }
-
         private bool IsDateOverlapping(AccommodationReservation reservation, DateTime date)
         {
             return date >= reservation.InitialDate && date <= reservation.EndDate;
         }
-
-
         public bool IsRangeOverlapping(AccommodationReservation reservation, DateTime start, DateTime end)
         {
             bool startsBeforeEnd = IsStartBeforeEnd(start, reservation.EndDate);
@@ -173,45 +129,36 @@ namespace BookingApp.Repository
 
             return startsBeforeEnd && endsAfterStart || startsDuringReservation || endsDuringReservation || overlapsCompletely;
         }
-
         public bool IsStartBeforeEnd(DateTime start, DateTime endDate)
         {
             return start < endDate;
         }
-
         public bool IsEndAfterStart(DateTime end, DateTime startDate)
         {
             return end > startDate;
         }
-
         public bool IsStartDuringReservation(DateTime start, AccommodationReservation reservation)
         {
             return start >= reservation.InitialDate && start < reservation.EndDate;
         }
-
         public bool IsEndDuringReservation(DateTime end, AccommodationReservation reservation)
         {
             return end > reservation.InitialDate && end <= reservation.EndDate;
         }
-
         public bool OverlapsCompletely(DateTime start, DateTime end, AccommodationReservation reservation)
         {
             return start <= reservation.InitialDate && end >= reservation.EndDate;
         }
-
         public List<AccommodationReservation> GetAll()
         {
             return serializer.FromCSV(FilePath);
           
         }
-
         public AccommodationReservation GetById(int id)
         {
-
             accommodationReservations = serializer.FromCSV(FilePath);
             return accommodationReservations.Find(i => i.Id == id);
         }
-
         public AccommodationReservation Add(AccommodationReservation accommodationReservation)
         {
             accommodationReservation.Id = NextId();
@@ -225,7 +172,6 @@ namespace BookingApp.Repository
         {
             serializer.ToCSV(FilePath, accommodationReservations);
         }
-
         public int NextId()
         {
             accommodationReservations = serializer.FromCSV(FilePath);
@@ -242,10 +188,7 @@ namespace BookingApp.Repository
             accommodationReservations.Remove(founded); 
             WriteToFile(); 
             subject.NotifyObservers(); 
-           
         }
-
-
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
             var existing = accommodationReservations.FindIndex(a => a.Id == accommodationReservation.Id);
@@ -265,8 +208,6 @@ namespace BookingApp.Repository
             TimeSpan difference = currentDate - endDate;
             return difference.Days < 5 && difference.Days > 0;
         }
-        
-     
     public void Subscribe(IObserver observer)
         {
             subject.Subscribe(observer);

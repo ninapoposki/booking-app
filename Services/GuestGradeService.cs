@@ -6,32 +6,33 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 
 namespace BookingApp.Services
 {
     public class GuestGradeService
     {
         private IGuestGradeRepository guestGradeRepository;
+        private OwnerService ownerService;
 
         public GuestGradeService()
         {
             guestGradeRepository = Injector.Injector.CreateInstance<IGuestGradeRepository>();
+            ownerService = new OwnerService();
         }
-
         public void Add(GuestGrade guestGrade)
         {
             guestGradeRepository.Add(guestGrade);
         }
-
-        public bool IsGuestGraded(int reservationId)
-        {
+        public Owner GetByUserId(int userId) {
+            return ownerService.GetByUserId(userId);
+        }
+        public bool IsGuestGraded(int reservationId) {
              return guestGradeRepository.IsGuestGraded(reservationId);
         } 
-        public List<GuestGrade> GetAll()
-        {
+        public List<GuestGrade> GetAll()  {
             return guestGradeRepository.GetAll();
         }
-
         public int GetReservationId(AccommodationReservationDTO selectedAccommodationReservation)
         {
             return guestGradeRepository.GetReservationId(selectedAccommodationReservation);

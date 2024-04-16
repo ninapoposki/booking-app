@@ -15,7 +15,6 @@ namespace BookingApp.Domain.IRepositories
 
         bool IsValid(AccommodationReservation reservation,Accommodation accommodation);
         List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId);
-        public void UpdateDate(int accommodationReservationId, DateTime InitialDate, DateTime EndDate);
         bool AreDatesAvailable(int accommodationId,DateTime start,DateTime end);
         List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId);
         List<AccommodationReservation> GetAll();
