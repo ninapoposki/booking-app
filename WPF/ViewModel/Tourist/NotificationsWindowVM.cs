@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -15,7 +16,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
     public class NotificationsWindowVM:ViewModelBase
     {
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
-        private TourGuestService TourGuestService;
+        private TourGuestService tourGuestService;
         private TourGuestDTO selectedTourGuest;
         private CheckPointService checkPointService;
         public TourGuestDTO SelectedTourGuest
@@ -29,19 +30,19 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
 
 
-        public NotificationsWindowVM() { 
-        
-            TourGuestService = new TourGuestService();
-            TourGuests= new ObservableCollection<TourGuestDTO>();
+        public NotificationsWindowVM() {
+
+            tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
+            TourGuests = new ObservableCollection<TourGuestDTO>();
             SelectedTourGuest=new TourGuestDTO();
-            checkPointService = new CheckPointService();
+            checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
             Update();
         }
 
         public void Update()
         { 
             TourGuests.Clear();
-            var guests = TourGuestService.GetAll().Where(guest => guest.CheckPointId != -1 && guest.HasArrived != true).Select(guest => new TourGuestDTO(guest)).ToList();
+            var guests = tourGuestService.GetAll().Where(guest => guest.CheckPointId != -1 && guest.HasArrived != true).Select(guest => new TourGuestDTO(guest)).ToList();
             foreach (var guest in guests)
             {
                 guest.CheckPointName = checkPointService.GetName(guest.CheckPointId);
@@ -55,7 +56,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 MessageBox.Show("Molim vas izaberite gosta.");
                 return;
             }
-            TourGuestService.MarkGuestAsArrived(SelectedTourGuest);
+            tourGuestService.MarkGuestAsArrived(SelectedTourGuest);
             Update();
         }
 

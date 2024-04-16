@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -24,11 +25,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public ActiveToursWindowVM(int userId) { 
         
             this.userId = userId;
-            tourStartDateService = new TourStartDateService();
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
             ActiveTours = new ObservableCollection<TourDTO>();
-            tourReservationService = new TourReservationService();
-            checkPointService = new CheckPointService();
-            tourService = new TourService();
+            checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             LoadActiveTour();
         }
         private void LoadActiveTour()
