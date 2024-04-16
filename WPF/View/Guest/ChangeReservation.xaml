@@ -18,7 +18,7 @@
 
         <!-- Leva polovina -->
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="30,2,30,3" HorizontalAlignment="Left">
-            <TextBlock Text="{Binding SelectedReservation.Accommodation.Name}" FontWeight="Bold" FontSize="30" Margin="0,15,0,10" Foreground="Green" FontStyle="Italic"/>
+            <TextBlock Text="{Binding SelectedReservation.Accommodations    .Name}" FontWeight="Bold" FontSize="30" Margin="0,15,0,10" Foreground="Green" FontStyle="Italic"/>
 
             <Label Height="30" Margin="0 25 0 0">Initial date:</Label>
             <Border BorderThickness="1" BorderBrush="Black" CornerRadius="6">

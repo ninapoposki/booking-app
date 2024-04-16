@@ -6,9 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Guest
@@ -19,90 +17,45 @@ namespace BookingApp.WPF.ViewModel.Guest
         private readonly ImageService imageService;
         private readonly LocationService locationService;
         private readonly OwnerService ownerService;
-
         public ObservableCollection<AccommodationDTO> AllAccommodations { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<AccommodationType> Types { get; set; }
-
         private AccommodationDTO selectedAccommodation;
-        public AccommodationDTO SelectedAccommodation
-        {
+        public AccommodationDTO SelectedAccommodation{
             get => selectedAccommodation;
-            set
-            {
-                selectedAccommodation = value;
-                OnPropertyChanged(nameof(SelectedAccommodation));
-            }
+            set { selectedAccommodation = value;  OnPropertyChanged(nameof(SelectedAccommodation));}
         }
-
         private string nameFilter;
-        public string NameFilter
-        {
+        public string NameFilter{
             get => nameFilter;
-            set
-            {
-                nameFilter = value;
-                OnPropertyChanged(nameof(NameFilter));
-            }
+            set { nameFilter = value; OnPropertyChanged(nameof(NameFilter)); }
         }
-
         private string cityFilter;
-        public string CityFilter
-        {
+        public string CityFilter {
             get => cityFilter;
-            set
-            {
-                cityFilter = value;
-                OnPropertyChanged(nameof(CityFilter));
-            }
+            set{ cityFilter = value; OnPropertyChanged(nameof(CityFilter));}
         }
-
         private string countryFilter;
-        public string CountryFilter
-        {
+        public string CountryFilter{
             get => countryFilter;
-            set
-            {
-                countryFilter = value;
-                OnPropertyChanged(nameof(CountryFilter));
-            }
+            set { countryFilter = value; OnPropertyChanged(nameof(CountryFilter));}
         }
-
         private AccommodationType? selectedType;
-        public AccommodationType? SelectedType
-        {
+        public AccommodationType? SelectedType {
             get => selectedType;
-            set
-            {
-                selectedType = value;
-                OnPropertyChanged(nameof(SelectedType));
-            }
+            set { selectedType = value; OnPropertyChanged(nameof(SelectedType));}
         }
-
         private string numberOfGuests;
-        public string NumberOfGuests
-        {
+        public string NumberOfGuests {
             get => numberOfGuests;
-            set
-            {
-                numberOfGuests = value;
-                OnPropertyChanged(nameof(NumberOfGuests));
-            }
+            set { numberOfGuests = value; OnPropertyChanged(nameof(NumberOfGuests));}
         }
-
         private string numberOfDaysToStay;
-        public string NumberOfDaysToStay
-        {
+        public string NumberOfDaysToStay{
             get => numberOfDaysToStay;
-            set
-            {
-                numberOfDaysToStay = value;
-                OnPropertyChanged(nameof(NumberOfDaysToStay));
-            }
+            set { numberOfDaysToStay = value; OnPropertyChanged(nameof(NumberOfDaysToStay));}
         }
-
-        public GuestMainWindowVM()
-        {
+        public GuestMainWindowVM(){
             accommodationService = new AccommodationService();
             imageService = new ImageService();
             locationService = new LocationService();
@@ -112,97 +65,48 @@ namespace BookingApp.WPF.ViewModel.Guest
             Types = new ObservableCollection<AccommodationType>(Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>());
             Update();
         }
-
-      
-
-        public void Update()
-        {
-               AllAccommodations.Clear();
-                var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
-                AddSuperOwnerAccommodation(allImages);
-               AddOwnerAccommodation(allImages); 
-        }
-        public void AddSuperOwnerAccommodation(List<ImageDTO> allImages)
-        {
-            foreach (var accommodation in accommodationService.GetAll())
-            {
+        public void Update(){
+            AllAccommodations.Clear();
+            var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
+            AddAccommodations(allImages, "SUPEROWNER");
+            AddAccommodations(allImages, "OWNER");}
+        public void AddAccommodations(List<ImageDTO> allImages, string role) {
+            var accommodations = accommodationService.GetAll();
+            foreach (var accommodation in accommodations){
                 var owner = ownerService.GetByIdDTO(accommodation.OwnerId);
-                if (owner.Role == "SUPEROWNER")
-                {
+                if (owner.Role == role) {
                     var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
                     LocationDTO location = locationService.GetByIdDTO(accommodation.IdLocation);
-                    AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
-                }
-                else { continue; }
+                    AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages }); }
             }
         }
-        public void AddOwnerAccommodation(List<ImageDTO> allImages)
-        {
-            foreach (var accommodation in accommodationService.GetAll())
-            {
-                var owner = ownerService.GetByIdDTO(accommodation.OwnerId);
-                if (owner.Role == "OWNER")
-                {
-                    var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodation.Id, allImages));
-                    LocationDTO location = locationService.GetByIdDTO(accommodation.IdLocation);
-                    AllAccommodations.Add(new AccommodationDTO(accommodation.ToAccommodation(), location.ToLocation()) { Images = matchingImages });
-                }
-                else { continue; }
-            }
+        public void SearchClick(){
+            Update();
+            var filteredAccommodations = FilterAccommodations();
+            AllAccommodations.Clear();
+            filteredAccommodations.ForEach(accommodation => AllAccommodations.Add(accommodation));
         }
-
-        public void SearchClick()
-        {
-              Update();
-              var filteredAccommodations = FilterAccommodations();
-              AllAccommodations.Clear();
-              foreach (var accommodation in filteredAccommodations)
-              {
-                  AllAccommodations.Add(accommodation);
-              }
-            
-        }
-
-        //REFAKTORISI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NEMOJ ZABORAVITI
-        private List<AccommodationDTO> FilterAccommodations()
-        {
+        private List<AccommodationDTO> FilterAccommodations(){
             return AllAccommodations
                 .Where(accommodation =>
                     (string.IsNullOrEmpty(NameFilter) || accommodation.Name.ToLower().Contains(NameFilter.ToLower())) &&
                     (string.IsNullOrEmpty(CityFilter) || accommodation.Location.City.ToLower().Contains(CityFilter.ToLower())) &&
                     (string.IsNullOrEmpty(CountryFilter) || accommodation.Location.Country.ToLower().Contains(CountryFilter.ToLower())) &&
                     (!SelectedType.HasValue || accommodation.AccommodationType == SelectedType.Value) &&
-                     (string.IsNullOrEmpty(NumberOfGuests) || accommodation.Capacity >= int.Parse(NumberOfGuests)) &&
-                     (string.IsNullOrEmpty(NumberOfDaysToStay) || accommodation.MinStayDays <= double.Parse(NumberOfDaysToStay))
-                )
-                .ToList();
+                    (string.IsNullOrEmpty(NumberOfGuests) || accommodation.Capacity >= int.Parse(NumberOfGuests)) &&
+                    (string.IsNullOrEmpty(NumberOfDaysToStay) || accommodation.MinStayDays <= double.Parse(NumberOfDaysToStay))).ToList();
         }
-
-        public void BookAccommodationClick()
-        {
-            if (SelectedAccommodation != null)
-            {
+        public void BookAccommodationClick() {
+            if (SelectedAccommodation != null){
                 var dialog = new ReserveAccommodation(SelectedAccommodation);
                 dialog.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("You didn't choose accommodation!");
-            }
+            }else{   MessageBox.Show("You didn't choose accommodation!"); }
         }
-
-        public void OpenReservationsClick()
-        {
+        public void OpenReservationsClick() {
             var dialog = new MyReservationsWindow();
-            dialog.ShowDialog();
-        }
-        public void OpenNotificationsClick()
-        {
+            dialog.ShowDialog();}
+        public void OpenNotificationsClick(){
             var dialog = new GuestNotifications();
-            dialog.ShowDialog();
-        }
-
-
-
+            dialog.ShowDialog(); }
     }
 }

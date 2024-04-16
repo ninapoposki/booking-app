@@ -13,10 +13,12 @@ namespace BookingApp.Services
     {
         private ICancelledReservationsRepository cancelledReservationsRepository;
         private AccommodationReservationService accommodationReservationService;
+        private ReservationRequestService reservationRequestService;
         public CancelledReservationsService()
         {
             cancelledReservationsRepository = Injector.Injector.CreateInstance<ICancelledReservationsRepository>();
             accommodationReservationService=new AccommodationReservationService();
+            reservationRequestService=new ReservationRequestService();
         }
         public void CancelReservation( Accommodation accommodation,AccommodationReservation accommodationReservation)
         {
@@ -26,8 +28,8 @@ namespace BookingApp.Services
                     InitialDate = accommodationReservation.InitialDate,
                     EndDate = accommodationReservation.EndDate,
                 };
-                accommodationReservationService.Delete(accommodationReservation); 
-               
+                accommodationReservationService.Delete(accommodationReservation);
+                reservationRequestService.DeleteById(accommodationReservation.Id);
                 cancelledReservationsRepository.Add(cancelledReservation);            
         }
 

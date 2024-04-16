@@ -73,7 +73,7 @@ namespace BookingApp.WPF.ViewModel.Owner
                 int accommodationReservationId = SelectedReservation.AccommodationReservation.Id;
                 DateTime initialDate = SelectedReservation.NewInitialDate;
                 DateTime endDate = SelectedReservation.NewEndDate;
-                accommodationReservationService.UpdateDate(accommodationReservationId, initialDate, endDate);
+                accommodationReservationService.UpdateDate(SelectedReservation.AccommodationReservation, initialDate, endDate);
                 MessageBox.Show("Requests is accepted");
             } else { MessageBox.Show("Please select a reservation before accepting."); }
         }

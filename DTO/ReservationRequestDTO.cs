@@ -81,8 +81,7 @@ namespace BookingApp.DTO
             set{
                 if (value != accommodation) {
                     accommodation = value;
-                    OnPropertyChanged("Accommodation");
-                }
+                    OnPropertyChanged("Accommodation");}
             }
         }
         public ReservationRequestDTO() { }
@@ -102,11 +101,9 @@ namespace BookingApp.DTO
             reservationRequest.NewEndDate = this.NewEndDate;
             reservationRequest.RequestStatus = this.RequestStatus;
             reservationRequest.Comment = this.Comment;
-            return reservationRequest;
-        }
+            return reservationRequest; }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null){
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

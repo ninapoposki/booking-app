@@ -17,8 +17,6 @@ namespace BookingApp.Services
 
         public AccommodationReservationService accommodationReservationService;
         private AccommodationService accommodationService;
-
-
         public ReservationRequestService()
         {
             reservationRequestRepository = Injector.Injector.CreateInstance<IReservationRequestRepository>();
@@ -31,8 +29,9 @@ namespace BookingApp.Services
             List<ReservationRequestDTO> reservationRequestsDTOs = reservationRequests.Select(resreq => new ReservationRequestDTO(resreq)).ToList();
             return reservationRequestsDTOs;
         }
-       
-
+        public void DeleteById(int reservationId){
+            reservationRequestRepository.DeleteById(reservationId);
+        }
         public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment)
         {
             reservationRequestRepository.UpdateStatus(accommodationReservationId, status, comment);
