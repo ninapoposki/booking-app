@@ -16,13 +16,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
     {
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
         private TourGuestService TourGuestService;
-        private TourGuestDTO _selectedTourGuest;
+        private TourGuestDTO selectedTourGuest;
+        private CheckPointService checkPointService;
         public TourGuestDTO SelectedTourGuest
         {
-            get { return _selectedTourGuest; }
+            get { return selectedTourGuest; }
             set
             {
-                _selectedTourGuest = value;
+                selectedTourGuest = value;
                 OnPropertyChanged(nameof(SelectedTourGuest));
             }
         }
@@ -33,6 +34,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             TourGuestService = new TourGuestService();
             TourGuests= new ObservableCollection<TourGuestDTO>();
             SelectedTourGuest=new TourGuestDTO();
+            checkPointService = new CheckPointService();
             Update();
         }
 
@@ -42,6 +44,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             var guests = TourGuestService.GetAll().Where(guest => guest.CheckPointId != -1 && guest.HasArrived != true).Select(guest => new TourGuestDTO(guest)).ToList();
             foreach (var guest in guests)
             {
+                guest.CheckPointName = checkPointService.GetName(guest.CheckPointId);
                 TourGuests.Add(guest);
             }
         } 
@@ -55,5 +58,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
             TourGuestService.MarkGuestAsArrived(SelectedTourGuest);
             Update();
         }
+
+
+       
     }
 }
