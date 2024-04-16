@@ -17,12 +17,12 @@ namespace BookingApp.Services
         public LocationService locationService;
         public ImageService imageService;
         private OwnerService ownerService;
-        public AccommodationService()
+        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository,ILocationRepository locationRepository,IOwnerRepository ownerRepository)
         {
-            accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
-            imageService = new ImageService();
-            locationService = new LocationService();
-            ownerService = new OwnerService();
+            this.accommodationRepository = accommodationRepository;
+            imageService = new ImageService(imageRepository);
+            locationService = new LocationService(locationRepository);
+            ownerService = new OwnerService(ownerRepository);
 
         }
         public Accommodation Add(Accommodation accommodation)

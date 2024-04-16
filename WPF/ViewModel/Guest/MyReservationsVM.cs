@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Guest;
 using BookingApp.WPF.View.Owner;
@@ -26,11 +27,40 @@ namespace BookingApp.WPF.ViewModel.Guest
             }
         }
         public MyReservationsVM(){
-            accommodationReservationService = new AccommodationReservationService();
-            accommodationGradeService = new AccommodationGradeService();
-            cancelledReservationsService = new CancelledReservationsService();
-            accommodationService = new AccommodationService();
-            reservationRequestService = new ReservationRequestService();
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>()); 
+            accommodationGradeService = new AccommodationGradeService(Injector.Injector.CreateInstance<IAccommodationGradeRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            cancelledReservationsService = new CancelledReservationsService(Injector.Injector.CreateInstance<ICancelledReservationsRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>(),
+                Injector.Injector.CreateInstance<IReservationRequestRepository>());
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
             AllReservations = new ObservableCollection<AccommodationReservationDTO>();
             Update();
         }

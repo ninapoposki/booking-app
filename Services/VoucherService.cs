@@ -15,10 +15,10 @@ namespace BookingApp.Services
     {
         private IVoucherRepository voucherRepository;
         private TourReservationService tourReservationService;
-        public VoucherService()
+        public VoucherService(IVoucherRepository voucherRepository, ITourReservationRepository tourReservationRepository, ITourGuestRepository tourGuestRepository, IUserRepository userRepository, ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            voucherRepository = Injector.Injector.CreateInstance<IVoucherRepository>();
-            tourReservationService = new TourReservationService();
+            this.voucherRepository = voucherRepository;
+            tourReservationService = new TourReservationService(tourReservationRepository,tourGuestRepository,userRepository,tourStartDateRepository,tourRepository,languageRepository,locationRepository);
         }
         public bool GrantVoucher(TourStartDateDTO selectedStartDate, string description)
         {

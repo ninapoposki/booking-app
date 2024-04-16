@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -24,9 +25,14 @@ namespace BookingApp.WPF.ViewModel.Owner
         public AccommodationGradeService accommodationGradeService;
         public OwnerMainWindowVM(string username) {
             ownerDTO = new OwnerDTO();
-            userService = new UserService();
-            ownerService = new OwnerService();
-            accommodationGradeService = new AccommodationGradeService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
+            ownerService = new OwnerService(Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationGradeService = new AccommodationGradeService(Injector.Injector.CreateInstance<IAccommodationGradeRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
             loggedInUserUsername = username;
             loggedInUserId = userService.GetByUsername(loggedInUserUsername).Id;
             double average = GetAverageGrade();

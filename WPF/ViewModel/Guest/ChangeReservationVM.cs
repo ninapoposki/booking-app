@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,14 @@ namespace BookingApp.WPF.ViewModel.Guest
         public ChangeReservationVM(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservationDTO)
         {
             SelectedReservation = accommodationReservationDTO; 
-            reservationRequestService = new ReservationRequestService();
+            reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
             reservationRequestDTO=new ReservationRequestDTO();
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { NewInitialDate = r.Item1, NewEndDate = r.Item2 }).ToList());
 

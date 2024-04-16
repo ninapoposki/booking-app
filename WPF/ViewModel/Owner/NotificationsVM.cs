@@ -19,9 +19,19 @@ namespace BookingApp.WPF.ViewModel.Owner
         public AccommodationReservationService accommodationReservationService;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public NotificationsVM() {
-            guestGradeService = new GuestGradeService();
-            accommodationService = new AccommodationService();
-            accommodationReservationService = new AccommodationReservationService();
+            guestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             Update();
         }

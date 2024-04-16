@@ -14,16 +14,19 @@ namespace BookingApp.Services
     {
         private ICheckPointRepository checkPointRepository;
 
-        public CheckPointService()
+        public CheckPointService(ICheckPointRepository checkPointRepository)
         {
-            checkPointRepository=Injector.Injector.CreateInstance<ICheckPointRepository>();
+            this.checkPointRepository = checkPointRepository;
         }
         public void Add(CheckPointDTO checkPoint,int tourId)
         {
             CheckPoint newCheckPoint = new CheckPoint(checkPoint.Name, tourId, checkPoint.Type);
             checkPointRepository.Add(newCheckPoint);
         }
-
+        public string GetName(int id)
+        {
+            return checkPointRepository.GetAll().Find(c => c.Id == id).Name;
+        } 
         public List<CheckPointDTO> GetByTourId(int id,int currentCheckPointId)
         {
             List<CheckPointDTO> checkPoints = new List<CheckPointDTO>();
@@ -33,8 +36,13 @@ namespace BookingApp.Services
                 {
                     checkPoints.Add(new CheckPointDTO(checkPoint));
                 }
-            }
-            return checkPoints;
+            }return checkPoints;
+        }
+
+        public CheckPoint GetById(int id)
+        {
+
+           return checkPointRepository.GetById(id);
         }
     }
 }

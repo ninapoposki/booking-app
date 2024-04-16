@@ -13,8 +13,8 @@ namespace BookingApp.Services
     public class OwnerService
     {
         private IOwnerRepository ownerRepository;
-        public OwnerService() {
-            ownerRepository = Injector.Injector.CreateInstance<IOwnerRepository>();
+        public OwnerService(IOwnerRepository ownerRepository) {
+            this.ownerRepository = ownerRepository;
         }
         public Owner GetByUserId(int userId) {
             return ownerRepository.GetByUserId(userId);

@@ -19,11 +19,12 @@ namespace BookingApp.Services
         public AccommodationService accommodationService;
         public GuestService guestService;
         private UserService userService;
-        public AccommodationReservationService(){
-            accommodationReservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
-            accommodationService = new AccommodationService();
-            guestService = new GuestService();
-            userService = new UserService();
+        public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository,IGuestRepository guestRepository,IUserRepository userRepository, IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository, IOwnerRepository ownerRepository)
+        {
+            this.accommodationReservationRepository = accommodationReservationRepository;
+            accommodationService = new AccommodationService(accommodationRepository,imageRepository,locationRepository,ownerRepository);
+            guestService = new GuestService(guestRepository);
+            userService = new UserService(userRepository);
         }
         public bool IsOverFiveDays(AccommodationReservation accommodationReservation){
             DateTime currentDate = DateTime.Now;

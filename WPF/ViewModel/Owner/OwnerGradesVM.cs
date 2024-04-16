@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Owner;
@@ -20,9 +21,21 @@ namespace BookingApp.WPF.ViewModel.Owner
         public AccommodationGradeDTO SelectedAccommodationGrade { get; set; }
         public int ownerId;
         public OwnerGradesVM(int currentUserId) {
-            guestGradeService = new GuestGradeService();
-            accommodationGradeService = new AccommodationGradeService();
-            accommodationReservationService = new AccommodationReservationService();
+            guestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationGradeService = new AccommodationGradeService(Injector.Injector.CreateInstance<IAccommodationGradeRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllOwnerGrades = new ObservableCollection<AccommodationGradeDTO>();
             SelectedAccommodationGrade = new AccommodationGradeDTO();
             ownerId = guestGradeService.GetByUserId(currentUserId).Id;

@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -21,7 +22,7 @@ namespace BookingApp.WPF.ViewModel.Owner
         {
             AccommodationGrade = accommodationGrade;
             Images = new ObservableCollection<ImageDTO>();
-            imageService = new ImageService();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             UpdateImages();
             UpdateDisplayedImage();
         }

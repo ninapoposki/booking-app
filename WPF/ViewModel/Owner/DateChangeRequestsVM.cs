@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -24,10 +25,26 @@ namespace BookingApp.WPF.ViewModel.Owner
         public TextBox commentTextBox { get; set; }
         public int currentUserId;
         public DateChangeRequestsVM(TextBox textBox, int loggedInUserId) {
-            reservationRequestService = new ReservationRequestService();
-            accommodationService = new AccommodationService();
-            guestService = new GuestService(); 
-            accommodationReservationService = new AccommodationReservationService();
+            reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>()); 
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             commentTextBox = textBox;
             currentUserId = loggedInUserId;

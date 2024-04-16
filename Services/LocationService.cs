@@ -15,9 +15,9 @@ namespace BookingApp.Services
     {
         private ILocationRepository locationRepository;
 
-        public LocationService()
+        public LocationService(ILocationRepository locationRepository)
         {
-            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
+            this.locationRepository = locationRepository;
         }
 
         public void GetAll(List<LocationDTO> locations)
@@ -40,8 +40,6 @@ namespace BookingApp.Services
             }
             return null;
         }
-        //irina
-        
         public HashSet<string> GetAllCountries() {
             return locationRepository.GetAllCountries();    
         }

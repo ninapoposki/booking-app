@@ -15,11 +15,13 @@ namespace BookingApp.Services
         private ITourReservationRepository tourReservationRepository;
         private TourGuestService tourGuestService;
         private UserService userService;
-        public TourReservationService()
+        private TourStartDateService tourStartDateService;
+        public TourReservationService(ITourReservationRepository tourReservationRepository,ITourGuestRepository tourGuestRepository,IUserRepository userRepository, ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
-            tourGuestService = new TourGuestService();
-            userService = new UserService();
+            this.tourReservationRepository = tourReservationRepository;
+            tourGuestService = new TourGuestService(tourGuestRepository);
+            userService = new UserService(userRepository);
+            tourStartDateService = new TourStartDateService(tourStartDateRepository,tourRepository,languageRepository,locationRepository);
         }
         public bool DoReservationExists(int tourStartId)
         {
@@ -65,7 +67,29 @@ namespace BookingApp.Services
                         guests.Add(new TourGuestDTO(tourGuest));
                     }
                 }
-            }return guests;
+            } return guests;
+        }
+        public TourReservationDTO GetReservationByTourId(int tourStartDateId) {
+            TourReservation? tourReservation = tourReservationRepository.GetAll().Find(t => t.TourStartDateId == tourStartDateId);
+            return new TourReservationDTO(tourReservation);
+        }
+
+        public bool CheckIfReserved(int tourStartDateId)
+        {
+            TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t => t.HasArrived == true && t.CheckPointId != -1);
+            if (guests != null)
+                return true;
+            return false;
+        }
+
+        public List<TourReservationDTO> GetByUserId(int userId)
+        {
+            List<TourReservationDTO> reservations = new List<TourReservationDTO>();
+            foreach (TourReservation tr in tourReservationRepository.GetAll().Where(tr => tr.UserId == userId))
+            { 
+                reservations.Add(new TourReservationDTO(tr));
+            }
+            return reservations;
         }
     }
 }

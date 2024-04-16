@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Guest;
@@ -56,10 +57,13 @@ namespace BookingApp.WPF.ViewModel.Guest
             set { numberOfDaysToStay = value; OnPropertyChanged(nameof(NumberOfDaysToStay));}
         }
         public GuestMainWindowVM(){
-            accommodationService = new AccommodationService();
-            imageService = new ImageService();
-            locationService = new LocationService();
-            ownerService = new OwnerService();
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
+            ownerService = new OwnerService(Injector.Injector.CreateInstance<IOwnerRepository>());
             AllAccommodations = new ObservableCollection<AccommodationDTO>();
             Images = new ObservableCollection<ImageDTO>();
             Types = new ObservableCollection<AccommodationType>(Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>());

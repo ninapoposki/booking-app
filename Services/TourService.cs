@@ -17,17 +17,15 @@ namespace BookingApp.Services
 {
     public class TourService
     {
-        private ITourRepository tourRepository;
-        private ImageService imageService; 
+        private ITourRepository tourRepository; 
         private LocationService locationService;
         private LanguageService languageService;
 
-        public TourService()
+        public TourService(ITourRepository tourRepository,ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
-            imageService = new ImageService();
-            locationService = new LocationService();
-           languageService = new LanguageService();
+            this.tourRepository = tourRepository; 
+            locationService = new LocationService(locationRepository);
+           languageService = new LanguageService(languageRepository);
         }
         public int GetCurrentId()
         {

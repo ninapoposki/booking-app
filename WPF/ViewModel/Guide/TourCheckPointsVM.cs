@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
@@ -20,7 +21,6 @@ namespace BookingApp.WPF.ViewModel.Guide
     {
          private int tourId;
          private int currentCheckPointIndex = 0;
-         private TourService tourService;
          private TourStartDateService tourStartDateService;
          private TourGuestService tourGuestService;
          private TourReservationService tourReservationService;
@@ -33,25 +33,31 @@ namespace BookingApp.WPF.ViewModel.Guide
          public List<TourGuestDTO> SelectedTourists { get; set; }
         public TourCheckPointsVM(TourStartDateDTO selectedStartDate)
          {
-             this.selectedStartDate = selectedStartDate;
-             tourService = new TourService();
-             checkPointService = new CheckPointService();
-             tourGuestService = new TourGuestService();
-             tourReservationService = new TourReservationService();
-             tourStartDateService = new TourStartDateService();
+            this.selectedStartDate = selectedStartDate;
+             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
+             tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
+             tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+              Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+              Injector.Injector.CreateInstance<ILanguageRepository>(),
+              Injector.Injector.CreateInstance<ILocationRepository>());
+             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
              Guests = new ObservableCollection<TourGuestDTO>();
              tourId = this.selectedStartDate.TourId;
              PresentTourists = new List<TourGuestDTO>();
              ToursCheckPoints = new List<CheckPointDTO>();
              SelectedTourists= new List<TourGuestDTO>();
              tourStartDateService.UpdateStartTime(selectedStartDate.Id);
-             LoadCheckPoints();
-             LoadTourists();
+             InitializeData();
          }
-         private void LoadCheckPoints()
+        private void InitializeData()
+        {
+            LoadCheckPoints();
+            LoadTourists();
+        }
+        private void LoadCheckPoints()
          {  
              ToursCheckPoints=checkPointService.GetByTourId(tourId,selectedStartDate.CurrentCheckPointId);
-             UpdateUI();
+             UpdateUI(); 
          }
          private void LoadTourists()
          {
@@ -85,26 +91,34 @@ namespace BookingApp.WPF.ViewModel.Guide
              {
                  MessageBox.Show("You reached last check point, tour ended!");
                  FinishingTour();
-             }
+             }//1
          }
          public void FinishingTour()
          {
             tourStartDateService.UpdateEndTime(selectedStartDate.Id);
          }
-         private void UpdateUI()
-         {
-             if (ToursCheckPoints != null && ToursCheckPoints.Count > currentCheckPointIndex)
-             {
-                 currentCheckPoint = ToursCheckPoints[currentCheckPointIndex];
-                 CheckPointName = currentCheckPoint.Name;
-                 CheckPointType = currentCheckPoint.Type;
-                 tourStartDateService.UpdateCurrentCheckPoint(currentCheckPoint.Id,selectedStartDate.Id);
+        private void UpdateUI()
+        {
+            UpdateCurrentCheckPoint();
+            CheckAndFinishTourIfNeeded();
+        }
+        private void UpdateCurrentCheckPoint()
+        {
+            if (ToursCheckPoints != null && ToursCheckPoints.Count > currentCheckPointIndex)
+            {
+                currentCheckPoint = ToursCheckPoints[currentCheckPointIndex];
+                CheckPointName = currentCheckPoint.Name;
+                CheckPointType = currentCheckPoint.Type;
+                tourStartDateService.UpdateCurrentCheckPoint(currentCheckPoint.Id, selectedStartDate.Id);
             }
-             if (currentCheckPointIndex + 1 == ToursCheckPoints.Count)
-             {
-                 CheckAndFinishTour();
-             }
-         }
+        }
+        private void CheckAndFinishTourIfNeeded()
+        {
+            if (currentCheckPointIndex + 1 == ToursCheckPoints.Count)
+            {
+                CheckAndFinishTour();
+            }
+        }
          public void EndTourClick()
          {
              MessageBox.Show("Tour has ended");
@@ -138,16 +152,10 @@ namespace BookingApp.WPF.ViewModel.Guide
          }
         public void TouristListSelectionChaged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (TourGuestDTO tourGuest in e.AddedItems)
+            SelectedTourists.AddRange(e.AddedItems.Cast<TourGuestDTO>().Where(guest => !SelectedTourists.Contains(guest)));
+            foreach (TourGuestDTO guest in e.RemovedItems.Cast<TourGuestDTO>())
             {
-                if (!SelectedTourists.Contains(tourGuest))
-                {
-                    SelectedTourists.Add(tourGuest);
-                }
-            }
-            foreach (TourGuestDTO tourGuest in e.RemovedItems)
-            {
-                SelectedTourists.Remove(tourGuest);
+                SelectedTourists.Remove(guest);
             }
         }
     }

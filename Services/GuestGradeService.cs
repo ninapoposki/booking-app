@@ -15,10 +15,10 @@ namespace BookingApp.Services
         private IGuestGradeRepository guestGradeRepository;
         private OwnerService ownerService;
 
-        public GuestGradeService()
+        public GuestGradeService(IGuestGradeRepository guestGradeRepository,IOwnerRepository ownerRepository)
         {
-            guestGradeRepository = Injector.Injector.CreateInstance<IGuestGradeRepository>();
-            ownerService = new OwnerService();
+            this.guestGradeRepository = guestGradeRepository;
+            ownerService = new OwnerService(ownerRepository);
         }
         public void Add(GuestGrade guestGrade)
         {

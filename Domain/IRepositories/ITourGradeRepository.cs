@@ -15,5 +15,8 @@ namespace BookingApp.Domain.IRepositories
         void Delete(TourGrade tourGrade);
         TourGrade Update(TourGrade tourGrade);
         void Subscribe(IObserver observer);
+
+        List<TourGrade> GetAll();
+      int GetCurrentId();
     }
 }

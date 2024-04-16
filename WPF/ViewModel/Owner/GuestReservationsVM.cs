@@ -21,8 +21,15 @@ namespace BookingApp.WPF.ViewModel.Owner
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public AccommodationReservationDTO SelectedAccommodationReservation { get; set; }
         public GuestReservationsVM() {
-            guestGradeService = new GuestGradeService();
-            accommodationReservationService = new AccommodationReservationService();
+            guestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             SelectedAccommodationReservation = new AccommodationReservationDTO();
             Update();
@@ -31,10 +38,6 @@ namespace BookingApp.WPF.ViewModel.Owner
             AllAccommodationReservations.Clear();
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())  {
                 var updatedDTO = accommodationReservationService.GetOneReservation(accommodationReservationDTO);
-                //accommodationReservationDTO.Accommodation = accommodationReservationService.accommodationService.GetByIdDTO(accommodationReservationDTO.AccommodationId); ;
-                // accommodationReservationDTO.Guest = accommodationReservationService.guestService.GetByIdDTO(accommodationReservationDTO.GuestId);
-                //updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
-                //updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
                 AllAccommodationReservations.Add(updatedDTO);
             }
         }
