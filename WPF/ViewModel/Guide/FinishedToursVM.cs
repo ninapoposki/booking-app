@@ -1,5 +1,7 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Injector;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -18,10 +20,10 @@ namespace BookingApp.WPF.ViewModel.Guide
         private ImageService imageService;
         private int userId;
         public FinishedToursVM(int userId)
-        { 
+        {
             this.userId = userId;
             FinishedTours = new ObservableCollection<TourDTO>();
-            tourStartDateService = new TourStartDateService();
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourReservationService = new TourReservationService();
             imageService = new ImageService();  
             LoadFinishedTours();

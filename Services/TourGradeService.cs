@@ -42,7 +42,6 @@ namespace BookingApp.Services
             var userReservations = reservations.Where(r => r.UserId == userId).Select(r => r.Id);
             return tourGradeRepository.GetAll().Any(g => userReservations.Contains(g.TourReservationId));
         }
-
         public int GetCurrentId()
         {
             return tourGradeRepository.GetCurrentId();
@@ -56,12 +55,16 @@ namespace BookingApp.Services
                 List<TourGrade> grades = tourGradeRepository.GetAll().Where(t => t.TourReservationId == reservation.Id).ToList();
                 foreach (var grade in grades)
                 {
-                    TourGradeDTO gradeDTO= new TourGradeDTO(grade);
-                    gradeDTO.FullName = tourGuest.FullName;
-                    gradeDTO.CheckPointName = checkPointService.GetName(tourGuest.CheckPointId);
-                    gradesDTO.Add(gradeDTO);
+                    gradesDTO.Add(SetAtributes(grade,tourGuest));
                 }
             }return gradesDTO;
+        }
+        private TourGradeDTO SetAtributes(TourGrade grade,TourGuest tourGuest)
+        {
+            TourGradeDTO gradeDTO = new TourGradeDTO(grade);
+            gradeDTO.FullName = tourGuest.FullName;
+            gradeDTO.CheckPointName = checkPointService.GetName(tourGuest.CheckPointId);
+            return gradeDTO;
         }
         private TourGuest FindTourGuest(int reservationId)
         {

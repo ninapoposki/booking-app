@@ -51,7 +51,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             {
                 int year = Convert.ToInt32(SelectedYear);
                 return tourStartDateService.GetByYear(year, userId);
-            }
+            }     
         }
         public void LoadBestTours()
         {
