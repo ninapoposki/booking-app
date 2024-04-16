@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
         mc:Ignorable="d"
-        Title="Pretraga i izbor tura" Height="450" Width="800"  WindowStartupLocation="CenterScreen">
+        Title="Pretraga i izbor tura" Height="650" Width="900"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,7 +41,7 @@
 
             <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
             <ComboBox x:Name="LanguageComboBox"  SelectedItem="{Binding SelectedLanguage , UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Languages}" Grid.Column="7" Margin="5"  DisplayMemberPath="Name" SelectedValuePath="Id"/>
-            
+
             <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
             <TextBox x:Name="PeopleTextBox" Text="{Binding PeopleCount , UpdateSourceTrigger=PropertyChanged}"  Grid.Column="9" Margin="5"/>
 
@@ -49,7 +49,7 @@
             <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="10,10,10,18" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" Grid.RowSpan="2">
+        <DataGrid Grid.Row="1" Margin="0,30,20,10" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -94,10 +94,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-
+            <Button Content="Obavestenja" Margin="5" Padding="10,0" Click="NotificationsClick" Height="34" Width="94" />
             <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
             <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
-            <Button Content="Zavrsene ture" Margin="5" Padding="10,0" Click="FinishedTourClick" Width="89" />
+            <Button Content="Zavrsene ture" Margin="5" Padding="10,0" Click="FinishedTourClick" Width="131" />
+            <Button Content="Aktivne ture" Margin="5" Padding="10,0" Click="ActiveTourClick" Width="111" />
         </StackPanel>
 
 

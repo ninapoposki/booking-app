@@ -33,6 +33,27 @@ namespace BookingApp.DTO
             }
         }
 
+        private string checkPointName { get; set; }
+
+        public string CheckPointName
+        {
+
+            get { return checkPointName; }
+
+
+            set
+            {
+
+                if (value != checkPointName)
+                {
+
+                    checkPointName = value;
+                    OnPropertyChanged("CheckPointName");
+                }
+
+            }
+        }
+
         private int age;
         public int Age
         {
@@ -98,7 +119,10 @@ namespace BookingApp.DTO
 
         public TourGuest ToTourGuest()
         {
-            return new TourGuest(Id, fullName, age,TourReservationId);
+            TourGuest guest = new TourGuest(Id, fullName, age, TourReservationId);
+            guest.CheckPointId = this.CheckPointId; 
+            guest.HasArrived = this.HasArrived;  
+            return guest;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

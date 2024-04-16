@@ -1,0 +1,62 @@
+﻿<Window x:Class="BookingApp.WPF.View.Tourist.ActiveToursWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+        mc:Ignorable="d"
+        Title="ActiveToursWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+
+            </Grid.ColumnDefinitions>
+
+
+        </Grid>
+
+        <DataGrid Grid.Row="0" Margin="10,38,10,0"  AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding ActiveTours}" IsReadOnly="True">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="Regular"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Opis ture" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="*"/>
+                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
+                <DataGridTextColumn Header="Datum" Binding="{Binding  SelectedDateTime.StartTime, UpdateSourceTrigger=PropertyChanged }" Width="*"/>
+                <DataGridTextColumn Header="CheckPoint" Binding="{Binding  CheckPointName , UpdateSourceTrigger=PropertyChanged }" Width="*"/>
+
+               
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+
+            <Button Content="Close" Margin="5" Padding="10,0" Click="CloseClick" Height="34" Width="94" />
+
+        </StackPanel>
+
+    </Grid>
+</Window>

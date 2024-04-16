@@ -48,26 +48,20 @@ namespace BookingApp.WPF.ViewModel.Tourist
                     tour.SelectedDateTime = tourStart;
                     FinishedTours.Add(tour);
                 }
-      
             }
         }
 
         public void RateTour()
         {
-
             if(SelectedTour==null )
             {
-
                 MessageBox.Show("Niste selektovali turu");
-
             }
             if (tourReservationService.CheckIfReserved(SelectedTour.SelectedDateTime.Id))
             {
                 TourGradeWindow tourGradeWindow = new TourGradeWindow(SelectedTour.SelectedDateTime.Id);
                 tourGradeWindow.Show();
             }
-            
-           
         }
     }
 }
