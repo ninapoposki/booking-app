@@ -17,8 +17,6 @@ namespace BookingApp.Services
         private UserService userService;
         private OwnerService ownerService;
         private AccommodationService accommodationService;
-
-
         public AccommodationGradeService()
         {
             accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();
@@ -38,21 +36,17 @@ namespace BookingApp.Services
             List<AccommodationGradeDTO> accommodationGradeDTOs = accommodationGrades.Select(accg => new AccommodationGradeDTO(accg)).ToList();
             return accommodationGradeDTOs;
         }
-        
         public AccommodationGrade Add(AccommodationGrade grade)
         {
             return accommodationGradeRepository.Add(grade);
         }
-
         public AccommodationGradeDTO GetOneAccommodationGrade(AccommodationReservationDTO accommodationReservationDTO,AccommodationGradeDTO accommodationGradeDTO)
         { 
             var accommodation = accommodationService.GetById(accommodationReservationDTO.AccommodationId);
             var owner = ownerService.GetById(accommodation.OwnerId);
             accommodationGradeDTO.OwnerId = accommodation.OwnerId; 
             accommodationGradeDTO.ReservationId = accommodationReservationDTO.Id;
-
             return accommodationGradeDTO;
-
         }
         public int GetCurrentId()
         {

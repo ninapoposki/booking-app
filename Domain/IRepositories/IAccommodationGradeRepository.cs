@@ -15,14 +15,12 @@ namespace BookingApp.Domain.IRepositories
         List<AccommodationGrade> GetAll();
         AccommodationGrade Add(AccommodationGrade accommodationGrade);
         int NextId();
-        public AccommodationGrade GetById(int id);
         List<AccommodationGrade> GetByOwnerId(int ownerId);
         public List<double> GetAverageGrades(int ownerId);
         public int GetReservationId(AccommodationGradeDTO selectedAccommodationGrade);
         int GetCurrentId();
         bool IsReservationGraded(int reservationId);
         int GetReservationId(AccommodationReservation reservation);
-
-
+      
     }
 }

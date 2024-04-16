@@ -13,7 +13,7 @@ namespace BookingApp.Domain.IRepositories
     {
         List<AccommodationReservation> GetReservationsForAccommodation(int accommodationId); //mislimd a mi ne treba ovo
 
-        bool IsValid(AccommodationReservation reservation,Accommodation accommodation);
+        //bool IsValid(AccommodationReservation reservation,Accommodation accommodation);
         List<(DateTime, DateTime)> FindAlternativeDates(AccommodationReservation reservation, int accommodationId);
         bool AreDatesAvailable(int accommodationId,DateTime start,DateTime end);
         List<(DateTime, DateTime)> FindDateRange(AccommodationReservation reservation, int accommodationId);
@@ -24,12 +24,9 @@ namespace BookingApp.Domain.IRepositories
         //WriteToFile?
         void Delete(AccommodationReservation accommodationReservation);
         AccommodationReservation Update(AccommodationReservation reservation);
-        bool IsOverFiveDays(AccommodationReservation reservation);
+       // bool IsOverFiveDays(AccommodationReservation reservation);
         void Subscribe(IObserver observer);
-
-
-
-
+        bool AreDatesValid(DateTime initialDate, DateTime endDate);
 
 
     }
