@@ -79,7 +79,7 @@
                     <DataGridTextColumn Header="Last Name" Binding="{Binding Guest.LastName}" Width="100"/>
                     <DataGridTextColumn Header="Phone Number" Binding="{Binding Guest.PhoneNumber}" Width="100"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="100"/>
-                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}" Width="100"/>
+                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodations.Name}" Width="100"/>
                     <DataGridTextColumn Header="Initial Date" Binding="{Binding InitialDate}" Width="85"/>
                     <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="85"/>
                     <DataGridTextColumn Header="Number Of Guests" Binding="{Binding NumberOfGuests}" Width="110"/>

@@ -53,8 +53,8 @@ namespace BookingApp.DTO
         public AccommodationReservationDTO AccommodationReservation { get; set; }
         private AccommodationDTO accommodation;
         public AccommodationDTO Accommodation {
-            get{ return accommodation; }
-            set{if (value != accommodation) { accommodation = value; OnPropertyChanged("Accommodation"); }
+            get { return accommodation; }
+            set {if (value != accommodation) { accommodation = value; OnPropertyChanged("Accommodation"); }}
         }
         public ReservationRequestDTO() { }
         public ReservationRequestDTO(ReservationRequest reservationRequest) {
