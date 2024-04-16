@@ -26,13 +26,13 @@ namespace BookingApp.Services
         public AccommodationGradeService()
         {
             accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();
-            userService = new UserService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             ownerService = new OwnerService();
             guestService = new GuestService();
             guestGradeService = new GuestGradeService();
             accommodationService = new AccommodationService();
             accommodationReservationService = new AccommodationReservationService();
-            locationService = new LocationService();
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
         }
 
         public List<double> GetAverageGrades(string username)

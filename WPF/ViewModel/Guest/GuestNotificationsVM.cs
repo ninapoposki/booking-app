@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -38,7 +39,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             SelectedReservationRequest = new ReservationRequestDTO();
             reservationRequestService = new ReservationRequestService();
             accommodationService = new AccommodationService();
-            imageService = new ImageService();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             Images = new ObservableCollection<ImageDTO>();
             Update();
         }

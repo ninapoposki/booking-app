@@ -22,8 +22,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         private int userId;
         private TourService tourService;
         private TourStartDateService tourStartDateService;
-        private LocationService locationService;
-        private LanguageService languageService;
         private TourReservationService tourReservationService;
         public TourDTO SelectedTour { get; set; }
         public LiveTourVM(int userId)
@@ -31,11 +29,12 @@ namespace BookingApp.WPF.ViewModel.Guide
            Tours = new ObservableCollection<TourDTO>();
            SelectedTour = new TourDTO();
            this.userId=userId;
-           tourService = new TourService();
-           tourStartDateService = new TourStartDateService();
-           tourReservationService = new TourReservationService();
-           languageService= new LanguageService();
-           locationService= new LocationService();
+           tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(),Injector.Injector.CreateInstance<ILanguageRepository>(),Injector.Injector.CreateInstance<ILocationRepository>());
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
             LoadTodaysTours();
         }
         private void LoadTodaysTours()

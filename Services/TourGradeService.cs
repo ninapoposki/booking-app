@@ -18,14 +18,13 @@ namespace BookingApp.Services
         private TourService tourService;
         private TourReservationService tourReservationService;
         private CheckPointService checkPointService;
-
-        public TourGradeService()
+        public TourGradeService(ICheckPointRepository checkPointRepository,ITourGradeRepository tourGradeRepository,ITourReservationRepository tourReservationRepository, ITourGuestRepository tourGuestRepository, IUserRepository userRepository, ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourGradeRepository=Injector.Injector.CreateInstance<ITourGradeRepository>();
-            tourReservationService = new TourReservationService();
-            tourGuestService=new TourGuestService();
-            checkPointService=new CheckPointService();
-            tourService = new TourService();
+            this.tourGradeRepository = tourGradeRepository;
+            tourReservationService = new TourReservationService(tourReservationRepository,tourGuestRepository,userRepository,tourStartDateRepository,tourRepository,languageRepository,locationRepository);
+            tourGuestService=new TourGuestService(tourGuestRepository);
+            checkPointService=new CheckPointService(checkPointRepository);
+            tourService = new TourService(tourRepository,languageRepository,locationRepository);
         }
 
         public TourGrade Add(TourGrade grade)
@@ -37,7 +36,6 @@ namespace BookingApp.Services
             var tour = tourService.GetById(tourReservationDTO.TourStartDateId);
             return tourGradeDTO;
         }
-
         public int GetCurrentId()
         {
             return tourGradeRepository.GetCurrentId();
@@ -51,12 +49,16 @@ namespace BookingApp.Services
                 List<TourGrade> grades = tourGradeRepository.GetAll().Where(t => t.TourReservationId == reservation.Id).ToList();
                 foreach (var grade in grades)
                 {
-                    TourGradeDTO gradeDTO= new TourGradeDTO(grade);
-                    gradeDTO.FullName = tourGuest.FullName;
-                    gradeDTO.CheckPointName = checkPointService.GetName(tourGuest.CheckPointId);
-                    gradesDTO.Add(gradeDTO);
+                    gradesDTO.Add(SetAtributes(grade,tourGuest));
                 }
             }return gradesDTO;
+        }
+        private TourGradeDTO SetAtributes(TourGrade grade,TourGuest tourGuest)
+        {
+            TourGradeDTO gradeDTO = new TourGradeDTO(grade);
+            gradeDTO.FullName = tourGuest.FullName;
+            gradeDTO.CheckPointName = checkPointService.GetName(tourGuest.CheckPointId);
+            return gradeDTO;
         }
         private TourGuest FindTourGuest(int reservationId)
         {

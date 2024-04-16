@@ -15,10 +15,8 @@ namespace BookingApp.Services
     public class ImageService
     {
         private IImageRepository imageRepository;
-       //private TourGradeService tourGradeService;
-        public ImageService() { 
-            imageRepository=Injector.Injector.CreateInstance<IImageRepository>();
-            //tourGradeService= new TourGradeService();
+        public ImageService(IImageRepository imageRepository) { 
+            this.imageRepository = imageRepository;
         }
 
         public void Update(ImageDTO image,int tourId)

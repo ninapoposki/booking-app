@@ -21,11 +21,11 @@ namespace BookingApp.Services
         private LocationService locationService;
         private LanguageService languageService;
 
-        public TourService()
+        public TourService(ITourRepository tourRepository,ILanguageRepository languageRepository, ILocationRepository locationRepository)
         {
-            tourRepository = Injector.Injector.CreateInstance<ITourRepository>();
-            locationService = new LocationService();
-           languageService = new LanguageService();
+            this.tourRepository = tourRepository; 
+            locationService = new LocationService(locationRepository);
+           languageService = new LanguageService(languageRepository);
         }
         public int GetCurrentId()
         {

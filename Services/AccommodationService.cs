@@ -20,8 +20,8 @@ namespace BookingApp.Services
         public AccommodationService()
         {
             accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
-            imageService = new ImageService();
-            locationService = new LocationService();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
             ownerService = new OwnerService();
 
         }

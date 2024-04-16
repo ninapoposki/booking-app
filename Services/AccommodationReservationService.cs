@@ -27,8 +27,8 @@ namespace BookingApp.Services
             accommodationReservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationService = new AccommodationService();
             guestService = new GuestService();
-            userService = new UserService();
-            locationService= new LocationService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
+            locationService= new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
             ownerService = new OwnerService();
         }
         public bool IsOverFiveDays(AccommodationReservationDTO accommodationReservationDTO)

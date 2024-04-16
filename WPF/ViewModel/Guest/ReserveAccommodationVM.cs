@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using BookingApp.Domain.IRepositories;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Guest;
@@ -25,7 +26,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         {
             accommodationReservationService = new AccommodationReservationService();
             guestService = new GuestService();
-            userService = new UserService();
+            userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             accommodationReservationDTO = new AccommodationReservationDTO(); 
             selectedAccommodationDTO = accommodationDTO;
             guestDTO =new GuestDTO();

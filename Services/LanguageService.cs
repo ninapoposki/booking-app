@@ -13,9 +13,9 @@ namespace BookingApp.Services
     public class LanguageService
     {
         private ILanguageRepository languageRepository;
-        public LanguageService() 
+        public LanguageService(ILanguageRepository languageRepository) 
         {
-            languageRepository = Injector.Injector.CreateInstance<ILanguageRepository>();
+            this.languageRepository = languageRepository;
         }
         public void GetAll(List<LanguageDTO> languages)
         {

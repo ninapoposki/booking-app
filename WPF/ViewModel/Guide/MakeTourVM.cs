@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using BookingApp.Services;
+using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.ViewModel.Guide
 {
@@ -36,12 +37,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         public ObservableCollection<CheckPointDTO> CheckPoints { get; set; }
         public MakeTourVM(int userId)
         {
-            tourService = new TourService();
-            tourStartDateService = new TourStartDateService();
-            checkPointService = new CheckPointService();
-            imageService = new ImageService();
-            languageService = new LanguageService();
-            locationService = new LocationService();
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            languageService = new LanguageService(Injector.Injector.CreateInstance<ILanguageRepository>());
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
             LanguageComboBox = new List<LanguageDTO>();
             LocationComboBox = new List<LocationDTO>();
             SelectedLanguage = new LanguageDTO();
