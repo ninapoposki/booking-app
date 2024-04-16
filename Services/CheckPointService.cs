@@ -23,7 +23,10 @@ namespace BookingApp.Services
             CheckPoint newCheckPoint = new CheckPoint(checkPoint.Name, tourId, checkPoint.Type);
             checkPointRepository.Add(newCheckPoint);
         }
-
+        public string GetName(int id)
+        {
+            return checkPointRepository.GetAll().Find(c => c.Id == id).Name;
+        } 
         public List<CheckPointDTO> GetByTourId(int id,int currentCheckPointId)
         {
             List<CheckPointDTO> checkPoints = new List<CheckPointDTO>();
@@ -33,8 +36,7 @@ namespace BookingApp.Services
                 {
                     checkPoints.Add(new CheckPointDTO(checkPoint));
                 }
-            }
-            return checkPoints;
+            }return checkPoints;
         }
 
         public CheckPoint GetById(int id)

@@ -5,8 +5,95 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="TourReviews" Height="450" Width="800">
+        Title="TourReviews" Height="600" Width="960">
     <Grid>
-        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border BorderBrush="Black" BorderThickness="2" Margin="20" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Tourists reviews" FontWeight="Bold" FontSize="20" Padding="10"></TextBlock>
+                    <ItemsControl ItemsSource="{Binding TourReviews}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Chocolate" BorderThickness="1" Margin="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="Information" HorizontalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0 10" Padding="10"></TextBlock>
+                                            <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Full name:" Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBlock Text="{Binding FullName}" Margin="5 0 0 0" Padding="10"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Checkpoint:"  Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBlock Text="{Binding CheckPointName}" Margin="5 0 0 0" Padding="10"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Valid reviews:"  Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBlock Text="{Binding Validity}" Margin="5 0 0 0" Padding="10"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="Grades" HorizontalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0 10" Padding="10"></TextBlock>
+                                            <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Knowladge" Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBox Text="{Binding GuideKnowledge}" IsReadOnly="True" Height="20" Width="20" Padding="2"></TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Languages" Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBox Text="{Binding LanguageKnowledge}" IsReadOnly="True" Height="20" Width="20" Padding="2" ></TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Attractions" Margin="5 0 10 0" Padding="10"></TextBlock>
+                                                    <TextBox Text="{Binding TourAttractions}" IsReadOnly="True" Height="20" Width="20" Padding="2" ></TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                                            <TextBlock Text="Comment" HorizontalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0 10" Padding="10"></TextBlock>
+                                            <TextBlock Text="{Binding Comment}" TextWrapping="Wrap" HorizontalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Orientation="Vertical">
+                                            <TextBlock Text="Review image" HorizontalAlignment="Center" FontWeight="Bold" FontSize="13" Margin="0 10" Padding="10"></TextBlock>
+                                            <Image  Source="{Binding Path}" Height="100" Width="150" HorizontalAlignment="Center"></Image>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="REPORT" HorizontalAlignment="Center" Margin="0,0,0,5" />
+                                            <Button  Width="50" Height="50" HorizontalAlignment="Center" Click="ReportReviewClick" BorderBrush="Black" BorderThickness="2">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Border CornerRadius="25" BorderBrush="Black" BorderThickness="1" Background="Gray" Width="50"  Height="50" HorizontalAlignment="Center"  VerticalAlignment="Center">
+                                                        <StackPanel>
+                                                            <TextBlock Text="!"  FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="10"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                       </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Window>
