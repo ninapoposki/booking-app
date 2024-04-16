@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.Model;
+using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.WPF.View.Owner;
 using System;
@@ -11,29 +12,20 @@ using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
-    public class OwnerGradesVM : ViewModelBase
-    {
-        public OwnerService ownerService;
-        public UserService userService;
+    public class OwnerGradesVM : ViewModelBase {
         private AccommodationGradeService accommodationGradeService;
         private GuestGradeService guestGradeService;
-        public AccommodationService accommodationService;
         public AccommodationReservationService accommodationReservationService;
-        public GuestService guestService;
         public ObservableCollection<AccommodationGradeDTO> AllOwnerGrades { get; set; }
         public AccommodationGradeDTO SelectedAccommodationGrade { get; set; }
         public int ownerId;
-        public OwnerGradesVM(string username) {
-            ownerService = new OwnerService();
-            userService = new UserService();
+        public OwnerGradesVM(int currentUserId) {
             guestGradeService = new GuestGradeService();
             accommodationGradeService = new AccommodationGradeService();
-            accommodationService = new AccommodationService();
             accommodationReservationService = new AccommodationReservationService();
-            guestService = new GuestService();
             AllOwnerGrades = new ObservableCollection<AccommodationGradeDTO>();
             SelectedAccommodationGrade = new AccommodationGradeDTO();
-            ownerId = ownerService.GetByUserId(userService.GetByUsername(username).Id).Id;
+            ownerId = guestGradeService.GetByUserId(currentUserId).Id;
             Update();
         }
         public void Update(){
@@ -41,33 +33,19 @@ namespace BookingApp.WPF.ViewModel.Owner
             foreach (AccommodationGradeDTO accommodationGradeDTO in accommodationGradeService.GetAll()){
                 if(ownerId == accommodationGradeDTO.OwnerId && guestGradeService.IsGuestGraded(accommodationGradeDTO.ReservationId)) { 
                     var updatedDTO = accommodationGradeDTO;
-                    updatedDTO.Owner = GetOwner(accommodationGradeDTO.OwnerId);
                     updatedDTO.AccommodationReservation = GetReservation(accommodationGradeDTO.ReservationId);
-                    updatedDTO.AccommodationReservation.Guest = GetGuest(accommodationGradeDTO.AccommodationReservation.GuestId);
-                    updatedDTO.AccommodationReservation.Accommodation = GetAccommodation(accommodationGradeDTO.AccommodationReservation.AccommodationId);
                     AllOwnerGrades.Add(updatedDTO);
                 }
             }
         }
-        public GuestDTO GetGuest(int guestId) {
-            var guest = guestService.GetById(guestId);
-            GuestDTO guestDTO = new GuestDTO(guest);
-            return guestDTO;
-        }
-        public OwnerDTO GetOwner(int ownerId)   {
-            var owner = ownerService.GetById(ownerId);
-            OwnerDTO ownerDTO = new OwnerDTO(owner);
-            return ownerDTO;
-        }
         public AccommodationReservationDTO GetReservation(int reservationId) {
-            var reservation = accommodationReservationService.GetById(reservationId);
-            AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(reservation);
+           // var reservation = accommodationReservationService.GetById(reservationId);
+            AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.GetById(reservationId));
+            //accommodationReservationDTO.Accommodation = accommodationReservationService.accommodationService.GetByIdDTO(reservation.AccommodationId); ;
+            // accommodationReservationDTO.Guest = accommodationReservationService.guestService.GetByIdDTO(reservation.GuestId);
+            accommodationReservationDTO.Accommodation = accommodationReservationService.accommodationService.GetByIdDTO(accommodationReservationDTO.AccommodationId); ;
+             accommodationReservationDTO.Guest = accommodationReservationService.guestService.GetByIdDTO(accommodationReservationDTO.GuestId);
             return accommodationReservationDTO;
-        }
-        public AccommodationDTO GetAccommodation(int accommodationId)  {
-            var accommodation = accommodationService.GetById(accommodationId);
-            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
-            return accommodationDTO;
         }
         public void GradeDetailsClick() {
             if (SelectedAccommodationGrade != null) {

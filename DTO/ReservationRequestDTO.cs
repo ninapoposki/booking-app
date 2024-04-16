@@ -15,61 +15,37 @@ namespace BookingApp.DTO
         public int id;
         public int Id{
             get { return id; }
-            set {
-                if (id != value) {
-                    id = value;
-                    OnPropertyChanged("Id");
-                }
+            set {if (id != value) {  id = value;  OnPropertyChanged("Id"); }
             }
         }
         private int reservationId;
         public int ReservationId {
             get { return reservationId; }
-            set {
-                if (reservationId != value) {
-                    reservationId = value;
-                    OnPropertyChanged("ReservationId");
-                }
+            set { if (reservationId != value) {  reservationId = value;  OnPropertyChanged("ReservationId"); }
             }
         }
         private DateTime newInitialDate = DateTime.Now;
         public DateTime NewInitialDate {
             get {  return newInitialDate;  }
-            set {
-                if (value != newInitialDate) {
-                    newInitialDate = value;
-                    OnPropertyChanged("NewInitialDate");
-                }
+            set { if (value != newInitialDate) {  newInitialDate = value;   OnPropertyChanged("NewInitialDate");   }
             }
         }
         private DateTime newEndDate = DateTime.Now;
         public DateTime NewEndDate {
             get { return newEndDate; }
-            set {
-                if (value != newEndDate) {
-                    newEndDate = value;
-                    OnPropertyChanged("NewEndDate");
-                }
+            set {if (value != newEndDate) { newEndDate = value; OnPropertyChanged("NewEndDate"); }
             }
         }
         private RequestStatus requestStatus;
         public RequestStatus RequestStatus {
             get { return requestStatus; }
-            set {
-                if (requestStatus != value) {
-                    requestStatus = value;
-                    OnPropertyChanged("RequestStatus");
-                }
+            set { if (requestStatus != value) { requestStatus = value; OnPropertyChanged("RequestStatus"); }
             }
         }
         private String comment="";
         public String Comment {
             get { return comment; }
-            set{
-                if (comment != value) {
-                    comment = value;
-                    OnPropertyChanged("Comment");
-                }
+            set{ if (comment != value) { comment = value; OnPropertyChanged("Comment"); }
             }
         }
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
@@ -78,11 +54,7 @@ namespace BookingApp.DTO
         private AccommodationDTO accommodation;
         public AccommodationDTO Accommodation {
             get{ return accommodation; }
-            set{
-                if (value != accommodation) {
-                    accommodation = value;
-                    OnPropertyChanged("Accommodation");}
-            }
+            set{if (value != accommodation) { accommodation = value; OnPropertyChanged("Accommodation"); }
         }
         public ReservationRequestDTO() { }
         public ReservationRequestDTO(ReservationRequest reservationRequest) {
@@ -95,7 +67,7 @@ namespace BookingApp.DTO
         }
         public ReservationRequest ToReservationRequest() {
             var reservationRequest = new ReservationRequest();
-            reservationRequest.Id = this.Id;
+            reservationRequest.Id = this.Id; 
             reservationRequest.ReservationId = this.ReservationId;
             reservationRequest.NewInitialDate = this.NewInitialDate;
             reservationRequest.NewEndDate = this.NewEndDate;

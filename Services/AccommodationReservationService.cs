@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Injector;
@@ -19,13 +19,11 @@ namespace BookingApp.Services
         public AccommodationService accommodationService;
         public GuestService guestService;
         private UserService userService;
-       
         public AccommodationReservationService(){
             accommodationReservationRepository = Injector.Injector.CreateInstance<IAccommodationReservationRepository>();
             accommodationService = new AccommodationService();
             guestService = new GuestService();
             userService = new UserService();
-           
         }
         public bool IsOverFiveDays(AccommodationReservation accommodationReservation){
             DateTime currentDate = DateTime.Now;

@@ -14,12 +14,12 @@ namespace BookingApp.WPF.ViewModel.Owner
     public class GradeGuestVM : ViewModelBase
     {
        public GuestGradeService GuestGradeService { get; set; }
-        public AccommodationReservationDTO selectedAccommodationReservation;
+        public AccommodationReservationDTO SelectedAccommodationReservation {  get; set; }
         public GuestGradeDTO guestGradeDTO { get; set; }
         public GradeGuestVM(AccommodationReservationDTO accommodationReservationDTO) {
 
             
-            selectedAccommodationReservation = accommodationReservationDTO;
+            this.SelectedAccommodationReservation = accommodationReservationDTO;
             GuestGradeService = new GuestGradeService();
             guestGradeDTO = new GuestGradeDTO();
         }
@@ -33,8 +33,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             guestGradeDTO.Cleanless = CleannessRadio;
             guestGradeDTO.RulesFollowing = FollowingTheRulesRadio;
             guestGradeDTO.Comment = Comments;
-            guestGradeDTO.GuestId = selectedAccommodationReservation.GuestId;
-            guestGradeDTO.ReservationId = selectedAccommodationReservation.Id;
+            guestGradeDTO.GuestId = SelectedAccommodationReservation.GuestId;
+            guestGradeDTO.ReservationId = SelectedAccommodationReservation.Id;
             GuestGradeService.Add(guestGradeDTO.ToGuestGrade());
             
         }

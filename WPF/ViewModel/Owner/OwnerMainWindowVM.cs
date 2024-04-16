@@ -38,7 +38,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             if (gradeNum > 49){ ownerDTO.Role = (AverageGrade > gradeOwnerLimit) ? "SUPEROWNER" : "OWNER";
             } else {  ownerDTO.Role = "OWNER"; }
             string Role =ownerDTO.Role;
-            //ownerService.UpdateOwnerRole(ownerDTO, Role);
+            ownerService.UpdateOwnerRole(ownerDTO, Role);
         }
         public double GetAverageGrade() {
             double gradeSum = 0;
@@ -50,7 +50,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             return gradeSum / (double)gradeNum;
         }
         public void AddAccommodationClick() {
-            AddAccommodation addAccommodationWindow = new AddAccommodation(loggedInUserUsername);
+            AddAccommodation addAccommodationWindow = new AddAccommodation(loggedInUserId);
             addAccommodationWindow.ShowDialog();
         }
         public void GradeGuestClick(){
@@ -66,11 +66,11 @@ namespace BookingApp.WPF.ViewModel.Owner
             reservations.ShowDialog();
         }
         public void MyGradesClick() {
-            OwnerGrades grades = new OwnerGrades(loggedInUserUsername);
+            OwnerGrades grades = new OwnerGrades(loggedInUserId);
             grades.ShowDialog();
         }
         public void RequestsClick(){
-            DateChangeRequests datechanges = new DateChangeRequests();
+            DateChangeRequests datechanges = new DateChangeRequests(loggedInUserId);
             datechanges.ShowDialog();
         }
         private double averageGrade;

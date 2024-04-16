@@ -13,7 +13,6 @@ namespace BookingApp.Domain.Model
     {
         public int Id {  get; set; }
         public string Name {  get; set; }
-        //public Location Location {  get; set; } 
         public int IdLocation {  get; set; }
         public AccommodationType AccommodationType {  get; set; }
         public int Capacity {  get; set; }
@@ -26,7 +25,6 @@ namespace BookingApp.Domain.Model
 
         public Accommodation() {
             Images = new List<Image>();
-           // Location=new Location();
             Owner = new Owner();
 
         }

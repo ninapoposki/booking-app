@@ -17,7 +17,6 @@ namespace BookingApp.Services
         private UserService userService;
         private OwnerService ownerService;
         private AccommodationService accommodationService;
-
         public AccommodationGradeService()
         {
             accommodationGradeRepository = Injector.Injector.CreateInstance<IAccommodationGradeRepository>();

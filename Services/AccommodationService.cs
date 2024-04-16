@@ -14,8 +14,8 @@ namespace BookingApp.Services
     public class AccommodationService
     {
         private IAccommodationRepository accommodationRepository;
-        private LocationService locationService;
-        private ImageService imageService;
+        public LocationService locationService;
+        public ImageService imageService;
         private OwnerService ownerService;
         public AccommodationService()
         {

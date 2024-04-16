@@ -1,4 +1,4 @@
-﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;

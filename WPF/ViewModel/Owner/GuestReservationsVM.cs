@@ -30,22 +30,15 @@ namespace BookingApp.WPF.ViewModel.Owner
         public void Update() {
             AllAccommodationReservations.Clear();
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())  {
-                var updatedDTO = accommodationReservationDTO;
-                updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
-                updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
+                var updatedDTO = accommodationReservationService.GetOneReservation(accommodationReservationDTO);
+                //accommodationReservationDTO.Accommodation = accommodationReservationService.accommodationService.GetByIdDTO(accommodationReservationDTO.AccommodationId); ;
+                // accommodationReservationDTO.Guest = accommodationReservationService.guestService.GetByIdDTO(accommodationReservationDTO.GuestId);
+                //updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
+                //updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
                 AllAccommodationReservations.Add(updatedDTO);
             }
         }
-        public GuestDTO GetGuest(int guestId) {
-            var guest = accommodationReservationService.guestService.GetById(guestId);
-            GuestDTO guestDTO = new GuestDTO(guest);
-            return guestDTO;
-        }
-        public AccommodationDTO GetAccommodation(int accommodationId) {
-            var accommodation = accommodationReservationService.accommodationService.GetById(accommodationId);
-            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
-            return accommodationDTO;
-        }
+        
         public void GuestDataGrid(AccommodationReservationDTO selectedAccommodationReservation) {
                 int reservationId = guestGradeService.GetReservationId(selectedAccommodationReservation);
                 if (IsGuestGraded(reservationId)) {

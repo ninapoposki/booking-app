@@ -22,19 +22,21 @@ namespace BookingApp.WPF.ViewModel.Owner
         public ReservationRequestDTO SelectedReservation { get; set; }
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public TextBox commentTextBox { get; set; }
-        public DateChangeRequestsVM(TextBox textBox) {
+        public int currentUserId;
+        public DateChangeRequestsVM(TextBox textBox, int loggedInUserId) {
             reservationRequestService = new ReservationRequestService();
             accommodationService = new AccommodationService();
             guestService = new GuestService(); 
             accommodationReservationService = new AccommodationReservationService();
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             commentTextBox = textBox;
+            currentUserId = loggedInUserId;
             Update();
         }
         public void Update() {
             AllReservationRequests.Clear();
             foreach (ReservationRequestDTO reservationRequestDTO in reservationRequestService.GetAll()) {
-                if (reservationRequestDTO.RequestStatus == RequestStatus.ONHOLD) {
+                if (reservationRequestDTO.RequestStatus == RequestStatus.ONHOLD ) {
                     var updatedDTO = reservationRequestDTO;
                     updatedDTO.AccommodationReservation= GetAccommodationReservation(reservationRequestDTO.ReservationId);
                     updatedDTO.AccommodationReservation.Guest = GetGuest(reservationRequestDTO.AccommodationReservation.GuestId);
@@ -42,13 +44,17 @@ namespace BookingApp.WPF.ViewModel.Owner
                     bool isDateValid = accommodationReservationService.AreDatesAvailable(updatedDTO.AccommodationReservation.AccommodationId, updatedDTO.NewInitialDate, updatedDTO.NewEndDate);
                     if(isDateValid == true) { updatedDTO.Message = "FREE";
                     } else { updatedDTO.Message = "NOT FREE"; }
-                 AllReservationRequests.Add(updatedDTO);
+                    if(reservationRequestDTO.AccommodationReservation.Accommodation.OwnerId == currentUserId)
+                    {
+                        AllReservationRequests.Add(updatedDTO);
+                    }
                 }
             }
         }
         public AccommodationReservationDTO GetAccommodationReservation(int accommodatiodReservationId) {
             var accommres = accommodationReservationService.GetById(accommodatiodReservationId);
             AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(accommres);
+           // accommodationReservationDTO.Accommodation = accommodationService.GetAccommodation(accommodatiodReservationId);
             return accommodationReservationDTO;
         }
         public GuestDTO GetGuest(int guestId){
