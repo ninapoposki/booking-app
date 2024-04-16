@@ -15,121 +15,45 @@ namespace BookingApp.DTO
         public int Id
         {
             get { return id; }
-            set
-            {
-                if (value != id)
-                {
-                    id = value;
-                    OnPropertyChanged("Id");
-                }
-            }
+            set { if (id != value) { id = value; OnPropertyChanged("Id"); } }
         }
-
-        private int accommodationReservationId;
-        public int AccommodationReservationId
-        {
-            get { return accommodationReservationId; }
-            set
-            {
-                if (value != accommodationReservationId)
-                {
-                    accommodationReservationId = value;
-                    OnPropertyChanged("AccommodationReservationId");
-                }
-            }
-        }
-
         private string firstName;
         public string FirstName
         {
             get { return firstName; }
-            set
-            {
-                if (value != firstName)
-                {
-                    firstName = value;
-                    OnPropertyChanged("FirstName");
-                }
-            }
+            set { if (value != firstName) { firstName = value; OnPropertyChanged("FirstName"); } }
         }
         public string lastName;
         public string LastName
         {
             get { return lastName; }
-            set
-            {
-                if (value != lastName)
-                {
-                    lastName = value;
-                    OnPropertyChanged("LastName");
-                }
-            }
+            set { if (value != lastName){ lastName = value;OnPropertyChanged("LastName"); } }
         }
         public string phoneNumber;
         public string PhoneNumber
         {
             get { return phoneNumber; }
-            set
-            {
-                if (value != phoneNumber)
-                {
-                    phoneNumber = value;
-                    OnPropertyChanged("PhoneNumber");
-                }
-            }
+            set { if (value != phoneNumber){ phoneNumber = value; OnPropertyChanged("PhoneNumber");} }
         }
-
         public string email;
         public string Email
         {
             get { return email; }
-            set
-            {
-                if (value != email)
-                {
-                    email = value;
-                    OnPropertyChanged("Email");
-                }
-            }
+            set { if (value != email){ email = value; OnPropertyChanged("Email"); } }
         }
-
-
-
-
         private User user { get; set; }
-        public User User
-        {
+        public User User{
             get { return user; }
-            set
-            {
-                if (value != user)
-                {
-                    user = value;
-                    OnPropertyChanged("User");
-                }
-            }
+            set { if (value != user){ user = value; OnPropertyChanged("User");} }
         }
         private int userId { get; set; }
-
         public int UserId
         {
             get { return userId; }
-            set
-            {
-                if (value != userId)
-                {
-                    userId = value;
-                    OnPropertyChanged("UserId");
-                }
-            }
+            set {  if (value != userId){ userId = value; OnPropertyChanged("UserId");} }
         }
-
-
         public GuestDTO() { }
-
-        public GuestDTO(Guest guest)
-        {
-
+        public GuestDTO(Guest guest){
             Id = guest.Id;
             FirstName = guest.FirstName;
             LastName=guest.LastName;
@@ -138,27 +62,18 @@ namespace BookingApp.DTO
             User=guest.User; 
             UserId = guest.UserId;
         }
-        public Guest ToGuest()
-        {
+        public Guest ToGuest(){
             var guest = new Guest();
-
             guest.Id = this.Id;
             guest.FirstName = this.FirstName;
             guest.LastName = this.LastName;
             guest.PhoneNumber = this.PhoneNumber;
             guest.Email = this.Email;
             guest.UserId = this.UserId;
-
-
             return guest;
         }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null){
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
-

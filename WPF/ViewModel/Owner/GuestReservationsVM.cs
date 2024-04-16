@@ -63,7 +63,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             if (accommodationReservationDTO.EndDate > DateTime.Now){
                 MessageBox.Show("Guest stay has not finished yet!");
             } else{
-                if (accommodationReservationService.IsOverFiveDays(accommodationReservationDTO)) {
+                if (accommodationReservationService.IsOverFiveDays(accommodationReservationDTO.ToAccommodationReservation())) {
                     GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(accommodationReservationDTO);
                     gradeGuestWindow.ShowDialog();
                 } else {  MessageBox.Show("Grading is not possible, it has been more than 5 days."); }
