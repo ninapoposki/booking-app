@@ -83,21 +83,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
             AllVouchers.Insert(0, new VoucherDTO { Description = "Ne koristi vaučer" });
         }
         public void ConfirmTourReservation()
-        {
-            if (!ValidateInput(out int numberOfPeople, out int age))
-            {
-                return;
-            }
+        {   if (!ValidateInput(out int numberOfPeople, out int age))
+            {   return; }
             if (!ValidateTourCapacity(numberOfPeople))
-            {
-                IsInputEnabled = true;
-                return;
-            }
+            {  IsInputEnabled = true;
+                return;}
             if (!IsTourCapacitySufficient(numberOfPeople))
-            {
-                EnableGuestNumberInput();
-                return;
-            }
+            { EnableGuestNumberInput();
+                return;}
             ProcessGuestAddition(numberOfPeople, age);
         }
 
@@ -150,8 +143,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         public void EnableGuestNumberInput()
         {
-            //IsInputEnabled = true;
-           // txtNumberOfPeople.Focus();
+          
         }
 
         private string nameSurname;
@@ -201,17 +193,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
             return true;}
 
         private bool ValidateTourCapacity(int numberOfPeople)
-        {
-            int capacity = tourService.GetTourCapacity(selectedTour.Id);
+        {   int capacity = tourService.GetTourCapacity(selectedTour.Id);
             if (capacity == -1)
-            {
-                MessageBox.Show("Greška, nije pronađena ta tura.");
+            {   MessageBox.Show("Greška, nije pronađena ta tura.");
                 return false;
             }
             if (numberOfPeople > capacity)
-            {
-                MessageBox.Show($"Na turi koju ste odabrali nema mjesta za odabrani broj ljudi, broj trenutno slobodnih mjesta je: {capacity}");
-                return false;
+            { MessageBox.Show($"Na turi koju ste odabrali nema mjesta za odabrani broj ljudi, broj trenutno slobodnih mjesta je: {capacity}");
+              return false;
             }
             return true;
         }
@@ -240,7 +229,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         public void UpdateTourCapacity(int numberOfGuestsToAdd)
         {
-            // Sada šaljemo broj gostiju koji se dodaje kao argument metode.
             bool success = tourService.UpdateTourCapacity(selectedTour.Id, numberOfGuestsToAdd, out int remainingCapacity);
             if (success)
             {
@@ -267,33 +255,29 @@ namespace BookingApp.WPF.ViewModel.Tourist
             ResetGuestInputFields();
         }
      
-
-        public void FinishReservation()
-        { 
-            var user=userService.GetByUsername(username);
+        
+       public void FinishReservation()
+        {   var user=userService.GetByUsername(username);
             if (!tourReservationService.TryCreateReservation(selectedTour.SelectedDateTime.Id, user.Id,username, maxGuests, out int reservationId))
-            {
-                MessageBox.Show("Nije moguće kreirati rezervaciju.");
+            {   MessageBox.Show("Nije moguće kreirati rezervaciju.");
                 return;
             }
             if (SelectedVoucher != null && SelectedVoucher.Description != "Ne koristi vaučer")
-            {
-                SelectedVoucher.Status = Status.USED;
+            {   SelectedVoucher.Status = Status.USED;
                 SelectedVoucher.TourReservationId = reservationId;
                 voucherService.UpdateVoucherFromDTO(SelectedVoucher);
-              
             }
             Update();
-
             AddTemporaryGuests(reservationId);
           int remainingCapacity;
-          if (tourService.UpdateTourCapacity(selectedTour.Id, maxGuests, out remainingCapacity)) {
-              MessageBox.Show($"Kapacitet ture ažuriran. Preostalo mesta: {remainingCapacity}.");
-          } else {
-              MessageBox.Show("Došlo je do greške prilikom ažuriranja kapaciteta ture.");
-          }
-           
-       
+            if (tourService.UpdateTourCapacity(selectedTour.Id, maxGuests, out remainingCapacity))
+            {
+                MessageBox.Show($"Kapacitet ture ažuriran. Preostalo mesta: {remainingCapacity}.");
+            }
+            else
+            {
+                MessageBox.Show("Došlo je do greške prilikom ažuriranja kapaciteta ture.");
+            }
          }
 
      

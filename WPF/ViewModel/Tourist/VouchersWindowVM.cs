@@ -29,8 +29,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
-
-
         public VouchersWindowVM()
         {
             AllVouchers = new ObservableCollection<VoucherDTO>();
@@ -66,15 +64,9 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 return;
             }
             SelectedVoucher.Status = Status.USED;
-
-            // Konverzija DTO u domenski model za čuvanje
             Voucher updatedVoucher = SelectedVoucher.ToVoucher();
             voucherService.UpdateVoucher(updatedVoucher);
             Update();
-
-
         }
-
-
     }
 }

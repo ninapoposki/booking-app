@@ -16,7 +16,7 @@ namespace BookingApp.Services
         private ITourGradeRepository tourGradeRepository;
         private UserService userService;
         private TourService tourService;
-       private TourReservationService tourReservationService;
+        private TourReservationService tourReservationService;
         
 
         public TourGradeService()
@@ -40,14 +40,6 @@ namespace BookingApp.Services
 
             return tourGradeDTO;
 
-        }
-
-        public bool IsTourGraded(int tourStartDateId, int userId)
-        {
-            var reservations = tourReservationService.GetReservationsByStartDate(tourStartDateId);
-            var userReservations = reservations.Where(r => r.UserId == userId).Select(r => r.Id);
-
-            return tourGradeRepository.GetAll().Any(g => userReservations.Contains(g.TourReservationId));
         }
 
         public int GetCurrentId()

@@ -65,12 +65,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
 
         public void GetTours()
-        {
-            AllTours.Clear();
+        {   AllTours.Clear();
            var allImages = imageService.GetAll().Where(img => img.EntityType == EntityType.TOUR).ToList();
             foreach (var tour in tourService.GetAll())
-            {
-                var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
+            {   var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
                 LocationDTO location = locationService.GetByIdDTO(tour.LocationId);
                 LanguageDTO language = languageService.GetByIdDTO(tour.LanguageId);
                 var dateTimes = new ObservableCollection<TourStartDateDTO>(tourStartDateService.GetTourDates(tour.Id));
@@ -83,7 +81,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         {
             Languages.Clear();
             languageService.GetAll(Languages);
-            
         }
 
       
@@ -273,6 +270,16 @@ namespace BookingApp.WPF.ViewModel.Tourist
             ToursToRateWindow toursToRate = new ToursToRateWindow(loggedInUserId);
             toursToRate.Show();
         }
-       
+        public void ActiveTourClick()
+        {
+            ActiveToursWindow activeTours = new ActiveToursWindow(loggedInUserId);
+            activeTours.Show();
+           
+        }
+        public void NotificationsClick()
+        {
+            NotificationsWindow notifications = new NotificationsWindow();
+            notifications.Show();
+        }
     }
 }

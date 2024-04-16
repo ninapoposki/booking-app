@@ -98,7 +98,10 @@ namespace BookingApp.DTO
 
         public TourGuest ToTourGuest()
         {
-            return new TourGuest(Id, fullName, age,TourReservationId);
+            TourGuest guest = new TourGuest(Id, fullName, age, TourReservationId);
+            guest.CheckPointId = this.CheckPointId; 
+            guest.HasArrived = this.HasArrived;  
+            return guest;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

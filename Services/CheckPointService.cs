@@ -36,5 +36,11 @@ namespace BookingApp.Services
             }
             return checkPoints;
         }
+
+        public CheckPoint GetById(int id)
+        {
+
+           return checkPointRepository.GetById(id);
+        }
     }
 }
