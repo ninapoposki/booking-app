@@ -43,6 +43,20 @@ namespace BookingApp.DTO
                 }
             }
         }
+
+        private string checkPointName;
+        public string CheckPointName
+        {
+            get { return checkPointName; }
+            set
+            {
+                if (value != checkPointName)
+                {
+                    checkPointName = value;
+                    OnPropertyChanged(nameof(CheckPointName));
+                }
+            }
+        }
         private int numberOfTourists;
         public int NumberOfTourists
         {

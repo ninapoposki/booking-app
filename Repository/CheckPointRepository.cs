@@ -81,6 +81,12 @@ namespace BookingApp.Repository
             checkPoints= serializer.FromCSV(FilePath);
            return checkPoints.FindAll(t => t.TourId ==id);
         }
+
+        public CheckPoint GetById(int id)
+        {
+            checkPoints = serializer.FromCSV(FilePath);
+            return checkPoints.FirstOrDefault(cp => cp.Id == id);
+        }
     }
 }
 

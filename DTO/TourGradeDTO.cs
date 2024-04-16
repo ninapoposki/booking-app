@@ -119,13 +119,14 @@ namespace BookingApp.DTO
             }
         }
         public TourGradeDTO() { }
+
         public TourGradeDTO(TourGrade tourGrade)
         {
             this.Id= tourGrade.Id;
             this.TourReservationId = tourGrade.TourReservationId;
             this.GuideKnowledge = tourGrade.GuideKnowledge;
             this.LanguageKnowledge = tourGrade.LanguageKnowledge;
-            this.TourAttractions = tourGrade.TourAtrractions;
+            this.TourAttractions=tourGrade.TourAtrractions;
             this.Comment = tourGrade.Comment;
             this.Validity=tourGrade.Validity;
         }

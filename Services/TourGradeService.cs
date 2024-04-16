@@ -18,6 +18,7 @@ namespace BookingApp.Services
         private TourService tourService;
         private TourReservationService tourReservationService;
         private CheckPointService checkPointService;
+
         public TourGradeService()
         {
             tourGradeRepository=Injector.Injector.CreateInstance<ITourGradeRepository>();
@@ -35,12 +36,6 @@ namespace BookingApp.Services
         {
             var tour = tourService.GetById(tourReservationDTO.TourStartDateId);
             return tourGradeDTO;
-        }
-        public bool IsTourGraded(int tourStartDateId, int userId)
-        {
-            var reservations = tourReservationService.GetReservationsByStartDate(tourStartDateId);
-            var userReservations = reservations.Where(r => r.UserId == userId).Select(r => r.Id);
-            return tourGradeRepository.GetAll().Any(g => userReservations.Contains(g.TourReservationId));
         }
 
         public int GetCurrentId()

@@ -15,13 +15,12 @@ namespace BookingApp.Services
         private ITourReservationRepository tourReservationRepository;
         private TourGuestService tourGuestService;
         private UserService userService;
-        private TourStartDateService tourStartDateService;
         public TourReservationService()
         {
             tourReservationRepository = Injector.Injector.CreateInstance<ITourReservationRepository>();
             tourGuestService = new TourGuestService();
             userService = new UserService();
-            tourStartDateService = new TourStartDateService();
+           
         }
         public bool DoReservationExists(int tourStartId)
         {
@@ -69,17 +68,27 @@ namespace BookingApp.Services
                 }
             } return guests;
         }
-        public TourReservationDTO GetReservationByTourId(int tourStartDateId){
-            TourReservation? tourReservation= tourReservationRepository.GetAll().Find(t => t.TourStartDateId == tourStartDateId);
+        public TourReservationDTO GetReservationByTourId(int tourStartDateId) {
+            TourReservation? tourReservation = tourReservationRepository.GetAll().Find(t => t.TourStartDateId == tourStartDateId);
             return new TourReservationDTO(tourReservation);
         }
 
-      public bool CheckIfReserved(int tourStartDateId)
+        public bool CheckIfReserved(int tourStartDateId)
         {
-            TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t=>t.HasArrived==true && t.CheckPointId!=-1);
+            TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t => t.HasArrived == true && t.CheckPointId != -1);
             if (guests != null)
                 return true;
             return false;
+        }
+
+        public List<TourReservationDTO> GetByUserId(int userId)
+        {
+            List<TourReservationDTO> reservations = new List<TourReservationDTO>();
+            foreach (TourReservation tr in tourReservationRepository.GetAll().Where(tr => tr.UserId == userId))
+            { 
+                reservations.Add(new TourReservationDTO(tr));
+            }
+            return reservations;
         }
     }
 }

@@ -65,5 +65,15 @@ namespace BookingApp.WPF.View.Tourist
         {
             touristMainWinodowVM.FinishedTourClick();
         }
+
+        private void ActiveTourClick(object sender, RoutedEventArgs e)
+        {
+            touristMainWinodowVM.ActiveTourClick();
+        }
+
+        private void NotificationsClick(object sender, RoutedEventArgs e)
+        {
+            touristMainWinodowVM.NotificationsClick();
+        }
     }
 }
