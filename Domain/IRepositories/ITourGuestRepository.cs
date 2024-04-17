@@ -16,6 +16,7 @@ namespace BookingApp.Domain.IRepositories
          int NextId();
          void Delete(TourGuest tourGuest);
          TourGuest Update(TourGuest tourGuest);
-         void Subscribe(IObserver observer);
+        
+        void Subscribe(IObserver observer);
     }
 }

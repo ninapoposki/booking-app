@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Services;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,12 @@ namespace BookingApp.WPF.ViewModel.Guide
             this.userId = userId;
             FinishedTours = new ObservableCollection<TourDTO>();
             BestTours = new ObservableCollection<TourDTO>();
-            tourStartDateService = new TourStartDateService();
-            tourReservationService = new TourReservationService();
-            imageService = new ImageService();
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             Guests = new List<TourGuestDTO>();
             YearComboBox = new List<string>();
             SelectedYear = "";
@@ -51,7 +55,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             {
                 int year = Convert.ToInt32(SelectedYear);
                 return tourStartDateService.GetByYear(year, userId);
-            }
+            }     
         }
         public void LoadBestTours()
         {

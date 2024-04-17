@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -14,7 +15,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
 {
     public class VouchersWindowVM:ViewModelBase
     {
-        public TourReservationService tourReservationService;
         public ObservableCollection<VoucherDTO> AllVouchers { get; set; }
         public VoucherService voucherService;
 
@@ -29,13 +29,13 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
-
-
         public VouchersWindowVM()
         {
             AllVouchers = new ObservableCollection<VoucherDTO>();
-            voucherService= new VoucherService();
-            tourReservationService= new TourReservationService();
+            voucherService = new VoucherService(Injector.Injector.CreateInstance<IVoucherRepository>(), Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+                Injector.Injector.CreateInstance<ILanguageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>());
             SelectedVoucher = new VoucherDTO();
             Update();
         }
@@ -66,15 +66,9 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 return;
             }
             SelectedVoucher.Status = Status.USED;
-
-            // Konverzija DTO u domenski model za čuvanje
             Voucher updatedVoucher = SelectedVoucher.ToVoucher();
             voucherService.UpdateVoucher(updatedVoucher);
             Update();
-
-
         }
-
-
     }
 }

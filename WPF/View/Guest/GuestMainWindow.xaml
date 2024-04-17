@@ -50,7 +50,7 @@
                         Click="SearchClick" />
 
         </Grid>
-        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllAccommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid Grid.Row="1" Margin="10"  AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllAccommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

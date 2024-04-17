@@ -16,10 +16,10 @@ namespace BookingApp.Services
         private ITourStartDateRepository tourStartDateRepository;
         private TourService tourService;
 
-        public TourStartDateService()
+        public TourStartDateService(ITourStartDateRepository tourStartDateRepository, ITourRepository tourRepository, ILanguageRepository languageRepository,ILocationRepository locationRepository)
         {
-            tourStartDateRepository=Injector.Injector.CreateInstance<ITourStartDateRepository>();
-            tourService=new TourService();
+            this.tourStartDateRepository = tourStartDateRepository;
+            tourService=new TourService(tourRepository,languageRepository,locationRepository);
         }
         public void Add(DateTime tourStartDate,int tourId)
         {
@@ -56,7 +56,8 @@ namespace BookingApp.Services
                     return tourService.GetTour(tourStart.TourId);
                 }
             }return null;
-        }      
+        }
+       
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
             TourStartDate? startDate=tourStartDateRepository.Get(selectedDateId);

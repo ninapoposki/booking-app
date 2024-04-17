@@ -18,6 +18,7 @@ namespace BookingApp.Domain.IRepositories
          CheckPoint Update(CheckPoint checkPoint);
          void Subscribe(IObserver observer);
          List<CheckPoint> GetByTourId(int id);
+         CheckPoint GetById(int id);    
     }
 }
 

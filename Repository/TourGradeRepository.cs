@@ -27,10 +27,7 @@ namespace BookingApp.Repository
             subject = new Subject();
         }
 
-        public List<TourGrade> GetAll()
-        {
-            return serializer.FromCSV(FilePath);
-        }
+       
 
         public TourGrade Add(TourGrade tourGrade)
         {
@@ -76,6 +73,16 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
+        public List<TourGrade> GetAll()
+        {
+            return serializer.FromCSV(FilePath);
+        }
 
+        public int GetCurrentId()
+        {
+            tourGrades = serializer.FromCSV(FilePath);
+            int maxId = tourGrades.Count > 0 ? tourGrades.Max(t => t.Id) : 0;
+            return maxId ;
+        }
     }
 }

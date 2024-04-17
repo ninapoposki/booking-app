@@ -60,7 +60,20 @@ namespace BookingApp.WPF.View.Tourist
            touristMainWinodowVM.BookTour();
         }
 
-     
 
+        private void FinishedTourClick(object sender, RoutedEventArgs e)
+        {
+            touristMainWinodowVM.FinishedTourClick();
+        }
+
+        private void ActiveTourClick(object sender, RoutedEventArgs e)
+        {
+            touristMainWinodowVM.ActiveTourClick();
+        }
+
+        private void NotificationsClick(object sender, RoutedEventArgs e)
+        {
+            touristMainWinodowVM.NotificationsClick();
+        }
     }
 }

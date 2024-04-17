@@ -15,9 +15,9 @@ namespace BookingApp.Services
     {
         private ILocationRepository locationRepository;
 
-        public LocationService()
+        public LocationService(ILocationRepository locationRepository)
         {
-            locationRepository = Injector.Injector.CreateInstance<ILocationRepository>();
+            this.locationRepository = locationRepository;
         }
 
         public void GetAll(List<LocationDTO> locations)

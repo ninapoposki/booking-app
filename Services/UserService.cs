@@ -15,9 +15,9 @@ namespace BookingApp.Services
     {
         private IUserRepository userRepository;
 
-        public UserService()
+        public UserService(IUserRepository userRepository)
         {
-            userRepository = Injector.Injector.CreateInstance<IUserRepository>();
+            this.userRepository = userRepository;
         }
 
         public User GetByUsername(string username) 

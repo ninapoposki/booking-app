@@ -9,112 +9,72 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO
 {
-    public class OwnerDTO
-    {
-
+    public class OwnerDTO{
         public int id;
-        public int Id
-        {
+        public int Id {
             get { return id; }
-            set
-            {
-                if (value != id)
-                {
+            set { if (value != id) {
                     id = value;
                     OnPropertyChanged("Id");
                 }
             }
         }
-
         private string firstName;
-        public string FirstName
-        {
+        public string FirstName   {
             get { return firstName; }
-            set
-            {
-                if (value != firstName)
-                {
+            set { if (value != firstName) {
                     firstName = value;
                     OnPropertyChanged("FirstName");
                 }
             }
         }
         public string lastName;
-        public string LastName
-        {
+        public string LastName {
             get { return lastName; }
-            set
-            {
-                if (value != lastName)
-                {
+            set { if (value != lastName) {
                     lastName = value;
                     OnPropertyChanged("LastName");
                 }
             }
         }
         public string phoneNumber;
-        public string PhoneNumber
-        {
+        public string PhoneNumber{
             get { return phoneNumber; }
-            set
-            {
-                if (value != phoneNumber)
-                {
+            set { if (value != phoneNumber) {
                     phoneNumber = value;
                     OnPropertyChanged("PhoneNumber");
                 }
             }
         }
-
         private User user { get; set; }
-        public User User
-        {
+        public User User {
             get { return user; }
-            set
-            {
-                if (value != user)
-                {
+            set { if (value != user){
                     user = value;
                     OnPropertyChanged("User");
                 }
             }
         }
         private int userId { get; set; }
-
-        public int UserId
-        {
+        public int UserId {
             get { return userId; }
-            set
-            {
-                if (value != userId)
-                {
+            set { if (value != userId) {
                     userId = value;
                     OnPropertyChanged("UserId");
                 }
             }
         }
-
         private string role;
-
-        public string Role
-        {
+        public string Role{
             get { return role; }
-            set
-            {
-                if (value != role)
-                {
+            set  {  if (value != role) {
                     role = value;
                     OnPropertyChanged("Role");
                 }
             }
         }
-
-
         public OwnerDTO() { }
-
-        public OwnerDTO(Owner owner)
-        {
-
+        public OwnerDTO(Owner owner)  {
             Id = owner.Id;
             FirstName = owner.FirstName;
             LastName = owner.LastName;
@@ -123,27 +83,19 @@ namespace BookingApp.DTO
             UserId = owner.UserId;
             Role = owner.Role;
         }
-        public Owner ToOwner()
-        {
+        public Owner ToOwner() {
             var owner = new Owner();
-
             owner.Id = this.Id;
             owner.FirstName = this.FirstName;
             owner.LastName = this.LastName;
             owner.PhoneNumber = this.PhoneNumber;
             owner.UserId = this.UserId;
             owner.Role = this.Role;
-
-
             return owner;
         }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null){
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
-    
     }
 }
