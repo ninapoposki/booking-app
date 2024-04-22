@@ -8,32 +8,10 @@
 8|Centar|3|START
 9|Promenada|3|END
 10|Luka|4|START
-11|Centar|4|STOP
-12|Park|4|STOP
-13|Luka|4|END
-14|jsjs|5|START
-15|sjjw|5|STOP
-16|jaje|5|END
-17|proba|6|START
-18|probuljica|6|END
-19|Anja|7|START
-20|Maamamam|7|STOP
-21|Govno|7|END
-22|jaje|8|START
-23|pape|8|STOP
-24|slatko|8|END
-25|proba|9|START
-26|proba|9|STOP
-27|proba|9|END
-28|Prva tacka|10|START
-29|Druga tacka|10|STOP
-30|treca tacja|10|END
-31|proba aki|11|START
-32|proba|11|STOP
-33|proba|11|END
-34|tacka|12|START
-35|tackaaaa|12|END
-36|polje|13|START
-37|trg|13|END
-38|stadion|14|START
-39|trg|14|END
+11|Stadion|4|STOP
+12|Centar grada|4|END
+13|Kafic|3|START
+14|Faks|3|END
+15|Pocetak|5|START
+16|Sredina|5|STOP
+17|Kraj|5|END
