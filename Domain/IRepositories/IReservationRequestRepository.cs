@@ -14,8 +14,6 @@ namespace BookingApp.Domain.IRepositories
 
         public List<ReservationRequest> GetAll();
         public ReservationRequest Add(ReservationRequest reservationRequest);
-        public int GetCurrentId();
-        public ReservationRequest GetById(int id);
         public int NextId();
         public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment);
         public void Delete(ReservationRequest reservationRequest);
@@ -23,6 +21,7 @@ namespace BookingApp.Domain.IRepositories
         public void Subscribe(IObserver observer);
         List<(DateTime, DateTime)> GenerateNewDateRange(DateTime startDate, int daysToStay);
         (DateTime, DateTime) GetInitialDateRange();
+        void DeleteById(int reservationId);
 
     }
 }

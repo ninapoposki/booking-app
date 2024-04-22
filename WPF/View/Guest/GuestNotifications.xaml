@@ -12,6 +12,8 @@
             <!-- Prva vrsta za naslov -->
             <RowDefinition Height="*"/>
             <!-- Druga vrsta za listu -->
+            <RowDefinition Height="Auto"/>
+            <!-- Treća vrsta za dugme "Cancel" -->
         </Grid.RowDefinitions>
 
         <!-- Naslov "See what happened to your request!" -->
@@ -21,16 +23,14 @@
         <TextBlock Text="" Grid.Row="1" Margin="20,10"/>
 
         <!-- ScrollViewer za listu -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ListBox ItemsSource="{Binding AllReservationRequests}" SelectedItem="{Binding SelectedReservationRequest}" Margin="20">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20,0">
+            <ListBox ItemsSource="{Binding AllReservationRequests}" SelectedItem="{Binding SelectedReservationRequest}" Margin="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="2" BorderBrush="Black" Padding="10" Margin="0 0 0 10" CornerRadius="10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -38,47 +38,41 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
+                                <!-- Slika -->
+                                <ItemsControl ItemsSource="{Binding Images}" Grid.Column="0" Grid.RowSpan="4" Margin="5">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Path}" Height="50" Width="150" Margin="2"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                                 <!-- Prvi red -->
-                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="5">
-                                    <TextBlock Text="{Binding Accommodation.Name}" Margin="5"/>
-                                </StackPanel>
+                                <TextBlock Text="{Binding Accommodation.Name}" FontSize="15" Foreground="DarkGreen" FontWeight="Bold" FontStyle="Oblique" Grid.Column="1" Grid.Row="0" Margin="5" Width="250"/>
 
                                 <!-- Drugi red -->
-                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="5" Width="250">
                                     <TextBlock Text="Status: " FontWeight="Bold" Foreground="Green" Margin="5"/>
                                     <TextBlock Text="{Binding RequestStatus}" FontWeight="Bold" Foreground="Green" Margin="5"/>
                                 </StackPanel>
 
                                 <!-- Treci red -->
-                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="5" Width="250">
                                     <TextBlock Text="{Binding NewInitialDate}"/>
                                     <TextBlock Text=" - "/>
                                     <TextBlock Text="{Binding NewEndDate}"/>
                                 </StackPanel>
                                 <!-- Cetvrti red -->
-
-                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="5" Width="250">
                                     <TextBlock Text="Owner's comment: " HorizontalAlignment="Left" Margin="5"/>
                                     <TextBlock Text="{Binding Comment}" Margin="5"/>
-
                                 </StackPanel>
-
-                                <!-- Peto polje za slike -->
-                                <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Images}">
-                                    <ListBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ListBox.ItemsPanel>
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Path}" Height="50" Margin="5"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -87,8 +81,8 @@
         </ScrollViewer>
 
         <!-- Dugme "Cancel" -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button Content="Cancel" Margin="0 0 20 0" FontSize="15" FontWeight="Bold" FontStyle="Italic" Foreground="ForestGreen" Click="CancelClick"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20">
+            <TextBlock Text="Cancel"  FontSize="15" FontWeight="Bold" FontStyle="Oblique" Foreground="ForestGreen" Cursor="Hand" MouseDown="CancelClick"/>
         </StackPanel>
     </Grid>
 </Window>

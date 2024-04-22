@@ -15,9 +15,9 @@ namespace BookingApp.Services
     {
         private IGuestRepository guestRepository;
 
-        public GuestService()
+        public GuestService(IGuestRepository guestRepository)
         {
-            guestRepository = Injector.Injector.CreateInstance<IGuestRepository>();
+            this.guestRepository = guestRepository;
         }
         public Guest GetById(int id)
         {
@@ -33,6 +33,11 @@ namespace BookingApp.Services
         {
             return guestRepository.GetCurrentId();  
 
+        }
+        public GuestDTO GetByIdDTO(int id)
+        {
+            var guestDTO = new GuestDTO(guestRepository.GetById(id));
+            return guestDTO;
         }
     }
 }

@@ -33,10 +33,10 @@ namespace BookingApp.WPF.View.Owner
     {
         
         public AddAccommodationVM AddAccommodationVM { get; set; }
-        public AddAccommodation( string currentUserUsername)
+        public AddAccommodation( int loggedInUserId)
         {
             InitializeComponent();
-            AddAccommodationVM = new AddAccommodationVM(currentUserUsername);
+            AddAccommodationVM = new AddAccommodationVM(loggedInUserId);
             DataContext = AddAccommodationVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
