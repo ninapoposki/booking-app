@@ -17,13 +17,12 @@ namespace BookingApp.Services
 
         public AccommodationReservationService accommodationReservationService;
         private AccommodationService accommodationService;
-
-
-        public ReservationRequestService()
+        public ReservationRequestService(IReservationRequestRepository reservationRequestRepository,IAccommodationReservationRepository accommodationReservationRepository,
+            IGuestRepository guestRepository, IUserRepository userRepository, IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository, IOwnerRepository ownerRepository)
         {
-            reservationRequestRepository = Injector.Injector.CreateInstance<IReservationRequestRepository>();
-            accommodationReservationService = new AccommodationReservationService();
-            accommodationService=new AccommodationService();
+            this.reservationRequestRepository = reservationRequestRepository;
+            accommodationReservationService = new AccommodationReservationService(accommodationReservationRepository,guestRepository,userRepository,accommodationRepository,imageRepository,locationRepository,ownerRepository);
+            accommodationService=new AccommodationService(accommodationRepository,imageRepository,locationRepository,ownerRepository);
         }
         public List<ReservationRequestDTO> GetAll()
         {
@@ -31,8 +30,9 @@ namespace BookingApp.Services
             List<ReservationRequestDTO> reservationRequestsDTOs = reservationRequests.Select(resreq => new ReservationRequestDTO(resreq)).ToList();
             return reservationRequestsDTOs;
         }
-       
-
+        public void DeleteById(int reservationId){
+            reservationRequestRepository.DeleteById(reservationId);
+        }
         public void UpdateStatus(int accommodationReservationId, RequestStatus status, string comment)
         {
             reservationRequestRepository.UpdateStatus(accommodationReservationId, status, comment);

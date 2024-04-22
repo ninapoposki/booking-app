@@ -14,15 +14,15 @@ namespace BookingApp.Services
     public class AccommodationService
     {
         private IAccommodationRepository accommodationRepository;
-        private LocationService locationService;
-        private ImageService imageService;
+        public LocationService locationService;
+        public ImageService imageService;
         private OwnerService ownerService;
-        public AccommodationService()
+        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository,ILocationRepository locationRepository,IOwnerRepository ownerRepository)
         {
-            accommodationRepository = Injector.Injector.CreateInstance<IAccommodationRepository>();
-            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
-            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
-            ownerService = new OwnerService();
+            this.accommodationRepository = accommodationRepository;
+            imageService = new ImageService(imageRepository);
+            locationService = new LocationService(locationRepository);
+            ownerService = new OwnerService(ownerRepository);
 
         }
         public Accommodation Add(Accommodation accommodation)
@@ -48,6 +48,8 @@ namespace BookingApp.Services
         {
             var accommodation=accommodationRepository.GetById(accommodationId);
             var accommodationDTO = new AccommodationDTO(accommodation);
+            accommodationDTO.Location = locationService.GetById(accommodation.IdLocation);
+            accommodationDTO.Owner = ownerService.GetByUserId(accommodation.OwnerId);
             return accommodationDTO;
         }
 
@@ -57,7 +59,23 @@ namespace BookingApp.Services
             List<AccommodationDTO> accommodationDTOs = accommodations.Select(acc => new AccommodationDTO(acc)).ToList();
             return accommodationDTOs;
         }
-       
+        private bool FilterByCityAndCountry(AccommodationDTO accommodation, string cityFilter, string countryFilter){
+            bool cityMatch = string.IsNullOrEmpty(cityFilter) || accommodation.Location.City.ToLower().Contains(cityFilter.ToLower());
+            bool countryMatch = string.IsNullOrEmpty(countryFilter) || accommodation.Location.Country.ToLower().Contains(countryFilter.ToLower());
+            return cityMatch && countryMatch;
+        }
+        private bool FilterByTypeAndName(AccommodationDTO accommodation, string nameFilter){
+            return string.IsNullOrEmpty(nameFilter) || accommodation.Name.ToLower().Contains(nameFilter.ToLower());
+        }
+
+        private bool FilterByMinStayDaysAndCapacity(AccommodationDTO accommodation, string numberOfGuests, string numberOfDaysToStay)
+        {
+            bool capacityMatch = string.IsNullOrEmpty(numberOfGuests) || accommodation.Capacity >= int.Parse(numberOfGuests);
+            bool minStayDaysMatch = string.IsNullOrEmpty(numberOfDaysToStay) || accommodation.MinStayDays <= double.Parse(numberOfDaysToStay);
+
+            return capacityMatch && minStayDaysMatch;
+        }
+
     }
 
 }

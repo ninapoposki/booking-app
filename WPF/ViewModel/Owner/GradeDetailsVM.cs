@@ -52,12 +52,9 @@ namespace BookingApp.WPF.ViewModel.Owner
         }
         private void UpdateDisplayedImage()
         {
-            if (AccommodationGrade.Images.Count > 0 && currentIndex >= 0 && currentIndex < AccommodationGrade.Images.Count)
-            {
+            if (AccommodationGrade.Images.Count > 0 && currentIndex < AccommodationGrade.Images.Count){
                 CurrentImage = AccommodationGrade.Images[currentIndex];
-            }
-            else
-            {
+            }else {
                 CurrentImage = null;
             }
         }
