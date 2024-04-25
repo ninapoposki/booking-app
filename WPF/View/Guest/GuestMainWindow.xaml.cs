@@ -37,5 +37,7 @@ namespace BookingApp.WPF.View.Guest
         {
             Close();
         }
+
+     
     }
 }

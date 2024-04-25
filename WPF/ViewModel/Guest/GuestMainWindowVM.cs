@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
@@ -67,6 +68,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             AllAccommodations = new ObservableCollection<AccommodationDTO>();
             Images = new ObservableCollection<ImageDTO>();
             Types = new ObservableCollection<AccommodationType>(Enum.GetValues(typeof(AccommodationType)).Cast<AccommodationType>());
+
             Update();
         }
         public void Update(){
