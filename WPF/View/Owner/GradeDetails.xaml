@@ -5,16 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="GradeDetails" Height="450" Width="800">
     <Window.Resources>
-        <Style x:Key="NavButtonStyle" TargetType="Button">
+        <Style x:Key="NavButtonStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="GuestPicturesTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Navy"/>
+            <Setter Property="Text" Value="Guest's pictures"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
+                    <Setter Property="Text" Value="Guest hasn't added any pictures!"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Navy"/>
+        </Style>
     </Window.Resources>
+
 
     <Grid>
         
@@ -27,11 +43,14 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="2" BorderBrush="Black"  Padding="10" Margin="10" CornerRadius="10">
+        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="2" BorderBrush="PeachPuff" Background="Ivory" Padding="10" Margin="10" CornerRadius="10">
+            <StackPanel>
+               <!--  <StackPanel Orientation="Vertical"> <TextBlock Text=" Overall grade"/><TextBlock><Run Text="{Binding Path=Grade}" /> <TextBlock Text=" "/>  <TextBlock Text="☆" /> </TextBlock>  </StackPanel>-->
             <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,60,10">
+               
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" />
-                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.LastName}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="15" />
+                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.LastName}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="15" FontWeight="Bold" />
                 </StackPanel>
                 <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Accommodation.Name}" Margin=" 5" FontSize="15" HorizontalAlignment="Center"/>
                 <StackPanel  Orientation="Horizontal" >
@@ -39,6 +58,7 @@
                     <TextBlock Text=" - " FontSize="15" />
                     <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.EndDate}" FontSize="15" />
                 </StackPanel>
+            </StackPanel>
             </StackPanel>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0">
@@ -55,12 +75,20 @@
             <TextBlock Text="{Binding AccommodationGrade.Comment}" HorizontalAlignment="Left" Margin="10" FontSize="15"/>
             
         </StackPanel>
+        <TextBlock Style="{StaticResource GuestPicturesTextStyle}" 
+               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="55,10,0,0" 
+               FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+        <Image Source="{Binding CurrentImage.Path}" Height="250" Width="380" Stretch="UniformToFill" Margin="0,35,0,0" Grid.Column="1" Grid.Row="1"/>
+        <Button Click="PreviousClick" Width="30" Height="25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Style="{StaticResource NavButtonStyle}" Margin="0,40,0,0">
+            <Button.Background>
+                <ImageBrush ImageSource="..\..\..\Resources\Images\left.png" Stretch="UniformToFill" />
+            </Button.Background>
+        </Button>
 
-        <Image Source="{Binding CurrentImage.Path}" Height="250" Width="380" Stretch="UniformToFill" Margin="2" Grid.Column="1" Grid.Row="1"/>
-        <Button Content="prev" Click="PreviousClick" Width="50" Height="20" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Style="{StaticResource NavButtonStyle}"/>
-
-
-        <Button Content="next" Click="NextClick"  Width="50" Height="20" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource NavButtonStyle}"/>
-
+        <Button Click="NextClick" Width="30" Height="25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource NavButtonStyle}" Margin="0,40,10,0">
+            <Button.Background>
+                <ImageBrush ImageSource="..\..\..\Resources\Images\right.png" Stretch="UniformToFill" />
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

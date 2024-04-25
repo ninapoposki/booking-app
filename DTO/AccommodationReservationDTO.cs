@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -34,6 +35,22 @@ namespace BookingApp.DTO
         public GuestDTO Guest { get; set; }
         public Accommodation Accommodations{ get; set; }
         public Owner Owner { get; set; } 
+        public ObservableCollection<ImageDTO> Image { get; set; } 
+        public string Message { get; set; }
+        private bool _canGradeGuest;
+
+        public bool CanGradeGuest
+        {
+            get { return _canGradeGuest; }
+            set
+            {
+                if (_canGradeGuest != value)
+                {
+                    _canGradeGuest = value;
+                    OnPropertyChanged("CanGradeGuest");
+                }
+            }
+        }
         public Location Location { get; set; }
         private DateTime initialDate=DateTime.Now;
         public DateTime InitialDate{
@@ -81,7 +98,8 @@ namespace BookingApp.DTO
             DaysToStay = reservation.DaysToStay;   
             NumberOfGuests = reservation.NumberOfGuests;
         }
-        public AccommodationReservationDTO(AccommodationReservation reservation,Accommodation accommodation,Location location,Owner owner){
+        public AccommodationReservationDTO(AccommodationReservation reservation, Accommodation accommodation, Location location, Owner owner)
+        {
             Id = reservation.Id;
             GuestId = reservation.GuestId;
             AccommodationId = reservation.AccommodationId;
