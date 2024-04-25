@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="DateChangeRequests" Height="550" Width="900">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+        <Style x:Key="DataGridStyle" TargetType="DataGrid">
+            <Setter Property="BorderBrush" Value="Navy"/>
+            <!-- Postavite boju linija -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <!-- Postavite debljinu linija -->
+            <!-- Dodatne postavke stila po potrebi -->
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -19,38 +32,43 @@
         </Grid.ColumnDefinitions>
 
 
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
-            <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
-                <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+        <StackPanel Grid.Column="0"  Margin="0,0,0,4" VerticalAlignment="Stretch" Height="Auto">
+            <StackPanel.Background >
+                <ImageBrush ImageSource="..\..\..\Resources\Images\OwnerTravel.png" Stretch="UniformToFill" Opacity="0.5" />
+            </StackPanel.Background>
+            <StackPanel  Margin="0,0,0,0" >
+                <Image Source="..\..\..\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
+                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
+                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"  Foreground="Navy"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"/>
-                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"/>
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"  Foreground="Navy"/>
+                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"  Foreground="Navy"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Home Page" Margin="5 0 5 5" BorderThickness="1" Height="50" Background="White"/>
-            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
-            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
-            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" />
-            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>
+            <StackPanel VerticalAlignment="Stretch">
+                <Border Height="2" Background="Black" Margin="0 5"/>
+                <Button Content="Home Page" Margin="0 0 0 5" BorderThickness="0"  Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" />
+                <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Requests" Margin="5 0 5 5" BorderThickness="2" BorderBrush="DarkBlue" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+                <Border Height="3" Background="Navy" Margin="0 5" VerticalAlignment="Bottom"/>
+                <Button Content="Log out" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" VerticalAlignment="Bottom"/>
+            </StackPanel>
         </StackPanel>
 
         <Border Grid.Column="1" Background="Black" Width="2"/>
 
-        <!-- Glavni sadržaj -->
         <Grid Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="49*"/>
@@ -63,7 +81,6 @@
                         <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="90,0,5,0" FontSize="15" />
 
                         <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
-                        <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
                         <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
 
 
@@ -88,19 +105,31 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <!-- First Row -->
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Respond to guests requests:" HorizontalAlignment="Left" Margin="5"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Respond to guests requests:" HorizontalAlignment="Left" Margin="5" FontSize="13"/>
+
                 
-                <!-- Second Row -->
-                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Height=" 350">
-                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding AllReservationRequests, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
+
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Height="350">
+
+
+                    <DataGrid AutoGenerateColumns="False" Style="{StaticResource DataGridStyle}" GridLinesVisibility="All"  HorizontalGridLinesBrush="Navy"  VerticalGridLinesBrush="Navy" ItemsSource="{Binding AllReservationRequests, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}" Foreground="Navy">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="PeachPuff"/>
+                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                <Setter Property="BorderBrush" Value="Navy"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <!-- Centriraj tekst horizontalno -->
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Guest" Binding="{Binding AccommodationReservation.Guest.FirstName}"  Width="120" />
-                            <DataGridTextColumn Header="Accommodation" Binding="{Binding AccommodationReservation.Accommodation.Name}" Width="100" />
-                            <DataGridTemplateColumn Header="Previous date" Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                            <DataGridTextColumn  Header="Accommodation" Binding="{Binding AccommodationReservation.Accommodation.Name}" Width="100" />
+                            <DataGridTemplateColumn  Width="*" Header ="Previous date">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <StackPanel Orientation="Horizontal" >
                                             <TextBlock Text="{Binding AccommodationReservation.InitialDate}" FontSize="10" />
                                             <TextBlock Text=" - " FontSize="7" />
                                             <TextBlock Text="{Binding AccommodationReservation.EndDate}" FontSize="10" />
@@ -109,7 +138,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="New date" Width="*">
+                            <DataGridTemplateColumn  Width="*" Header ="New date">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -120,19 +149,18 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Status" Binding="{Binding Message}" Width="60" />
+                            <DataGridTextColumn Header ="Status" Binding="{Binding Message}" Width="60" />
                         </DataGrid.Columns>
+                        <DataGrid.RowHeight>30</DataGrid.RowHeight>
                     </DataGrid>
                 </ScrollViewer>
-
-                <!-- Third Row -->
                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Comment:" VerticalAlignment="Center"/>
-                    <TextBox x:Name="commentTextBox" Width="290" Height="70" Margin="5"  />
+                    <TextBox x:Name="commentTextBox" Width="290" Height="50" Margin="10"  />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,50,10" HorizontalAlignment="Right" Height="50" >
-                    <Button Content="Accept" Width="100"  Margin="5" Click="AcceptButtonClick"/>
-                    <Button Content="Decline" Width="100" Margin="15,5,5,5" Click="DeclineButtonClick"/>
+                    <Button Content="Accept" Width="100"  Margin="5" Click="AcceptButtonClick" Background="LightGreen"/>
+                    <Button Content="Decline" Width="100" Margin="15,5,5,5" Click="DeclineButtonClick" Background="OrangeRed"/>
                 </StackPanel>
             </Grid>
         </Grid>
