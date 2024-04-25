@@ -60,15 +60,20 @@ namespace BookingApp.WPF.ViewModel.Owner
             addAccommodationWindow.ShowDialog();
         }
         public void GradeGuestClick(){
-            GuestReservations guestReservations = new GuestReservations();
+            GuestReservations guestReservations = new GuestReservations(loggedInUserId);
             guestReservations.ShowDialog();
         }
         public void NotificationsClick(){
             Notifications notifications = new Notifications();
             notifications.ShowDialog();
         }
+        public void AccommodationsClick()
+        {
+            OwnersAccommodation accommodations = new OwnersAccommodation(loggedInUserId);
+            accommodations.ShowDialog();
+        }
         public void ReservationsClick() {
-            GuestReservations reservations = new GuestReservations();
+            GuestReservations reservations = new GuestReservations(loggedInUserId);
             reservations.ShowDialog();
         }
         public void MyGradesClick() {

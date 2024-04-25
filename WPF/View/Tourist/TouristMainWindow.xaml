@@ -5,102 +5,123 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
         mc:Ignorable="d"
-        Title="Pretraga i izbor tura" Height="650" Width="900"  WindowStartupLocation="CenterScreen">
+        Title="Pretraga i izbor tura" Height="650" Width="1000"  WindowStartupLocation="CenterScreen">
+   
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="100" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            </Grid.ColumnDefinitions>
-
-            <Label Content="Grad:" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="CityTextBox" Text="{Binding CityFilter, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="5"/>
-
-            <Label Content="Država:" Grid.Column="2" Margin="5"/>
-            <TextBox x:Name="CountryTextBox" Text="{Binding CountryFilter, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Margin="5"/>
-
-            <Label Content="Trajanje:" Grid.Column="4" Margin="5"/>
-            <TextBox x:Name="DaysTextBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Margin="5"/>
-
-            <Label Content="Jezik:" Grid.Column="6" Margin="5"/>
-            <ComboBox x:Name="LanguageComboBox"  SelectedItem="{Binding SelectedLanguage , UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Languages}" Grid.Column="7" Margin="5"  DisplayMemberPath="Name" SelectedValuePath="Id"/>
-
-            <Label Content="Broj ljudi:" Grid.Column="8" Margin="5"/>
-            <TextBox x:Name="PeopleTextBox" Text="{Binding PeopleCount , UpdateSourceTrigger=PropertyChanged}"  Grid.Column="9" Margin="5"/>
+        
+        <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="2,0,3,0" Grid.ColumnSpan="2" Height="614">
+           
+            <Image Source="C:\Users\Arijana\Documents\sims\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+            <TextBlock Text="TOURIST" Height="23" FontSize="11" Width="42" Foreground="Gray"/>
 
 
-            <Button Content="Pretraži ture" Grid.Column="11" Margin="5" VerticalAlignment="Center" Click="SearchTour" />
-        </Grid>
 
-        <DataGrid Grid.Row="1" Margin="0,30,20,10" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="FontWeight" Value="Regular"/>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv ture" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Opis ture" Binding="{Binding Description}" Width="*"/>
-                <DataGridTextColumn Header="Drzava" Binding="{Binding Location.Country}" Width="*"/>
-                <DataGridTextColumn Header="Grad" Binding="{Binding Location.City}" Width="*"/>
-
-
-                <DataGridTextColumn Header="Broj mjesta" Binding="{Binding Capacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Width="*"/>
-
-                <DataGridTemplateColumn Header="Datumi ture" Width="3*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" 
-                     SelectionMode="Single" 
-                     SelectedItem="{Binding Path=SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            </ListBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
-                <DataGridTextColumn Header="Jezik" Binding="{Binding Language.Name}" Width="*"/>
-                <DataGridTemplateColumn Header="Slike" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding Images}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding Path}" Height="50" Margin="2"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Obavestenja" Margin="5" Padding="10,0" Click="NotificationsClick" Height="34" Width="94" />
-            <Button Content="Rezerviši turu" Margin="5" Padding="10,0" Click="BookTour" Height="34" Width="94" />
-            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="89" />
-            <Button Content="Zavrsene ture" Margin="5" Padding="10,0" Click="FinishedTourClick" Width="131" />
-            <Button Content="Aktivne ture" Margin="5" Padding="10,0" Click="ActiveTourClick" Width="111" />
+            <Button Content="Završene ture" Margin="5" Padding="10,0" BorderThickness="0" Background="White" Click="FinishedTourClick" Height="34" HorizontalAlignment="Stretch" />
+            <Button Content="Aktivne ture" Margin="5" Padding="10,0" BorderThickness="0" Background="White" Click="ActiveTourClick" Height="34" HorizontalAlignment="Stretch" />
+            <Button Content="Obaveštenja" Margin="5" Padding="10,0" BorderThickness="0" Background="White" Click="NotificationsClick" Height="34" HorizontalAlignment="Stretch" />
+            <Button Content="Log out" Padding="10,0" Click="CancelTour" BorderThickness="0" Background="White" Height="34" Margin="5" HorizontalAlignment="Stretch" />
         </StackPanel>
 
+       
+        <Border Grid.Column="1" Background="LightGray" Width="3"/>
 
+        <Grid Grid.Column="2" Margin="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="SEARCH TOURS" Foreground="DarkGray" FontSize="20" FontWeight="Bold" Margin="10,10,0,10" HorizontalAlignment="Left"/>
+
+            
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,496">
+
+                <Label Content="Grad:" Grid.Column="0" Margin="5" Height="27"/>
+                <TextBox x:Name="CityTextBox"  Text="{Binding CityFilter, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="5" Width="64" Height="20"/>
+
+                <Label Content="Država:" Grid.Column="2" Margin="5" Height="27"/>
+                <TextBox x:Name="CountryTextBox" Text="{Binding CountryFilter, UpdateSourceTrigger=PropertyChanged}" Width="75" Height="23"/>
+
+                <Label Content="Trajanje:" Grid.Column="4" Margin="5" Height="27"/>
+                <TextBox x:Name="DaysTextBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" Width="77" Height="24"/>
+
+                <Label Content="Jezik:" Grid.Column="6" Margin="5" Height="30"/>
+                <ComboBox x:Name="LanguageComboBox"  SelectedItem="{Binding SelectedLanguage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Languages}"  DisplayMemberPath="Name" SelectedValuePath="Id" Width="92" Height="22"/>
+
+                <Label Content="Broj ljudi:" Grid.Column="8" Margin="5" Height="29"/>
+                <TextBox x:Name="PeopleTextBox" Text="{Binding PeopleCount , UpdateSourceTrigger=PropertyChanged}"  Grid.Column="9" Margin="5" Width="80" Height="24"/>
+                <Button Content="Pretraži ture" Click="SearchTour" Width="87" Height="24" />
+            </StackPanel>
+
+
+
+
+            <ListView Grid.Row="1" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,76,10,10" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0,5,5,5" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
+                                    <ItemsControl ItemsSource="{Binding Images}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Path}" Height="50" Margin="2"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
+                                    <TextBlock Text="{Binding Description, StringFormat=Opis: {0}}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Location.City, StringFormat=Grad: {0}}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Location.Country, StringFormat=Država: {0}}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Duration, StringFormat=Trajanje: {0} dana}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Capacity, StringFormat=Kapacitet: {0}}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Language.Name, StringFormat=Jezik: {0}}" Margin="0,2,0,0"/>
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="20,0,20,0">
+                                    <TextBlock Text="Dostupni datumi" FontWeight="Bold" FontSize="12" Margin="20,0,20,0"/>
+                                    <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" SelectionMode="Single" SelectedItem="{Binding SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0">
+                                    </ListBox>
+                                </StackPanel>
+
+                               
+                                <Button Content="Rezerviši turu" Grid.Column="3" BorderThickness="0" Background="White" Click="BookTour" Height="34" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+
+
+        </Grid>
     </Grid>
 </Window>

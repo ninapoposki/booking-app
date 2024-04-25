@@ -27,10 +27,10 @@ namespace BookingApp.WPF.View.Owner
     public partial class GuestReservations : Window
     {
         public GuestReservationsVM GuestReservationsVM { get; set; }
-        public GuestReservations()
+        public GuestReservations(int loggedInUserId)
         {
             InitializeComponent();
-            GuestReservationsVM = new GuestReservationsVM();
+            GuestReservationsVM = new GuestReservationsVM(loggedInUserId);
             DataContext = GuestReservationsVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
@@ -39,7 +39,13 @@ namespace BookingApp.WPF.View.Owner
         {
                 GuestReservationsVM.GuestDataGridSelectionChanged();
         }
+        private void GradeGuestClick(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            AccommodationReservationDTO reservation = (AccommodationReservationDTO)clickedButton.DataContext;
 
+            GuestReservationsVM.GradeGuestClick(reservation);
+        }
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
