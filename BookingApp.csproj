@@ -39,7 +39,9 @@
     <None Remove="Resources\Images\TourGradeLimanski.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSad.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSadCentar.jpg" />
+
     <None Remove="Resources\Images\Travel.png" />
+
 
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -129,6 +131,7 @@
     <Content Include="Resources\Images\Travel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
