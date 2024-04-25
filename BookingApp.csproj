@@ -44,41 +44,41 @@
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\apartment_grade.jpg">
+    <Resource Include="Resources\Images\apartment_grade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\apartment_grade1.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\apartment_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\apartment_picture.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\apartment_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\apartment_picture1.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\apartment_picture1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\cabin_grade.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\cabin_grade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\cabin_grade1.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\cabin_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\cabin_picture.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\cabin_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\hotel_grade1.jpg">
+    <Resource Include="Resources\Images\hotel_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
 
 
-    <Content Include="Resources\Images\house_picture.jpg">
+    <Resource Include="Resources\Images\house_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
 
 
     <Content Include="Resources\Images\profile.png">
@@ -86,41 +86,41 @@
     </Content>
 
 
-    <Content Include="Resources\Images\SlikaBeograd.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Images\SlikaBeograd.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
 
 
-    <Content Include="Resources\Images\SlikaBeograd2.jpg">
+    <Resource Include="Resources\Images\SlikaBeograd2.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaKopenhagen.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\SlikaKopenhagen.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\SlikaKopenhagen2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\SlikaKopenhagen2.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\SlikaNoviSad.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaNoviSad2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\SlikaNoviSad.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeDenmark.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\SlikaNoviSad2.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeDjava.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\TourGradeDenmark.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeLimanski.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\TourGradeDjava.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeNoviSad.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\TourGradeLimanski.jpg">
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\TourGradeNoviSad.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\TourGradeNoviSadCentar.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
 
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
