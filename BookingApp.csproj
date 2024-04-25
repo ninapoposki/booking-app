@@ -22,7 +22,10 @@
 
     <None Remove="Resources\Images\hotel_picture.jpg" />
     <None Remove="Resources\Images\house_picture.jpg" />
+    <None Remove="Resources\Images\left.png" />
+    <None Remove="Resources\Images\OwnerTravel.png" />
     <None Remove="Resources\Images\profile.png" />
+    <None Remove="Resources\Images\right.png" />
 
     <None Remove="Resources\Images\SlikaBeograd.jpg" />
 
@@ -36,6 +39,7 @@
     <None Remove="Resources\Images\TourGradeLimanski.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSad.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSadCentar.jpg" />
+    <None Remove="Resources\Images\Travel.png" />
 
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -74,23 +78,24 @@
     <Resource Include="Resources\Images\hotel_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-
-
     <Resource Include="Resources\Images\house_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-
-
+    <Content Include="Resources\Images\left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\OwnerTravel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-
-
     <Resource Include="Resources\Images\SlikaBeograd.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-
-
+    <Content Include="Resources\Images\right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Images\SlikaBeograd2.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -121,10 +126,15 @@
     <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-
+    <Content Include="Resources\Images\Travel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
   </ItemGroup>
 
 </Project>
