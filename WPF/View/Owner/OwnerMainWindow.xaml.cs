@@ -48,6 +48,10 @@ namespace BookingApp.WPF.View.Owner
         {
            OwnerMainWindowVM.NotificationsClick();
         }
+        private void AccommodationsClick(object sender, RoutedEventArgs e)
+        {
+            OwnerMainWindowVM.AccommodationsClick();
+        }
 
         private void ReservationsClick(object sender, RoutedEventArgs e)
         {

@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="OwnerMainWindow" Height="550" Width="900">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="Auto"/>
             <!-- Lijevi prostor za dugmad -->
             <ColumnDefinition Width="Auto"/>
             <!-- Uspravna linija -->
@@ -20,33 +21,39 @@
         </Grid.ColumnDefinitions>
 
 
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
-            <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
+        <StackPanel Grid.Column="0"  Margin="0,0,0,4" VerticalAlignment="Stretch" Height="Auto">
+            <StackPanel.Background >
+                <ImageBrush ImageSource="..\..\..\Resources\Images\OwnerTravel.png" Stretch="UniformToFill" Opacity="0.5" />
+            </StackPanel.Background>
+            <StackPanel  Margin="0,0,0,0" >
                 <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
+                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
+                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"  Foreground="Navy"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"/>
-                         <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"/>
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"  Foreground="Navy"/>
+                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"  Foreground="Navy"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
+            <StackPanel VerticalAlignment="Stretch">
             <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Home Page" Margin="5 0 5 5" BorderThickness="1" Height="50" Background="White"/>
-            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click ="MyGradesClick"/>
-            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click="ReservationsClick"/>
-            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White" Click="RequestsClick"/>
-            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>
+            <Button Content="Home Page" Margin="5 0 5 5" BorderThickness="2" BorderBrush="DarkBlue" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" />
+            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click ="MyGradesClick" FontWeight="Bold" Foreground="Navy"/>
+            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  Click="AccommodationsClick" FontWeight="Bold" Foreground="Navy"/>
+            <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click="ReservationsClick" FontWeight="Bold" Foreground="Navy"/>
+            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click="RequestsClick" FontWeight="Bold" Foreground="Navy"/>
+            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+            <Border Height="3" Background="Navy" Margin="0 5" VerticalAlignment="Bottom"/>
+            <Button Content="Log out" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" VerticalAlignment="Bottom"/>
+            </StackPanel>
         </StackPanel>
 
         <Border Grid.Column="1" Background="Black" Width="2"/>
@@ -72,7 +79,7 @@
 
                     <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
                     <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
-
+                       
                         <Button Content="HELP" Width="107" BorderThickness="0" Background="White" FontSize="15" HorizontalAlignment="Right"/>
                     </WrapPanel>
                 </StackPanel>
