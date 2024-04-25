@@ -13,10 +13,13 @@ namespace BookingApp.Services
     {
         private ICancelledReservationsRepository cancelledReservationsRepository;
         private AccommodationReservationService accommodationReservationService;
-        public CancelledReservationsService()
+        private ReservationRequestService reservationRequestService;
+        public CancelledReservationsService(ICancelledReservationsRepository cancelledReservationsRepository, IAccommodationReservationRepository accommodationReservationRepository, IGuestRepository guestRepository, IUserRepository userRepository, IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository, IOwnerRepository ownerRepository,
+            IReservationRequestRepository reservationRequestRepository)
         {
-            cancelledReservationsRepository = Injector.Injector.CreateInstance<ICancelledReservationsRepository>();
-            accommodationReservationService=new AccommodationReservationService();
+            this.cancelledReservationsRepository = cancelledReservationsRepository;
+            accommodationReservationService=new AccommodationReservationService(accommodationReservationRepository,guestRepository,userRepository,accommodationRepository,imageRepository,locationRepository,ownerRepository);
+            reservationRequestService=new ReservationRequestService(reservationRequestRepository,accommodationReservationRepository,guestRepository,userRepository,accommodationRepository,imageRepository,locationRepository,ownerRepository);
         }
         public void CancelReservation( Accommodation accommodation,AccommodationReservation accommodationReservation)
         {
@@ -26,8 +29,8 @@ namespace BookingApp.Services
                     InitialDate = accommodationReservation.InitialDate,
                     EndDate = accommodationReservation.EndDate,
                 };
-                accommodationReservationService.Delete(accommodationReservation); 
-               
+                accommodationReservationService.Delete(accommodationReservation);
+                reservationRequestService.DeleteById(accommodationReservation.Id);
                 cancelledReservationsRepository.Add(cancelledReservation);            
         }
 

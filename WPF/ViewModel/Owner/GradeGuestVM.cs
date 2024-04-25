@@ -1,4 +1,5 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
 using System;
@@ -14,13 +15,14 @@ namespace BookingApp.WPF.ViewModel.Owner
     public class GradeGuestVM : ViewModelBase
     {
        public GuestGradeService GuestGradeService { get; set; }
-        public AccommodationReservationDTO selectedAccommodationReservation;
+        public AccommodationReservationDTO SelectedAccommodationReservation {  get; set; }
         public GuestGradeDTO guestGradeDTO { get; set; }
         public GradeGuestVM(AccommodationReservationDTO accommodationReservationDTO) {
 
             
-            selectedAccommodationReservation = accommodationReservationDTO;
-            GuestGradeService = new GuestGradeService();
+            this.SelectedAccommodationReservation = accommodationReservationDTO;
+            GuestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
             guestGradeDTO = new GuestGradeDTO();
         }
 
@@ -33,8 +35,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             guestGradeDTO.Cleanless = CleannessRadio;
             guestGradeDTO.RulesFollowing = FollowingTheRulesRadio;
             guestGradeDTO.Comment = Comments;
-            guestGradeDTO.GuestId = selectedAccommodationReservation.GuestId;
-            guestGradeDTO.ReservationId = selectedAccommodationReservation.Id;
+            guestGradeDTO.GuestId = SelectedAccommodationReservation.GuestId;
+            guestGradeDTO.ReservationId = SelectedAccommodationReservation.Id;
             GuestGradeService.Add(guestGradeDTO.ToGuestGrade());
             
         }

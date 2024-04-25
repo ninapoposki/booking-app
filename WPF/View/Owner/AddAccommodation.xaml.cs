@@ -33,10 +33,10 @@ namespace BookingApp.WPF.View.Owner
     {
         
         public AddAccommodationVM AddAccommodationVM { get; set; }
-        public AddAccommodation( string currentUserUsername)
+        public AddAccommodation( int loggedInUserId)
         {
             InitializeComponent();
-            AddAccommodationVM = new AddAccommodationVM(currentUserUsername);
+            AddAccommodationVM = new AddAccommodationVM(loggedInUserId);
             DataContext = AddAccommodationVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
@@ -65,6 +65,12 @@ namespace BookingApp.WPF.View.Owner
         private void CityChanged(object sender, SelectionChangedEventArgs e)
         {
             AddAccommodationVM.SelectedCity = (string)cityComboBox.SelectedItem;
+        }
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
+            if (MaxUpDown.Value == 0) { MaxUpDown.Value = 1; e.Handled = true; }
+            if (MinUpDown.Value == 0) { MinUpDown.Value = 1; e.Handled = true; }
         }
     }
     

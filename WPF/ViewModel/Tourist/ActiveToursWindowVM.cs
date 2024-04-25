@@ -18,6 +18,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private int userId;
         private TourStartDateService tourStartDateService;
         private CheckPointService checkPointService;
+        private ImageService imageService;
         private TourReservationService tourReservationService;
         private TourService tourService;
         public ObservableCollection<TourDTO> ActiveTours { get; set; }
@@ -31,13 +32,15 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 Injector.Injector.CreateInstance<ILanguageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>());
             ActiveTours = new ObservableCollection<TourDTO>();
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             LoadActiveTour();
         }
         private void LoadActiveTour()
         {
-            List<TourDTO> activeTours = tourService.GetAll(); 
+            List<TourDTO> activeTours = tourService.GetAll();
+            var allImages = imageService.GetAll().Where(img => img.EntityType == EntityType.TOUR).ToList();
             foreach (TourDTO tourDTO in activeTours)
             {
                 IEnumerable<TourStartDateDTO> activeDates = tourStartDateService.GetTourDates(tourDTO.Id).Where(t => t.TourStatus == Domain.Model.TourStatus.ACTIVE);
@@ -46,7 +49,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 {
                     TourDTO tour = tourService.GetTour(tourStart.TourId);
                     if (tour != null)
+
                     {
+                        var matchingImages = new ObservableCollection<ImageDTO>(allImages.Where(img => img.EntityId == tour.Id).ToList());
+                        tour.Images = matchingImages;
                         tour.SelectedDateTime = tourStart;
                         foreach (TourReservationDTO tr in tourReservationService.GetByUserId(userId))
                         {

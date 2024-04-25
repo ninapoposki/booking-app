@@ -14,16 +14,24 @@ namespace BookingApp.WPF.ViewModel.Owner
 {
     public class NotificationsVM : ViewModelBase
     {
-        public  GuestGradeService guestGradeService;
-        public GuestService guestService;
+        public GuestGradeService guestGradeService;
         public AccommodationService accommodationService;
         public AccommodationReservationService accommodationReservationService;
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public NotificationsVM() {
-            guestGradeService = new GuestGradeService();
-            guestService = new GuestService();
-            accommodationService = new AccommodationService();
-            accommodationReservationService = new AccommodationReservationService();
+            guestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllAccommodationReservations = new ObservableCollection<AccommodationReservationDTO>();
             Update();
         }
@@ -34,43 +42,25 @@ namespace BookingApp.WPF.ViewModel.Owner
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
             {
                 if (IsWithinFiveDays(accommodationReservationDTO) && !IsGuestGraded(accommodationReservationDTO.Id)) {
-                    var updatedDTO = accommodationReservationDTO;
-                    updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
-                    updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
-
+                    var updatedDTO = accommodationReservationService.GetOneReservation(accommodationReservationDTO);
+                   // accommodationReservationDTO.Accommodation = accommodationReservationService.accommodationService.GetByIdDTO(accommodationReservationDTO.AccommodationId); ;
+                    //accommodationReservationDTO.Guest = accommodationReservationService.guestService.GetByIdDTO(accommodationReservationDTO.GuestId);
+                    // updatedDTO.Guest = GetGuest(accommodationReservationDTO.GuestId);
+                    // updatedDTO.Accommodation = GetAccommodation(accommodationReservationDTO.AccommodationId);
                     AllAccommodationReservations.Add(updatedDTO);
                 }
             }
         }
         
-        public GuestDTO GetGuest(int guestId)
-        {
-            var guest = guestService.GetById(guestId);
-            GuestDTO guestDTO = new GuestDTO(guest);
-
-            return guestDTO;
-        }
-
-        public AccommodationDTO GetAccommodation(int accommodationId)
-        {
-            var accommodation = accommodationService.GetById(accommodationId);
-            AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
-
-            return accommodationDTO;
-        }
-
-        private bool IsWithinFiveDays(AccommodationReservationDTO accommodationReservationDTO)
-        {
+        private bool IsWithinFiveDays(AccommodationReservationDTO accommodationReservationDTO) {
             DateTime currentDate = DateTime.Now;
             DateTime endDate = accommodationReservationDTO.EndDate;
             TimeSpan difference = currentDate - endDate;
-            return difference.Days < 5 && difference.Days >= 0;
+            return difference.Days < 5 && difference.Days > 0;
         }
-
-         private bool IsGuestGraded(int reservationId)
-        {
+         private bool IsGuestGraded(int reservationId) {
             return guestGradeService.IsGuestGraded(reservationId);  
-        }
+         }
 
     }
 }

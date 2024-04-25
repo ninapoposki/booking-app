@@ -1,0 +1,162 @@
+﻿<Window x:Class="BookingApp.WPF.View.Owner.OwnersAccommodation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+        mc:Ignorable="d"
+        Title="OwnersAccommodation" Height="550" Width="900">
+    <Window.Resources>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="LightCyan"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="PeachPuff"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Lijevi prostor za dugmad -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Uspravna linija -->
+            <ColumnDefinition Width="5"/>
+            <!-- Razmak između linije i glavnog sadržaja -->
+            <ColumnDefinition Width="*"/>
+            <!-- Glavni sadržaj -->
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0"  Margin="0,0,0,4" VerticalAlignment="Stretch" Height="Auto">
+            <StackPanel.Background >
+                <ImageBrush ImageSource="..\..\..\Resources\Images\OwnerTravel.png" Stretch="UniformToFill" Opacity="0.5" />
+            </StackPanel.Background>
+            <StackPanel  Margin="0,0,0,0" >
+                <Image Source="..\..\..\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Owner.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
+                    <TextBlock Text="{Binding Owner.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="{Binding Owner.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"  Foreground="Navy"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"  Foreground="Navy"/>
+                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"  Foreground="Navy"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Stretch">
+                <Border Height="2" Background="Black" Margin="0 5"/>
+                <Button Content="Home Page" Margin="0 0 0 5" BorderThickness="0"  Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" />
+                <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Accommodations" Margin="5 0 5 5" BorderThickness="2" BorderBrush="DarkBlue" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0"  Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+                <Border Height="3" Background="Navy" Margin="0 5" VerticalAlignment="Bottom"/>
+                <Button Content="Log out" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Border Grid.Column="1" Background="Black" Width="2"/>
+
+        <!-- Glavni sadržaj -->
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="485*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2" Margin="-7,0,0,0" >
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,6,5,0" Height="30" VerticalAlignment="Top">
+                    <TextBlock Text="My accommodations" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25"/>
+                    <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="120,0,5,0" FontSize="15" />
+
+                    <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
+                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
+
+
+                    <Button Content="NOTIFICATIONS" Width="140" Margin="5,0" BorderThickness="0" Background="White" FontSize="15"  />
+
+                    <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
+                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
+
+                    <Button Content="HELP" Width="107" BorderThickness="0" Background="White" FontSize="15"/>
+
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ListBox  Grid.Row="1" Margin="10" BorderThickness="1" BorderBrush="Black" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"  SelectionMode="Single" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Height" Value="80"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="190"/>
+                                </Grid.ColumnDefinitions>
+                                <ItemsControl ItemsSource="{Binding Images}" Grid.Column="0" Height="70">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate >
+                                            <Image Source="{Binding Path}" Height="60" Margin="5,0,0,0"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="1" Margin="10,0,0,0"  Height="50" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Name}"  />
+                                    <StackPanel Orientation="Horizontal"   Grid.Column="1">
+                                        <TextBlock Text="&#xE7B7;" FontFamily="Segoe MDL2 Assets"  FontWeight="Bold" Foreground="Red"/>
+                                        <TextBlock Text="{Binding Location.City}"  Foreground="Navy"/>
+                                        <TextBlock Text="," Foreground="Navy" />
+                                        <TextBlock Text="{Binding Location.Country}" Margin=" 5,0,0,0" Foreground="Navy"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding AccommodationType}"   Foreground="Navy"/>
+                                </StackPanel>
+
+                                
+                                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="200">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                            <TextBlock  Text="{Binding Capacity}" Foreground="Navy"/>
+                                            <TextBlock  Text=" guest/s"  Margin="5,0,0,0" Foreground="Navy"/>
+                                        </StackPanel>
+                                        <TextBlock  Text="{Binding MinStayDays}" HorizontalAlignment="Center" Foreground="Navy"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                            <TextBlock  Text="{Binding CancellationPeriod}" Foreground="Navy"/>
+                                            <TextBlock  Text=" day/s"  Margin="5,0,0,0" Foreground="Navy"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                               
+
+                                <StackPanel Orientation="Vertical" Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Message}" Foreground="Navy"/>
+                                      </StackPanel>
+
+                            </Grid>
+
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</Window>

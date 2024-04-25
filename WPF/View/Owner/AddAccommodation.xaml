@@ -3,29 +3,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="AddAccommodation" Height="550" Width="850">
     <Window.Resources>
-        <ControlTemplate x:Key="ValidationTemplate">
-            <StackPanel>
-                <!-- Placeholder for the TextBox itself -->
-                <AdornedElementPlaceholder x:Name="textBox" />
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
-            </StackPanel>
-        </ControlTemplate>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="LightBlue"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+        <Style TargetType="ComboBox">
+
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+
+
     </Window.Resources>
-
-
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="15" />
-            <RowDefinition Height="Auto" MinHeight="5" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="15" MinHeight="5" />
             <RowDefinition Height="Auto" MinHeight="30" />
             <RowDefinition Height="Auto" MinHeight="30" />
             <RowDefinition Height="Auto" MinHeight="30" />
@@ -41,63 +54,47 @@
             <RowDefinition Height="Auto" MinHeight="30"/>
             <RowDefinition Height="Auto" MinHeight="30"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="19" Text="Add accommodation" HorizontalAlignment="Left"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontStyle="Italic" FontSize="13" Text="Fill in all fields in order to add successfully :" HorizontalAlignment="Left"/>
 
-        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0,2,0,0" BorderBrush="Black"/>
+        <Border Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="PowderBlue"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="19" Text="Add accommodation" HorizontalAlignment="Left" Opacity="1" Foreground="Navy" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontStyle="Italic" FontSize="13" Text="Fill in all fields in order to add successfully :" HorizontalAlignment="Left" Foreground="Navy"/>
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0,2,0,0" BorderBrush="Black"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Name*" VerticalAlignment="Center" Height="34"/>
-        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Path=Accommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Name:" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Path=accommodationDTO.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  Margin="5,5,5,10"/>
 
-
-        <Label Grid.Row="4" Grid.Column="0" Content="Country*" VerticalAlignment="Center" Height="26"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Country:" VerticalAlignment="Center" Height="26"/>
         <ComboBox x:Name="countryComboBox" Grid.Row="5" Grid.Column="0" Margin="5" ItemsSource="{Binding CountryComboBox}"  SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" SelectionChanged="CountryChanged" />
 
-
-
-
-
-        <Label Grid.Row="6" Grid.Column="0" Content="City*" VerticalAlignment="Center" Height="26"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="City:" VerticalAlignment="Center" Height="26"/>
         <ComboBox x:Name="cityComboBox" Grid.Row="7" Grid.Column="0" Margin="5" ItemsSource="{Binding CityComboBox}"  SelectedItem="{Binding SelectedCity, Mode=TwoWay}" SelectionChanged="CityChanged"/>
 
+        <Label Grid.Row="8" Grid.Column="0" Content="Accommodation Type:" VerticalAlignment="Center" Height="26"/>
+        <ComboBox x:Name="TypeComboBox" Grid.Row="9" Grid.Column="0" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=accommodationDTO.AccommodationType}" />
 
+        <Label Grid.Row="10" Grid.Column="0" Content="Capacity:" VerticalAlignment="Center" Height="26"/>
+        <xctk:IntegerUpDown  Grid.Row="11" Grid.Column="0" Name="MaxUpDown"  Value="{Binding accommodationDTO.Capacity, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10" PreviewTextInput="IntegerUpDown_PreviewTextInput" Foreground="Navy">
+        </xctk:IntegerUpDown>
 
+        <Label Grid.Row="12" Grid.Column="0" Content="Minimum stay days:" VerticalAlignment="Center" Height="26"/>
+        <xctk:IntegerUpDown  Grid.Row="13" Grid.Column="0" Name="MinUpDown"  Value="{Binding accommodationDTO.MinStayDays, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10" PreviewTextInput="IntegerUpDown_PreviewTextInput" Foreground="Navy">
+        </xctk:IntegerUpDown>
 
+        <Label Grid.Row="14" Grid.Column="0" Content="Cancellation period:" VerticalAlignment="Center" Height="26"/>
+        <TextBox Grid.Row="15" Grid.Column="0" Text="{Binding Path=accommodationDTO.CancellationPeriod, UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,10"/>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="Accommodation Type*" VerticalAlignment="Center" Height="26"/>
-
-        <ComboBox x:Name="TypeComboBox" Grid.Row="9" Grid.Column="0" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=Accommodation.AccommodationType}" />
-
-        <Label Grid.Row="10" Grid.Column="0" Content="Capacity*" VerticalAlignment="Center" Height="26"/>
-        <TextBox Grid.Row="11" Grid.Column="0" Text="{Binding Path=Accommodation.Capacity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"  InputScope="Number"/>
-
-
-        <Label Grid.Row="12" Grid.Column="0" Content="Min Stay Days*" VerticalAlignment="Center" Height="26"/>
-        <TextBox x:Name="MinStayDaysTextBox" Grid.Row="13" Grid.Column="0" Text="{Binding Path=Accommodation.MinStayDays, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10" />
-
-        <Label Grid.Row="14" Grid.Column="0" Content="Cancellation Period*" VerticalAlignment="Center" Height="26"/>
-        <TextBox Grid.Row="15" Grid.Column="0" Text="{Binding Path=Accommodation.CancellationPeriod, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="5,5,5,10"/>
-
-
-
-
-
-        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5" Grid.RowSpan="13">
+        <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Margin="5,10,20,0" Grid.RowSpan="13">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Content="Images*" VerticalAlignment="Center" Height="26"/>
-
-
-                <ListView Grid.Row="1" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" Grid.RowSpan="2" Margin="0,0,0,-310">
+                <Label Grid.Row="0" Content="Images:" VerticalAlignment="Center" Height="26"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" Margin="0,5,0,5">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="3"/>
-                            <!-- Postavljamo broj kolona na 3, možete prilagoditi broj kolona prema potrebi -->
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
@@ -106,14 +103,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Click="BrowseImageClick" Grid.Row="2" Margin="192,341,192,-340">Add</Button>
-
-
+                <Button Content="Add" Click="BrowseImageClick" Grid.Row="2"  Margin="0,0,0,5"/>
             </Grid>
         </Border>
-
-        <Button Grid.Row="15" Grid.Column="1" Content="Add" HorizontalAlignment="Left"  Click="AddAccommodationButtonClick" Width="64" Margin="93,10,0,20" />
-        <Button Grid.Row="15" Grid.Column="1" Content="Cancel" HorizontalAlignment="Right" Click="CancelButtonClick" Width="64" Height="20" Margin="0,10,123,20" />
-
+        <UniformGrid Grid.Row="15" Grid.Column="2" Columns="2" Width="200" Height="25">
+            <Button Content="Confirm" Click="AddAccommodationButtonClick" Background="PaleGreen"/>
+            <Button Content="Cancel" Click="CancelButtonClick" Background="Tomato" />
+        </UniformGrid>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using System;
@@ -14,75 +15,80 @@ using System.Windows.Controls;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
-     public class DateChangeRequestsVM : ViewModelBase
-     {
+     public class DateChangeRequestsVM : ViewModelBase {
         public ReservationRequestService reservationRequestService;
         public AccommodationReservationService accommodationReservationService;
         public AccommodationService accommodationService; 
         public GuestService guestService;
         public ReservationRequestDTO SelectedReservation { get; set; }
-
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public TextBox commentTextBox { get; set; }
-        public DateChangeRequestsVM(TextBox textBox) {
-
-            reservationRequestService = new ReservationRequestService();
-            accommodationService = new AccommodationService();
-            guestService = new GuestService(); 
-            accommodationReservationService = new AccommodationReservationService();
+        public int currentUserId;
+        public DateChangeRequestsVM(TextBox textBox, int loggedInUserId) {
+            reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                Injector.Injector.CreateInstance<IGuestRepository>(),
+                Injector.Injector.CreateInstance<IUserRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
+            guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>()); 
+            accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
+                           Injector.Injector.CreateInstance<IGuestRepository>(),
+                           Injector.Injector.CreateInstance<IUserRepository>(),
+                           Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                           Injector.Injector.CreateInstance<IImageRepository>(),
+                           Injector.Injector.CreateInstance<ILocationRepository>(),
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
-
             commentTextBox = textBox;
+            currentUserId = loggedInUserId;
             Update();
         }
-
         public void Update() {
             AllReservationRequests.Clear();
             foreach (ReservationRequestDTO reservationRequestDTO in reservationRequestService.GetAll()) {
-                if (reservationRequestDTO.RequestStatus == RequestStatus.ONHOLD) {
+                if (reservationRequestDTO.RequestStatus == RequestStatus.ONHOLD ) {
                     var updatedDTO = reservationRequestDTO;
                     updatedDTO.AccommodationReservation= GetAccommodationReservation(reservationRequestDTO.ReservationId);
                     updatedDTO.AccommodationReservation.Guest = GetGuest(reservationRequestDTO.AccommodationReservation.GuestId);
                     updatedDTO.AccommodationReservation.Accommodation = GetAccommodation(reservationRequestDTO.AccommodationReservation.AccommodationId);
                     bool isDateValid = accommodationReservationService.AreDatesAvailable(updatedDTO.AccommodationReservation.AccommodationId, updatedDTO.NewInitialDate, updatedDTO.NewEndDate);
-                    if(isDateValid == true) {
-                        updatedDTO.Message = "FREE";
+                    if(isDateValid == true) { updatedDTO.Message = "FREE";
                     } else { updatedDTO.Message = "NOT FREE"; }
-
-                 AllReservationRequests.Add(updatedDTO);
+                    if(reservationRequestDTO.AccommodationReservation.Accommodation.OwnerId == currentUserId)
+                    {
+                        AllReservationRequests.Add(updatedDTO);
+                    }
                 }
             }
         }
-        public AccommodationReservationDTO GetAccommodationReservation(int accommodatiodReservationId)
-        {
+        public AccommodationReservationDTO GetAccommodationReservation(int accommodatiodReservationId) {
             var accommres = accommodationReservationService.GetById(accommodatiodReservationId);
             AccommodationReservationDTO accommodationReservationDTO = new AccommodationReservationDTO(accommres);
+           // accommodationReservationDTO.Accommodation = accommodationService.GetAccommodation(accommodatiodReservationId);
             return accommodationReservationDTO;
         }
-
-        public GuestDTO GetGuest(int guestId)
-        {
+        public GuestDTO GetGuest(int guestId){
             var guest = guestService.GetById(guestId);
             GuestDTO guestDTO = new GuestDTO(guest);
-
             return guestDTO;
         }
-
-        public AccommodationDTO GetAccommodation(int accommodationId)
-        {
+        public AccommodationDTO GetAccommodation(int accommodationId){
             var accommodation = accommodationService.GetById(accommodationId);
             AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
-
             return accommodationDTO;
         }
-
-        public void DeclineButtonClick()
-         {
+        public void DeclineButtonClick(){
             string Comment = commentTextBox.Text;
             reservationRequestService.UpdateStatus(SelectedReservation.ReservationId, RequestStatus.DECLINED, Comment  );
             MessageBox.Show("Requests is declined");
         }
-        
         public void AcceptButtonClick() {
             if (SelectedReservation != null){
                 string Comment = commentTextBox.Text;
@@ -90,12 +96,9 @@ namespace BookingApp.WPF.ViewModel.Owner
                 int accommodationReservationId = SelectedReservation.AccommodationReservation.Id;
                 DateTime initialDate = SelectedReservation.NewInitialDate;
                 DateTime endDate = SelectedReservation.NewEndDate;
-                accommodationReservationService.UpdateDate(accommodationReservationId, initialDate, endDate);
+                accommodationReservationService.UpdateDate(SelectedReservation.AccommodationReservation, initialDate, endDate);
                 MessageBox.Show("Requests is accepted");
-            } else {
-                MessageBox.Show("Please select a reservation before accepting.");
-            }
+            } else { MessageBox.Show("Please select a reservation before accepting."); }
         }
     }
-
 }

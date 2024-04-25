@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="OwnerGrades" Height="550" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -5,10 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
+        Background="AliceBlue"
         Title="GuestReservations" Height="550" Width="900">
+    <Window.Resources>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="LightCyan"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="PeachPuff"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value=" Navy"/>
+        </Style>
+        
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="Auto"/>
             <!-- Lijevi prostor za dugmad -->
             <ColumnDefinition Width="Auto"/>
             <!-- Uspravna linija -->
@@ -19,30 +32,39 @@
         </Grid.ColumnDefinitions>
 
 
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,4">
-            <StackPanel Height="120" Margin="0,0,0,0" VerticalAlignment="Bottom">
-                <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
+        <StackPanel Grid.Column="0"  Margin="0,0,0,4" VerticalAlignment="Stretch" Height="Auto">
+            <StackPanel.Background >
+                <ImageBrush ImageSource="..\..\..\Resources\Images\OwnerTravel.png" Stretch="UniformToFill" Opacity="0.5" />
+            </StackPanel.Background>
+            <StackPanel  Margin="0,0,0,0" >
+                <Image Source="..\..\..\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding OwnerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding OwnerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Owner.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
+                    <TextBlock Text="{Binding Owner.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="SUPEROWNER" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"/>
-                    <TextBlock Text="Average grade: 4.5" Margin="0,1,0,0" Height="14" FontSize="9" Width="77"/>
+                    <TextBlock Text="{Binding Owner.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"  Foreground="Navy"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"  Foreground="Navy"/>
+                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"  Foreground="Navy"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Home Page" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="Reservations" Margin="5 0 5 5" BorderThickness="1" Height="50" Background="White" />
-            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="White"/>
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Log out" BorderThickness="0" Height="50" Background="White"/>
+            <StackPanel VerticalAlignment="Stretch">
+                <Border Height="2" Background="Black" Margin="0 5"/>
+                <Button Content="Home Page" Margin="0 0 0 5" BorderThickness="0"  Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" />
+                <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Reservations" Margin="5 0 5 5" BorderThickness="2" BorderBrush="DarkBlue" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  FontWeight="Bold" Foreground="Navy"/>
+                <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+                <Border Height="3" Background="Navy" Margin="0 5" VerticalAlignment="Bottom"/>
+                <Button Content="Log out" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" VerticalAlignment="Bottom"/>
+            </StackPanel>
         </StackPanel>
 
         <Border Grid.Column="1" Background="Black" Width="2"/>
@@ -56,7 +78,7 @@
             <Border BorderBrush="Black" BorderThickness="2" Margin="-7,0,0,0" >
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,6,5,0" Height="30" VerticalAlignment="Top">
                     <TextBlock Text="My reservations" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25"/>
-                    <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="210,0,5,0" FontSize="15" />
+                    <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="170,0,5,0" FontSize="15" />
 
                     <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
                     <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
@@ -73,18 +95,68 @@
                 </StackPanel>
             </Border>
 
-            <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="GuestDataGridSelectionChanged" SelectionMode="Single" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="First Name" Binding="{Binding Guest.FirstName}" Width="100"/>
-                    <DataGridTextColumn Header="Last Name" Binding="{Binding Guest.LastName}" Width="100"/>
-                    <DataGridTextColumn Header="Phone Number" Binding="{Binding Guest.PhoneNumber}" Width="100"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Guest.Email}" Width="100"/>
-                    <DataGridTextColumn Header="Accommodation" Binding="{Binding Accommodation.Name}" Width="100"/>
-                    <DataGridTextColumn Header="Initial Date" Binding="{Binding InitialDate}" Width="85"/>
-                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="85"/>
-                    <DataGridTextColumn Header="Number Of Guests" Binding="{Binding NumberOfGuests}" Width="110"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ListBox  Grid.Row="1" Margin="10" BorderThickness="1" BorderBrush="Black" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="GuestDataGridSelectionChanged" SelectionMode="Single" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                            <DataTemplate >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="190"/>
+                                </Grid.ColumnDefinitions>
+                                <ItemsControl ItemsSource="{Binding Image}" Grid.Column="0" Height="70">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate >
+                                            <Image Source="{Binding Path}" Height="60" Margin="5,0,0,0"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                
+                                <StackPanel Orientation="Vertical" Grid.Column="1"  Width="180" Height="50" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Accommodations.Name}" Width="100" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Width="100" HorizontalAlignment="Center" Grid.Column="1">
+                                        <TextBlock Text="&#xE7B7;" FontFamily="Segoe MDL2 Assets"  FontWeight="Bold" Foreground="Red"/>
+                                        <TextBlock Text="{Binding Location.City}"  Foreground="Navy"/>
+                                        <TextBlock Text="," Foreground="Navy" />
+                                        <TextBlock Text="{Binding Location.Country}" Margin=" 5,0,0,0" Foreground="Navy"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Accommodations.AccommodationType}" HorizontalAlignment="Center" Width="100" Foreground="Navy"/>
+                                </StackPanel>
+
+                                <Border CornerRadius="5" Margin="5" BorderThickness="2" BorderBrush="PeachPuff" Grid.Column="2" Height="50">
+                                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="200">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                            <TextBlock  Text="{Binding Guest.FirstName}" Foreground="Navy"/>
+                                            <TextBlock  Text="{Binding Guest.LastName}"  Margin="5,0,0,0" Foreground="Navy"/>
+                                        </StackPanel>
+                                        <TextBlock  Text="{Binding Guest.Email}" HorizontalAlignment="Center" Foreground="Navy"/>
+                                        <TextBlock  Text="{Binding Guest.PhoneNumber}"  HorizontalAlignment="Center" Foreground="Navy"/>
+                                    </StackPanel>
+                                    
+                                </Border>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Message}" Foreground="Navy"/>
+                                    <Button Content="Grade Guest"  Click="GradeGuestClick" Width="90" IsEnabled="{Binding CanGradeGuest}" HorizontalAlignment="Left" Foreground="Navy" />
+                                </StackPanel>
+                                
+                            </Grid>
+                                
+                                
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+                
+            
 
            
 

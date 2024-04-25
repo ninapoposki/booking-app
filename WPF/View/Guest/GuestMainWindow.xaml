@@ -5,87 +5,204 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
         mc:Ignorable="d"
-        Title="Guest" Height="450" Width="800">
+        Width="1024" Height="700">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="70"/>
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <Label Content="Name" Grid.Column="0" Margin="5"/>
-            <TextBox x:Name="NameTextBox" Grid.Column="1" Margin="5" Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="City" Grid.Column="2" Margin="5"/>
-            <TextBox x:Name="CityTextBox" Grid.Column="3" Margin="5" Text="{Binding CityFilter, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="Country" Grid.Column="4" Margin="5"/>
-            <TextBox x:Name="CountryTextBox" Grid.Column="5" Margin="5" Text="{Binding CountryFilter, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="Type" Grid.Column="6" Margin="5"/>
-            <ComboBox x:Name="TypeComboBox" Grid.Column="7" Margin="5" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="Number of guests" Grid.Column="8" Margin="5"/>
-            <TextBox x:Name="NumberOfGuestsTextBox" Grid.Column="9" Margin="5" Text="{Binding NumberOfGuests, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Column="0" Background="LightGray">
+            <StackPanel Margin="10">
+                <!--<Image Source="profileImagePath" Width="80" Height="80" Margin="0,10,0,0"/>-->
+                <TextBlock Text="👩" FontSize="48" Margin="50,40,0,0"/>
+                <TextBlock Text="{Binding GuestDTO.FirstName}" FontWeight="Bold" FontSize="16" Margin="10,10,0,0"/>
+                <TextBlock Text="{Binding GuestDTO.LastName}" FontWeight="Bold" FontSize="16" Margin="10,0,0,0"/>
+                <TextBlock Text="• guest" FontSize="16" Margin="50,5,0,0"/>
+                <TextBlock FontSize="16" Margin="50,5,0,0">
+                    <Run FontFamily="Segoe UI Symbol" Text="&#x2714;"/> 
+                    <Run Text="5 points "/>
+                </TextBlock>
+            </StackPanel>
 
-            <Label Content="Days to stay" Grid.Column="10" Margin="5"/>
-            <TextBox x:Name="NumberOfDaysToStayTextBox" Grid.Column="11" Margin="5" Text="{Binding NumberOfDaysToStay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Margin="25,70,10,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F3E0; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="home page" />
+                </StackPanel>
+            </Button>
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OpenReservationsClick" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F334; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="my reservations" />
+                </StackPanel>
+            </Button>
 
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OpenNotificationsClick" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F514; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="notifications" />
+                </StackPanel>
+            </Button>
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F392; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="anytime/anywhere" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F58B; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="forums" />
+                </StackPanel>
+            </Button>
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x2B50; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="owner's ratings" />
+                </StackPanel>
+            </Button>
+            <Button Margin="25,10" Height="30" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#x1F4D1; " Margin="-10,0,0,0"/>
+                    <TextBlock Text="reservations PDF" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7">
+               <!-- <Image Source="{Binding AppLogo}"  Height="40"  Width="59"  Margin="5,0" VerticalAlignment="Center" />-->
+                <Image Source="\Resources\Icons\booking_app_logo1.png" Height="50" Margin="10,0" VerticalAlignment="Center" Width="100"/>
 
-            <Button Content="Search" Grid.Column="13" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right"
-                        Click="SearchClick" />
+                <TextBlock Text="Booking App" FontSize="14" FontWeight="Bold"  VerticalAlignment="Center" Foreground="Orange"/>
+                <Image Source="\Resources\Icons\brightness_icon.png" Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="540,0,0,0"/>
+                <Image Source="\Resources\Icons\language_icon.png" Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,0,0"/>
 
-        </Grid>
-        <DataGrid Grid.Row="1" Margin="10" Height="350" AutoGenerateColumns="False" x:Name="ToursDataGrid" ItemsSource="{Binding AllAccommodations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="FontWeight" Value="Regular"/>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
-                <DataGridTextColumn Header="City" Binding="{Binding Location.City}" Width="80"/>
-                <DataGridTextColumn Header="Country" Binding="{Binding Location.Country}" Width="100"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding AccommodationType}" Width="80"/>
-                <DataGridTextColumn Header="Max number of guests" Binding="{Binding Capacity}" Width="130"/>
-                <DataGridTextColumn Header="Min stay days" Binding="{Binding MinStayDays}" Width="100"/>
-                <DataGridTemplateColumn Header="Image" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding Images}">
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Center" Margin="60,25,0,0">
+                <WrapPanel VerticalAlignment="Center">
+
+                    <DockPanel Margin="5">
+                        <Label Content="Name" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <TextBox x:Name="NameTextBox" Width="80" Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Rectangle Fill="LightGray" Width="1" Height="25" VerticalAlignment="Center" Margin="0,22,2,0"/>
+
+                    <DockPanel Margin="5">
+                        <Label Content="City" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <TextBox x:Name="CityTextBox" Width="80" Text="{Binding CityFilter, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Rectangle Fill="LightGray" Width="1" Height="25" VerticalAlignment="Center" Margin="0,22,2,0"/>
+
+                    <DockPanel Margin="5">
+                        <Label Content="Country" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <TextBox x:Name="CountryTextBox" Width="80" Text="{Binding CountryFilter, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Rectangle Fill="LightGray" Width="1" Height="25" VerticalAlignment="Center" Margin="0,22,2,0"/>
+
+                    <DockPanel Margin="5">
+                        <Label Content="Type" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <ComboBox x:Name="TypeComboBox" Width="80" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Rectangle Fill="LightGray" Width="1" Height="25" VerticalAlignment="Center" Margin="0,22,2,0"/>
+
+                    <DockPanel Margin="5">
+                        <Label Content="Number of guests" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <TextBox x:Name="NumberOfGuestsTextBox" Width="80" Text="{Binding NumberOfGuestsFilter, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Rectangle Fill="LightGray" Width="1" Height="25" VerticalAlignment="Center" Margin="0,22,2,0"/>
+
+                    <DockPanel Margin="5">
+                        <Label Content="Days to stay" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                        <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="2" Margin="0,4,4,4">
+                            <TextBox x:Name="NumberOfDaysToStayTextBox" Width="80" Text="{Binding NumberOfDaysToStayFilter, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                        </Border>
+                    </DockPanel>
+
+                    <Button Margin="5,25,0,0" Width="30" Height="30" VerticalAlignment="Center" Click="SearchClick">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse Fill="LightGray" Stroke="Gray" StrokeThickness="1"/>
+                                    <TextBlock Text="🔍" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </WrapPanel>
+            </StackPanel>
+            
+            <Separator Grid.Row="2" Background="Gray" Height="2" Width="790" VerticalAlignment="Top" Margin="10,60,10,10"/>
+            <TextBlock Grid.Row="2" Text=" Offers &#x2708;"  FontWeight="DemiBold" FontSize="19" FontStyle="Normal" Margin="10,70,10,10"/>
+
+            <ListView Grid.Row="3" Margin="10" ItemsSource="{Binding AllAccommodations}" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" Height="Auto">
+                <ListView.Template>
+                    <ControlTemplate TargetType="ListView">
+                        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <ItemsControl ItemsSource="{Binding Images}" Width="Auto" Height="Auto" Margin="10">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Path}" Height="50" Margin="2"/>
+                                        <Image Source="{Binding Path}" Height="100" Margin="2"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Make reservation" Margin="5" Padding="10,0" Click="BookAccommodationClick" Height="34" Width="120" />
-            <Button Content="Cancel" Margin="5" Padding="10,0" Click="CancelClick" Width="89" />
-            <Button Content="My reservations" Margin="5" Padding="10,0" Click="OpenReservationsClick" Width="105" />
-            <Button Content="Notifications" Margin="5" Padding="10,0" Click="OpenNotificationsClick" Height="34" Width="120" />
-
-
-        </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="10">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                <TextBlock>
+                                        <Run Text="{Binding Location.City}" />
+                                        <Run Text=", " />
+                                        <Run Text="{Binding Location.Country}" />
+                                </TextBlock>
+                                <TextBlock>
+                                        <Run Text="Minimal days to stay: " />
+                                        <Run Text="{Binding MinStayDays}" />
+                                </TextBlock>
+                                <TextBlock>
+                                        <Run Text="Max number of guests: " />
+                                        <Run Text="{Binding Capacity}" />
+                                </TextBlock>
+                                <TextBlock>
+                                        <Run Text="Type: " />
+                                        <Run Text="{Binding AccommodationType}" />
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
+                                <TextBlock Text="Reserve" Cursor="Hand" MouseDown="BookAccommodationClick" FontSize="12"  Margin="0,0,20,10"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>
