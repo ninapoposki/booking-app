@@ -11,12 +11,10 @@
     <None Remove="Resources\Icons\booking_app_logo1.png" />
     <None Remove="Resources\Icons\brightness_icon.png" />
     <None Remove="Resources\Icons\language_icon.png" />
-    
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\apartment_grade.jpg" />
     <None Remove="Resources\Images\apartment_grade1.jpg" />
     <None Remove="Resources\Images\apartment_picture.jpg" />
-    <None Remove="Resources\Images\apartment_picture1.jpg" />
     <None Remove="Resources\Images\apartment_picture11.jpg" />
     <None Remove="Resources\Images\apartment_picture12.jpg" />
     <None Remove="Resources\Images\apartment_picture2.jpg" />
@@ -75,10 +73,20 @@
     <Content Include="Resources\Icons\language_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\brightness_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\language_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
     <Resource Include="Resources\Images\apartment_grade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -110,6 +118,7 @@
     <Content Include="Resources\Images\apartment_picture7.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
     <Resource Include="Resources\Images\cabin_grade.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -131,6 +140,7 @@
     <Resource Include="Resources\Images\cabin_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+
     <Content Include="Resources\Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -146,6 +156,7 @@
     <Content Include="Resources\Images\left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
     <Content Include="Resources\Images\OwnerTravel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
