@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
         mc:Ignorable="d"
         Title="Pretraga i izbor tura" Height="650" Width="1000"  WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <ImageBrush ImageSource="\Resources\Images\Wallpaper.jpg"/>
-    </Window.Background>
+   
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -65,7 +63,7 @@
 
 
 
-            <ListView Grid.Row="1" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,76,10,10" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single">
+            <ListView Grid.Row="1" ItemsSource="{Binding AllTours, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,76,10,10" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="White" />
