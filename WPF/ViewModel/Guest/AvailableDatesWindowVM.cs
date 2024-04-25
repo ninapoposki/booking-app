@@ -9,7 +9,6 @@ using BookingApp.Services;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
-    //promenice
     public class AvailableDatesWindowVM : ViewModelBase
     {
         private ObservableCollection<Range> dates;
