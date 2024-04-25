@@ -97,7 +97,9 @@ namespace BookingApp.WPF.View
         }
         private void OpenGuideWindow()
         {
-           
+           // GuideMainWindow guideMainWindow = new GuideMainWindow();
+            //guideMainWindow.Show();
+           // Close();
             MakeTour makeTour = new MakeTour(UserId);
             makeTour.Show();
             Close();

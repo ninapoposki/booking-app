@@ -66,6 +66,12 @@ namespace BookingApp.WPF.View.Owner
         {
             AddAccommodationVM.SelectedCity = (string)cityComboBox.SelectedItem;
         }
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
+            if (MaxUpDown.Value == 0) { MaxUpDown.Value = 1; e.Handled = true; }
+            if (MinUpDown.Value == 0) { MinUpDown.Value = 1; e.Handled = true; }
+        }
     }
     
 }

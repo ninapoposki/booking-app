@@ -49,10 +49,9 @@ namespace BookingApp.Services
             string filter = "Image files|";//(*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
             foreach (Domain.Model.Image image in imageRepository.FilterImages())
             {
-                filter += image.Path.Split("\\")[5] + ";";
+                filter += System.IO.Path.GetFileName(image.Path) + ";";    
             }
-            filter = filter.TrimEnd(';');
-            
+            filter = filter.TrimEnd(';');           
             return filter;
         }
 
