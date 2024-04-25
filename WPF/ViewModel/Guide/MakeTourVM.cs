@@ -158,9 +158,8 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Images"));
-            openFileDialog.ShowDialog();
-            AddImage(openFileDialog.FileName);
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));
+            if (openFileDialog.ShowDialog() == true) { AddImage(openFileDialog.FileName); } 
         }
         private void AddImage(string absolutePath)
         {
@@ -169,10 +168,10 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private string MakeRelativePath(string absolutPath)
         {
-            string referencePath = "..\\..\\..\\Resources\\Images\\";
+            string referencePath = "../../../Resources/Images/";
             string[] pathPieces = absolutPath.Split('\\');
             string relativePath = referencePath + pathPieces[pathPieces.Length - 1];
-            return relativePath.Replace("/", "\\");
+            return relativePath;
         }
         public void RemoveImageClick()
         {
