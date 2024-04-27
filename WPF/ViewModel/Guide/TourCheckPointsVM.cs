@@ -27,7 +27,7 @@ namespace BookingApp.WPF.ViewModel.Guide
          private CheckPointService checkPointService;
          private CheckPointDTO currentCheckPoint;
          private TourStartDateDTO selectedStartDate;
-         public List<TourGuestDTO> PresentTourists { get; set; }
+        // public List<TourGuestDTO> PresentTourists { get; set; }
          public ObservableCollection<TourGuestDTO> Guests { get; set; }
          public List<CheckPointDTO> ToursCheckPoints { get; set; }
          public List<TourGuestDTO> SelectedTourists { get; set; }
@@ -43,7 +43,7 @@ namespace BookingApp.WPF.ViewModel.Guide
              tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
              Guests = new ObservableCollection<TourGuestDTO>();
              tourId = this.selectedStartDate.TourId;
-             PresentTourists = new List<TourGuestDTO>();
+             //PresentTourists = new List<TourGuestDTO>();
              ToursCheckPoints = new List<CheckPointDTO>();
              SelectedTourists= new List<TourGuestDTO>();
              tourStartDateService.UpdateStartTime(selectedStartDate.Id);

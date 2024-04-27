@@ -7,20 +7,24 @@
         mc:Ignorable="d"
         Title="Today's tours" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="353*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
- 
-        <StackPanel Orientation="Horizontal">
+
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
             <TextBlock Grid.Row="0" TextAlignment="Center" FontSize="16" FontWeight="Bold">
             <Run Text="Today's tours: "/>
             <Run Text="{Binding TodayDate, StringFormat={}{0:dd.MM.yyyy}}"/>
             </TextBlock>
-            
+
         </StackPanel>
-        <DataGrid Grid.Row="1"  Width="800" Height="Auto" AutoGenerateColumns="False" x:Name="TodayTourDataGrid" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+        <DataGrid  Width="800" Height="Auto" AutoGenerateColumns="False" x:Name="TodayTourDataGrid" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Grid.ColumnSpan="2" Margin="0,21,0,206" Grid.RowSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"></DataGridTextColumn>
@@ -40,7 +44,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" Content="Start a tour" Click="StartTourClick" HorizontalAlignment="Center" Margin="10" Width="100" Height="30" />
+        <Button Grid.Row="2" Content="Start a tour" Click="StartTourClick" HorizontalAlignment="Left" Margin="256,88,0,88" Width="100" Height="30" Grid.Column="1" />
 
     </Grid>
 </Window>

@@ -10,7 +10,27 @@
   <ItemGroup>
     <None Remove="Resources\Icons\booking_app_logo1.png" />
     <None Remove="Resources\Icons\brightness_icon.png" />
+    <None Remove="Resources\Icons\destination.png" />
+    <None Remove="Resources\Icons\flight.png" />
+    <None Remove="Resources\Icons\Guide\arrow-right.png" />
+    <None Remove="Resources\Icons\Guide\check.png" />
+    <None Remove="Resources\Icons\Guide\destination.png" />
+    <None Remove="Resources\Icons\Guide\flag.png" />
+    <None Remove="Resources\Icons\Guide\flight.png" />
+    <None Remove="Resources\Icons\Guide\handwriting.png" />
+    <None Remove="Resources\Icons\Guide\language.png" />
+    <None Remove="Resources\Icons\Guide\map.png" />
+    <None Remove="Resources\Icons\Guide\pencil.png" />
+    <None Remove="Resources\Icons\Guide\pin.png" />
+    <None Remove="Resources\Icons\Guide\play-button.png" />
+    <None Remove="Resources\Icons\Guide\record.png" />
+    <None Remove="Resources\Icons\Guide\schedule.png" />
+    <None Remove="Resources\Icons\Guide\stop.png" />
+    <None Remove="Resources\Icons\Guide\time.png" />
+    <None Remove="Resources\Icons\Guide\tour-guide.png" />
+    <None Remove="Resources\Icons\Guide\tourists.png" />
     <None Remove="Resources\Icons\language_icon.png" />
+    <None Remove="Resources\Icons\tour-guide.png" />
     
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\apartment_grade.jpg" />
@@ -33,6 +53,13 @@
     <None Remove="Resources\Images\cabin_picture5.jpg" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\GuideWallpaper.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper1.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper2.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper3.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper4.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper6.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper7.jpg" />
     <None Remove="Resources\Images\hotel_grade1.jpg" />
 
     <None Remove="Resources\Images\hotel_picture.jpg" />
@@ -70,6 +97,54 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\brightness_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\arrow-right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\destination.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\flight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\handwriting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\language.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\play-button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\record.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\schedule.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\time.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\tour-guide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\tourists.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\language_icon.png">
@@ -137,6 +212,21 @@
     <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Images\GuideWallpaper.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\hotel_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
