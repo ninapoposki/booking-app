@@ -81,7 +81,6 @@ namespace BookingApp.WPF.ViewModel.Guide
              Injector.Injector.CreateInstance<ILocationRepository>());
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             currentCheckPoint =new CheckPointDTO();
-            SelectedTourist = new TourGuestDTO();
             ToursCheckPoints =new List<CheckPointDTO>();
             TourGuests=new ObservableCollection<TourGuestDTO>();
             tourStartDateService.UpdateStartTime(selectedStartDate.Id);
