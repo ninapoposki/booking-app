@@ -52,7 +52,6 @@ namespace BookingApp.WPF.View.Guide
             MakeTourVM.AddClick();
         }
 
-        //kljucne tacke
         private void AddCheckPointClick(object sender, RoutedEventArgs e)
         {
             MakeTourVM.AddCheckPointClick();
@@ -82,13 +81,6 @@ namespace BookingApp.WPF.View.Guide
             MakeTourVM.RemoveImageClick();
         }
 
-        private void LiveTourClick(object sender, RoutedEventArgs e)
-        {
-            LiveTour liveTour = new LiveTour(userId);
-            liveTour.Owner = this;
-            liveTour.WindowStartupLocation= WindowStartupLocation.CenterOwner;
-            liveTour.ShowDialog();
-        }
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             Close();
