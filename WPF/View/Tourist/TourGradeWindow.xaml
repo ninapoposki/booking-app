@@ -5,88 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
         mc:Ignorable="d"
-        Title="TourGradeWindow" Height="559" Width="800">
-    <Grid Margin="0,0,0,-6">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        Title="TourGradeWindow" Height="559" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="\Resources\Images\new5.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Informacije o turi i slika -->
+            <ColumnDefinition Width="2*"/>
+            <!-- Parametri za ocenjivanje i dodavanje slika -->
+        </Grid.ColumnDefinitions>
+       
 
-        <StackPanel Margin="10,12,-10,18" Grid.RowSpan="2">
-            <Label Content="Grade Tour in these categories:" Margin="0 0 0 10"/>
-            <!-- Red za ocjene -->
-            <StackPanel  Orientation="Horizontal" Margin="0 15 0 10">
-                <Label Content="Knowledge:" Margin="0 0 10 0"/>
-                <!-- RadioButtoni za ocjene -->
-                <StackPanel Name="Knowledge" Orientation="Horizontal">
-                    <RadioButton Margin="50 5 0 0" Content="1"  GroupName="CleannlinessGroup" Width="55"  />
-                    <RadioButton Margin="10 5 0 0" Content="2" GroupName="CleannlinessGroup" Width="50" />
-                    <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CleannlinessGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CleannlinessGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleannlinessGroup" Width="50"  />
-                </StackPanel>
+        <!-- Informacije o turi i slika -->
+       
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="TOUR GRADE" FontSize="24" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="10"/>
+                <Image Source="{Binding SelectedTour.Images[0].Path}" Height="150" Margin="5" />
+                <TextBlock Text="{Binding SelectedTour.Name}" FontWeight="Bold" FontSize="16" Margin="5"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                <Image Grid.Column="1" Source="\Resources\Icons\city.png" Width="20" Height="20"/>
+                <TextBlock Text="{Binding SelectedTour.Location.City, StringFormat=City: {0}}" Margin="5,2,0,0"/>
             </StackPanel>
-            <StackPanel  Orientation="Horizontal">
-                <Label Content="Language:" Margin="0 0 10 0"/>
-                <!-- RadioButtoni za ocjene -->
-                <StackPanel Name="Language" Orientation="Horizontal">
-                    <RadioButton Margin="50 5 0 0" Content="1"  GroupName="LanguageGroup" Width="55"  />
-                    <RadioButton Margin="10 5 0 0" Content="2" GroupName="LanguageGroup" Width="50" />
-                    <RadioButton Margin="10 5 0 0" Content="3"  GroupName="LanguageGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="4"  GroupName="LanguageGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="5"  GroupName="LanguageGroup" Width="50"  />
-                </StackPanel>
-            </StackPanel>
-            <!--Atrakcije-->
-            <StackPanel  Orientation="Horizontal">
-                <Label Content="Attractions:" Margin="0 0 10 0"/>
-                <StackPanel x:Name="Attractions" Orientation="Horizontal">
-                    <RadioButton Margin="50 5 0 0" Content="1"  GroupName="AttractionsGroup" Width="55"  />
-                    <RadioButton Margin="10 5 0 0" Content="2" GroupName="AttractionsGroup" Width="50" />
-                    <RadioButton Margin="10 5 0 0" Content="3"  GroupName="AttractionsGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="4"  GroupName="AttractionsGroup" Width="50"  />
-                    <RadioButton Margin="10 5 0 0" Content="5"  GroupName="AttractionsGroup" Width="50"  />
-                </StackPanel>
-                <!-- RadioButtoni za ocjene -->
-            </StackPanel>
-            <!-- Komentar -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Comment:" Margin="0 10 10 0"/>
-                <TextBox x:Name="CommentsTextBox" Text="{Binding Comment}" Width="300" Height="60"  Margin="50 20 10 0" VerticalScrollBarVisibility="Auto"/>
+          
+                
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                <Image Source="\Resources\Icons\date.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock  Text="{Binding  SelectedTour.SelectedDateTime.StartTime,StringFormat=Date: {0}}"  Margin="5,2,0,0" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,21,334,100">
-            <Label Content="Add images:" Width="152" RenderTransformOrigin="-1.645,0.516"/>
-            <ListView ItemsSource="{Binding Images}" Height="124" Width="360">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Path}" Height="80" Width="80" Margin="5"/>
-                            <Button Content="Remove" Click="RemoveImage" Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+       
+        <!-- Parametri za ocenjivanje i dodavanje slika -->
+        <Border Grid.Column="1" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10" Margin="10">
+            <StackPanel Grid.Column="1" Margin="10">
 
-        <Button Grid.Row="2" Click="BrowseImage" Margin="508,39,167,211" RenderTransformOrigin="0.593,0.558">Browse for images</Button>
+                <StackPanel Orientation="Horizontal" Margin="0 15 0 10">
+                    <Label Content="Knowledge:" Margin="0 0 10 0"/>
+                    <StackPanel Name="Knowledge" Orientation="Horizontal">
+                        <!-- Radio Buttons -->
+                        <RadioButton Content="1" GroupName="KnowledgeGroup" Width="55"/>
+                        <RadioButton Content="2" GroupName="KnowledgeGroup" Width="50"/>
+                        <RadioButton Content="3" GroupName="KnowledgeGroup" Width="50"/>
+                        <RadioButton Content="4" GroupName="KnowledgeGroup" Width="50"/>
+                        <RadioButton Content="5" GroupName="KnowledgeGroup" Width="50"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Language:" Margin="0 0 10 0"/>
+                    <StackPanel Name="Language" Orientation="Horizontal">
+                        <!-- Radio Buttons -->
+                        <RadioButton Content="1" GroupName="LanguageGroup" Width="55"/>
+                        <RadioButton Content="2" GroupName="LanguageGroup" Width="50"/>
+                        <RadioButton Content="3" GroupName="LanguageGroup" Width="50"/>
+                        <RadioButton Content="4" GroupName="LanguageGroup" Width="50"/>
+                        <RadioButton Content="5" GroupName="LanguageGroup" Width="50"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Attractions:" Margin="0 0 10 0"/>
+                    <StackPanel x:Name="Attractions" Orientation="Horizontal">
+                        <!-- Radio Buttons -->
+                        <RadioButton Content="1" GroupName="AttractionsGroup" Width="55"/>
+                        <RadioButton Content="2" GroupName="AttractionsGroup" Width="50"/>
+                        <RadioButton Content="3" GroupName="AttractionsGroup" Width="50"/>
+                        <RadioButton Content="4" GroupName="AttractionsGroup" Width="50"/>
+                        <RadioButton Content="5" GroupName="AttractionsGroup" Width="50"/>
+                    </StackPanel>
+                </StackPanel>
+              
+                    <StackPanel Orientation="Horizontal" Margin="24,0,22,0">
+                    <Label Content="Comment:" Margin="0 10 10 0" Width="73"/>
+                    <TextBox x:Name="CommentsTextBox" Text="{Binding Comment}" Width="245" Height="73" Margin="50 20 10 0" VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+               
+                
+                    <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                        <Label Content="Add images:"/>
+                        <ListView ItemsSource="{Binding Images}" Height="124" Width="360">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Path}" Height="80" Width="80" Margin="5"/>
+                                        <Button Content="Remove" Click="RemoveImage" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Button Content="Browse for images" Click="BrowseImage" Height="34" Margin="10,10,0,0" Width="116"/>
 
+                    </StackPanel>
+             
 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Content="Oceni" Click="Confirm" Width="83" Height="34" Margin="0,10,10,10"/>
+                    <Button Content="Cancel" Click="Cancel" Width="85" Height="32" Margin="0,10,0,10"/>
+                </StackPanel>
 
-        <!-- Red za Confirm i Cancel dugmad -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="490,127,33,109" RenderTransformOrigin="0.5,0.5">
-            <StackPanel.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-1.631"/>
-                    <RotateTransform Angle="-0.368"/>
-                    <TranslateTransform X="0.772"/>
-                </TransformGroup>
-            </StackPanel.RenderTransform>
-            <Button Content="Oceni" Click="Confirm" Margin="0 0 10 0" Width="83" Height="34"/>
-            <Button Content="Cancel" Click="Cancel" Width="85" Height="32"/>
-        </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
+   
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModel
 {
-    public class ViewModelBase:INotifyPropertyChanged
+    public class ViewModelBase: BindableBase,INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

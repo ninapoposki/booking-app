@@ -28,9 +28,6 @@ namespace BookingApp.WPF.View.Tourist
             DataContext = ToursToRateVM;
         }
 
-        private void RateTour(object sender, RoutedEventArgs e)
-        {
-            ToursToRateVM.RateTour();
-        }
+      
     }
 }
