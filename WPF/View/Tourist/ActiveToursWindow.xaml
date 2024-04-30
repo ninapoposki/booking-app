@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
-        mc:Ignorable="d"
-        Title="ActiveToursWindow" Height="450" Width="800">
-   
+        mc:Ignorable="d" Title="Aktivne ture" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <ImageBrush ImageSource="\Resources\Images\new5.jpg"/>
+    </Window.Background>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,47 +17,67 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-       
-        <TextBlock Grid.Row="0" Text="ACTIVE TOUR" FontSize="24" FontWeight="Bold" Foreground="DarkGray" HorizontalAlignment="Left" Margin="10,10,10,0"/>
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="249">
+            <Image Source="\Resources\Icons\activeTour.png" Height="35" Width="61" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Grid.Row="0" Text="ACTIVE TOUR" FontSize="24" FontWeight="Medium" Foreground="Black" Margin="10,10,10,0" Height="38" Width="159"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Margin="10" Background="Transparent" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10">
+            <Grid  Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="{Binding ActiveTours[0].Images[0].Path}" Height="180" Margin="2"/>
+
+                <!-- Tekstualni detalji pored slike -->
+
+                <Grid Grid.Column="1" VerticalAlignment="Top" Height="272">
+                    <StackPanel Orientation="Vertical" Margin="10,20,10,0">
+                        <TextBlock Text="{Binding ActiveTours[0].Name}" FontWeight="Bold" FontSize="16"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                            <Image Source="\Resources\Icons\city.png" Width="25" Height="25"/>
+                            <TextBlock Text="{Binding ActiveTours[0].Location.City, StringFormat=City: {0}}" Margin="5,2,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                            <Image Source="\Resources\Icons\country.png" Width="25" Height="25"/>
+                            <TextBlock Text="{Binding ActiveTours[0].Location.Country, StringFormat=Country: {0}}" Margin="5,2,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5">
+                            <Image Source="\Resources\Icons\date.png" Width="25" Height="25" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding ActiveTours[0].SelectedDateTime.StartTime, StringFormat='Date: {0}'}" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
 
 
-        <Grid Grid.Row="1" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
+                <Border Grid.Column="2"  Background="#80FFFFFF" Padding="5" Margin="0,0,4,176" CornerRadius="10">
+                    <Grid Margin="0,0,0,5">
+                        <Rectangle Stroke="Cyan" StrokeThickness="3" StrokeDashArray="2,2" Fill="Transparent" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,5">
+                            <Image Source="\Resources\Icons\checkpoint.png" Width="27" Height="24" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding ActiveTours[0].CheckPointName, StringFormat='Checkpoint: {0}'}" FontWeight="Bold" FontSize="16" Foreground="DarkSlateGray" TextAlignment="Center" Margin="0,5,0,18"/>
+                        </StackPanel>
+                    </Grid>
 
-            <ItemsControl Grid.Column="0" ItemsSource="{Binding ActiveTours[0].Images}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding Path}" Height="180" Margin="2"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </Border>
 
-            <!-- Tekstualni detalji pored slike -->
-            <Grid Grid.Column="1" VerticalAlignment="Top">
-                <StackPanel Orientation="Vertical" Margin="0,0,10,0">
-                    <TextBlock Text="{Binding ActiveTours[0].Name}" FontWeight="Bold" FontSize="16"/>
-                    <TextBlock Text="{Binding ActiveTours[0].Location.City, StringFormat=Grad: {0}}" Margin="0,2,0,0"/>
-                    <TextBlock Text="{Binding ActiveTours[0].Location.Country, StringFormat=Država: {0}}" Margin="0,2,0,0"/>
-                    <TextBlock Text="{Binding ActiveTours[0].SelectedDateTime.StartTime, StringFormat='Datum: {0}'}" Margin="5"/>
-                </StackPanel>
             </Grid>
 
-            <!-- Dodatne informacije -->
-            <Border Grid.Column="2"  Background="#80FFFFFF" Padding="5" Margin="0,0,4,144" CornerRadius="10">
-                <TextBlock Text="{Binding ActiveTours[0].CheckPointName, StringFormat='Checkpoint: {0}'}" FontWeight="Bold" FontSize="16" Foreground="DarkSlateGray" TextAlignment="Center" Margin="0,0,0,31"/>
-            </Border>
-        </Grid>
+        </Border>
 
-        <!-- Dugme za zatvaranje -->
+
+       
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-            <Button Content="Close" Margin="5" Padding="10,0" Click="CloseClick" Height="34" Width="94"/>
+            <Button Content="Close" Padding="10,0" Click="CloseClick" Height="34" Width="92"/>
         </StackPanel>
+
     </Grid>
-       
-       
-  
+   
+
+
+
 </Window>

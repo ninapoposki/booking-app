@@ -88,5 +88,21 @@ namespace BookingApp.Services
         {
             return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
         }
+
+        public IEnumerable<TourStartDateDTO> GetAllInactiveTourDates()
+        {
+            var allTourStartDates = tourStartDateRepository.GetAll();
+            var inactiveTourDates = allTourStartDates.Where(tsd => tsd.TourStatus == TourStatus.INACTIVE);
+            return inactiveTourDates.Select(tsd => new TourStartDateDTO(tsd));
+        }
+        public TourStartDateDTO GetTourStartDate(int id)
+{
+    var tourStartDate = tourStartDateRepository.Get(id);
+    if (tourStartDate != null)
+    {
+        return new TourStartDateDTO(tourStartDate);
+    }
+    return null;
+}
     }
 }
