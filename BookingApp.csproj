@@ -309,7 +309,8 @@
     </Content>
 
     <Resource Include="Resources\Images\female.jpg">
-
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\GuideWallpaper.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
