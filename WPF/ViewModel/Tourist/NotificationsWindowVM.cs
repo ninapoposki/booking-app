@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private TourGuestService tourGuestService;
         private TourGuestDTO selectedTourGuest;
         private CheckPointService checkPointService;
+        public MyICommand<TourGuestDTO> MarkAsReadCommand { get; set; }
         public TourGuestDTO SelectedTourGuest
         {
             get { return selectedTourGuest; }
@@ -28,7 +30,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 OnPropertyChanged(nameof(SelectedTourGuest));
             }
         }
-
+ 
 
         public NotificationsWindowVM() {
 
@@ -36,6 +38,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             TourGuests = new ObservableCollection<TourGuestDTO>();
             SelectedTourGuest=new TourGuestDTO();
             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
+            MarkAsReadCommand = new MyICommand<TourGuestDTO>(MarkAsRead);
             Update();
         }
 
@@ -49,14 +52,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 TourGuests.Add(guest);
             }
         } 
-        public void MarkAsRead()
+        public void MarkAsRead(TourGuestDTO tourGuest)
         {
-            if (SelectedTourGuest == null)
+            if (tourGuest == null)
             {
                 MessageBox.Show("Molim vas izaberite gosta.");
                 return;
             }
-            tourGuestService.MarkGuestAsArrived(SelectedTourGuest);
+            tourGuestService.MarkGuestAsArrived(tourGuest);
             Update();
         }
 

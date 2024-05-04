@@ -53,7 +53,33 @@ namespace BookingApp.DTO
 
             }
         }
+        private string profileImagePath;
+        public string ProfileImagePath
+        {
+            get { return profileImagePath; }
+            set
+            {
+                if (profileImagePath != value)
+                {
+                    profileImagePath = value;
+                    OnPropertyChanged("ProfileImagePath");
+                }
+            }
+        }
+        private Gender gender;
+        public Gender Gender
+        {
+            get { return gender; }
+            set
+            {
+                if (value != gender)
+                {
 
+                    gender = value;
+                    OnPropertyChanged("Gender");
+                }
+            }
+        }
         private int age;
         public int Age
         {
@@ -114,12 +140,13 @@ namespace BookingApp.DTO
             TourReservationId = tourGuest.TourReservationId;
             CheckPointId = tourGuest.CheckPointId;
             HasArrived = tourGuest.HasArrived;
+            Gender = tourGuest.Gender;
 
         }
 
         public TourGuest ToTourGuest()
         {
-            TourGuest guest = new TourGuest(Id, fullName, age, TourReservationId);
+            TourGuest guest = new TourGuest(Id, fullName, age, TourReservationId,gender);
             guest.CheckPointId = this.CheckPointId; 
             guest.HasArrived = this.HasArrived;  
             return guest;

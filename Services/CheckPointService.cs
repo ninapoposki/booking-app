@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using BookingApp.WPF.View.Guide;
 using System;
 using System.Collections.Generic;
@@ -45,4 +46,5 @@ namespace BookingApp.Services
            return checkPointRepository.GetById(id);
         }
     }
+ 
 }

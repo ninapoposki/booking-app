@@ -20,6 +20,8 @@ using BookingApp.DTO;
 using System.Runtime.CompilerServices;
 using BookingApp.WPF.ViewModel.Tourist;
 using BookingApp.Services;
+using BookingApp.WPF.ViewModel.Guide;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Tourist
 {
@@ -28,15 +30,15 @@ namespace BookingApp.WPF.View.Tourist
     /// </summary>
     public partial class TouristMainWindow : Window
     {
-        public TouristMainWindowVM  touristMainWinodowVM { get; set; }
+        public TouristMainWindowVM  TouristMainWinodowVM { get; set; }
         
        
 
         public TouristMainWindow(string username)
         {
             InitializeComponent();
-            touristMainWinodowVM= new TouristMainWindowVM(username);
-            DataContext = touristMainWinodowVM;
+           TouristMainWinodowVM= new TouristMainWindowVM(username);
+            DataContext = TouristMainWinodowVM;
 
            
         }
@@ -47,33 +49,42 @@ namespace BookingApp.WPF.View.Tourist
 
             this.Close();
         }
-
+        
 
         private void SearchTour(object sender, RoutedEventArgs e)
         {
-            touristMainWinodowVM.SearchTour();
+            TouristMainWinodowVM.SearchTour();
         }
 
        
         private void BookTour(object sender, RoutedEventArgs e)
         {
-           touristMainWinodowVM.BookTour();
+           TouristMainWinodowVM.BookTour();
         }
 
 
         private void FinishedTourClick(object sender, RoutedEventArgs e)
         {
-            touristMainWinodowVM.FinishedTourClick();
+            TouristMainWinodowVM.FinishedTourClick();
         }
 
         private void ActiveTourClick(object sender, RoutedEventArgs e)
         {
-            touristMainWinodowVM.ActiveTourClick();
+            TouristMainWinodowVM.ActiveTourClick();
         }
 
         private void NotificationsClick(object sender, RoutedEventArgs e)
         {
-            touristMainWinodowVM.NotificationsClick();
+            TouristMainWinodowVM.NotificationsClick();
+        }
+        private void CityChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TouristMainWinodowVM.CityChanged();
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

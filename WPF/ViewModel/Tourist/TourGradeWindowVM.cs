@@ -19,9 +19,12 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public TourDTO SelectedTour { get; set; }
         private TourReservationService tourReservationService;
         public TourReservationDTO selectedTourReservation;
+        private readonly LocationService locationService;
         public ImageService imageService;
         private int tourStartDateId;
         private TourGradeService tourGradeService { get; set; }
+        private TourService tourService;
+        private TourStartDateService tourStartDateService;
         public TourGradeDTO tourGradeDTO { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
          public ImageDTO SelectedImage { get; set; }
@@ -34,13 +37,17 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 Injector.Injector.CreateInstance<ILanguageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>());
             tourGradeDTO = new TourGradeDTO();
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
+            locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
+            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourGradeService = new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(), Injector.Injector.CreateInstance<ITourGradeRepository>(),
                 Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
                 Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
                 Injector.Injector.CreateInstance<ILanguageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
-            Images = new ObservableCollection<ImageDTO>();
+            Images = new ObservableCollection<ImageDTO>(SelectedTour.Images);
+            LoadTourData(tourStartDateId);
             selectedTourReservation = tourReservationService.GetReservationByTourId(tourStartDateId);
         }
 
@@ -50,7 +57,36 @@ namespace BookingApp.WPF.ViewModel.Tourist
             Update();
             MessageBox.Show("Ocijenili ste turu.");
         }
+        private void LoadTourData(int tourStartDateId)
+        {
+            var tourStartDate = tourStartDateService.GetTourStartDate(tourStartDateId);
+            if (tourStartDate != null)
+            {
+                SelectedTour = tourService.GetTour(tourStartDate.TourId);
 
+                if (SelectedTour != null)
+                {
+                    // Postavljanje datuma starta ture
+                    SelectedTour.SelectedDateTime = tourStartDate;
+
+                    // Postavljanje lokacije ture
+                    var location = locationService.GetByIdDTO(SelectedTour.LocationId);
+                   
+
+                    // Učitavanje slika za turu
+                    var allImages = imageService.GetImagesForEntityType(EntityType.TOUR).Where(img => img.EntityId == SelectedTour.Id).ToList();
+                    SelectedTour.Images = new ObservableCollection<ImageDTO>(allImages);
+
+                    // Dodatno, ako želite učitati samo prvu sliku
+                    var firstImage = allImages.FirstOrDefault();
+                    if (firstImage != null)
+                    {
+                        SelectedTour.Images.Clear();
+                        SelectedTour.Images.Add(firstImage);
+                    }
+                }
+            }
+        }
         public TourGradeDTO MakeTourGrade(int knowledge, int language, int attractions)
         {
             tourGradeDTO.GuideKnowledge = knowledge;

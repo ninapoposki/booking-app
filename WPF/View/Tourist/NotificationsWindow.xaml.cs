@@ -29,9 +29,6 @@ namespace BookingApp.WPF.View.Tourist
         
         }
 
-        private void MarkAsRead(object sender, RoutedEventArgs e)
-        {
-            NotificationsWindowVM.MarkAsRead();
-        }
+     
     }
 }
