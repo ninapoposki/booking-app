@@ -80,7 +80,7 @@ namespace BookingApp.WPF.ViewModel.Guide
 
             tourStartDateService.UpdateTourStatus(tour.SelectedDateTime.Id);
             tour.DateTimes.Remove(tour.SelectedDateTime);
-            if (tour.DateTimes == null) { UpcomingTours.Remove(tour); }
+            if (tour.DateTimes.Count() ==0) { UpcomingTours.Remove(tour); }
         }
         private bool IsVaucherGranted(TourStartDateDTO tourStart)
         {

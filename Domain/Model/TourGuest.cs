@@ -14,8 +14,6 @@ namespace BookingApp.Domain.Model
     }
     public class TourGuest : ISerializable
     {
-      
-
         public int Id { get; set; }
         public string FullName { get; set; }    
         public int Age { get; set; }
