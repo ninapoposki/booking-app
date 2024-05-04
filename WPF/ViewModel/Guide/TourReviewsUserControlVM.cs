@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,14 +12,16 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModel.Guide
 {
-    public class TourReviewsVM:ViewModelBase
+    public class TourReviewsUserControlVM:ViewModelBase
     {
         public TourDTO SelectedTour { get; set; }
+        public MyICommand<TourGradeDTO> ReportCommand { get; }
         public ObservableCollection<TourGradeDTO> TourReviews {  get; set; }
         private TourGradeService tourGradeService;
         private ImageService imageService;
-        public TourReviewsVM(TourDTO tour) 
+        public TourReviewsUserControlVM(TourDTO tour) 
         {
+            ReportCommand = new MyICommand<TourGradeDTO>(OnReportCommand);
             SelectedTour = tour;
             tourGradeService= new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(),Injector.Injector.CreateInstance<ITourGradeRepository>(),
                 Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
@@ -29,6 +32,13 @@ namespace BookingApp.WPF.ViewModel.Guide
             TourReviews= new ObservableCollection<TourGradeDTO>();
             LoadReviews();
         }
+
+        private void OnReportCommand(TourGradeDTO tourGrade)
+        {
+            tourGrade.Validity = Validity.NO;
+            tourGradeService.UpdateValidity(tourGrade.Id);
+        }
+
         private void LoadReviews()
         {
             foreach(TourGradeDTO tourGrade in tourGradeService.GetById(SelectedTour.SelectedDateTime.Id))
@@ -38,25 +48,6 @@ namespace BookingApp.WPF.ViewModel.Guide
                     tourGrade.Path = imageService.GetFirstPath(tourGrade.Id,"TOURGRADE");
                 }
                 TourReviews.Add(tourGrade);
-            }
-
-        }
-        public void ReportReviewClick()
-        {
-            SelectedReview.Validity = Domain.Model.Validity.NO;
-            tourGradeService.UpdateValidity(SelectedReview.Id);
-        }
-        private TourGradeDTO selectedReview;
-        public TourGradeDTO SelectedReview
-        {
-            get { return selectedReview; }
-            set
-            {
-                if (selectedReview != value)
-                {
-                    selectedReview = value;
-                    OnPropertyChanged("SelectedReview");
-                }
             }
         }
     }

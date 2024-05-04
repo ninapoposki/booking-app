@@ -1,5 +1,4 @@
 ﻿using BookingApp.Domain.IRepositories;
-using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.Utilities;
@@ -11,26 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Guide
 {
-    public class StartTourPageVM : ViewModelBase
+    public class StartTourUserControlVM : ViewModelBase
     {
-        private int selectedTabIndex;
-        public int SelectedTabIndex
-        {
-            get { return selectedTabIndex; }
-            set
-            {
-                if (selectedTabIndex != value)
-                {
-                    selectedTabIndex = value;
-                    OnPropertyChanged(nameof(SelectedTabIndex));
-                }
-            }
-        }
         private TourGuestDTO selectedTourist;
         public TourGuestDTO SelectedTourist
         {
@@ -58,21 +43,18 @@ namespace BookingApp.WPF.ViewModel.Guide
         private CheckPointDTO currentCheckPoint;
         private TourService tourService;
         public TourStartDateDTO TourStartDate { get; set; }
-        public List<CheckPointDTO> ToursCheckPoints { get; set; }    
+        public List<CheckPointDTO> ToursCheckPoints { get; set; }
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
         public NavigationService NavigationService { get; set; }
-        public ActiveTourDTO ActiveTour { get; set; }    
-        public StartTourPageVM(NavigationService navigationService, TourStartDateDTO selectedStartDate,int userId) 
+        public ActiveTourDTO ActiveTour { get; set; }
+        public StartTourUserControlVM(NavigationService navigationService, TourStartDateDTO selectedStartDate, int userId)
         {
             NextStopCommand = new MyICommand(OnNextStop);
-            MarkAsPresentCommand=new MyICommand(OnMarkAsPresent,CanMarkAsPresent);
+            MarkAsPresentCommand = new MyICommand(OnMarkAsPresent, CanMarkAsPresent);
             EndTourCommand = new MyICommand(OnEndTour);
             NavigationService = navigationService;
-            SelectedTabIndex = 2;
-            TourStartDate = selectedStartDate;
-            tourId = selectedStartDate.TourId;
             this.userId = userId;
-            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(),Injector.Injector.CreateInstance<ILocationRepository>());
+            tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
             tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
@@ -80,9 +62,11 @@ namespace BookingApp.WPF.ViewModel.Guide
              Injector.Injector.CreateInstance<ILanguageRepository>(),
              Injector.Injector.CreateInstance<ILocationRepository>());
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
-            currentCheckPoint =new CheckPointDTO();
-            ToursCheckPoints =new List<CheckPointDTO>();
-            TourGuests=new ObservableCollection<TourGuestDTO>();
+            currentCheckPoint = new CheckPointDTO();
+            ToursCheckPoints = new List<CheckPointDTO>();
+            TourGuests = new ObservableCollection<TourGuestDTO>();
+            TourStartDate = selectedStartDate;
+            tourId = selectedStartDate.TourId;
             tourStartDateService.UpdateStartTime(selectedStartDate.Id);
             ActiveTour = new ActiveTourDTO(tourService.GetTour(TourStartDate.TourId));
             ActiveTour.NumberOfTourists = tourReservationService.GetByStartDate(TourStartDate.Id).Count();
@@ -109,7 +93,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         public bool CanMarkAsPresent()
         {
-            return SelectedTourist!=null;
+            return SelectedTourist != null;
         }
         public void OnMarkAsPresent()
         {
@@ -139,12 +123,12 @@ namespace BookingApp.WPF.ViewModel.Guide
                 currentCheckPoint = ToursCheckPoints[currentCheckPointIndex];
                 ActiveTour.CheckPointName = currentCheckPoint.Name;
                 ActiveTour.CheckPointType = currentCheckPoint.Type;
-                tourStartDateService.UpdateCurrentCheckPoint(currentCheckPoint.Id, TourStartDate.Id);
+                tourStartDateService.UpdateCurrentCheckPoint(currentCheckPoint.Id, TourStartDate.Id);         
             }
         }
         private void CheckAndFinishTourIfNeeded()
         {
-            if (currentCheckPointIndex + 1 == ToursCheckPoints.Count) { CheckAndFinishTour(); }       
+            if (currentCheckPointIndex + 1 == ToursCheckPoints.Count) { CheckAndFinishTour(); }
         }
         private void CheckAndFinishTour()
         {
@@ -153,7 +137,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         public void FinishingTour()
         {
             tourStartDateService.UpdateEndTime(TourStartDate.Id);
-            NavigationService.Navigate(new GuideHomePage(NavigationService, userId));
+            NavigationService.Navigate(new GuideHomeUserControl(NavigationService, userId));
         }
     }
 }

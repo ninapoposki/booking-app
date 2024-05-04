@@ -1,21 +1,21 @@
-1|Arijana|18|1|1|True|Female
-2|Anja|21|1|3|True|Female
-3|Dimitrije|21|1|4|True|Male
-4|Mikan|55|1|1|True|Male
-5|Sasa|9|1|1|True|Male
-6|Arijana|66|2|7|True|Female
-7|Dajana|22|2|5|True|Female
-8|Irina|22|2|5|True|Female
-9|Mikan|12|2|6|True|Male
-10|Sladjan|10|2|6|True|Male
-11|Dajana|33|3|8|True|Female
-12|Irina|12|3|8|True|Female
-13|Jovo|45|4|10|False|Male
-14|Arijana|23|4|11|False|Female
-15|Tatjana|45|4|12|False|Female
-16|Mikan|22|5|-1|False|Male
-17|Milos|99|5|-1|False|Male
-18|Marko|22|6|-1|False|Male
-19|Petar|22|6|-1|False|Male
-20|tajana maric|44|7|-1|False|Female
-21|jovo maric|45|7|-1|False|Male
+1|Arijana|18|1|1|True
+2|Anja|21|1|3|True
+3|Dimitrije|21|1|2|True
+4|Mikan|55|1|1|True
+5|Sasa|9|1|1|True
+6|Arijana|66|2|7|True
+7|Dajana|22|2|5|True
+8|Irina|22|2|5|True
+9|Mikan|12|2|6|True
+10|Sladjan|10|2|6|True
+11|Dajana|33|3|8|True
+12|Irina|12|3|8|True
+13|Jovo|45|4|10|True
+14|Arijana|23|4|11|False
+15|Tatjana|45|4|12|False
+16|Mikan|22|5|8|False
+17|Milos|99|5|-1|False
+18|Marko|22|6|-1|False
+19|Petar|22|6|-1|False
+20|tajana maric|44|7|15|False
+21|jovo maric|45|7|15|False
