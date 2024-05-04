@@ -47,13 +47,13 @@ namespace BookingApp.Services
             tourStart.TourStatus=TourStatus.FINISHED;
             tourStartDateRepository.Update(tourStart);
         }
-        public TourDTO GetActiveTour()
+        public TourStartDateDTO GetActiveTour()
         {
             foreach(TourStartDate tourStart in tourStartDateRepository.GetAll())
             {
                 if (tourStart.TourStatus.ToString().Equals("ACTIVE"))
                 {
-                    return tourService.GetTour(tourStart.TourId);
+                    return new TourStartDateDTO(tourStart);
                 }
             }return null;
         }
@@ -84,11 +84,9 @@ namespace BookingApp.Services
                 }
             }return finishedTours;
         }
-
         public List<TourDTO> GetByYear(int year, int userId)
         {
             return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
         }
-    
     }
 }

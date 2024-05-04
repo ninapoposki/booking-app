@@ -11,19 +11,26 @@ namespace BookingApp.WPF.ViewModel.Guide
 {
     public class GuideMainWindowVM:ViewModelBase
     {
-        public MyICommand HomePageCommand { get; set; }
+        public MyICommand HomePageCommand { get;  }
+        public MyICommand MyToursCommand { get;  }
         public NavigationService NavigationService { get; set; }
         private int userId;
         public GuideMainWindowVM(NavigationService navigationService,int userId)
         {
             this.userId = userId;
             NavigationService = navigationService;
-            NavigationService.Navigate(new GuideHomePage(NavigationService,userId));
-            HomePageCommand = new MyICommand(HomePageExecute);
+            NavigationService.Navigate(new GuideHomeUserControl(NavigationService,userId));
+            HomePageCommand = new MyICommand(HomeExecute);
+            MyToursCommand=new MyICommand(MyToursExecute);
         }
-        private void HomePageExecute()
+
+        private void HomeExecute()
         {
-            NavigationService.Navigate(new GuideHomePage(NavigationService,userId));  
+            NavigationService.Navigate(new GuideHomeUserControl(NavigationService,userId));  
+        }
+        private void MyToursExecute()
+        {
+            NavigationService.Navigate(new MyToursUserControl(NavigationService,userId));   
         }
     }
 }

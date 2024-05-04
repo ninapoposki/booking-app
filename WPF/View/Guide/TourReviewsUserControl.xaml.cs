@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModel.Guide;
+﻿using BookingApp.DTO;
+using BookingApp.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for GuideHomePage.xaml
+    /// Interaction logic for TourReviewsUserControl.xaml
     /// </summary>
-    public partial class GuideHomePage : Page
+    public partial class TourReviewsUserControl : UserControl
     {
-        public GuideHomePageVM GuideHomePageVM { get; set; }
-        public GuideHomePage(NavigationService navigationService,int userId)
+        public TourReviewsUserControl(TourDTO tourDTO)
         {
             InitializeComponent();
-            DataContext = new GuideHomePageVM(navigationService,userId);
+            DataContext = new TourReviewsUserControlVM(tourDTO);
         }
-
     }
 }

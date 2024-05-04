@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
         mc:Ignorable="d"
-        Title="GuideMainWindow" Height="600" Width="960">
+        Title="GuideMainWindow" Height="600" Width="960"
+        WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/Resources/Images/GuideWallpaper7.jpg"></ImageBrush>
+        <ImageBrush ImageSource="/Resources/Images/wallpaperGuide.jpg"></ImageBrush>
     </Window.Background>
     <Window.Resources>
-        <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+        <Style  TargetType="Hyperlink">
             <Setter Property="Foreground" Value="#FF2810AB"/>
             <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
         </Style>
@@ -42,7 +43,7 @@
                     <TextBlock  Text="Travel agency" Style="{StaticResource TextBlockStyle}" Padding="8"></TextBlock>
                 </StackPanel>
                     <TextBlock Grid.Row="1" Padding="6">
-                    <Hyperlink Command="{Binding HomePageCommand}"  Style="{StaticResource HyperlinkStyle}">
+                    <Hyperlink Command="{Binding HomePageCommand}" >
                         Home
                     </Hyperlink>
                 </TextBlock>
@@ -50,16 +51,16 @@
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Padding="15" FontSize="15">
-                        <Hyperlink Style="{StaticResource HyperlinkStyle}" Command="{Binding HomePageCommand}">Home</Hyperlink>
+                        <Hyperlink  Command="{Binding HomePageCommand}">Home</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                         <Hyperlink Style="{StaticResource HyperlinkStyle}" Click="MyToursPageClick">My tours</Hyperlink>
+                         <Hyperlink  Command="{Binding MyToursCommand}">My tours</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                       <Hyperlink Style="{StaticResource HyperlinkStyle}" Click="TourRequestsPageClick">Tour requests</Hyperlink>
+                       <Hyperlink  Click="TourRequestsPageClick">Tour requests</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                        <Hyperlink  Style="{StaticResource HyperlinkStyle}" Click="ProfilePageClick">Profile</Hyperlink>
+                        <Hyperlink  Click="ProfilePageClick">Profile</Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </Grid>

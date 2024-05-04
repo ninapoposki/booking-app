@@ -17,7 +17,6 @@ namespace BookingApp.DTO
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
         public int UserId {  get; set; }
         private TourStartDateDTO selectedDateTime;
-
         public TourStartDateDTO SelectedDateTime
         {
             get { return selectedDateTime; }

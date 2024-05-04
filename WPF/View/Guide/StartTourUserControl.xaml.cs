@@ -12,29 +12,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for TourReviews.xaml
+    /// Interaction logic for StartTourUserControl.xaml
     /// </summary>
-    public partial class TourReviews : Window
+    public partial class StartTourUserControl : UserControl
     {
-
-        public TourReviews(TourDTO tour)
+        public StartTourUserControl(NavigationService navigationService,TourStartDateDTO tourStartDate,int userId)
         {
             InitializeComponent();
-            DataContext = new TourReviewsUserControlVM(tour);
+            DataContext = new StartTourUserControlVM(navigationService,tourStartDate, userId);
         }
 
-        private void ReportReviewClick(object sender, RoutedEventArgs e)
-        {
-         var button = sender as Button;
-         var tourGrade = button.DataContext as TourGradeDTO;
-         //TourReviewsVM.SelectedReview = tourGrade;
-         //TourReviewsVM.ReportReviewClick();
-        }
-        
     }
 }

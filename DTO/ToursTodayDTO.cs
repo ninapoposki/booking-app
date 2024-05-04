@@ -82,7 +82,6 @@ namespace BookingApp.DTO
         public Language Language { get; set; }
         public int LanguageId { get; set; }
 
-
         public ToursTodayDTO() { }
         public ToursTodayDTO(Tour tour, Language language)
         {
@@ -92,8 +91,6 @@ namespace BookingApp.DTO
             LanguageId = tour.LanguageId;
             Duration = tour.Duration;
         }
-
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {

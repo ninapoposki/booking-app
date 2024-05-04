@@ -11,29 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for GuideMainWindow.xaml
+    /// Interaction logic for CreateTourUserControl.xaml
     /// </summary>
-    public partial class GuideMainWindow : Window
+    public partial class CreateTourUserControl : UserControl
     {
-        public GuideMainWindow(int userId)
+        public CreateTourUserControl(NavigationService navigationService,int userId)
         {
             InitializeComponent();
-            DataContext = new GuideMainWindowVM(MainWindowFrame.NavigationService,userId);
-        }
-
-        private void TourRequestsPageClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ProfilePageClick(object sender, RoutedEventArgs e)
-        {
-
+            DataContext = new CreateTourUserControlVM(navigationService, userId);           
         }
     }
 }
