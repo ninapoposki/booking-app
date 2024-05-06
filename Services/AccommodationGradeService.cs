@@ -28,7 +28,8 @@ namespace BookingApp.Services
 
         public List<double> GetAverageGrades(string username)
         {
-            int ownerId = ownerService.GetByUserId(userService.GetByUsername(username).Id).Id;
+            int ownerId = ownerService.GetByUserId(userService.GetByUsername(username).Id).Id; 
+            
             return accommodationGradeRepository.GetAverageGrades(ownerId);
         }
         public List<AccommodationGradeDTO> GetAll()

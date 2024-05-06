@@ -8,22 +8,103 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\1600w-F2CyNS5sQdM.webp" />
+    <None Remove="Resources\Images\accommodation_placeholder.jpg" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\apartment_grade.jpg" />
     <None Remove="Resources\Images\apartment_grade1.jpg" />
     <None Remove="Resources\Images\apartment_picture.jpg" />
     <None Remove="Resources\Images\apartment_picture1.jpg" />
+    <None Remove="Resources\Images\blue.png" />
     <None Remove="Resources\Images\cabin_grade.jpg" />
     <None Remove="Resources\Images\cabin_grade1.jpg" />
     <None Remove="Resources\Images\cabin_picture.jpg" />
     <None Remove="Resources\Images\delete.png" />
+    <None Remove="Resources\Images\download.jpg" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\globe1.png" />
+    <None Remove="Resources\Images\heart.jpg" />
+    <None Remove="Resources\Images\heart1.jpg" />
     <None Remove="Resources\Images\hotel_grade1.jpg" />
 
     <None Remove="Resources\Images\hotel_picture.jpg" />
     <None Remove="Resources\Images\house_picture.jpg" />
+    <None Remove="Resources\Images\icon_bell.png" />
+    <None Remove="Resources\Images\icon_community.png" />
+    <None Remove="Resources\Images\icon_cottage.png" />
+    <None Remove="Resources\Images\icon_dateplus.png" />
+    <None Remove="Resources\Images\icon_datewait.png" />
+    <None Remove="Resources\Images\icon_emptystar.png" />
+    <None Remove="Resources\Images\icon_eye.png" />
+    <None Remove="Resources\Images\icon_forum.png" />
+    <None Remove="Resources\Images\icon_fullstar.png" />
+    <None Remove="Resources\Images\icon_grades.png" />
+    <None Remove="Resources\Images\icon_hammer.png" />
+    <None Remove="Resources\Images\icon_help.png" />
+    <None Remove="Resources\Images\icon_home.png" />
+    <None Remove="Resources\Images\icon_hotel.png" />
+    <None Remove="Resources\Images\icon_house.png" />
+    <None Remove="Resources\Images\icon_location.png" />
+    <None Remove="Resources\Images\icon_minus.png" />
+    <None Remove="Resources\Images\icon_plus.png" />
+    <None Remove="Resources\Images\icon_requests.png" />
+    <None Remove="Resources\Images\icon_reservations.png" />
+    <None Remove="Resources\Images\icon_search.png" />
+    <None Remove="Resources\Images\icon_statistics.png" />
     <None Remove="Resources\Images\left.png" />
+    <None Remove="Resources\Images\owner.jpg" />
     <None Remove="Resources\Images\OwnerTravel.png" />
+    <None Remove="Resources\Images\Owner\360_F.jpg" />
+    <None Remove="Resources\Images\Owner\6.jpg" />
+    <None Remove="Resources\Images\Owner\accommodation_placeholder.jpg" />
+    <None Remove="Resources\Images\Owner\blank.jpg" />
+    <None Remove="Resources\Images\Owner\down.jpg" />
+    <None Remove="Resources\Images\Owner\empty-picture.jpg" />
+    <None Remove="Resources\Images\Owner\globe.jpg" />
+    <None Remove="Resources\Images\Owner\globe.png" />
+    <None Remove="Resources\Images\Owner\globe1.png" />
+    <None Remove="Resources\Images\Owner\globeBlue.jpg" />
+    <None Remove="Resources\Images\Owner\globeOwner.png" />
+    <None Remove="Resources\Images\Owner\globe_pic.png" />
+    <None Remove="Resources\Images\Owner\icon_bell.png" />
+    <None Remove="Resources\Images\Owner\icon_bell1.png" />
+    <None Remove="Resources\Images\Owner\icon_community.png" />
+    <None Remove="Resources\Images\Owner\icon_cottage.png" />
+    <None Remove="Resources\Images\Owner\icon_dateplus.png" />
+    <None Remove="Resources\Images\Owner\icon_datewait.png" />
+    <None Remove="Resources\Images\Owner\icon_emptystar.png" />
+    <None Remove="Resources\Images\Owner\icon_eye.png" />
+    <None Remove="Resources\Images\Owner\icon_forum.png" />
+    <None Remove="Resources\Images\Owner\icon_fullstar.png" />
+    <None Remove="Resources\Images\Owner\icon_grades.png" />
+    <None Remove="Resources\Images\Owner\icon_hammer.png" />
+    <None Remove="Resources\Images\Owner\icon_help.png" />
+    <None Remove="Resources\Images\Owner\icon_home.png" />
+    <None Remove="Resources\Images\Owner\icon_hotel.png" />
+    <None Remove="Resources\Images\Owner\icon_hotel1.png" />
+    <None Remove="Resources\Images\Owner\icon_house.png" />
+    <None Remove="Resources\Images\Owner\icon_location.png" />
+    <None Remove="Resources\Images\Owner\icon_minus.png" />
+    <None Remove="Resources\Images\Owner\icon_plus.png" />
+    <None Remove="Resources\Images\Owner\icon_requests.png" />
+    <None Remove="Resources\Images\Owner\icon_reservations.png" />
+    <None Remove="Resources\Images\Owner\icon_search.png" />
+    <None Remove="Resources\Images\Owner\icon_statistics.png" />
+    <None Remove="Resources\Images\Owner\ink.jpg" />
+    <None Remove="Resources\Images\Owner\istock.jpg" />
+    <None Remove="Resources\Images\Owner\left.png" />
+    <None Remove="Resources\Images\Owner\main.png" />
+    <None Remove="Resources\Images\Owner\orangePlane.jpg" />
+    <None Remove="Resources\Images\Owner\png-clipart.png" />
+    <None Remove="Resources\Images\Owner\png-transparent.png" />
+    <None Remove="Resources\Images\Owner\pngtree.jpg" />
+    <None Remove="Resources\Images\Owner\profile.png" />
+    <None Remove="Resources\Images\Owner\profilepic.png" />
+    <None Remove="Resources\Images\Owner\profilepic1.png" />
+    <None Remove="Resources\Images\Owner\right.png" />
+    <None Remove="Resources\Images\Owner\vector.jpg" />
+    <None Remove="Resources\Images\Owner\white.png" />
+    <None Remove="Resources\Images\plane.jpg" />
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\right.png" />
 
@@ -42,10 +123,135 @@
     <None Remove="Resources\Images\Travel.png" />
 
     <None Remove="Resources\Images\view.png" />
+
+    <None Remove="Resources\Images\white.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\360_F.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\down.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\globe1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\globeBlue.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\globeOwner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_bell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_bell1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_community.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_cottage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_dateplus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_datewait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_emptystar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_fullstar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_grades.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_hammer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_hotel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_hotel1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_house.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_requests.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_reservations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\icon_statistics.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\istock.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\main.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\png-transparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\pngtree.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\profilepic1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Images\Owner\orangePlane.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\Images\Owner\profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\profilepic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Owner\white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\apartment_grade.jpg">
@@ -81,21 +287,15 @@
     <Resource Include="Resources\Images\house_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Images\left.png">
+    <Resource Include="Resources\Images\Owner\accommodation_placeholder.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\OwnerTravel.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\profile.png">
+    </Resource>
+    <Content Include="Resources\Images\Owner\vector.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\SlikaBeograd.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Images\right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\Images\SlikaBeograd2.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -126,9 +326,6 @@
     <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Images\Travel.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

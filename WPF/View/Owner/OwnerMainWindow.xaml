@@ -4,92 +4,211 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
-        mc:Ignorable="d"
+       xmlns:viewModel="clr-namespace:BookingApp.WPF.ViewModel.Owner"
+         xmlns:views="clr-namespace:BookingApp.WPF.View.Owner"
+        mc:Ignorable="d" 
         Background="AliceBlue"
-        Title="OwnerMainWindow" Height="550" Width="900">
+        Title="OwnerMainWindow" Height="700" Width="1200">
+   
+    <Window.Resources>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Height" Value="60" />
+        </Style>
+        <Style TargetType="Window">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+    </Window.Resources>
+
+    
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <!-- Lijevi prostor za dugmad -->
-            <ColumnDefinition Width="Auto"/>
-            <!-- Uspravna linija -->
-            <ColumnDefinition Width="5"/>
-            <!-- Razmak između linije i glavnog sadržaja -->
-            <ColumnDefinition Width="*"/>
-            <!-- Glavni sadržaj -->
+            <ColumnDefinition Width="Auto"  MinWidth="200"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"  />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Column="0"  Margin="0,0,0,4" VerticalAlignment="Stretch" Height="Auto">
-            <StackPanel.Background >
-                <ImageBrush ImageSource="..\..\..\Resources\Images\OwnerTravel.png" Stretch="UniformToFill" Opacity="0.5" />
-            </StackPanel.Background>
-            <StackPanel  Margin="0,0,0,0" >
-                <Image Source="C:\Users\Dajana\Documents\SIMS\sims-ra-2024-group-8-team-a\Resources\Images\profile.png" Width="100" Height="60" Margin="0,13,0,10"/>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="30,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
-                    <TextBlock Text="{Binding ownerDTO.LastName}" Margin="10,-10,0,0" Height="15" FontSize="11" FontWeight="Bold"  Foreground="Navy"/>
-                </StackPanel>
 
-                <StackPanel>
-                    <TextBlock Text="{Binding ownerDTO.Role}" Margin="10,2,0,2" Height="12" FontSize="10" Width="68"  Foreground="Navy"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Average grade: " Margin="2,1,0,0" Height="14" FontSize="9" Width="77"  Foreground="Navy"/>
-                        <TextBlock Text="{Binding AverageGrade}" Margin="0,1,0,0" Height="14" FontSize="9" Width="57"  Foreground="Navy"/>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#A9A9A9" >
+            
+            <StackPanel >
+
+
+                <StackPanel  Margin="0,0,0,0" Height="190">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Width="180">
+                            <StackPanel.Background >
+                        <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\globeBlue.jpg " Opacity="1"  />
+                    </StackPanel.Background>
+                            <Image Source="..\..\..\Resources\Images\Owner\profilepic1.png" Width="118" Height="112" Margin="9,18,0,0" />
+                        </StackPanel>
+                    </Grid>
+                  
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding ownerDTO.FirstName}"  Margin="0,-15,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="{Binding ownerDTO.LastName}" Margin="5,-15,0,0"  FontSize="15" FontWeight="Bold" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="{Binding ownerDTO.Role}" HorizontalAlignment="Center" Margin="0,-2,0,0" FontSize="13"  Foreground="White" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-3,0,0">
+                            <TextBlock Text="Average grade: " FontSize="13" Foreground="White"/>
+                            <TextBlock Text="{Binding AverageGrade}" Margin="1,0,0,0"  FontSize="13" Foreground="White" />
+                        </StackPanel>
+                        <Border BorderBrush="DimGray" BorderThickness="1" Margin="0,2,0,0"/>
                     </StackPanel>
                 </StackPanel>
+
+
+                <Menu
+Grid.Column="0"
+Margin="5"
+Background="Transparent"
+      VerticalAlignment="Stretch"
+      HorizontalAlignment="Stretch" Foreground="White">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <MenuItem 
+          Command="{Binding NavCommand}"
+          CommandParameter="home">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_home.png" />
+                                <ContentPresenter Content="Home page" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </MenuItem.Header>
+
+                    </MenuItem>
+                    <MenuItem
+        
+        Command="{Binding NavCommand}"
+        CommandParameter="grade">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_grades.png" />
+                                <ContentPresenter Content="My grades" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+
+                    </MenuItem>
+                    <MenuItem
+         
+          Command="{Binding NavCommand}"
+          CommandParameter="accomm">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_hotel.png" />
+                                <ContentPresenter Content="Accommodations" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+
+
+                    </MenuItem>
+                    <MenuItem
+          
+          Command="{Binding NavCommand}"
+          CommandParameter="reservations" >
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_reservations.png" />
+                                <ContentPresenter Content="Reservations" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+
+
+                    </MenuItem>
+
+                    <MenuItem
+          
+          Command="{Binding NavCommand}"
+          CommandParameter="requests" >
+
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_requests.png" />
+                                <ContentPresenter Content="Requests" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+
+
+
+                    </MenuItem>
+                    <MenuItem
+          
+          Command="{Binding NavCommand}"
+          CommandParameter="forum" >
+
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_forum.png" />
+                                <ContentPresenter Content="Forums" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </MenuItem.Header>
+
+                    </MenuItem>
+                </Menu>
+
+               
+
             </StackPanel>
-            <StackPanel VerticalAlignment="Stretch">
-            <Border Height="2" Background="Black" Margin="0 5"/>
-            <Button Content="Home Page" Margin="5 0 5 5" BorderThickness="2" BorderBrush="DarkBlue" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" />
-            <Button Content="My Grades" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click ="MyGradesClick" FontWeight="Bold" Foreground="Navy"/>
-            <Button Content="Accommodations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent"  Click="AccommodationsClick" FontWeight="Bold" Foreground="Navy"/>
-            <Button Content="Reservations" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click="ReservationsClick" FontWeight="Bold" Foreground="Navy"/>
-            <Button Content="Requests" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" Click="RequestsClick" FontWeight="Bold" Foreground="Navy"/>
-            <Button Content="Forums" Margin="0 0 0 5" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy"/>
-            </StackPanel>
-            <StackPanel VerticalAlignment="Bottom">
-            <Border Height="3" Background="Navy" Margin="0 5" VerticalAlignment="Bottom"/>
-            <Button Content="Log out" BorderThickness="0" Height="50" Background="Transparent" FontWeight="Bold" Foreground="Navy" VerticalAlignment="Bottom"/>
-            </StackPanel>
-        </StackPanel>
+               
+           
+        </Border>
 
-        <Border Grid.Column="1" Background="Black" Width="2"/>
+        <Border Grid.Column="1" Grid.Row="0" Background="#A9A9A9">
+            <StackPanel  Orientation="Horizontal" Margin="5,6,5,0" Height="40" VerticalAlignment="Top">
+                <TextBlock Text="{Binding Title}" Width="590" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25" Foreground="White"/>
+                <TextBlock Text="TOOLTIPS" VerticalAlignment="Center"  FontSize="15" Foreground="White"/>
 
-        <!-- Glavni sadržaj -->
-        <Grid Grid.Column="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="485*"/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="Black" BorderThickness="2" Margin="-7,0,0,0" >
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,6,5,0" Height="30" VerticalAlignment="Top" >
-                    <TextBlock Text="Home page" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Bold" FontSize="25"/>
-                    <WrapPanel HorizontalAlignment="Right">
-                    <TextBlock Text="TOOLTIPS" VerticalAlignment="Center" Margin="210,0,5,0" FontSize="15" />
-
-                    <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="White"/>
-                    <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
-                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
+                <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="Transparent" Foreground="White"/>
+                <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
+                <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
 
 
-                    <Button Content="NOTIFICATIONS" Width="140" Margin="5,0" BorderThickness="0" Background="White" FontSize="15"  Click="NotificationsClick"/>
-
-                    <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
-                    <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
-                       
-                        <Button Content="HELP" Width="107" BorderThickness="0" Background="White" FontSize="15" HorizontalAlignment="Right"/>
-                    </WrapPanel>
+                <Button  Width="140" Margin="5,0" BorderThickness="0" Background="Transparent" FontSize="15" >
+                <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\..\Resources\Images\Owner\icon_bell1.png" Width="30" Height="30" />
+                        <TextBlock Text="NOTIFICATIONS" VerticalAlignment="Center" Foreground="White"/>
                 </StackPanel>
-            </Border>
+                </Button>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="22,20,0,20" Height=" 30">
-                <Button Content="Add Accommodation" Margin="5" Padding="10,0" Click="AddAccommodationClick" Width="150" />
-                <Button Content="GradeGuest" Margin="5" Padding="10,0" Click="GradeGuestClick" Width="89" />
+                <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
+                <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
+
+                <Button Width="115"  BorderThickness="0" Background="Transparent" FontSize="15">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Image Source="..\..\..\Resources\Images\Owner\icon_help.png" Width="30" Height="30" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                        <TextBlock Text="HELP" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
-        </Grid>
+        </Border>
+        <Frame Grid.Row="1" Grid.Column="1" x:Name="MainWindowFrame" NavigationUIVisibility="Hidden"></Frame>
+
+        <StackPanel Grid.Row="1" Grid.Column="0"  VerticalAlignment="Bottom" Margin="2">
+            <Button  Command="{Binding NavCommand}"
+ CommandParameter="logout"  Content="Log out" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0,2,0,0" Height="50" FontSize="15" Foreground="white"/>
+        </StackPanel>
     </Grid>
+
+
+
+
+
+
 </Window>

@@ -28,15 +28,9 @@ namespace BookingApp.WPF.View.Owner
             InitializeComponent();
             GradeDetailsVM = new GradeDetailsVM(selectedAccommodationGrade);
             DataContext = GradeDetailsVM;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
-        private void PreviousClick(object sender, RoutedEventArgs e)
-        {
-            GradeDetailsVM.PreviousClick();
-        }
-        private void NextClick(object sender, RoutedEventArgs e)
-        {
-            GradeDetailsVM.NextClick();
-        }
+       
 
        
     }

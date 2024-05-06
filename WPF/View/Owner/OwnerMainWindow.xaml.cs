@@ -17,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.WPF.ViewModel.Owner;
+using BookingApp.Services;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Owner
 {
@@ -25,16 +27,28 @@ namespace BookingApp.WPF.View.Owner
     /// </summary>
     public partial class OwnerMainWindow : Window
     {
+        
         public OwnerMainWindowVM OwnerMainWindowVM { get; set; }
         
         public OwnerMainWindow(string username)
         {
             InitializeComponent();
-            OwnerMainWindowVM = new OwnerMainWindowVM(username);
+            OwnerMainWindowVM = new OwnerMainWindowVM(MainWindowFrame.NavigationService, username);
             DataContext = OwnerMainWindowVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            
+
         }
-        
+       /* private void StudentViewControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            OwnersAccommodationVM ownersAccommodationVM = new OwnersAccommodationVM();
+
+
+
+            OwnersAccommodationVM.DataContext = ownersAccommodationVM;
+        }*/
+    }
+        /*
         private void AddAccommodationClick(object sender, RoutedEventArgs e)
         {
             OwnerMainWindowVM.AddAccommodationClick();
@@ -64,6 +78,6 @@ namespace BookingApp.WPF.View.Owner
         private void RequestsClick(object sender, RoutedEventArgs e)
         {
             OwnerMainWindowVM.RequestsClick();
-        }
-    }
+        }*/
+    
 }

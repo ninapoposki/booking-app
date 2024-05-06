@@ -18,8 +18,7 @@ namespace BookingApp.DTO
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public int id;
         public int Id {
-            get { return id; }
-            set { if (id != value) { id = value; OnPropertyChanged("Id"); } }
+            get; set;
         }
         private String name;
         public String Name{
@@ -72,6 +71,24 @@ namespace BookingApp.DTO
         public int OwnerId{
             get { return ownerId; }
             set{  if (ownerId != value){ ownerId = value; OnPropertyChanged("OwnerId"); } }
+        }
+        private string guestMessage;
+        public string GuestMessage
+        {
+            get => guestMessage;
+            set { guestMessage = value; OnPropertyChanged(nameof(GuestMessage)); }
+        }
+        private string daysMessage;
+        public string DaysMessage
+        {
+            get => daysMessage;
+            set { daysMessage = value; OnPropertyChanged(nameof(DaysMessage)); }
+        }
+        private string minDaysMessage;
+        public string MinDaysMessage
+        {
+            get => minDaysMessage;
+            set { minDaysMessage = value; OnPropertyChanged(nameof(MinDaysMessage)); }
         }
         public AccommodationDTO(){  }
         public AccommodationDTO(Accommodation accommodation,Location location){
