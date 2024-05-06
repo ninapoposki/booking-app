@@ -55,6 +55,7 @@ namespace BookingApp.WPF.View.Owner
         private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
         {
             AddAccommodationVM.AddAccommodationButtonClick();
+            
             Close();
         }
         private void CountryChanged(object sender, SelectionChangedEventArgs e)

@@ -18,38 +18,39 @@ using System.Collections.ObjectModel;
 using BookingApp.Domain.Model;
 using BookingApp.WPF.View.Owner;
 using BookingApp.WPF.ViewModel.Owner;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Owner
 {
     /// <summary>
     /// Interaction logic for GuestReservations.xaml
     /// </summary>
-    public partial class GuestReservations : Window
+    public partial class GuestReservations : Page
     {
         public GuestReservationsVM GuestReservationsVM { get; set; }
-        public GuestReservations(int loggedInUserId)
+        public GuestReservations(NavigationService navigation, int loggedInUserId)
         {
             InitializeComponent();
-            GuestReservationsVM = new GuestReservationsVM(loggedInUserId);
+            GuestReservationsVM = new GuestReservationsVM(navigation, loggedInUserId);
             DataContext = GuestReservationsVM;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+           // this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         public void GuestDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
                 GuestReservationsVM.GuestDataGridSelectionChanged();
         }
-        private void GradeGuestClick(object sender, RoutedEventArgs e)
+       /* private void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender;
             AccommodationReservationDTO reservation = (AccommodationReservationDTO)clickedButton.DataContext;
 
             GuestReservationsVM.GradeGuestClick(reservation);
-        }
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        }*/
+        /*private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }*/
 
     }
 }

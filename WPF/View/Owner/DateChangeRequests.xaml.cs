@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Owner
@@ -18,13 +19,13 @@ namespace BookingApp.WPF.View.Owner
     /// <summary>
     /// Interaction logic for DateChangeRequests.xaml
     /// </summary>
-    public partial class DateChangeRequests : Window
+    public partial class DateChangeRequests : Page
     {
         public DateChangeRequestsVM DateChangeRequestsVM;
-        public DateChangeRequests(int loggedInUserId)
+        public DateChangeRequests(NavigationService navigation, int loggedInUserId)
         {
             InitializeComponent();
-            DateChangeRequestsVM = new DateChangeRequestsVM(commentTextBox, loggedInUserId);
+            DateChangeRequestsVM = new DateChangeRequestsVM(navigation,commentTextBox, loggedInUserId);
             DataContext = DateChangeRequestsVM;
         }
 

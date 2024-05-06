@@ -5,20 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
-        Background="AliceBlue"
-        Title="GradeDetails" Height="450" Width="800">
+        Background="WhiteSmoke"
+        Title="GradeDetails" Height="600" Width="1000">
     <Window.Resources>
-        <Style x:Key="NavButtonStyle" TargetType="FrameworkElement">
+        <Style x:Key="PrevButtonStyle" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
                     <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CanPrevious}" Value="False">
+                    <Setter Property="Opacity" Value="0.2"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CanPrevious}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NextButtonStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CanNext}" Value="False">
+                    <Setter Property="Opacity" Value="0.2"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CanNext}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="GuestPicturesTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Navy"/>
+            <Setter Property="Foreground" Value="#008B8B"/>
             <Setter Property="Text" Value="Guest's pictures"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
@@ -27,7 +50,17 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Navy"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="HideImageStyle" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AccommodationGrade.Images.Count}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
@@ -43,52 +76,60 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="2" BorderBrush="PeachPuff" Background="Ivory" Padding="10" Margin="10" CornerRadius="10">
+        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="2" BorderBrush="#A9A9A9" Background="#A9A9A9" Padding="2" Margin="10" CornerRadius="10">
             <StackPanel>
-               <!--  <StackPanel Orientation="Vertical"> <TextBlock Text=" Overall grade"/><TextBlock><Run Text="{Binding Path=Grade}" /> <TextBlock Text=" "/>  <TextBlock Text="☆" /> </TextBlock>  </StackPanel>-->
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,60,10">
+               <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,0,200,10">
                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Guest.LastName}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="15" FontWeight="Bold" />
+                    <Label Content="{Binding AccommodationGrade.AccommodationReservation.Guest.FirstName}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+                        <Label Content="{Binding AccommodationGrade.AccommodationReservation.Guest.LastName}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,0,0,0" FontSize="18" FontWeight="Bold" />
                 </StackPanel>
-                <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.Accommodation.Name}" Margin=" 5" FontSize="15" HorizontalAlignment="Center"/>
+                <Label Content="{Binding AccommodationGrade.AccommodationReservation.Accommodation.Name}" Margin="0,-5,0,0" FontSize="16" HorizontalAlignment="Center"/>
                 <StackPanel  Orientation="Horizontal" >
-                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.InitialDate}" FontSize="15" />
-                    <TextBlock Text=" - " FontSize="15" />
-                    <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.EndDate}" FontSize="15" />
+                        <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.InitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" Foreground="White"/>
+                    <TextBlock Text=" - " FontSize="15" Foreground="White"/>
+                        <TextBlock Text="{Binding AccommodationGrade.AccommodationReservation.EndDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" Foreground="White" />
                 </StackPanel>
             </StackPanel>
             </StackPanel>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0">
             <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="Cleanness: " HorizontalAlignment="Left" Margin="5" FontSize="15" FontWeight="Bold"/>
-                <TextBlock Text="{Binding AccommodationGrade.Cleanliness}" HorizontalAlignment="Center" Margin="5" FontSize="15"/>
+                <TextBlock Text="Cleanness: " HorizontalAlignment="Left" Margin="5" FontSize="18" FontWeight="DemiBold"/>
+                <TextBlock Text="{Binding AccommodationGrade.Cleanliness}" HorizontalAlignment="Center" Margin="5" FontSize="18"/>
             </StackPanel>
             <StackPanel  Orientation="Horizontal" Margin="5">
-                <TextBlock Text="Owner's correctness: " HorizontalAlignment="Left" Margin="5"  FontSize="15" FontWeight="Bold"/>
-                <TextBlock Text="{Binding AccommodationGrade.Correctness}" HorizontalAlignment="Center" Margin="5" FontSize="15"/>
+                <TextBlock Text="Owner's correctness: " HorizontalAlignment="Left" Margin="5"  FontSize="18" FontWeight="DemiBold"/>
+                <TextBlock Text="{Binding AccommodationGrade.Correctness}" HorizontalAlignment="Center" Margin="5" FontSize="18"/>
             </StackPanel>
 
-            <TextBlock Text="Comment: " HorizontalAlignment="Left" Margin="10"  FontSize="15" FontWeight="Bold"/>
-            <TextBlock Text="{Binding AccommodationGrade.Comment}" HorizontalAlignment="Left" Margin="10" FontSize="15"/>
+            <TextBlock Text="Comment: " HorizontalAlignment="Left" Margin="10"  FontSize="18" FontWeight="DemiBold"/>
+            <TextBlock Text="{Binding AccommodationGrade.Comment}" HorizontalAlignment="Left" Margin="10" FontSize="18" FontStyle="Oblique"/>
             
         </StackPanel>
         <TextBlock Style="{StaticResource GuestPicturesTextStyle}" 
-               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="55,10,0,0" 
-               FontSize="15" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
-        <Image Source="{Binding CurrentImage.Path}" Height="250" Width="380" Stretch="UniformToFill" Margin="0,35,0,0" Grid.Column="1" Grid.Row="1"/>
-        <Button Click="PreviousClick" Width="30" Height="25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Style="{StaticResource NavButtonStyle}" Margin="0,40,0,0">
-            <Button.Background>
-                <ImageBrush ImageSource="..\..\..\Resources\Images\left.png" Stretch="UniformToFill" />
-            </Button.Background>
-        </Button>
+    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="55,10,0,0" 
+    FontSize="18" FontWeight="Bold" Grid.Column="1" Grid.Row="1"/>
+        <Border Grid.Row="1" Grid.Column="1" Height="400" Width="590"   Margin="0,25,9,0" Style="{StaticResource HideImageStyle}">
 
-        <Button Click="NextClick" Width="30" Height="25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource NavButtonStyle}" Margin="0,40,10,0">
-            <Button.Background>
-                <ImageBrush ImageSource="..\..\..\Resources\Images\right.png" Stretch="UniformToFill" />
-            </Button.Background>
-        </Button>
+            <Border.Background>
+                <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\png-transparent.png" Opacity="1" Stretch="UniformToFill" />
+            </Border.Background>
+            <StackPanel Orientation="Vertical">
+           
+            <Image Source="{Binding CurrentImage.Path}" Height="350" Width="522" Stretch="UniformToFill" Margin="0,25,0,0" Grid.Column="1" Grid.Row="1"/>
+                <Button Command="{Binding PreviousPicture}" Width="25" Height="25"  HorizontalAlignment="Left" Style="{StaticResource PrevButtonStyle}" Margin="7,-300,0,0" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\left.png" Stretch="Uniform" />
+                </Button.Background>
+            </Button>
+
+            <Button Command="{Binding NextPicture}" Width="25" Height="25"   Style="{StaticResource NextButtonStyle}" Margin="557,-300,10,0" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\right.png" Stretch="UniformToFill" />
+                </Button.Background>
+            </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -24,7 +25,7 @@ namespace BookingApp.WPF.ViewModel.Owner
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public TextBox commentTextBox { get; set; }
         public int currentUserId;
-        public DateChangeRequestsVM(TextBox textBox, int loggedInUserId) {
+        public DateChangeRequestsVM(NavigationService navigation, TextBox textBox, int loggedInUserId) {
             reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
                 Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                 Injector.Injector.CreateInstance<IGuestRepository>(),
@@ -87,6 +88,7 @@ namespace BookingApp.WPF.ViewModel.Owner
         public void DeclineButtonClick(){
             string Comment = commentTextBox.Text;
             reservationRequestService.UpdateStatus(SelectedReservation.ReservationId, RequestStatus.DECLINED, Comment  );
+            Update();
             MessageBox.Show("Requests is declined");
         }
         public void AcceptButtonClick() {
@@ -98,6 +100,7 @@ namespace BookingApp.WPF.ViewModel.Owner
                 DateTime endDate = SelectedReservation.NewEndDate;
                 accommodationReservationService.UpdateDate(SelectedReservation.AccommodationReservation, initialDate, endDate);
                 MessageBox.Show("Requests is accepted");
+                Update();
             } else { MessageBox.Show("Please select a reservation before accepting."); }
         }
     }

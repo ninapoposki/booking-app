@@ -38,36 +38,5 @@ namespace BookingApp.WPF.View.Owner
 
         }
 
-        private int GetSelectedRadioButtonValue(StackPanel panel)
-        {
-            
-            foreach (var radioButton in panel.Children)
-            {
-                if (radioButton is RadioButton && ((RadioButton)radioButton).IsChecked == true)
-                {
-                    return int.Parse(((RadioButton)radioButton).Content.ToString());
-                }
-            }
-            return 0;
-        }
-
-
-        private void ConfirmButtonClick(object sender, RoutedEventArgs e)
-        {
-             int cleanness = GetSelectedRadioButtonValue(Cleanness);
-             int followingRules = GetSelectedRadioButtonValue(FollowingTheRules);
-             string comment = CommentsTextBox.Text;
-            // GradeGuestVM.CleannessRadio = cleanness;
-            // GradeGuestVM.FollowingTheRulesRadio = followingRules;
-            GradeGuestVM.ConfirmButtonClick(cleanness, followingRules);
-            Close();
-
-        }
-
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
     }
 }
