@@ -34,21 +34,25 @@ namespace BookingApp.WPF.ViewModel.Guest
         }
         public void BrowseImageClick()
         {
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Images"));
-            openFileDialog.ShowDialog();
-            if (!string.IsNullOrEmpty(openFileDialog.FileName)){
-                string relativePath = MakeRelativePath(openFileDialog.FileName);
-                Images.Add(imageService.GetByPath(relativePath));
-            }
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));// Konvertuje relativnu u apsolutnu putanju
+            if (openFileDialog.ShowDialog() == true) { AddImage(openFileDialog.FileName); }
         }
-        private string MakeRelativePath(string absolutePath)
+        public void AddImage(string absolutePath)
+        {
+            string referencePath = "../../../Resources/Images/";
+            string[] pathPieces = absolutePath.Split('\\');
+            string relativePath = (referencePath + pathPieces[pathPieces.Length - 1]);
+            Images.Add(imageService.GetByPath(relativePath));
+        }
+       /* private string MakeRelativePath(string absolutePath)
         {
             string referencePath = "..\\..\\..\\Resources\\Images\\";
             string[] pathPieces = absolutePath.Split('\\');
             return referencePath + pathPieces[pathPieces.Length - 1];
-        }
+        }*/
 
         public void RemoveImageClick()
         {

@@ -33,12 +33,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public List<LanguageDTO> Languages { get; set; }
         public UserService userService;
         public TourDTO SelectedTour { get; set; }
-        public LanguageDTO SelectedLanguage { get; set; }   
+       
+        public LanguageDTO SelectedLanguage { get; set; } 
+        public UserDTO userDTO { get; set; }
 
 
         public TouristMainWindowVM(string username)
         {
-
+            userDTO = new UserDTO();
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
             languageService = new LanguageService(Injector.Injector.CreateInstance<ILanguageRepository>());

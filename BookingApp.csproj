@@ -8,17 +8,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+
     <None Remove="Resources\Images\1600w-F2CyNS5sQdM.webp" />
     <None Remove="Resources\Images\accommodation_placeholder.jpg" />
+
+    <None Remove="Resources\Icons\booking_app_logo1.png" />
+    <None Remove="Resources\Icons\brightness_icon.png" />
+    <None Remove="Resources\Icons\language_icon.png" />
+    
+
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\apartment_grade.jpg" />
     <None Remove="Resources\Images\apartment_grade1.jpg" />
     <None Remove="Resources\Images\apartment_picture.jpg" />
     <None Remove="Resources\Images\apartment_picture1.jpg" />
+
     <None Remove="Resources\Images\blue.png" />
+
+    <None Remove="Resources\Images\apartment_picture11.jpg" />
+    <None Remove="Resources\Images\apartment_picture12.jpg" />
+    <None Remove="Resources\Images\apartment_picture2.jpg" />
+    <None Remove="Resources\Images\apartment_picture3.jpg" />
+    <None Remove="Resources\Images\apartment_picture4.jpg" />
+    <None Remove="Resources\Images\apartment_picture6.jpg" />
+    <None Remove="Resources\Images\apartment_picture7.jpg" />
+
     <None Remove="Resources\Images\cabin_grade.jpg" />
     <None Remove="Resources\Images\cabin_grade1.jpg" />
+    <None Remove="Resources\Images\cabin_image2.jpg" />
     <None Remove="Resources\Images\cabin_picture.jpg" />
+    <None Remove="Resources\Images\cabin_picture2.jpg" />
+    <None Remove="Resources\Images\cabin_picture3.jpg" />
+    <None Remove="Resources\Images\cabin_picture5.jpg" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\download.jpg" />
     <None Remove="Resources\Images\edit.png" />
@@ -29,6 +50,7 @@
 
     <None Remove="Resources\Images\hotel_picture.jpg" />
     <None Remove="Resources\Images\house_picture.jpg" />
+
     <None Remove="Resources\Images\icon_bell.png" />
     <None Remove="Resources\Images\icon_community.png" />
     <None Remove="Resources\Images\icon_cottage.png" />
@@ -51,6 +73,12 @@
     <None Remove="Resources\Images\icon_reservations.png" />
     <None Remove="Resources\Images\icon_search.png" />
     <None Remove="Resources\Images\icon_statistics.png" />
+
+    <None Remove="Resources\Images\house_picture2.jpg" />
+    <None Remove="Resources\Images\house_picture3.jpg" />
+    <None Remove="Resources\Images\house_picture4.jpg" />
+    <None Remove="Resources\Images\house_picture5.jpg" />
+
     <None Remove="Resources\Images\left.png" />
     <None Remove="Resources\Images\owner.jpg" />
     <None Remove="Resources\Images\OwnerTravel.png" />
@@ -120,7 +148,9 @@
     <None Remove="Resources\Images\TourGradeLimanski.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSad.jpg" />
     <None Remove="Resources\Images\TourGradeNoviSadCentar.jpg" />
+
     <None Remove="Resources\Images\Travel.png" />
+
 
     <None Remove="Resources\Images\view.png" />
 
@@ -128,6 +158,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\booking_app_logo1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\brightness_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\language_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -263,6 +303,28 @@
     <Resource Include="Resources\Images\apartment_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+
+    <Content Include="Resources\Images\apartment_picture11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\apartment_picture7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Images\apartment_picture1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -272,6 +334,18 @@
     <Resource Include="Resources\Images\cabin_grade1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Images\cabin_image2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+   </Content>
+    <Content Include="Resources\Images\cabin_picture2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cabin_picture3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cabin_picture5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Images\cabin_picture.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -289,8 +363,30 @@
     </Resource>
     <Resource Include="Resources\Images\Owner\accommodation_placeholder.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
     </Resource>
     <Content Include="Resources\Images\Owner\vector.jpg">
+
+    </Content>
+    <Content Include="Resources\Images\OwnerTravel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\house_picture2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+
+    <Content Include="Resources\Images\house_picture3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\house_picture4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\house_picture5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\profile.png">
+
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Images\SlikaBeograd.jpg">
@@ -326,6 +422,12 @@
     <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+
+    <Content Include="Resources\Images\Travel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

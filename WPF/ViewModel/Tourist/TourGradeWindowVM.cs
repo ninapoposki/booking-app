@@ -129,18 +129,22 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         public void BrowseImage()
         {
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Images"));
-            openFileDialog.ShowDialog();
-            AddImage(openFileDialog.FileName);
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));// Konvertuje relativnu u apsolutnu putanju
+            if (openFileDialog.ShowDialog() == true) { AddImage(openFileDialog.FileName); }
         }
 
-         private void AddImage(string absolutePath)
-         {
-             string relativePath = MakeRelativePath(absolutePath);
-             Images.Add(imageService.GetByPath(relativePath));
-         }
+     
+        public void AddImage(string absolutePath)
+        {
+            string referencePath = "../../../Resources/Images/";
+            string[] pathPieces = absolutePath.Split('\\');
+       
+            string relativePath = (referencePath + pathPieces[pathPieces.Length - 1]);
+            Images.Add(imageService.GetByPath(relativePath));
+        }
 
         private string MakeRelativePath(string absolutPath)
          {
