@@ -60,6 +60,19 @@ namespace BookingApp.DTO
                     OnPropertyChanged("Comment");}
             }
         }
+        private int grade;
+        public int Grade
+        {
+            get { return grade; }
+            set
+            {
+                if (value != grade)
+                {
+                    grade = value;
+                    OnPropertyChanged("Grade");
+                }
+            }
+        }
         public OwnerDTO Owner { get; set; }
         public AccommodationReservationDTO AccommodationReservation { get; set; }
         public AccommodationGradeDTO(){ }

@@ -34,6 +34,10 @@ namespace BookingApp.Services
             return accommodationRepository.GetCurrentId();
         }
 
+        public void Delete(AccommodationDTO accommodationDTO)
+        {
+            accommodationRepository.Delete(accommodationDTO.ToAccommodation());
+        }
 
         public Accommodation GetById(int id)
         {
