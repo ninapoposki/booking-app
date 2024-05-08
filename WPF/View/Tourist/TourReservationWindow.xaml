@@ -33,7 +33,7 @@
         </Button>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="10,48,40,0" Height="44" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Image Source="\Resources\Icons\Tourist\desctiption.png" Width="46" Height="34"/>
-            <TextBlock Text="{Binding TourDescription, StringFormat='Description: {0}'}" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="100">
+            <TextBlock Text="{Binding SelectedTour.Description, StringFormat='Description: {0}'}" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="100">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

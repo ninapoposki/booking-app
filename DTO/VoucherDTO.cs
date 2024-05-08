@@ -20,18 +20,13 @@ namespace BookingApp.DTO
         {
 
             get { return startDate; }
-
-
             set
             {
-
                 if (value != startDate)
                 {
 
                     startDate = value;
                     OnPropertyChanged("StartDate");
-
-
                 }
 
             }
@@ -41,18 +36,13 @@ namespace BookingApp.DTO
         {
 
             get { return expirationDate; }
-
-
             set
             {
-
                 if (value != expirationDate)
                 {
 
                     expirationDate = value;
                     OnPropertyChanged("ExpirationDate");
-
-
                 }
 
             }
@@ -86,7 +76,6 @@ namespace BookingApp.DTO
             }
         }
         public VoucherDTO() { }
-
         public VoucherDTO(Voucher voucher)
         {
             Id=voucher.Id;
@@ -97,7 +86,6 @@ namespace BookingApp.DTO
             Description = voucher.Description;
             Status= voucher.Status;
         }
-
         public Voucher ToVoucher()
         {
             return new Voucher(Id,UserId, TourReservationId, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(expirationDate, "dd/MM/yyyy"), description, status);

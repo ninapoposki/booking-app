@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public enum Gender{ Male,Female}
+    public enum Gender{ Male,Female};
+    public enum Type { TOUR,REQUEST };
     public class TourGuest : ISerializable
     {
-
         public int Id { get; set; }
         public string FullName { get; set; }    
         public int Age { get; set; }
@@ -18,6 +18,7 @@ namespace BookingApp.Domain.Model
         public int TourReservationId {  get; set; }
         public bool HasArrived { get; set; }
         public int CheckPointId {  get; set; }
+        public Type Type { get; set; }
         public TourGuest (int id, string fullName, int age, int tourReservationId, Gender gender)
         {
             Id = id;
@@ -27,6 +28,16 @@ namespace BookingApp.Domain.Model
             CheckPointId = -1;
             HasArrived = false;
             Gender = gender;
+        }
+        public TourGuest(string fullName, int age, int tourReservationId, Gender gender,Type type=Type.TOUR)
+        {
+            FullName = fullName;
+            Age = age;
+            TourReservationId = tourReservationId;
+            CheckPointId = -1;
+            HasArrived = false;
+            Gender = gender;
+            Type = type;
         }
         public TourGuest() { }
         public void FromCSV(string[] values)
@@ -38,7 +49,9 @@ namespace BookingApp.Domain.Model
             CheckPointId = Convert.ToInt32(values[4]);
             HasArrived = Convert.ToBoolean(values[5]);
             if (values[6] == "Male") { Gender=Gender.Male; }
-            else { Gender=Gender.Female;}       
+            else { Gender=Gender.Female;}
+            if (values[7] == "TOUR") { Type=Type.TOUR; }
+            else { Type=Type.REQUEST; }
         }
         public string[] ToCSV()
         {
@@ -50,7 +63,8 @@ namespace BookingApp.Domain.Model
                 TourReservationId.ToString(),
                 CheckPointId.ToString(),
                 HasArrived.ToString(),
-                Gender.ToString()
+                Gender.ToString(),
+                Type.ToString(),
             };
             return csvValues;
         }

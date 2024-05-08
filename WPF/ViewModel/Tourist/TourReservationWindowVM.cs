@@ -105,10 +105,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 }
             }
         }
-
         public MyICommand MoveNextCommand { get; set; }
         public MyICommand MovePreviousCommand { get; set; }
-
         public MyICommand<Tuple<string, int>> RemoveGuestCommand { get; set; }
         public TourReservationWindowVM(TourDTO selectedTour,string username)
         {
@@ -132,8 +130,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
             selectedVoucher = new VoucherDTO();
             AllVouchers = new ObservableCollection<VoucherDTO>();
             maxGuests = 0;
-            TourImage = selectedTour.Path; 
-            TourDescription = selectedTour.Description;
+            //TourImage = selectedTour.Path; 
+            //TourDescription = selectedTour.Description;
            ConfirmTourReservationCommand = new MyICommand(ConfirmTourReservation, CanConfirmTourReservation);
             images = new ObservableCollection<ImageDTO>(); 
             if (images.Any())
@@ -150,8 +148,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             Update();
         }
         private bool CanConfirmTourReservation()
-        {
-         
+        {   
             return !string.IsNullOrEmpty(NameSurname) && !string.IsNullOrEmpty(Age) && !string.IsNullOrEmpty(txtNumberOfPeople) && SelectedGender != null && SelectedVoucher != null;
         }
         private void MoveNext()
@@ -161,7 +158,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 currentIndex++;
                 CurrentImage = images[currentIndex];
                 OnPropertyChanged(nameof(CurrentImage));
-                
             }
         }
         private void RemoveGuest(Tuple<string, int> guest)
@@ -348,22 +344,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 tourGuestService.AddGuest(guest.Item1, guest.Item2, reservationId,CurrentGuest.Gender);} }
 
         public void ResetGuestInputFields()
-        {NameSurname= string.Empty;
-            Age = string.Empty;}
-
-        private string tourImage;
-        public string TourImage
-        {get => tourImage;
-            set{tourImage = value;
-                OnPropertyChanged(nameof(TourImage)); } }
-
-        private string tourDescription;
-        public string TourDescription
-        { get => tourDescription;
-            set{ tourDescription = value;
-                OnPropertyChanged(nameof(TourDescription)); }}
+        {  NameSurname= string.Empty;
+            Age = string.Empty;      }      
     }
-
-
 }
 
