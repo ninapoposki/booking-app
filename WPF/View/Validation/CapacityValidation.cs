@@ -84,5 +84,4 @@ namespace BookingApp.WPF.View.Validation
             }
         }
     }
-
 }
