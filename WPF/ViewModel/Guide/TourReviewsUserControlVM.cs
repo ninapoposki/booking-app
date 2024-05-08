@@ -39,7 +39,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void SetImage(TourGradeDTO tour)
         {
-            var path = imageService.GetFirstPath(tour.Id, "TOUR");
+            var path = imageService.GetFirstPath(tour.Id, "TOURGRADE");
             tour.Path = path ?? "..\\..\\..\\Resources\\Images\\placeholderGuide.png";
         }
         private void LoadReviews()

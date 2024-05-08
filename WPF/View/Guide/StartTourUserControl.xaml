@@ -102,7 +102,7 @@
                         <ControlTemplate>
                             <Border  BorderBrush="Gray" CornerRadius="10" BorderThickness="1" Background="LightSteelBlue" Height="40">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="\Resources\Icons\Guide\arrow-right.png" Margin="3"></Image>
+                                    <Image Source="\Resources\Icons\Guide\arrow.png" Margin="3"></Image>
                                     <TextBlock Text="Next stop"  Margin="5" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
