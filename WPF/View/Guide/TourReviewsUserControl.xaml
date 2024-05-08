@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="BookingApp.WPF.View.Guide.TourReviewsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+             mc:Ignorable="d" 
+     
+             d:DesignHeight="500" d:DesignWidth="960">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            <Setter Property="Padding" Value="8"></Setter>
+        </Style>
+        <Style x:Key="IconImageStyle" TargetType="Image">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style x:Key="CircularButton" TargetType="Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" BorderBrush="Black" BorderThickness="1" Background="Gray" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border BorderBrush="Gray" BorderThickness="2" Margin="20" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Tourists reviews" FontWeight="Bold" FontSize="20" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                    <ListView x:Name="ReviewsListView" ItemsSource="{Binding TourReviews}" Background="LightSteelBlue">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Background" Value="LightSteelBlue"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="160"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel  Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Image Source="\Resources\Icons\Guide\info.png" Style="{StaticResource IconImageStyle}"></Image>
+                                                <TextBlock Text="Information" Style="{StaticResource TextBlockStyle}" Margin="0 10" FontSize="15"></TextBlock>
+                                            </StackPanel>
+                                                <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Full name:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding FullName}" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Checkpoint:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding CheckPointName}" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Valid review:"  Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding Validity}" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel  Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Image Source="\Resources\Icons\Guide\best.png" Style="{StaticResource IconImageStyle}"></Image>
+                                                <TextBlock Text="Grades" Style="{StaticResource TextBlockStyle}" Margin="0 10" FontSize="15"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Text="Knowledge" Style="{StaticResource TextBlockStyle}" Grid.Row="0" Grid.Column="0"/>
+                                                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Height="20" Grid.Row="0" Grid.Column="1">
+                                                        <TextBlock Text="{Binding GuideKnowledge}" Style="{StaticResource TextBlockStyle}" Padding="3"></TextBlock>
+                                                    </Border>
+                                                    <TextBlock Text="Language" Style="{StaticResource TextBlockStyle}" Grid.Row="1" Grid.Column="0"/>
+                                                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Height="20" Grid.Row="1" Grid.Column="1">
+                                                        <TextBlock Text="{Binding LanguageKnowledge}" Style="{StaticResource TextBlockStyle}" Padding="3"></TextBlock>
+                                                    </Border>
+                                                    <TextBlock Text="Attractions" Style="{StaticResource TextBlockStyle}" Grid.Row="2" Grid.Column="0"/>
+                                                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Height="20" Grid.Row="2" Grid.Column="1">
+                                                        <TextBlock Text="{Binding TourAttractions}" Style="{StaticResource TextBlockStyle}" Padding="3"></TextBlock>
+                                                    </Border>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                                            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Image Source="\Resources\Icons\Guide\quotes.png" Style="{StaticResource IconImageStyle}"></Image>
+                                                <TextBlock Text="Comment" Style="{StaticResource TextBlockStyle}" Margin="0 10" FontSize="15"></TextBlock>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding Comment}" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Orientation="Vertical">
+                                           <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Image Source="\Resources\Icons\Guide\gallery.png" Style="{StaticResource IconImageStyle}"></Image>
+                                            <TextBlock Text="Review images" Style="{StaticResource TextBlockStyle}" Margin="0 10" FontSize="15"></TextBlock>
+                                        </StackPanel>
+                                        <Image  Source="{Binding Path}" Height="100" Width="150" HorizontalAlignment="Center"></Image>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="REPORT" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" Padding="5"  />
+                                            <Button Style="{StaticResource CircularButton}"  Command="{Binding ElementName=ReviewsListView, Path=DataContext.ReportCommand}" CommandParameter="{Binding}" Cursor="Hand">
+                                                <Image Source="\Resources\Icons\Guide\warning.png" Height="25" Width="30" Margin="5"></Image>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Average grade for this tour: " Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <Border BorderBrush="Gray" BorderThickness="1" Height="25" Width="Auto" CornerRadius="5">
+                            <TextBlock Text="{Binding AverageGrade, StringFormat={}{0:F2}}" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

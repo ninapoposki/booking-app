@@ -7,22 +7,16 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model
 {
-    public enum Gender
-    {
-        Male,
-        Female
-    }
+    public enum Gender{ Male,Female}
     public class TourGuest : ISerializable
     {
 
         public int Id { get; set; }
         public string FullName { get; set; }    
         public int Age { get; set; }
-        public Gender Gender{get; set;}
-       
+        public Gender Gender{get; set;}     
         public int TourReservationId {  get; set; }
         public bool HasArrived { get; set; }
-
         public int CheckPointId {  get; set; }
         public TourGuest (int id, string fullName, int age, int tourReservationId, Gender gender)
         {
@@ -32,12 +26,9 @@ namespace BookingApp.Domain.Model
             TourReservationId = tourReservationId;
             CheckPointId = -1;
             HasArrived = false;
-            Gender = gender;   
+            Gender = gender;
         }
         public TourGuest() { }
-
-
-
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -47,15 +38,12 @@ namespace BookingApp.Domain.Model
             CheckPointId = Convert.ToInt32(values[4]);
             HasArrived = Convert.ToBoolean(values[5]);
             if (values[6] == "Male") { Gender=Gender.Male; }
-            else { Gender=Gender.Female;}
-           
+            else { Gender=Gender.Female;}       
         }
-
         public string[] ToCSV()
         {
             string[] csvValues =
             {
-
                 Id.ToString(),
                 FullName,
                 Age.ToString(),
@@ -63,9 +51,7 @@ namespace BookingApp.Domain.Model
                 CheckPointId.ToString(),
                 HasArrived.ToString(),
                 Gender.ToString()
-
             };
-
             return csvValues;
         }
     }

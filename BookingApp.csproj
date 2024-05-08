@@ -7,47 +7,27 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\Icons\activeTour.png" />
-    <None Remove="Resources\Icons\age.png" />
-    <None Remove="Resources\Icons\app.png" />
+  <ItemGroup>  
     <None Remove="Resources\Icons\booking_app_logo1.png" />
     <None Remove="Resources\Icons\brightness_icon.png" />
 
-    <None Remove="Resources\Icons\capacity.png" />
-    <None Remove="Resources\Icons\checkpoint.png" />
-    <None Remove="Resources\Icons\city.png" />
-    <None Remove="Resources\Icons\country.png" />
-    <None Remove="Resources\Icons\date.png" />
-    <None Remove="Resources\Icons\finishedTour.png" />
-    <None Remove="Resources\Icons\home.png" />
-    <None Remove="Resources\Icons\language_icon.png" />
-    <None Remove="Resources\Icons\logOut.png" />
-    <None Remove="Resources\Icons\notification.png" />
-    <None Remove="Resources\Icons\read.png" />
-    <None Remove="Resources\Icons\reserve.png" />
-    <None Remove="Resources\Icons\search.png" />
-    <None Remove="Resources\Icons\star.png" />
-    <None Remove="Resources\Icons\destination.png" />
-    <None Remove="Resources\Icons\flight.png" />
-    <None Remove="Resources\Icons\Guide\arrow-right.png" />
-    <None Remove="Resources\Icons\Guide\check.png" />
-    <None Remove="Resources\Icons\Guide\destination.png" />
-    <None Remove="Resources\Icons\Guide\flag.png" />
-    <None Remove="Resources\Icons\Guide\flight.png" />
-    <None Remove="Resources\Icons\Guide\handwriting.png" />
-    <None Remove="Resources\Icons\Guide\language.png" />
-    <None Remove="Resources\Icons\Guide\map.png" />
-    <None Remove="Resources\Icons\Guide\pencil.png" />
-    <None Remove="Resources\Icons\Guide\pin.png" />
-    <None Remove="Resources\Icons\Guide\play-button.png" />
-    <None Remove="Resources\Icons\Guide\record.png" />
-    <None Remove="Resources\Icons\Guide\schedule.png" />
-    <None Remove="Resources\Icons\Guide\stop.png" />
-    <None Remove="Resources\Icons\Guide\time.png" />
-    <None Remove="Resources\Icons\Guide\tour-guide.png" />
-    <None Remove="Resources\Icons\Guide\tourists.png" />
-    <None Remove="Resources\Icons\tour-guide.png" />
+    <None Remove="Resources\Icons\Tourist\activeTour.png" />
+    <None Remove="Resources\Icons\Tourist\age.png" />
+    <None Remove="Resources\Icons\Tourist\app.png" />
+    <None Remove="Resources\Icons\Tourist\capacity.png" />
+    <None Remove="Resources\Icons\Tourist\checkpoint.png" />
+    <None Remove="Resources\Icons\Tourist\city.png" />
+    <None Remove="Resources\Icons\Tourist\country.png" />
+    <None Remove="Resources\Icons\Tourist\date.png" />
+    <None Remove="Resources\Icons\Tourist\finishedTour.png"/>  
+    <None Remove="Resources\Icons\Tourist\home.png" />
+    <None Remove="Resources\Icons\Tourist\language_icon.png" />
+    <None Remove="Resources\Icons\Tourist\logOut.png" />
+    <None Remove="Resources\Icons\Tourist\notification.png" />
+    <None Remove="Resources\Icons\Tourist\read.png" />
+    <None Remove="Resources\Icons\Tourist\reserve.png" />
+    <None Remove="Resources\Icons\Tourist\search.png" />
+    <None Remove="Resources\Icons\Tourist\star.png" />
     <None Remove="Resources\Icons\Tourist\back.png" />
     <None Remove="Resources\Icons\Tourist\delete.png" />
     <None Remove="Resources\Icons\Tourist\desctiption.png" />
@@ -55,6 +35,47 @@
     <None Remove="Resources\Icons\Tourist\no_picture.png" />
     <None Remove="Resources\Icons\Tourist\star_empty.png" />
     <None Remove="Resources\Icons\Tourist\star_filled.png" />
+    
+    <None Remove="Resources\Icons\Guide\save.png" />
+    <None Remove="Resources\Icons\Guide\adult.png" />
+    <None Remove="Resources\Icons\Guide\arrow-right.png" />
+    <None Remove="Resources\Icons\Guide\best.png" />
+    <None Remove="Resources\Icons\Guide\cancel.png" />
+    <None Remove="Resources\Icons\Guide\check-list.png" />
+    <None Remove="Resources\Icons\Guide\check.png" />
+    <None Remove="Resources\Icons\Guide\cityscape.png" />
+    <None Remove="Resources\Icons\Guide\clock.png" />
+    <None Remove="Resources\Icons\Guide\countries.png" />
+    <None Remove="Resources\Icons\Guide\description.png" />
+    <None Remove="Resources\Icons\Guide\destination.png" />
+    <None Remove="Resources\Icons\Guide\flight.png" />
+    <None Remove="Resources\Icons\Guide\gallery.png" />
+    <None Remove="Resources\Icons\Guide\group.png" />
+    <None Remove="Resources\Icons\Guide\handwriting.png" />
+    <None Remove="Resources\Icons\Guide\info.png" />
+    <None Remove="Resources\Icons\Guide\language.png" />
+    <None Remove="Resources\Icons\Guide\map.png" />
+    <None Remove="Resources\Icons\Guide\old.png" />
+    <None Remove="Resources\Icons\Guide\pdf.png" />
+    <None Remove="Resources\Icons\Guide\pencil.png" />
+    <None Remove="Resources\Icons\Guide\pin.png" />
+    <None Remove="Resources\Icons\Guide\play.png" />
+    <None Remove="Resources\Icons\Guide\plus.png" />
+    <None Remove="Resources\Icons\Guide\quotes.png" />
+    <None Remove="Resources\Icons\Guide\race.png" />
+    <None Remove="Resources\Icons\Guide\rating.png" />
+    <None Remove="Resources\Icons\Guide\record.png" />
+    <None Remove="Resources\Icons\Guide\schedule.png" />
+    <None Remove="Resources\Icons\Guide\search.png" />
+    <None Remove="Resources\Icons\Guide\stop.png" />
+    <None Remove="Resources\Icons\Guide\time.png" />
+    <None Remove="Resources\Icons\Guide\tour-guide.png" />
+    <None Remove="Resources\Icons\Guide\tourists.png" />
+    <None Remove="Resources\Icons\Guide\trophy.png" />
+    <None Remove="Resources\Icons\Guide\warning.png" />
+    <None Remove="Resources\Icons\Guide\young.png" />
+
+
 
     
     <None Remove="Resources\Images\add.png" />
@@ -81,6 +102,7 @@
     <None Remove="Resources\Images\female.jpg" />
     <None Remove="Resources\Images\GuideWallpaper.jpg" />
     <None Remove="Resources\Images\GuideWallpaper1.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper10.jpg" />
     <None Remove="Resources\Images\GuideWallpaper2.jpg" />
     <None Remove="Resources\Images\GuideWallpaper3.jpg" />
     <None Remove="Resources\Images\GuideWallpaper4.jpg" />
@@ -106,10 +128,13 @@
     <None Remove="Resources\Images\new5.jpg" />
     <None Remove="Resources\Images\newWallpaper.jpg" />
     <None Remove="Resources\Images\OwnerTravel.png" />
+
     <None Remove="Resources\Images\positano1.jpg" />
     <None Remove="Resources\Images\positano2.jpg" />
     <None Remove="Resources\Images\positano3.jpg" />
     <None Remove="Resources\Images\positano4.jpg" />
+    <None Remove="Resources\Images\placeholderGuide.png" />
+
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\profileTourist.png" />
     <None Remove="Resources\Images\right.png" />
@@ -134,21 +159,54 @@
     <None Remove="Resources\Images\Travel.png" />
 
     <None Remove="Resources\Images\unnamed.jpg" />
-
-
     <None Remove="Resources\Images\view.png" />
 
-
+    <None Remove="Resources\Images\wallpaperGuide.jpg" />
     <None Remove="Resources\Images\wallpaperDesktop.jpg" />
-
-
     <None Remove="Resources\Images\yellow.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+
     <Content Include="Resources\Icons\Tourist\activeTour.png">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\adult.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\Guide\best.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\cityscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\countries.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\description.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\gallery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\group.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\old.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\Icons\booking_app_logo1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -174,10 +232,17 @@
     <Content Include="Resources\Icons\Tourist\desctiption.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    
     <Content Include="Resources\Icons\Tourist\finishedTour.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\Guide\check-list.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\Guide\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\clock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\destination.png">
@@ -195,19 +260,37 @@
     <Content Include="Resources\Icons\Guide\map.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\Guide\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\Guide\pencil.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\pin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icons\Guide\play-button.png">
+    <Content Include="Resources\Icons\Guide\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\quotes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\race.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\rating.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\record.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\Guide\save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\Guide\schedule.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\stop.png">
@@ -220,12 +303,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\tourists.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Icons\Tourist\language_icon.png">
+         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\trophy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\Guide\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\young.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+ 
     <Content Include="Resources\Icons\Tourist\logOut.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -349,20 +443,13 @@
     <Resource Include="Resources\Images\female.jpg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\GuideWallpaper.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Images\GuideWallpaper3.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Images\GuideWallpaper4.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\GuideWallpaper6.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\GuideWallpaper7.jpg">
-
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\hercegNovi.jpg">
@@ -400,6 +487,10 @@
     <Content Include="Resources\Images\profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
+    <Resource Include="Resources\Images\placeholderGuide.png">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\like.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -487,7 +578,11 @@
     <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+
     <Resource Include="Resources\Images\unnamed.jpg">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\wallpaperGuide.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\wallpaperDesktop.jpg">
@@ -499,7 +594,6 @@
     <Content Include="Resources\Images\Travel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-
     <Content Include="Resources\Images\view.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

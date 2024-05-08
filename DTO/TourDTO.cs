@@ -18,7 +18,6 @@ namespace BookingApp.DTO
        public ObservableCollection<CheckPointDTO> CheckPoints { get; set; } = new ObservableCollection<CheckPointDTO>();
         public int UserId {  get; set; }
         private TourStartDateDTO selectedDateTime;
-
         public TourStartDateDTO SelectedDateTime
         {
             get { return selectedDateTime; }
