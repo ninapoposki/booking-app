@@ -5,9 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:val="clr-namespace:BookingApp.WPF.View.Validation"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="960">
     <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <AdornedElementPlaceholder Grid.Row="0" Grid.Column="0"/>
+                <TextBlock Grid.Row="1" Text="{Binding [0].ErrorContent, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" FontWeight="DemiBold" FontFamily="Cascadia Code" FontSize="11"/>
+            </Grid>
+        </ControlTemplate>
+        <Style x:Key="SaveButtonStyle" TargetType="Button">
+            <Setter Property="IsEnabled" Value="False" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=NameTextBox, Path=(Validation.HasError)}" Value="False" />
+                        <Condition Binding="{Binding ElementName=DescriptionTextBox, Path=(Validation.HasError)}" Value="False" />
+                        <Condition Binding="{Binding ElementName=CheckPointTextBox, Path=(Validation.HasError)}" Value="False" />
+                        <Condition Binding="{Binding ElementName=CapacityTextBox, Path=(Validation.HasError)}" Value="False" />
+                        <Condition Binding="{Binding ElementName=DurationTextBox, Path=(Validation.HasError)}" Value="False" />
+                        <Condition Binding="{Binding ElementName=HoursMinutesTextBox, Path=(Validation.HasError)}" Value="False" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="ComboBox">
             <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
             <Setter Property="Background" Value="LightSteelBlue"></Setter>
@@ -44,7 +71,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="45"></RowDefinition>
             <RowDefinition Height="390" ></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
+
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="0 0 0 1" Width="240">
             <TextBlock Text="Create new tour"  FontSize="25"></TextBlock>
@@ -91,9 +118,25 @@
                 <Image Source="\Resources\Icons\Guide\time.png" Width="20"></Image>
                 <Label  Content="Duration"/>
             </StackPanel>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=TourDTO.Name, UpdateSourceTrigger=PropertyChanged}" Height="30"></TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=TourDTO.Description, UpdateSourceTrigger=PropertyChanged}" Height="112" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Margin="0,10,0,0"/>
-            <ComboBox x:Name="cityComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationComboBox}" SelectedItem="{Binding SelectedCity}" Height="30">
+            <TextBox Grid.Row="0" Grid.Column="1" Height="25" x:Name="NameTextBox" Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="TourDTO.Name"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:EmptyInputValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="DescriptionTextBox" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Margin="0 5 0 0"  Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="TourDTO.Description" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:EmptyInputValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <ComboBox x:Name="cityComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationComboBox}" SelectedItem="{Binding SelectedCity}" Height="25">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -102,16 +145,32 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Grid.Row="3" Grid.Column="2" Height="30" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
-            <ComboBox x:Name="languageComboBox" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" Height="30">
+            <TextBox Grid.Row="3" Grid.Column="2" Height="25" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+            <ComboBox x:Name="languageComboBox" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" Height="25">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=TourDTO.Capacity, UpdateSourceTrigger=PropertyChanged}" Height="30"></TextBox>
-            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=TourDTO.Duration, UpdateSourceTrigger=PropertyChanged}" Height="30"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" x:Name="CapacityTextBox" Height="25" Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="TourDTO.Capacity" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:CapacityValidation ValidationStep="RawProposedValue" Minimum="1"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Grid.Row="6" Grid.Column="1" x:Name="DurationTextBox" Height="25" Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="TourDTO.Duration" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:DurationValidation ValidationStep="RawProposedValue" Minimum="1" Maximum="24"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1" Margin="20,20,20,20">
             <Grid.ColumnDefinitions>
@@ -152,8 +211,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox Height="30" Width="80" Text="{Binding CheckPointName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <StackPanel Grid.Row="0" Grid.Column="1" x:Name="CheckPointTextBox" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox Height="25" Width="80" Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="CheckPointName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:EmptyInputValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <Button Grid.Column="1" Height="30" Width="50" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="2" Margin="5" Cursor="Hand" Command="{Binding AddCheckPointCommand}">
                     <Button.Template>
                         <ControlTemplate>
@@ -199,10 +266,18 @@
                 <Image Source="\Resources\Icons\Guide\clock.png" Width="20"></Image>
                 <Label  Content="Tour time"></Label>
             </StackPanel>
-            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding SelectedDate}" x:Name="datePicker" Height="30" Width="120" DisplayDateStart="{x:Static System:DateTime.Today}" FontFamily="Cascadia Code"/>
+            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding SelectedDate}" x:Name="datePicker" Height="25" Width="120" DisplayDateStart="{x:Static System:DateTime.Today}" FontFamily="Cascadia Code"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                <TextBox Text="{Binding Time}" Height="30" Width="70"/>
+                <TextBox Height="25" Width="70" x:Name="HoursMinutesTextBox" Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="Time" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:HoursMinutesValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <Button Grid.Column="1" Height="30" Width="50" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="2" Margin="5" Cursor="Hand" Command="{Binding AddDateCommand}">
                     <Button.Template>
                         <ControlTemplate>
@@ -228,13 +303,13 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Button Grid.Column="2" Grid.Row="2" Height="40" Width="100" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="2" Cursor="Hand" Command="{Binding AddTourCommand}" VerticalAlignment="Top">
+        <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource SaveButtonStyle}" Height="40" Width="100" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="2" Cursor="Hand" Command="{Binding AddTourCommand}" VerticalAlignment="Bottom" Margin="0 -20">
             <Button.Template>
                 <ControlTemplate>
                     <Border  BorderBrush="Gray" CornerRadius="10" BorderThickness="1" Background="LightSteelBlue" Height="40">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Image Source="\Resources\Icons\Guide\plus.png" Margin="8" ></Image>
-                            <TextBlock Text="Add" FontSize="15" Padding="10"  VerticalAlignment="Center"/>
+                            <Image Source="\Resources\Icons\Guide\save.png" Margin="8" ></Image>
+                            <TextBlock Text="Save" FontSize="15" Padding="10"  VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>

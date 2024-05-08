@@ -16,6 +16,7 @@ namespace BookingApp.WPF.ViewModel.Guide
 {
     public class StartTourUserControlVM : ViewModelBase
     {
+        public BreadCrumbsVM BreadCrumbsVM { get; set; }
         private TourGuestDTO selectedTourist;
         public TourGuestDTO SelectedTourist
         {
@@ -47,8 +48,9 @@ namespace BookingApp.WPF.ViewModel.Guide
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
         public NavigationService NavigationService { get; set; }
         public ActiveTourDTO ActiveTour { get; set; }
-        public StartTourUserControlVM(NavigationService navigationService, TourStartDateDTO selectedStartDate, int userId)
+        public StartTourUserControlVM(NavigationService navigationService, TourStartDateDTO selectedStartDate, int userId,ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
+            BreadCrumbsVM=new BreadCrumbsVM(breadcrumbs);
             NextStopCommand = new MyICommand(OnNextStop);
             MarkAsPresentCommand = new MyICommand(OnMarkAsPresent, CanMarkAsPresent);
             EndTourCommand = new MyICommand(OnEndTour);
@@ -137,7 +139,8 @@ namespace BookingApp.WPF.ViewModel.Guide
         public void FinishingTour()
         {
             tourStartDateService.UpdateEndTime(TourStartDate.Id);
-            NavigationService.Navigate(new GuideHomeUserControl(NavigationService, userId));
+            NavigationService.Navigate(new GuideHomeUserControl(NavigationService, userId, BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.ResetBreadcrumbs();
         }
     }
 }

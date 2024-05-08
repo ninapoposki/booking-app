@@ -1,6 +1,7 @@
 ﻿using BookingApp.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,10 @@ namespace BookingApp.WPF.View.Guide
     /// </summary>
     public partial class GuideHomeUserControl : UserControl
     {
-        public GuideHomeUserControl(NavigationService navigationService,int userId)
+        public GuideHomeUserControl(NavigationService navigationService,int userId,ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
             InitializeComponent();
-            DataContext=new GuideHomeUserControlVM(navigationService,userId);
+            DataContext=new GuideHomeUserControlVM(navigationService,userId,breadcrumbs);
         }
     }
 }

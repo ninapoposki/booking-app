@@ -17,6 +17,7 @@ namespace BookingApp.WPF.ViewModel.Guide
 {
     public class MyToursUserControlVM:ViewModelBase
     {
+       public BreadCrumbsVM BreadCrumbsVM { get; set; }
         private int selectedTabIndex;
         public int SelectedTabIndex
         {
@@ -44,8 +45,10 @@ namespace BookingApp.WPF.ViewModel.Guide
         private ImageService imageService;
         private TourService tourService;
         private VoucherService voucherService;
-        public MyToursUserControlVM(NavigationService navigationService,int userId) 
+        private TourGradeService tourGradeService;
+        public MyToursUserControlVM(NavigationService navigationService,int userId,ObservableCollection<BreadcrumbItem> breadcrumbs) 
         {
+            BreadCrumbsVM= new BreadCrumbsVM(breadcrumbs);  
             TourStatisticsCommand = new MyICommand(OnTourStatistics);
             CancelTourCommand = new MyICommand<TourDTO>(OnCancelTour, CanCancelTour);
             StartTourCommand = new MyICommand<TourDTO>(OnStartTour,CanTourStart);
@@ -60,24 +63,22 @@ namespace BookingApp.WPF.ViewModel.Guide
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             voucherService = new VoucherService(Injector.Injector.CreateInstance<IVoucherRepository>(), Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),Injector.Injector.CreateInstance<ILanguageRepository>(),Injector.Injector.CreateInstance<ILocationRepository>());
+            tourGradeService = new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(), Injector.Injector.CreateInstance<ITourGradeRepository>(),Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),Injector.Injector.CreateInstance<ILanguageRepository>(),Injector.Injector.CreateInstance<ILocationRepository>());
             LoadFinishedTours();
             LoadTodaysTours();
             LoadUpcomingTours();          
         }
-
         private bool CanCancelTour(TourDTO tour)
         {
             if (tour != null)
             {
                 TimeSpan timeDifference = tour.SelectedDateTime.StartDateTime - DateTime.Now;
                 return timeDifference.TotalHours > 48;
-            }
-            return true;
+            }return true;
         }
         private void OnCancelTour(TourDTO tour)
         {
             if (!IsVaucherGranted(tour.SelectedDateTime)) { MessageBox.Show("No reservation for this tour, no vauchers granted"); }
-
             tourStartDateService.UpdateTourStatus(tour.SelectedDateTime.Id);
             tour.DateTimes.Remove(tour.SelectedDateTime);
             if (tour.DateTimes.Count() ==0) { UpcomingTours.Remove(tour); }
@@ -89,10 +90,13 @@ namespace BookingApp.WPF.ViewModel.Guide
         private void OnTourStatistics()
         {
             NavigationService.Navigate(new TourStatisticsUserControl(userId));
+            BreadCrumbsVM.AddBreadcrumb("Tour statistics", new MyICommand(() => OnTourStatistics()));
         }
         private void OnSeeReviews(TourDTO tourDTO)
         {
+            if(tourGradeService.GetById(tourDTO.SelectedDateTime.Id).Count() == 0) { MessageBox.Show("No reviews for this tour yet!"); return; }
             NavigationService.Navigate(new TourReviewsUserControl(tourDTO));
+            BreadCrumbsVM.AddBreadcrumb("Reviews", new MyICommand(() => OnStartTour(tourDTO)));
         }
         private bool CanTourStart(TourDTO tourDTO)
         {
@@ -101,7 +105,9 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void OnStartTour(TourDTO tourDTO)
         {
-            NavigationService.Navigate(new StartTourUserControl(NavigationService, tourDTO.SelectedDateTime, userId));
+            if (!tourReservationService.DoReservationExists(tourDTO.SelectedDateTime.Id)) { MessageBox.Show("Tour does not have reservations"); return; }
+            NavigationService.Navigate(new StartTourUserControl(NavigationService, tourDTO.SelectedDateTime, userId, BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.AddBreadcrumb("Start tour", new MyICommand(() => OnStartTour(tourDTO)));
         }
         private void LoadTours(Func<TourStartDateDTO, bool> filter, ObservableCollection<TourDTO> collection, Action<TourDTO, TourStartDateDTO> addAction)
         {
@@ -162,10 +168,10 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             return tourStartDate.StartDateTime >= DateTime.Today && tourStartDate.TourStatus.ToString().Equals("INACTIVE");
         }
-        private void SetImage(TourDTO tourDTO)
+        private void SetImage(TourDTO tour)
         {
-            if (imageService.GetFirstPath(tourDTO.Id, "TOUR") != null) { tourDTO.Path = imageService.GetFirstPath(tourDTO.Id, "TOUR"); }
-            else { tourDTO.Path = "..\\..\\..\\Resources\\Images\\placeholderGuide.png"; }
+            var path = imageService.GetFirstPath(tour.Id, "TOUR");
+            tour.Path = path ?? "..\\..\\..\\Resources\\Images\\placeholderGuide.png";
         }
         private List<TourStartDateDTO> GetUpcomingTourDates(int tourId)
         {

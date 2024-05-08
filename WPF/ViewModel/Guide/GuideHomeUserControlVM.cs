@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Guide
@@ -31,34 +32,39 @@ namespace BookingApp.WPF.ViewModel.Guide
             }
         }
         private int userId;
+        public BreadCrumbsVM BreadCrumbsVM { get; set; }
         public NavigationService NavigationService { get; set; }
         public ObservableCollection<ToursTodayDTO> Tours { get; set; }
         private TourService tourService;
         private TourStartDateService tourStartDateService;
         private ImageService imageService;
+        private TourReservationService tourReservationService;
         public MyICommand StartTourCommand { get; set; }
         public MyICommand CreateTourCommand { get; set; }
-        public GuideHomeUserControlVM(NavigationService navigationService, int userId)
+        public GuideHomeUserControlVM(NavigationService navigationService, int userId, ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
+            BreadCrumbsVM=new BreadCrumbsVM(breadcrumbs);
             this.userId = userId;
             NavigationService = navigationService;
             Tours = new ObservableCollection<ToursTodayDTO>();
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),Injector.Injector.CreateInstance<ILanguageRepository>(),Injector.Injector.CreateInstance<ILocationRepository>());
             StartTourCommand = new MyICommand(OnStartTour, CanStartTour);
             CreateTourCommand = new MyICommand(OnCreateTour);
             LoadTodaysTours();
         }
         private void OnCreateTour()
         {
-            CreateTourUserControl createTourUserControl = new CreateTourUserControl (NavigationService,userId);
-            NavigationService.Navigate(createTourUserControl);
+            NavigationService.Navigate(new CreateTourUserControl(NavigationService, userId, BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.AddBreadcrumb("Create tour", new MyICommand(() => OnCreateTour()));
         }
         private void OnStartTour()
         {
-            StartTourUserControl startTourUserControl = new StartTourUserControl(NavigationService, SelectedTour.TourDateTime, userId);
-            NavigationService.Navigate(startTourUserControl);
+            if (!tourReservationService.DoReservationExists(SelectedTour.TourDateTime.Id)) { MessageBox.Show("Tour does not have reservations"); return; }
+            NavigationService.Navigate(new StartTourUserControl(NavigationService, SelectedTour.TourDateTime, userId,BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.AddBreadcrumb("Start tour", new MyICommand(() => OnStartTour()));
         }
         private bool CanStartTour()
         {
@@ -93,8 +99,8 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void SetImage(ToursTodayDTO toursTodayDTO)
         {
-            if (imageService.GetFirstPath(toursTodayDTO.Id, "TOUR") != null) { toursTodayDTO.Path = imageService.GetFirstPath(toursTodayDTO.Id, "TOUR"); }      
-            else { toursTodayDTO.Path = "..\\..\\..\\Resources\\Images\\placeholderGuide.png"; }
+            var path = imageService.GetFirstPath(toursTodayDTO.Id, "TOUR");
+            toursTodayDTO.Path = path ?? "..\\..\\..\\Resources\\Images\\placeholderGuide.png";
         }
         private List<TourStartDateDTO> GetFilteredTourDates(int tourId)
         {
