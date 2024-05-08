@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 namespace BookingApp.WPF.ViewModel.Owner
 {
 
-    public class OwnersAccommodationVM :  BindableBase, INotifyPropertyChanged
+    public class OwnersAccommodationVM :  ViewModelBase
     {
         
         public ImageService imageService;
@@ -29,8 +29,10 @@ namespace BookingApp.WPF.ViewModel.Owner
         private int currentUserId;
         public int CurrentUserId
         {
-            get { return currentUserId; }
-            set { SetProperty(ref currentUserId, value); }
+            //  get { return currentUserId; }
+            //  set { SetProperty(ref currentUserId, value); }
+            get => currentUserId;
+            set { currentUserId = value; OnPropertyChanged("CurrentUserId"); }
         }
         private string filter;
         public string Filter
@@ -60,8 +62,6 @@ namespace BookingApp.WPF.ViewModel.Owner
             // currentUserId = CurrentUserId;
             CurrentUserId = SharedData.Instance.CurrentUserId;
 
-            //UserId = currentUserId;
-            //UserId = CurrentUserId;
             Update();
 
             
@@ -77,6 +77,13 @@ namespace BookingApp.WPF.ViewModel.Owner
             if (SelectedAccommodation != null)
             {
                 accommodationService.Delete(SelectedAccommodation);
+                foreach (var image in SelectedAccommodation.Images)
+                {
+                    
+                        imageService.ResetImage(image);
+                    
+                   
+                }
                 Update(); 
             }
         }
@@ -102,7 +109,7 @@ namespace BookingApp.WPF.ViewModel.Owner
                 }
                 else
                 {
-                    updatedDTO.Images.Add(new ImageDTO { Path = @"\Resources\Images\Owner\accommodation_placeholder.jpg" });
+                    updatedDTO.Images.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" });
                 }
                 
                 if (updatedDTO.OwnerId == currentUserId)
@@ -155,13 +162,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
         public void add()
         {
             AddAccommodation addAccommodationWindow = new AddAccommodation(CurrentUserId);

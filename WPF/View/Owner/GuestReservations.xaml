@@ -18,7 +18,7 @@
     <Border>
 
         <Border.Background>
-            <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
         </Border.Background>
         <Grid>
         
@@ -29,7 +29,7 @@
             <TextBlock Grid.Row="0" Background="#A9A9A9"/>
 
             
-                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent"  Grid.Row="1"  BorderThickness="1" BorderBrush="Black" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="GuestDataGridSelectionChanged" SelectionMode="Single" >
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent"  Grid.Row="1"  BorderThickness="1" BorderBrush="Black" Name="GuestDataGrid" ItemsSource="{Binding AllAccommodationReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccommodationReservation, UpdateSourceTrigger=PropertyChanged}"  SelectionMode="Single" >
                 
                 <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -63,7 +63,7 @@
                             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="20,0,0,0">
                                     <TextBlock Text="{Binding Accommodations.Name}"   FontSize="17" FontWeight="Bold"/>
                                 <StackPanel Orientation="Horizontal"   Grid.Column="1" Margin="0,10,0,0">
-                                        <Image Source=" ..\..\..\Resources\Images\Owner\icon_location.png" Width="20" Height="20" Stretch="UniformToFill"   />
+                                    <Image Source=" ..\..\..\Resources\Icons\Owner\icon_location.png" Width="20" Height="20" Stretch="UniformToFill"   />
                                         <TextBlock Text="{Binding Location.City}"  FontSize="14"/>
                                         <TextBlock Text="," FontSize="14" />
                                         <TextBlock Text="{Binding Location.Country}" Margin=" 5,0,0,0" FontSize="14"/>
@@ -103,20 +103,12 @@
                                     </StackPanel>
 
                             </StackPanel>
-                           
-
-                           
+                         
                             </Grid>
-                                
-                                
+                                                              
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                
-                
-            
-
-           
 
     </Grid>
     </Border>

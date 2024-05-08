@@ -9,20 +9,19 @@
         mc:Ignorable="d" 
         Background="AliceBlue"
         Title="OwnerMainWindow" Height="700" Width="1200">
-   
+    
     <Window.Resources>
-
+      
         <Style TargetType="MenuItem">
             <Setter Property="FontSize" Value="15" />
             <Setter Property="Height" Value="60" />
+           
         </Style>
         <Style TargetType="Window">
             <Setter Property="Foreground" Value="White"/>
         </Style>
 
     </Window.Resources>
-
-    
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,13 +33,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
-
-
         <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#A9A9A9" >
-            
-            <StackPanel >
 
+            <StackPanel >
 
                 <StackPanel  Margin="0,0,0,0" Height="190">
                     <Grid >
@@ -49,9 +44,9 @@
                         </Grid.RowDefinitions>
                         <StackPanel Width="180">
                             <StackPanel.Background >
-                        <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\globeBlue.jpg " Opacity="1"  />
+                                <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\globeBlue.jpg " Opacity="1"  />
                     </StackPanel.Background>
-                            <Image Source="..\..\..\Resources\Images\Owner\profilepic1.png" Width="118" Height="112" Margin="9,18,0,0" />
+                            <Image Source="..\..\..\Resources\Icons\Owner\profilepic1.png" Width="118" Height="112" Margin="9,18,0,0" />
                         </StackPanel>
                     </Grid>
                   
@@ -70,48 +65,47 @@
                     </StackPanel>
                 </StackPanel>
 
-
                 <Menu
-Grid.Column="0"
-Margin="5"
-Background="Transparent"
-      VerticalAlignment="Stretch"
-      HorizontalAlignment="Stretch" Foreground="White">
+                Grid.Column="0"
+                Margin="5"
+                Background="Transparent"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch" Foreground="White">
                     <Menu.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Vertical"/>
+                            
                         </ItemsPanelTemplate>
                     </Menu.ItemsPanel>
                     <MenuItem 
+                        
           Command="{Binding NavCommand}"
           CommandParameter="home">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_home.png" />
+                        <MenuItem.Header >
+                            <StackPanel Orientation="Horizontal" >
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_home.png" />
                                 <ContentPresenter Content="Home page" VerticalAlignment="Center" Margin="5,0,0,0" />
                             </StackPanel>
                         </MenuItem.Header>
 
                     </MenuItem>
                     <MenuItem
-        
         Command="{Binding NavCommand}"
         CommandParameter="grade">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_grades.png" />
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_grades.png" />
                                 <ContentPresenter Content="My grades" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             </StackPanel>
                         </MenuItem.Header>
 
                     </MenuItem>
                     <MenuItem
-         
           Command="{Binding NavCommand}"
           CommandParameter="accomm">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_hotel.png" />
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_hotel.png" />
                                 <ContentPresenter Content="Accommodations" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             </StackPanel>
                         </MenuItem.Header>
@@ -124,14 +118,14 @@ Background="Transparent"
           CommandParameter="reservations" >
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_reservations.png" />
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_reservations.png" />
                                 <ContentPresenter Content="Reservations" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             </StackPanel>
                         </MenuItem.Header>
 
 
                     </MenuItem>
-
+                    
                     <MenuItem
           
           Command="{Binding NavCommand}"
@@ -139,14 +133,15 @@ Background="Transparent"
 
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_requests.png" />
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_requests.png" />
                                 <ContentPresenter Content="Requests" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             </StackPanel>
                         </MenuItem.Header>
 
 
 
-                    </MenuItem>
+                        </MenuItem>
+                    
                     <MenuItem
           
           Command="{Binding NavCommand}"
@@ -154,7 +149,7 @@ Background="Transparent"
 
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="30" Height="30" Source="..\..\..\Resources\Images\Owner\icon_forum.png" />
+                                <Image Width="30" Height="30" Source="..\..\..\Resources\Icons\Owner\icon_forum.png" />
                                 <ContentPresenter Content="Forums" VerticalAlignment="Center" Margin="5,0,0,0" />
                             </StackPanel>
                         </MenuItem.Header>
@@ -175,23 +170,23 @@ Background="Transparent"
                 <TextBlock Text="TOOLTIPS" VerticalAlignment="Center"  FontSize="15" Foreground="White"/>
 
                 <Button Content="on" Width="40" Margin="5,0" BorderThickness="0" Background="Transparent" Foreground="White"/>
-                <!-- Uspravna linija ispred dugmeta "NOTIFICATIONS" -->
+                
                 <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="40"/>
 
 
-                <Button  Width="140" Margin="5,0" BorderThickness="0" Background="Transparent" FontSize="15" >
+                <Button  Width="140" Margin="5,0" BorderThickness="0" Background="Transparent" FontSize="15"  Command="{Binding NavCommand}"
+ CommandParameter="notifications"  >
                 <StackPanel Orientation="Horizontal">
-                        <Image Source="..\..\..\Resources\Images\Owner\icon_bell1.png" Width="30" Height="30" />
+                        <Image Source="..\..\..\Resources\Icons\Owner\icon_bell.png" Width="30" Height="30" />
                         <TextBlock Text="NOTIFICATIONS" VerticalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 </Button>
 
-                <!-- Uspravna linija iza dugmeta "NOTIFICATIONS" -->
                 <Border Width="2" Background="Black" VerticalAlignment="Center" Margin="0,0,0,0" Height="50" />
 
                 <Button Width="115"  BorderThickness="0" Background="Transparent" FontSize="15">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Image Source="..\..\..\Resources\Images\Owner\icon_help.png" Width="30" Height="30" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                        <Image Source="..\..\..\Resources\Icons\Owner\icon_help1.png" Width="30" Height="30" HorizontalAlignment="Left" Margin="0,0,10,0"/>
                         <TextBlock Text="HELP" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"/>
                     </StackPanel>
                 </Button>

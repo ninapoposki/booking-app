@@ -10,14 +10,9 @@ using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
-    public class MainWindowVM : BindableBase, INotifyPropertyChanged
+    public class MainWindowVM : ViewModelBase
     {
         public MainWindowVM(NavigationService navigation, int loggedInUserId) { }
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
     }
 }

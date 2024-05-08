@@ -21,6 +21,7 @@ namespace BookingApp.WPF.ViewModel.Owner
         public int currentIndex = 0;
         public MyICommand PreviousPicture {  get; private set ; }
         public MyICommand NextPicture { get; private set; }
+        public double Grade {  get; set; }
         public GradeDetailsVM(AccommodationGradeDTO accommodationGrade)
         {
             AccommodationGrade = accommodationGrade;
@@ -32,6 +33,16 @@ namespace BookingApp.WPF.ViewModel.Owner
             CanPrevious = CanPreviousImage();
             PreviousPicture = new MyICommand(PreviousImage);
             NextPicture = new MyICommand(NextImage);
+            Grade = GetAverageGrade(accommodationGrade);
+        }
+        public double GetAverageGrade(AccommodationGradeDTO gradeDTO)
+        {
+            /*double gradeSum = gradeDTO.Cleanliness + gradeDTO.Correctness;
+            double averageGrade = gradeSum / 2.0;
+            return (int)averageGrade;*/
+            double gradeSum = gradeDTO.Cleanliness + gradeDTO.Correctness;
+            double averageGrade = gradeSum / 2.0;
+            return Math.Round(averageGrade * 2, MidpointRounding.AwayFromZero) / 2;
         }
 
         public void UpdateImages()

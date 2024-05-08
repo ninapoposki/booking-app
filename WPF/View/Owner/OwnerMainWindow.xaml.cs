@@ -39,45 +39,7 @@ namespace BookingApp.WPF.View.Owner
             
 
         }
-       /* private void StudentViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            OwnersAccommodationVM ownersAccommodationVM = new OwnersAccommodationVM();
-
-
-
-            OwnersAccommodationVM.DataContext = ownersAccommodationVM;
-        }*/
+       
     }
-        /*
-        private void AddAccommodationClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.AddAccommodationClick();
-        }
-      
-        private void GradeGuestClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.GradeGuestClick();
-        }
-        private void NotificationsClick(object sender, RoutedEventArgs e)
-        {
-           OwnerMainWindowVM.NotificationsClick();
-        }
-        private void AccommodationsClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.AccommodationsClick();
-        }
-
-        private void ReservationsClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.ReservationsClick();
-        }
-        private void MyGradesClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.MyGradesClick();
-        }
-        private void RequestsClick(object sender, RoutedEventArgs e)
-        {
-            OwnerMainWindowVM.RequestsClick();
-        }*/
-    
+        
 }

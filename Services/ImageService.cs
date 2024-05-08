@@ -38,6 +38,11 @@ namespace BookingApp.Services
             image.EntityType = EntityType.ACCOMMODATION;
             imageRepository.Update(image.ToImage());
         }
+        public void ResetImage(ImageDTO image) { 
+            image.EntityId = -1;
+            image.EntityType= EntityType.NONE;
+            imageRepository.Update(image.ToImage());
+        }
         public void UpdateGuestImages(ImageDTO image, int accommodationGradeId)
         {
             image.EntityId = accommodationGradeId;

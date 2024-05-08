@@ -26,7 +26,7 @@ namespace BookingApp.WPF.View.Owner
         {
             InitializeComponent();
             MainWindowVM = new MainWindowVM(navigation, loggedInUserId);
-           // DataContext = MainWindowVM;
+            DataContext = MainWindowVM;
         }
     }
 }

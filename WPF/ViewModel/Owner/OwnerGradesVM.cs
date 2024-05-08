@@ -89,11 +89,14 @@ namespace BookingApp.WPF.ViewModel.Owner
                 details.ShowDialog();
             }
         }
-        public int GetAverageGrade(AccommodationGradeDTO gradeDTO)
+        public double GetAverageGrade(AccommodationGradeDTO gradeDTO)
         {
+            /*double gradeSum = gradeDTO.Cleanliness + gradeDTO.Correctness;
+            double averageGrade = gradeSum / 2.0;
+            return (int)averageGrade;*/
             double gradeSum = gradeDTO.Cleanliness + gradeDTO.Correctness;
             double averageGrade = gradeSum / 2.0;
-            return (int)averageGrade;
+            return Math.Round(averageGrade * 2, MidpointRounding.AwayFromZero) / 2;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

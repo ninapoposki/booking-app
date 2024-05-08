@@ -8,9 +8,7 @@
         Background="WhiteSmoke"
         Title="GradeGuestWindow" Height="600" Width="1000">
     <Window.Resources>
-        <Style TargetType="Window">
-            <Setter Property="Background" Value="LightBlue"/>
-        </Style>
+        
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value=" White"/>
         </Style>
@@ -24,14 +22,11 @@
             <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="BorderBrush" Value="#5F9EA0"/>
-            <!-- Početna boja granice -->
+            
             <Style.Triggers>
-                <!-- Trigeri za promenu boje granice kada je RadioButton označen -->
                 <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}" Value="True">
                     <Setter Property="BorderBrush" Value="#008B8B"/>
-                    <!-- Boja granice kada je označen -->
                 </DataTrigger>
-                <!-- Dodajte triggere za ostale željene promene -->
             </Style.Triggers>
         </Style>
 
@@ -55,8 +50,8 @@
             <StackPanel Grid.Column="0">
               
                 <Label Content="Grade guest" Margin="10 0 10 0" FontWeight="Bold" FontSize="25"/>
-               
-                <Border CornerRadius="15" Margin="200,0,0,0" BorderThickness="2" BorderBrush="#A9A9A9" Width="500" Height="100" Background="#A9A9A9" >
+
+                <Border CornerRadius="15" Margin="200,0,0,0" BorderThickness="2" BorderBrush="#5F9EA0" Width="500" Height="100" Background="#A9A9A9" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical"  Width="200" Margin="50,0,0,0" >
                         <StackPanel Orientation="Horizontal"  >
@@ -71,7 +66,7 @@
                             <TextBlock Text="{Binding SelectedAccommodationReservation.Accommodations.Name}" Width="200" HorizontalAlignment="Center" FontSize="17"/>
                         <StackPanel Orientation="Horizontal" Width="200" HorizontalAlignment="Center" >
 
-                                <Image Source=" ..\..\..\Resources\Images\Owner\icon_location.png" Width="20" Height="20" Stretch="UniformToFill"   />
+                                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_location.png" Width="20" Height="20" Stretch="UniformToFill"   />
                                 <TextBlock Text="{Binding SelectedAccommodationReservation.Location.City}" FontSize="15"/>
                                 <TextBlock Text="," FontSize="15"/>
                                 <TextBlock Text="{Binding SelectedAccommodationReservation.Location.Country}" Margin=" 5,0,0,0" FontSize="15"/>

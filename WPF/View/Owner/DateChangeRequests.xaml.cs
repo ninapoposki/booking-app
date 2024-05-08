@@ -29,14 +29,6 @@ namespace BookingApp.WPF.View.Owner
             DataContext = DateChangeRequestsVM;
         }
 
-        private void DeclineButtonClick(object sender, RoutedEventArgs e)
-        {
-            DateChangeRequestsVM.DeclineButtonClick();
-        }
-        private void AcceptButtonClick(object sender, RoutedEventArgs e)
-        {
-
-          DateChangeRequestsVM.AcceptButtonClick();
-        }
+       
     }
 }

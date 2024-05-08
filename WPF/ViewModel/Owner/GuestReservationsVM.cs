@@ -61,7 +61,7 @@ namespace BookingApp.WPF.ViewModel.Owner
                 } else
                 {
                     updatedDTO.Images = new ObservableCollection<ImageDTO>();
-                    updatedDTO.Images.Add(new ImageDTO { Path = @"\Resources\Images\Owner\accommodation_placeholder.jpg" }); 
+                    updatedDTO.Images.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" }); 
                 }
                 GuestDataGrid(updatedDTO);
                 if (updatedDTO.Owner.UserId == currentUserId)
@@ -76,7 +76,6 @@ namespace BookingApp.WPF.ViewModel.Owner
                 int reservationId = guestGradeService.GetReservationId(selectedAccommodationReservation);
                 
                 if (IsGuestGraded(reservationId)) {
-                // MessageBox.Show("Guest is already graded.");
                 selectedAccommodationReservation.Message = "Already graded!";
                 selectedAccommodationReservation.CanGradeGuest = false;
             }
@@ -84,13 +83,13 @@ namespace BookingApp.WPF.ViewModel.Owner
                     AreDatesValid(selectedAccommodationReservation);
                 }
             
-        }
+        }/*
 
         public void GuestDataGridSelectionChanged() {
             if (SelectedAccommodationReservation != null){
                 GuestDataGrid(SelectedAccommodationReservation);
             }
-        }
+        }*/
         private void AreDatesValid(AccommodationReservationDTO accommodationReservationDTO) {
             if (accommodationReservationDTO.EndDate > DateTime.Now){
                 //MessageBox.Show("Guest stay has not finished yet!");

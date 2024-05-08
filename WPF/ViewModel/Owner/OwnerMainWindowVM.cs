@@ -19,7 +19,7 @@ using System.Threading.Channels;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
-    public class OwnerMainWindowVM :  BindableBase, INotifyPropertyChanged
+    public class OwnerMainWindowVM :  ViewModelBase
     {
         private string loggedInUserUsername;
         public int loggedInUserId;
@@ -29,12 +29,12 @@ namespace BookingApp.WPF.ViewModel.Owner
         public UserService userService;
         public OwnerService ownerService;
         public AccommodationGradeService accommodationGradeService;
-
+        
         public NavigationService NavigationService { get; set; }
 
         public OwnersAccommodationVM OwnersAccommodation;//= new OwnersAccommodationVM();
-        //public MainWindowVM MainWindow = new MainWindowVM(navigation,loggedInUserId);
-       
+                                                         //public MainWindowVM MainWindow = new MainWindowVM(navigation,loggedInUserId);
+        
        
         public string title;
         public string Title
@@ -42,6 +42,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             get { return title; }
             set { if (value != title) { title = value; OnPropertyChanged("Title"); } }
         }
+     
 
         public MyICommand<string> NavCommand { get; private set; }
 
@@ -69,15 +70,10 @@ namespace BookingApp.WPF.ViewModel.Owner
             SharedData.Instance.CurrentUserId = loggedInUserId;
 
 
-           // OwnersAccommodation = new OwnersAccommodationVM();
-            //OwnersGrades = new OwnerGradesVM();
-            // OwnersAccommodation.CurrentUserId = loggedInUserId;
-            //MainWindow = new MainWindowVM();
-            // CurrentViewModel = MainWindow;
+            
             NavCommand = new MyICommand<string>(OnNav);
             MainWindow mainWindow = new MainWindow(NavigationService, loggedInUserId);
             NavigationService.Navigate(mainWindow);
-           // CurrentViewModel = MainWindow;
             Title = "Home page";
 
 
@@ -98,35 +94,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             }
             return gradeSum / (double)gradeNum;
         }
-        public void AddAccommodationClick() {
-            AddAccommodation addAccommodationWindow = new AddAccommodation(loggedInUserId);
-            addAccommodationWindow.ShowDialog();
-        }
-        /*public void GradeGuestClick(){
-            GuestReservations guestReservations = new GuestReservations(loggedInUserId);
-            guestReservations.ShowDialog();
-        }*/
-        public void NotificationsClick(){
-            Notifications notifications = new Notifications();
-            notifications.ShowDialog();
-        }
-       /* public void AccommodationsClick()
-        {
-            OwnersAccommodation accommodations = new OwnersAccommodation(loggedInUserId);
-            accommodations.ShowDialog();
-        }*/
-       /* public void ReservationsClick() {
-            GuestReservations reservations = new GuestReservations(loggedInUserId);
-            reservations.ShowDialog();
-        }*/
-        /*public void MyGradesClick() {
-            OwnerGrades grades = new OwnerGrades(loggedInUserId);
-            grades.ShowDialog();
-        }*/
-        /*public void RequestsClick(){
-            DateChangeRequests datechanges = new DateChangeRequests(loggedInUserId);
-            datechanges.ShowDialog();
-        }*/
+       
+      
         private double averageGrade;
         public double AverageGrade {
             get { return averageGrade; }
@@ -138,24 +107,28 @@ namespace BookingApp.WPF.ViewModel.Owner
 
         private void OnNav(string destination)
             {
-                switch (destination)
+           
+            switch (destination)
                 {
                     case "home":
                          Title = "Home page";
-                    // CurrentViewModel = MainWindow;
+                    CloseNotificationsWindow();
                     MainWindow mainWindow = new MainWindow(NavigationService, loggedInUserId);
                     NavigationService.Navigate(mainWindow);
+                    
+
                          break;
                     case "accomm":
-                    // OwnersAccommodation.CurrentUserId = loggedInUserId;
-                         Title = "My accommodations";
+                    CloseNotificationsWindow();
+                    Title = "My accommodations";
                     OwnersAccommodation ownerAccommodation = new OwnersAccommodation(NavigationService, loggedInUserId);
                     NavigationService.Navigate(ownerAccommodation);
+                     
                          break;
                     case "grade":
                         Title = "My grades";
-
-
+               
+                    CloseNotificationsWindow();
 
                     OwnerGrades ownerGrades = new OwnerGrades(NavigationService, loggedInUserId);
                     NavigationService.Navigate(ownerGrades);
@@ -164,8 +137,8 @@ namespace BookingApp.WPF.ViewModel.Owner
                         break;
                 case "reservations":
                     Title = "My reservations";
-
-
+                    
+                    CloseNotificationsWindow();
 
                     GuestReservations guestReservations = new GuestReservations(NavigationService, loggedInUserId);
                     NavigationService.Navigate(guestReservations);
@@ -174,16 +147,21 @@ namespace BookingApp.WPF.ViewModel.Owner
                     break;
                 case "requests":
                     Title = "Date change requests";
+                    
 
-
-
+                    CloseNotificationsWindow();
                     DateChangeRequests dateChangeRequests = new DateChangeRequests(NavigationService, loggedInUserId);
                     NavigationService.Navigate(dateChangeRequests);
 
 
                     break;
                 case "logout":
+                    CloseNotificationsWindow();
                     CloseWindow();
+                    break;
+                case "notifications":
+                    Notifications notifications = new Notifications(loggedInUserId);
+                    notifications.Show();
                     break;
             }
             }
@@ -198,12 +176,18 @@ namespace BookingApp.WPF.ViewModel.Owner
                 }
             }
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void CloseNotificationsWindow()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(Notifications))
+                {
+                    window.Close();
+                    return; 
+                }
+            }
         }
+        
     }
     
         

@@ -136,14 +136,14 @@ namespace BookingApp.WPF.ViewModel.Owner
         {
             if(accommodationDTO.AccommodationType.ToString() == "CABIN")
             {
-                Path = @"..\..\..\Resources\Images\Owner\icon_cottage.png";
+                Path = @"..\..\..\Resources\Icons\Owner\icon_cottage.png";
             }else if(accommodationDTO.AccommodationType.ToString() == "APARTMENT")
             {
-                Path = @"..\..\..\Resources\Images\Owner\icon_hotel1.png";
+                Path = @"..\..\..\Resources\Icons\Owner\icon_hotel1.png";
             }
             else
             {
-                Path = @"..\..\..\Resources\Images\Owner\icon_house.png";
+                Path = @"..\..\..\Resources\Icons\Owner\icon_house.png";
             }
             
         }
