@@ -2,6 +2,7 @@
 using BookingApp.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,10 @@ namespace BookingApp.WPF.View.Guide
     /// </summary>
     public partial class StartTourUserControl : UserControl
     {
-        public StartTourUserControl(NavigationService navigationService,TourStartDateDTO tourStartDate,int userId)
+        public StartTourUserControl(NavigationService navigationService,TourStartDateDTO tourStartDate,int userId,ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
             InitializeComponent();
-            DataContext = new StartTourUserControlVM(navigationService,tourStartDate, userId);
+            DataContext = new StartTourUserControlVM(navigationService,tourStartDate, userId,breadcrumbs);
         }
 
     }

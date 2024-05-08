@@ -19,6 +19,7 @@ namespace BookingApp.WPF.ViewModel.Guide
 {
     public class CreateTourUserControlVM : ViewModelBase
     {
+        public BreadCrumbsVM BreadCrumbsVM { get; set; }    
         public MyICommand AddCheckPointCommand { get; }
         public MyICommand<CheckPointDTO> DeleteCheckPointCommand { get; }
         public MyICommand BrowseImagesCommand { get; }
@@ -42,8 +43,9 @@ namespace BookingApp.WPF.ViewModel.Guide
         public DateTime SelectedDate { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<CheckPointDTO> CheckPoints { get; set; }
-        public CreateTourUserControlVM(NavigationService navigationService,int userId)
+        public CreateTourUserControlVM(NavigationService navigationService,int userId,ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
+            BreadCrumbsVM=new BreadCrumbsVM(breadcrumbs);
             NavigationService = navigationService;
             this.userId = userId;
             AddCheckPointCommand = new MyICommand(OnAddCheckPoint);
@@ -52,7 +54,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             DeleteImageCommand = new MyICommand<ImageDTO>(OnDeleteImage);
             AddDateCommand = new MyICommand(OnAddDate);
             DeleteDateCommand = new MyICommand<DateTime>(OnDeleteDate);
-            AddTourCommand = new MyICommand(OnAddTour);
+            AddTourCommand = new MyICommand(OnAddTour,CanAddTour);
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             checkPointService = new CheckPointService(Injector.Injector.CreateInstance<ICheckPointRepository>());
@@ -80,10 +82,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             Country = locationService.GetCountry(SelectedCity);
         }
-        public void CityChanged()
-        {
-            LoadCountry();
-        }
         public void OnAddTour()
         {
             GetTourLocation();
@@ -93,7 +91,12 @@ namespace BookingApp.WPF.ViewModel.Guide
             AddTourStartDates(tourService.GetCurrentId());
             UpdateImages();
             MessageBox.Show("Added succesfully");
-            NavigationService.Navigate(new GuideHomeUserControl(NavigationService, userId));
+            NavigationService.Navigate(new GuideHomeUserControl(NavigationService, userId,BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.ResetBreadcrumbs();
+        }
+        public bool CanAddTour()
+        {
+            return Images.Count > 0 && CheckPoints.Count >= 2 && TourStartDates.Count>0;
         }
         private void GetTourLocation()
         {
@@ -109,12 +112,14 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             CheckPointDTO newCheckPoint = new CheckPointDTO { Name = CheckPointName, Type = "STOP" };
             CheckPoints.Add(newCheckPoint);
+            AddTourCommand.RaiseCanExecuteChanged();
             CheckPointName = "";
             UpdateCheckPointTypes();
         }
         private void OnDeleteCheckPoint(CheckPointDTO checkPoint)
         {
             CheckPoints.Remove(checkPoint);
+            AddTourCommand.RaiseCanExecuteChanged();
             UpdateCheckPointTypes();
         }
         private void UpdateCheckPointTypes()
@@ -133,29 +138,21 @@ namespace BookingApp.WPF.ViewModel.Guide
         public void OnAddDate()
         {
             var time = TryTimeParse(Time);
-            if (time == null || SelectedDate == null)
-            {
-                MessageBox.Show("Please select date and time in good format");
-                ResetDateInput();
-                return;
-            }
             DateTime dateTime = SelectedDate.Date;
             dateTime = dateTime.Add(time.Value);
             TourStartDates.Add(dateTime);
-            ResetDateInput();
+            AddTourCommand.RaiseCanExecuteChanged();
+            Time = "HH:mm";
         }
         private TimeSpan? TryTimeParse(string input)
         {
             if (TimeSpan.TryParse(input, out var time)) return time;
             return null;
         }
-        private void ResetDateInput()
-        {
-            Time = "HH:mm";
-        }
         public void OnDeleteDate(DateTime date)
         {
             TourStartDates.Remove(date);
+            AddTourCommand.RaiseCanExecuteChanged();
         }
         private void AddTourStartDates(int tourId)
         {
@@ -177,6 +174,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             string relativePath = MakeRelativePath(absolutePath);
             Images.Add(imageService.GetByPath(relativePath));
+            AddTourCommand.RaiseCanExecuteChanged();
         }
         private string MakeRelativePath(string absolutPath)
         {
@@ -188,6 +186,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         public void OnDeleteImage(ImageDTO image)
         {
             Images.Remove(image);
+            AddTourCommand.RaiseCanExecuteChanged();
         }
         private string country;
         public string Country
@@ -212,7 +211,7 @@ namespace BookingApp.WPF.ViewModel.Guide
                 {
                     selectedCity = value;
                     OnPropertyChanged("SelectedCity");
-                    CityChanged();
+                    LoadCountry();
                 }
             }
         }

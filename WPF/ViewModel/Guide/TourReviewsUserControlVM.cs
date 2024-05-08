@@ -32,22 +32,42 @@ namespace BookingApp.WPF.ViewModel.Guide
             TourReviews= new ObservableCollection<TourGradeDTO>();
             LoadReviews();
         }
-
         private void OnReportCommand(TourGradeDTO tourGrade)
         {
             tourGrade.Validity = Validity.NO;
             tourGradeService.UpdateValidity(tourGrade.Id);
         }
-
+        private void SetImage(TourGradeDTO tour)
+        {
+            var path = imageService.GetFirstPath(tour.Id, "TOUR");
+            tour.Path = path ?? "..\\..\\..\\Resources\\Images\\placeholderGuide.png";
+        }
         private void LoadReviews()
         {
             foreach(TourGradeDTO tourGrade in tourGradeService.GetById(SelectedTour.SelectedDateTime.Id))
             {
-                if (imageService.GetFirstPath(tourGrade.Id,"TOURGRADE") != null)
-                {
-                    tourGrade.Path = imageService.GetFirstPath(tourGrade.Id,"TOURGRADE");
-                }
+                SetImage(tourGrade);
                 TourReviews.Add(tourGrade);
+            }
+            CalculateAverageGrade();
+        }
+        private void CalculateAverageGrade()
+        {
+            double sumGrade = 0;
+            foreach(TourGradeDTO tourGrade in TourReviews)
+            {
+               sumGrade += (tourGrade.GuideKnowledge + tourGrade.LanguageKnowledge + tourGrade.TourAttractions);
+            }  
+            AverageGrade=sumGrade/(TourReviews.Count()*3);
+        }
+        private double averageGrade;
+        public double AverageGrade
+        {
+            get { return averageGrade; }
+            set
+            {
+                averageGrade = value;
+                OnPropertyChanged("AverageGrade");
             }
         }
     }

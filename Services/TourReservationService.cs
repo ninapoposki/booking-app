@@ -39,7 +39,6 @@ namespace BookingApp.Services
             reservationId = reservation.Id;
             return true;
         }
-
         public List<TourGuestDTO> GetByStartDate(int id)
         {
             List<TourGuestDTO> guests = new List<TourGuestDTO>();
@@ -79,7 +78,6 @@ namespace BookingApp.Services
                 return true;
             return false;
         }
-
         public List<TourReservationDTO> GetByUserId(int userId)
         {
             List<TourReservationDTO> reservations = new List<TourReservationDTO>();

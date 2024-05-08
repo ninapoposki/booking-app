@@ -20,6 +20,7 @@
     <None Remove="Resources\Icons\country.png" />
     <None Remove="Resources\Icons\date.png" />
     <None Remove="Resources\Icons\finishedTour.png" />
+    <None Remove="Resources\Icons\Guide\save.png" />
     <None Remove="Resources\Icons\home.png" />
     <None Remove="Resources\Icons\language_icon.png" />
     <None Remove="Resources\Icons\logOut.png" />
@@ -257,6 +258,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\record.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\save.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Guide\schedule.png">

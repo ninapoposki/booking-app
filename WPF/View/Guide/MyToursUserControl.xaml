@@ -76,7 +76,7 @@
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
                                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
-                                                <Image Source="{Binding Path}" Height="90" Width="100" HorizontalAlignment="Center"></Image>
+                                                <Image Source="{Binding Path}" Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
                                                 <StackPanel Orientation="Horizontal">
@@ -147,7 +147,7 @@
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
                                             <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
-                                            <Image Source="{Binding Path}" Height="90" Width="100" HorizontalAlignment="Center"></Image>
+                                                <Image Source="{Binding Path}"  Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
                                             <StackPanel Orientation="Horizontal">
@@ -210,7 +210,7 @@
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
                                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
-                                                <Image Source="{Binding Path}" Height="90" Width="100" HorizontalAlignment="Center"></Image>
+                                                <Image Source="{Binding Path}"  Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                                 <StackPanel Orientation="Horizontal">
