@@ -17,7 +17,7 @@
     </Page.Resources>
     <Border BorderBrush="#A9A9A9" BorderThickness="2">
         <Border.Background>
-            <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
         </Border.Background>
         <Grid>
 

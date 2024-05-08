@@ -8,6 +8,7 @@
         Background="AliceBlue"
          x:Name="ownerGradesPage" >
     <Page.Resources>
+        <local:ConverterStarsOwner x:Key="ConverterStars" />
 
         <Style TargetType="Button">
             <Setter Property="Background" Value="#5F9EA0"/>
@@ -18,7 +19,7 @@
     <Border>
 
         <Border.Background>
-            <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
@@ -50,8 +51,19 @@
 
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="Daja"/>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <ItemsControl ItemsSource="{Binding Grade, Converter={StaticResource ConverterStars }}" >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding}" Width="20" Height="20" Margin="0,0,2,0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -81,7 +93,7 @@
                                 <StackPanel Grid.Column="3">
                                     <Button BorderThickness="0" Command="{Binding ElementName=ownerGradesPage, Path=DataContext.GradeDetails}" CommandParameter="{Binding}"  Width="70" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,15,0,0">
                                         <Button.Background>
-                                            <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\icon_eye.png" Stretch="UniformToFill" />
+                                            <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\icon_eye.png" Stretch="UniformToFill" />
                                         </Button.Background>
                                     </Button>
                                 </StackPanel>

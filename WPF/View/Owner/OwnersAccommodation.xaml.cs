@@ -29,13 +29,6 @@ namespace BookingApp.WPF.View.Owner
             OwnersAccommodationVM = new OwnersAccommodationVM(navigation, loggedInUserId);
             DataContext = OwnersAccommodationVM;
         }
-       /* private void SearchClick(object sender, RoutedEventArgs e)
-        {
-            OwnersAccommodationVM.SearchClick();
-        }*/
-        /* private void AddAccommodationClick(object sender, RoutedEventArgs e)
-         {
-             OwnersAccommodationVM.AddAccommodationClick();
-         }*/
+      
     }
 }

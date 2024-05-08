@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace BookingApp.WPF.ViewModel.Owner
     {
         public AccommodationDTO AccommodationDTO { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
+        public ObservableCollection<AccommodationStatisticsDTO> Years { get; set; }
 
         public AccommodationStatisticsVM(AccommodationDTO accommodationDTO)
         {
@@ -25,8 +27,21 @@ namespace BookingApp.WPF.ViewModel.Owner
             }
             else
             {
-                Images[0].Path = "../../../Resources/Images/Owner/accommodation_placeholder.jpg";
+                Images[0].Path = "../../../Resources/Icons/Owner/accommodation_placeholder.jpg";
+            }
+
+            Years = new ObservableCollection<AccommodationStatisticsDTO>();
+            Years[0].Year = 2024;
+            Years[1].Year = 2023;
+            Years[2].Year = 2022;
+            Update();
+        }
+        public void Update()
+        {
+            foreach(AccommodationStatisticsDTO accommodationDTO in Years) { 
+                
             }
         }
+        
     }
 }

@@ -11,6 +11,19 @@
         <Style x:Key="CenteredTextBlockStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Message}" Value="FREE">
+                    <Setter Property="Foreground" Value="DarkGreen"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Message}" Value="NOT FREE">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CenteredTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            
         </Style>
         <Style x:Key="DataGridStyle" TargetType="DataGrid">
 
@@ -20,94 +33,120 @@
     </Page.Resources>
     <Border BorderBrush="#A9A9A9" BorderThickness="2">
         <Border.Background>
-            <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\6.jpg" Opacity="0.15" Stretch="UniformToFill"/>
         </Border.Background>
         <Grid HorizontalAlignment="Left" Background="Transparent">
-            
+
 
             <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-            
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Respond to guests requests:" HorizontalAlignment="Left" Margin="5" FontSize="15"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Respond to guests requests:" HorizontalAlignment="Left" Margin="5" FontSize="15" FontStyle="Italic"/>
 
 
-            
+
             <ScrollViewer  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Height="500"  Width="1000" HorizontalAlignment="Left">
 
 
-                <DataGrid  AutoGenerateColumns="False" Style="{StaticResource DataGridStyle}" Height="500" Width="980" GridLinesVisibility="All" VerticalScrollBarVisibility="Auto"  ItemsSource="{Binding AllReservationRequests, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}" Grid.Column="0" Grid.ColumnSpan="2" Margin="-30,0,0,0">
-                    
+                <DataGrid Background="Transparent" AutoGenerateColumns="False" Style="{StaticResource DataGridStyle}" Height="500" Width="980" GridLinesVisibility="All" VerticalScrollBarVisibility="Auto"  ItemsSource="{Binding AllReservationRequests, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}" Grid.Column="0" Grid.ColumnSpan="2" Margin="-30,0,0,0">
+
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="BorderThickness" Value="0,0,1,1"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-                        <Setter Property="FontSize" Value="15"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Height" Value="30"/>
-                    </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Columns>
+                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
 
-                    <DataGridTemplateColumn  Width="*" Header ="Guest">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding AccommodationReservation.Guest.FirstName}" FontSize="14" />
-                                    <TextBlock Text=" " FontSize="14" />
-                                    <TextBlock Text="{Binding AccommodationReservation.Guest.LastName}" FontSize="14" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                            <Setter Property="Background" Value="#5F9EA0"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Height" Value="30"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
 
-                    <DataGridTextColumn  Header="Accommodation" Width="*" Binding="{Binding AccommodationReservation.Accommodation.Name}" ElementStyle="{StaticResource CenteredTextBlockStyle}" FontSize="14" />
-                    <DataGridTemplateColumn Width="*"  Header ="Previous date">
-                                <DataGridTemplateColumn.CellTemplate >
-                                    <DataTemplate  >
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <TextBlock Text="{Binding AccommodationReservation.InitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
-                                            
-                                            <TextBlock Text=" - " FontSize="14" />
-                                    <TextBlock Text="{Binding AccommodationReservation.EndDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGridTemplateColumn  Width="*" Header ="Guest">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding AccommodationReservation.Guest.FirstName}" FontSize="14" />
+                                        <TextBlock Text=" " FontSize="14" />
+                                        <TextBlock Text="{Binding AccommodationReservation.Guest.LastName}" FontSize="14" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn  Width="*" Header ="New date" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding NewInitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
-                                            <TextBlock Text=" - " FontSize="14" />
-                                    <TextBlock Text="{Binding NewEndDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="*" Header ="Status" Binding="{Binding Message}"  FontSize="14" ElementStyle="{StaticResource CenteredTextBlockStyle}"/>
-                        </DataGrid.Columns>
-                        <DataGrid.RowHeight>35</DataGrid.RowHeight>
-                    </DataGrid>
-                </ScrollViewer>
-                
-                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
-                    <TextBlock Text="Comment:" VerticalAlignment="Center"/>
-                    <TextBox x:Name="commentTextBox" Width="290" Height="50" Margin="10"  />
-                </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,50,10" HorizontalAlignment="Right" Height="50" >
-                    <Button Content="Accept" Width="100"  Margin="5" Click="AcceptButtonClick" Background="LightGreen"/>
-                    <Button Content="Decline" Width="100" Margin="15,5,5,5" Click="DeclineButtonClick" Background="OrangeRed"/>
-                </StackPanel>
-            </Grid>
-        
+                        <DataGridTextColumn  Header="Accommodation" Width="*" Binding="{Binding AccommodationReservation.Accommodation.Name}" ElementStyle="{StaticResource CenteredTextStyle}" FontSize="14" />
+                        <DataGridTemplateColumn Width="*"  Header ="Previous date">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate  >
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <TextBlock Text="{Binding AccommodationReservation.InitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
+
+                                        <TextBlock Text=" - " FontSize="14" />
+                                        <TextBlock Text="{Binding AccommodationReservation.EndDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn  Width="*" Header ="New date">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding NewInitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" FontWeight="DemiBold" Foreground="#008B8B"/>
+                                        <TextBlock Text=" - " FontSize="14" FontWeight="DemiBold" Foreground="#008B8B"/>
+                                        <TextBlock Text="{Binding NewEndDate, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="14" FontWeight="DemiBold" Foreground="#008B8B" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="*" Header ="Status" Binding="{Binding Message}"  FontSize="14" ElementStyle="{StaticResource CenteredTextBlockStyle}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.RowHeight>35</DataGrid.RowHeight>
+                </DataGrid>
+            </ScrollViewer>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Comment:" VerticalAlignment="Center"/>
+                <TextBox x:Name="commentTextBox" Width="290" Height="50" Margin="10" BorderBrush="#008B8B" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,10,50,10" HorizontalAlignment="Right" Height="50" >
+                <Button Content="Accept" Width="100"  Margin="5" Command="{Binding Accept}" Background="#F0FFF0" BorderBrush="#008B8B">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+
+
+
+                    </Button.Resources>
+                </Button>
+                <Button Content="Decline" Width="100" Margin="15,5,5,5" Command="{Binding Decline}" Background="#FFC0CB" BorderBrush="#008B8B">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+
+
+
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+
     </Border>
 </Page>

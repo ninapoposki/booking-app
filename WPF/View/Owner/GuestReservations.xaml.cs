@@ -33,24 +33,7 @@ namespace BookingApp.WPF.View.Owner
             InitializeComponent();
             GuestReservationsVM = new GuestReservationsVM(navigation, loggedInUserId);
             DataContext = GuestReservationsVM;
-           // this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
-
-        public void GuestDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-                GuestReservationsVM.GuestDataGridSelectionChanged();
-        }
-       /* private void GradeGuestClick(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-            AccommodationReservationDTO reservation = (AccommodationReservationDTO)clickedButton.DataContext;
-
-            GuestReservationsVM.GradeGuestClick(reservation);
-        }*/
-        /*private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }*/
 
     }
 }

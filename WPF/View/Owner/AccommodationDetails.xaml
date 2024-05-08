@@ -54,7 +54,7 @@
 
             <TextBlock Text="{Binding AccommodationDTO.Name}" FontSize="25" FontWeight="Bold" Margin="0,30,0,0"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,50,0,0">
-                <Image Source=" ..\..\..\Resources\Images\Owner\icon_location.png" Width="25" Height="25" Stretch="UniformToFill" />
+                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_location.png" Width="25" Height="25" Stretch="UniformToFill" />
                 <TextBlock Text="{Binding AccommodationDTO.Location.City}" FontSize="18" />
                 <TextBlock Text="," FontSize="18" />
                 <TextBlock Text="{Binding AccommodationDTO.Location.Country}" Margin=" 5,0,0,0" FontSize="18" />
@@ -65,19 +65,19 @@
 
 
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
-                <Image Source=" ..\..\..\Resources\Images\Owner\icon_community.png" Width="25" Height="25" Stretch="UniformToFill" />
+                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_community.png" Width="25" Height="25" Stretch="UniformToFill" />
                 <TextBlock Text="{Binding AccommodationDTO.Capacity}" FontSize="15" Margin="2,0,0,0" />
                 <TextBlock Text="{Binding AccommodationDTO.GuestMessage}" Margin="5,0,0,0" FontSize="15" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
-                <Image Source=" ..\..\..\Resources\Images\Owner\icon_dateplus.png" Width="25" Height="25" Stretch="UniformToFill" />
+                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_dateplus.png" Width="25" Height="25" Stretch="UniformToFill" />
                 <TextBlock Text="minimum" FontSize="15" Margin="2,0,0,0" />
                 <TextBlock Text="{Binding AccommodationDTO.MinStayDays}"  FontSize="15" Margin="2,0,0,0"/>
                 <TextBlock Text="{Binding AccommodationDTO.MinDaysMessage}"  FontSize="15" />
                 <TextBlock Text=" day stay"  FontSize="14" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
-                <Image Source=" ..\..\..\Resources\Images\Owner\icon_datewait.png" Width="25" Height="25" Stretch="UniformToFill" />
+                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_datewait.png" Width="25" Height="25" Stretch="UniformToFill" />
                 <TextBlock Text="cancellation period: " FontSize="15" Margin="2,0,0,0"  />
                 <TextBlock Text="{Binding AccommodationDTO.CancellationPeriod}" FontSize="15" Margin="2,0,0,0"  />
                 <TextBlock Text="{Binding AccommodationDTO.DaysMessage}" Margin="2,0,0,0" FontSize="15" />
@@ -89,13 +89,13 @@
         <Border Grid.Row="1" Grid.Column="1" Height="410" Width="600"   Margin="0,0,9,0" Style="{StaticResource HideImageStyle}">
             
             <Border.Background>
-                <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\png-transparent.png" Opacity="1" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\png-transparent.png" Opacity="1" Stretch="UniformToFill" />
             </Border.Background>
             <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             
             <Button Command="{Binding PreviousPicture}" Width="27" Height="28"  HorizontalAlignment="Left"  Margin="12,40,0,0" BorderThickness="0">
                 <Button.Background>
-                    <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\left.png" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\left.png" Stretch="UniformToFill" />
                 </Button.Background>
                 <Button.Style>
                     <Style TargetType="Button">
@@ -121,7 +121,7 @@
 
             <Button Command="{Binding NextPicture}" Width="27" Height="28"  HorizontalAlignment="Right"  Margin="0,40,17,0" BorderThickness="0">
                 <Button.Background>
-                    <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\right.png" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\right.png" Stretch="UniformToFill" />
                 </Button.Background>
                 <Button.Style>
                     <Style TargetType="Button">

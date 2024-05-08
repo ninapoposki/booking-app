@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
-        mc:Ignorable="d" Background="AliceBlue"
+        mc:Ignorable="d" Background="WhiteSmoke"
         Title="AddAccommodation" Height="600" Width="1000">
     <Window.Resources>
 
@@ -18,11 +20,11 @@
             <Setter Property="Width" Value="70"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#008B8B"/>
+            <Setter Property="BorderThickness" Value="2"/>
         </Style>
 
-        <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="LightYellow"/>
-        </Style>
+        
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -50,7 +52,7 @@
             <RowDefinition Height="Auto" MinHeight="32"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="3" Grid.RowSpan="2" Background="LightYellow" BorderThickness="0,0,0,2" BorderBrush="DodgerBlue">
+        <Border Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="3" Grid.RowSpan="2" Background="LightGray" BorderThickness="0,0,0,3" BorderBrush="#008B8B" >
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Grid.Row="0" Grid.Column="0"  FontWeight="Bold" FontSize="25" Text="Add accommodation" HorizontalAlignment="Left" Opacity="1"  />
@@ -58,7 +60,7 @@
                 </StackPanel>
                 <Button Width="40" Height="40" HorizontalAlignment="Right" Margin="620,0,0,0" BorderThickness="0">
                     <Button.Background>
-                        <ImageBrush ImageSource="..\..\..\Resources\Images\Owner\icon_help.png" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="..\..\..\Resources\Icons\Owner\icon_help.png" Stretch="UniformToFill" />
                     </Button.Background>
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -70,31 +72,31 @@
         </Border>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Name:" VerticalAlignment="Center"/>
-        <TextBox BorderBrush="DodgerBlue" Grid.Row="3" Grid.Column="0" Text="{Binding Path=accommodationDTO.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  Margin="5,5,5,10"/>
+        <TextBox  Grid.Row="3" Grid.Column="0" Text="{Binding Path=accommodationDTO.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  Margin="5,5,5,10"/>
 
         <Label Grid.Row="4" Grid.Column="0" Content="Country:" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="countryComboBox"  BorderBrush="DodgerBlue"  BorderThickness="3"   Background="LightYellow" Grid.Row="5" Grid.Column="0" Margin="5" ItemsSource="{Binding CountryComboBox}"  SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" SelectionChanged="CountryChanged" >
-        
-        
+        <ComboBox x:Name="countryComboBox"    Grid.Row="5" Grid.Column="0" Margin="5" ItemsSource="{Binding CountryComboBox}"  SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" >
+             
+
         </ComboBox>
         <Label Grid.Row="6" Grid.Column="0" Content="City:" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="cityComboBox" BorderBrush="DodgerBlue" Grid.Row="7" Grid.Column="0" Margin="5" ItemsSource="{Binding CityComboBox}"  SelectedItem="{Binding SelectedCity, Mode=TwoWay}" SelectionChanged="CityChanged"/>
+        <ComboBox x:Name="cityComboBox"  Grid.Row="7" Grid.Column="0" Margin="5" ItemsSource="{Binding CityComboBox}"  SelectedItem="{Binding SelectedCity, Mode=TwoWay}" />
 
         <Label Grid.Row="8" Grid.Column="0" Content="Accommodation Type:" VerticalAlignment="Center" Height="26"/>
-        <ComboBox x:Name="TypeComboBox" BorderBrush="DodgerBlue" Grid.Row="9" Grid.Column="0" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=accommodationDTO.AccommodationType}" />
+        <ComboBox x:Name="TypeComboBox"  Grid.Row="9" Grid.Column="0" Margin="5" ItemsSource="{Binding Path=Types}" SelectedItem="{Binding Path=accommodationDTO.AccommodationType}" />
 
         <Label Grid.Row="10" Grid.Column="0" Content="Capacity:" VerticalAlignment="Center" Height="26"/>
-        <xctk:IntegerUpDown  Grid.Row="11" BorderBrush="DodgerBlue" Grid.Column="0" Name="MaxUpDown"  Value="{Binding accommodationDTO.Capacity, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10" PreviewTextInput="IntegerUpDown_PreviewTextInput" Foreground="Navy">
+        <xctk:IntegerUpDown  Grid.Row="11"  Grid.Column="0" Name="MaxUpDown"   Value="{Binding accommodationDTO.Capacity, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10"  >
         </xctk:IntegerUpDown>
 
         <Label Grid.Row="12" Grid.Column="0" Content="Minimum stay days:" VerticalAlignment="Center" Height="26"/>
-        <xctk:IntegerUpDown  Grid.Row="13" BorderBrush="DodgerBlue" Grid.Column="0" Name="MinUpDown"  Value="{Binding accommodationDTO.MinStayDays, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10" PreviewTextInput="IntegerUpDown_PreviewTextInput" Foreground="Navy">
+        <xctk:IntegerUpDown  Grid.Row="13"  Grid.Column="0" Name="MinUpDown"  Value="{Binding accommodationDTO.MinStayDays, UpdateSourceTrigger=PropertyChanged}" Maximum="15" Minimum="1" TextAlignment="Left" Margin="5,5,5,10"  >
         </xctk:IntegerUpDown>
 
         <Label Grid.Row="14" Grid.Column="0" Content="Cancellation period:" VerticalAlignment="Center" Height="26"/>
-        <TextBox Grid.Row="15" Grid.Column="0" BorderBrush="DodgerBlue" Text="{Binding Path=accommodationDTO.CancellationPeriod, UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,10"/>
+        <TextBox Grid.Row="15" Grid.Column="0"  Text="{Binding Path=accommodationDTO.CancellationPeriod, UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,10"/>
 
-        <Border Grid.Row="2" Grid.Column="2" BorderBrush="DodgerBlue" BorderThickness="1" Margin="5,10,20,0" Grid.RowSpan="13">
+        <Border Grid.Row="2" Grid.Column="2"  BorderThickness="1" Margin="5,10,20,0" Grid.RowSpan="13">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -114,7 +116,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Content="Add" Click="BrowseImageClick" Grid.Row="2"  Margin="0,0,0,5" Background="White">
+                <Button Content="Add" Command="{Binding Browse}" Grid.Row="2"  Margin="0,0,0,5" Background="White">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -124,14 +126,14 @@
             </Grid>
         </Border>
         <UniformGrid Grid.Row="15" Grid.Column="2" Columns="2" Width="200" Height="32">
-            <Button Content="Confirm" Click="AddAccommodationButtonClick" Background="#F0FFF0" >
+            <Button Content="Confirm" Command="{Binding Add}" Background="#F0FFF0" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Cancel" Click="CancelButtonClick" Background="#FFC0CB" >
+            <Button Content="Cancel" Command="{Binding Cancel}" Background="#FFC0CB" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

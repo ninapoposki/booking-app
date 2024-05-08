@@ -29,16 +29,13 @@ namespace BookingApp.WPF.View.Owner
     {
         public OwnerGradesVM OwnerGradesVM;
        
-        public OwnerGrades(NavigationService navigation, int loggedInUserId)//int loggedInUserId
+        public OwnerGrades(NavigationService navigation, int loggedInUserId)
         {
             InitializeComponent();
-            OwnerGradesVM = new OwnerGradesVM( navigation, loggedInUserId);//loggedInUserId
+            OwnerGradesVM = new OwnerGradesVM( navigation, loggedInUserId);
             DataContext = OwnerGradesVM;
             
         }
-
-        
-
        
     }
 }
