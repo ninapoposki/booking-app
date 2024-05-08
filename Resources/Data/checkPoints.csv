@@ -15,9 +15,11 @@
 15|Pocetak|5|START
 16|Sredina|5|STOP
 17|Kraj|5|END
-18|Proba tacka 1|7|START
-19|Proba tacka 2|7|END
-20|Anja 2|8|START
-21|Anja 3|8|END
-22|jsjs|9|START
-23|jaja|9|END
+18|Stadion|7|START
+19|Tvrdjava|7|STOP
+20|Grad|7|END
+21|Plaza|8|START
+22|Centar|8|END
+23|Setaliste|9|START
+24|Restoran|9|STOP
+25|Hotel|9|END

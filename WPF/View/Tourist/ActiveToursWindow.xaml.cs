@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Tourist
@@ -18,21 +19,17 @@ namespace BookingApp.WPF.View.Tourist
     /// <summary>
     /// Interaction logic for ActiveToursWindow.xaml
     /// </summary>
-    public partial class ActiveToursWindow : Window
+    public partial class ActiveToursWindow : Page
     {
 
         public ActiveToursWindowVM ActiveToursWindowVM {  get; set; }
-        public ActiveToursWindow(int userId)
+        public ActiveToursWindow(NavigationService navigationService,int userId)
         {
-            ActiveToursWindowVM= new ActiveToursWindowVM(userId);
-
+         
             InitializeComponent();
-            DataContext = ActiveToursWindowVM;
+            DataContext = new ActiveToursWindowVM(navigationService,userId);
         }
 
-        private void CloseClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+     
     }
 }

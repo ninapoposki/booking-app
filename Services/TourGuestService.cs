@@ -43,7 +43,7 @@ namespace BookingApp.Services
             guest.CheckPointId = currentCheckPoint.Id;
             tourGuestRepository.Update(guest);
         }
-        public void AddGuest(string fullName, int age, int reservationId)
+        public void AddGuest(string fullName, int age, int reservationId,Gender gender)
         {
             TourGuest newGuest = new TourGuest
             {
@@ -51,7 +51,8 @@ namespace BookingApp.Services
                 Age = age,
                 TourReservationId = reservationId,
                 CheckPointId = -1,
-                HasArrived = false
+                HasArrived = false,
+                Gender=gender
                
             };
             tourGuestRepository.Add(newGuest);

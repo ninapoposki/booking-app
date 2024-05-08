@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Services
 {
@@ -71,13 +72,15 @@ namespace BookingApp.Services
             return new TourReservationDTO(tourReservation);
         }
 
-        public bool CheckIfReserved(int tourStartDateId)
-        {
-            TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t => t.HasArrived == true && t.CheckPointId != -1);
-            if (guests != null)
-                return true;
-            return false;
-        }
+           public bool CheckIfReserved(int tourStartDateId)
+           {
+               TourGuestDTO guests = GetFinishedToursGuests(tourStartDateId).First(t => t.HasArrived == true && t.CheckPointId != -1);
+               if (guests != null)    
+                   return true;
+               return false;
+           }
+
+
         public List<TourReservationDTO> GetByUserId(int userId)
         {
             List<TourReservationDTO> reservations = new List<TourReservationDTO>();

@@ -11,25 +11,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Tourist
 {
     /// <summary>
-    /// Interaction logic for NotificationsWindow.xaml
+    /// Interaction logic for TouristMain.xaml
     /// </summary>
-    public partial class NotificationsWindow : Page
+    public partial class TouristMain : Window
     {
-        public NotificationsWindowVM NotificationsWindowVM { get; set; }
-        public NotificationsWindow(NavigationService navigationService)
+        TouristMainVM TouristMainVM { get; set; }
+        public TouristMain(string username)
         {
             InitializeComponent();
-          //  NotificationsWindowVM = new NotificationsWindowVM();
-            DataContext = new NotificationsWindowVM(navigationService);
-        
+            DataContext = new TouristMainVM(MainWindowFrame.NavigationService, username);
         }
 
-     
+    
     }
 }

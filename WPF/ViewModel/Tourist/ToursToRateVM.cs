@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
@@ -23,12 +24,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private TourService tourService;
         private TourReservationService tourReservationService;
         private ImageService imageService;
-
+        private TourGradeService tourGradeService;
         public MyICommand<TourDTO> RateTourCommand { get; set; }
         private int userId;
-        public ToursToRateVM(int userId)
+        public NavigationService NavigationService { get; set; }
+        public ToursToRateVM(NavigationService navigationService,int userId)
         {
             this.userId = userId;
+            NavigationService = navigationService;
             FinishedTours = new ObservableCollection<TourDTO>();
             SelectedTour=new TourDTO();
 
@@ -37,6 +40,12 @@ namespace BookingApp.WPF.ViewModel.Tourist
               Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
               Injector.Injector.CreateInstance<ILanguageRepository>(),
               Injector.Injector.CreateInstance<ILocationRepository>());
+            tourGradeService = new TourGradeService(Injector.Injector.CreateInstance<ICheckPointRepository>(), Injector.Injector.CreateInstance<ITourGradeRepository>(),
+              Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
+              Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
+              Injector.Injector.CreateInstance<ILanguageRepository>(),
+              Injector.Injector.CreateInstance<ILocationRepository>());
+         
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             RateTourCommand = new MyICommand<TourDTO>(RateTour);
@@ -64,7 +73,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             }
         }
 
-        public void RateTour(TourDTO tour)
+        /*public void RateTour(TourDTO tour)
         {
             if(tour==null )
             {
@@ -75,6 +84,26 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 TourGradeWindow tourGradeWindow = new TourGradeWindow(tour.SelectedDateTime.Id);
                 tourGradeWindow.Show();
             }
+        }*/
+
+        public void RateTour(TourDTO tour)
+        {
+            if (tour == null)
+            {
+                MessageBox.Show("Niste selektovali turu");
+                return;
+            }
+
+            // Proveravamo da li je tura već ocenjena
+            if (tourGradeService.IsTourRated(tour.SelectedDateTime.Id))
+            {
+                MessageBox.Show("Ova tura je već ocenjena.");
+                return;
+            }
+
+            // Ako tura nije ocenjena, omogućavamo ocenjivanje
+            TourGradeWindow tourGradeWindow = new TourGradeWindow(tour.SelectedDateTime.Id);
+            tourGradeWindow.Show();
         }
     }
 }

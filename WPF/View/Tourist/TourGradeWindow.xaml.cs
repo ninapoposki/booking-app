@@ -55,18 +55,6 @@ namespace BookingApp.WPF.View.Tourist
             Close();
 
         }
-        private void BrowseImage(object sender, RoutedEventArgs e)
-        {
-            tourGradeWindowVM.BrowseImage();
-        }
-        private void RemoveImage(object sender, RoutedEventArgs e)
-        {
-            tourGradeWindowVM.RemoveImage();
-        }
-        public void Cancel(object sender, RoutedEventArgs e)
-        {
-
-            Close();
-        }
+     
     }
 }

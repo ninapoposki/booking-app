@@ -9,42 +9,44 @@
     <Window.Background>
         <ImageBrush ImageSource="\Resources\Images\new5.jpg"/>
     </Window.Background>
+    <Window.Resources>
+        <Style x:Key="TransparentButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <!-- Informacije o turi i slika -->
             <ColumnDefinition Width="2*"/>
-            <!-- Parametri za ocenjivanje i dodavanje slika -->
         </Grid.ColumnDefinitions>
-       
 
-        <!-- Informacije o turi i slika -->
-       
             <StackPanel Grid.Column="0" Margin="10">
                 <TextBlock Text="TOUR GRADE" FontSize="24" FontWeight="Medium" Foreground="Black" HorizontalAlignment="Left" Margin="10"/>
                 <Image Source="{Binding SelectedTour.Images[0].Path}" Height="150" Margin="5" />
                 <TextBlock Text="{Binding SelectedTour.Name}" FontWeight="Bold" FontSize="16" Margin="5"/>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
-                <Image Grid.Column="1" Source="\Resources\Icons\city.png" Width="20" Height="20"/>
+                <Image Grid.Column="1" Source="\Resources\Icons\Tourist\city.png" Width="20" Height="20"/>
                 <TextBlock Text="{Binding SelectedTour.Location.City, StringFormat=City: {0}}" Margin="5,2,0,0"/>
             </StackPanel>
           
                 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
-                <Image Source="\Resources\Icons\date.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <Image Source="\Resources\Icons\Tourist\date.png" Width="20" Height="20" Margin="0,0,5,0"/>
                 <TextBlock  Text="{Binding  SelectedTour.SelectedDateTime.StartTime,StringFormat=Date: {0}}"  Margin="5,2,0,0" />
             </StackPanel>
         </StackPanel>
        
-        <!-- Parametri za ocenjivanje i dodavanje slika -->
-        <Border Grid.Column="1" BorderBrush="DarkCyan" BorderThickness="2" CornerRadius="10" Margin="10">
-            <StackPanel Grid.Column="1" Margin="10">
+ 
+        <Border Grid.Column="1" BorderBrush="DarkCyan" Background="#E0F7FA" BorderThickness="3" CornerRadius="10" Margin="10">
+            <StackPanel Grid.Column="1" Margin="10,10,10,-3">
 
                 <StackPanel Orientation="Horizontal" Margin="0 15 0 10">
-                    <Label Content="Knowledge:" Margin="0 0 10 0"/>
+                    <Label Content="Knowledge:" Margin="0 0 10 0" />
                     <StackPanel Name="Knowledge" Orientation="Horizontal">
-                        <!-- Radio Buttons -->
-                        <RadioButton Content="1" GroupName="KnowledgeGroup" Width="55"/>
+
+                        <RadioButton Content="1" GroupName="KnowledgeGroup" Width="50"/>
                         <RadioButton Content="2" GroupName="KnowledgeGroup" Width="50"/>
                         <RadioButton Content="3" GroupName="KnowledgeGroup" Width="50"/>
                         <RadioButton Content="4" GroupName="KnowledgeGroup" Width="50"/>
@@ -54,8 +56,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Language:" Margin="0 0 10 0"/>
                     <StackPanel Name="Language" Orientation="Horizontal">
-                        <!-- Radio Buttons -->
-                        <RadioButton Content="1" GroupName="LanguageGroup" Width="55"/>
+                     
+                        <RadioButton Content="1" GroupName="LanguageGroup" Width="50"/>
                         <RadioButton Content="2" GroupName="LanguageGroup" Width="50"/>
                         <RadioButton Content="3" GroupName="LanguageGroup" Width="50"/>
                         <RadioButton Content="4" GroupName="LanguageGroup" Width="50"/>
@@ -65,8 +67,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Attractions:" Margin="0 0 10 0"/>
                     <StackPanel x:Name="Attractions" Orientation="Horizontal">
-                        <!-- Radio Buttons -->
-                        <RadioButton Content="1" GroupName="AttractionsGroup" Width="55"/>
+               
+                        <RadioButton Content="1" GroupName="AttractionsGroup" Width="50"/>
                         <RadioButton Content="2" GroupName="AttractionsGroup" Width="50"/>
                         <RadioButton Content="3" GroupName="AttractionsGroup" Width="50"/>
                         <RadioButton Content="4" GroupName="AttractionsGroup" Width="50"/>
@@ -78,28 +80,33 @@
                     <Label Content="Comment:" Margin="0 10 10 0" Width="73"/>
                     <TextBox x:Name="CommentsTextBox" Text="{Binding Comment}" Width="245" Height="73" Margin="50 20 10 0" VerticalScrollBarVisibility="Auto"/>
                 </StackPanel>
-               
-                
-                    <StackPanel Orientation="Vertical" Margin="0,10,0,0">
-                        <Label Content="Add images:"/>
+
+
+                <Border Grid.Column="1" BorderBrush="DarkCyan" Background="#E0F7FA" BorderThickness="1" CornerRadius="10" Margin="10">
+                     <StackPanel Grid.Column="1" Margin="10">
+                             <Label Content="Add images:" Margin="0,10,0,0"/>
                         <ListView ItemsSource="{Binding Images}" Height="124" Width="360">
                             <ListView.ItemTemplate>
-                                <DataTemplate>
+                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="{Binding Path}" Height="80" Width="80" Margin="5"/>
-                                        <Button Content="Remove" Click="RemoveImage" Margin="10,0,0,0"/>
+                                         <Image Source="{Binding Path}" Height="80" Width="80" Margin="5"/>
+                                        <Button Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                                CommandParameter="{Binding}" Margin="10,0,0,0" Style="{StaticResource TransparentButton}">
+                                            <Image Source="\Resources\Icons\Tourist\delete.png" Width="20" Height="20"/>
+                                        </Button>
                                     </StackPanel>
-                                </DataTemplate>
+                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                        </ListView>
-                        <Button Content="Browse for images" Click="BrowseImage" Height="34" Margin="10,10,0,0" Width="116"/>
+                         </ListView>
+                             <Button Content="Browse for images" Command="{Binding BrowseImageCommand}" Height="34" Margin="10,10,0,0" Width="116"/>
+                     </StackPanel>
+                </Border>
 
-                    </StackPanel>
-             
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button Content="Oceni" Click="Confirm" Width="83" Height="34" Margin="0,10,10,10"/>
-                    <Button Content="Cancel" Click="Cancel" Width="85" Height="32" Margin="0,10,0,10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
+                    <Button Content="Rate" Command="{Binding ConfirmCommand}" Width="83" Height="24"/>
+
+
                 </StackPanel>
 
             </StackPanel>

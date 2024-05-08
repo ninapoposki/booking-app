@@ -106,8 +106,8 @@ namespace BookingApp.WPF.View
         }
         private void OpenTouristWindow()
         {
-            TouristMainWindow touristMainWindow = new TouristMainWindow(Username);
-            touristMainWindow.Show();
+            TouristMain touristMain = new TouristMain(Username);
+            touristMain.Show();
             Close();
         }
 

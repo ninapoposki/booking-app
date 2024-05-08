@@ -39,7 +39,15 @@ namespace BookingApp.Services
                 }
             }return checkPoints;
         }
-
+        public List<CheckPointDTO> GetByTourID(int tourId)
+        {
+            List<CheckPointDTO> checkPoints = new List<CheckPointDTO>();
+            foreach (CheckPoint checkPoint in checkPointRepository.GetByTourId(tourId))
+            {
+                checkPoints.Add(new CheckPointDTO(checkPoint));
+            }
+            return checkPoints;
+        }
         public CheckPoint GetById(int id)
         {
 

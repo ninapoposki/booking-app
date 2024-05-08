@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using BookingApp.WPF.View.Tourist;
 using Microsoft.Win32;
 using System;
@@ -25,9 +26,13 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private TourGradeService tourGradeService { get; set; }
         private TourService tourService;
         private TourStartDateService tourStartDateService;
+
         public TourGradeDTO tourGradeDTO { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
-         public ImageDTO SelectedImage { get; set; }
+        public ImageDTO SelectedImage { get; set; }
+        public MyICommand<ImageDTO> RemoveImageCommand { get; set; }
+        public MyICommand BrowseImageCommand { get; set; }
+        public MyICommand ConfirmCommand { get; set; }
         public TourGradeWindowVM(int tourStartDateId)
         {
             this.tourStartDateId = tourStartDateId;
@@ -49,13 +54,21 @@ namespace BookingApp.WPF.ViewModel.Tourist
             Images = new ObservableCollection<ImageDTO>(SelectedTour.Images);
             LoadTourData(tourStartDateId);
             selectedTourReservation = tourReservationService.GetReservationByTourId(tourStartDateId);
+            RemoveImageCommand = new MyICommand<ImageDTO>(RemoveImage);
+            BrowseImageCommand = new MyICommand(BrowseImage);
+            ConfirmCommand = new MyICommand(ExecuteConfirmCommand);
         }
 
         public void Confirm(int knowledge, int language, int attractions)
         {
-            tourGradeService.Add(MakeTourGrade(knowledge,language,attractions).ToTourGrade());
+            tourGradeService.Add(MakeTourGrade(knowledge, language, attractions).ToTourGrade());
             Update();
             MessageBox.Show("Ocijenili ste turu.");
+        }
+
+        private void ExecuteConfirmCommand()
+        {
+            Confirm(KnowledgeRadio, LanguageRadio, AttractionsRadio);
         }
         private void LoadTourData(int tourStartDateId)
         {
@@ -66,18 +79,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
                 if (SelectedTour != null)
                 {
-                    // Postavljanje datuma starta ture
                     SelectedTour.SelectedDateTime = tourStartDate;
-
-                    // Postavljanje lokacije ture
                     var location = locationService.GetByIdDTO(SelectedTour.LocationId);
-                   
-
-                    // Učitavanje slika za turu
                     var allImages = imageService.GetImagesForEntityType(EntityType.TOUR).Where(img => img.EntityId == SelectedTour.Id).ToList();
                     SelectedTour.Images = new ObservableCollection<ImageDTO>(allImages);
-
-                    // Dodatno, ako želite učitati samo prvu sliku
                     var firstImage = allImages.FirstOrDefault();
                     if (firstImage != null)
                     {
@@ -97,14 +102,14 @@ namespace BookingApp.WPF.ViewModel.Tourist
             return tourGradeDTO;
         }
 
-         private void Update()
-         {
-             int id = tourGradeService.GetCurrentId();
-             foreach (ImageDTO image in Images)
-             {
-                 imageService.UpdateForGrade(image, id);
-             }
-         }
+        private void Update()
+        {
+            int id = tourGradeService.GetCurrentId();
+            foreach (ImageDTO image in Images)
+            {
+                imageService.UpdateForGrade(image, id);
+            }
+        }
 
         private int knowledgeRadio;
         public int KnowledgeRadio
@@ -165,36 +170,27 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         public void BrowseImage()
         {
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
-            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));// Konvertuje relativnu u apsolutnu putanju
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));
             if (openFileDialog.ShowDialog() == true) { AddImage(openFileDialog.FileName); }
         }
 
-     
-        public void AddImage(string absolutePath)
+        private void AddImage(string absolutePath)
         {
-            string referencePath = "../../../Resources/Images/";
-            string[] pathPieces = absolutePath.Split('\\');
-       
-            string relativePath = (referencePath + pathPieces[pathPieces.Length - 1]);
+            string relativePath = MakeRelativePath(absolutePath);
             Images.Add(imageService.GetByPath(relativePath));
         }
-
         private string MakeRelativePath(string absolutPath)
-         {
-             string referencePath = "..\\..\\..\\Resources\\Images\\";
-             string[] pathPieces = absolutPath.Split('\\');
-             string relativePath = referencePath + pathPieces[pathPieces.Length - 1];
-             return relativePath.Replace("/", "\\");
-         }
-       public void RemoveImage()
         {
-            if (SelectedImage != null)
-            {
-                Images.Remove(SelectedImage);
-            }
+            string referencePath = "../../../Resources/Images/";
+            string[] pathPieces = absolutPath.Split('\\');
+            string relativePath = referencePath + pathPieces[pathPieces.Length - 1];
+            return relativePath;
         }
-}
+        public void RemoveImage(ImageDTO image)
+        {
+            Images.Remove(image);
+        }
     }
+ }

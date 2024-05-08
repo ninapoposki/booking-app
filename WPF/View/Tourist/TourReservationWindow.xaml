@@ -5,65 +5,117 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
         mc:Ignorable="d"
-        Title="Rezervacija ture" Height="600" Width="500" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,0,26">
+        Title="Rezervacija ture" Height="645" Width="898" WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/Images/new5.jpg"></ImageBrush>
+    </Window.Background>
+
+    <Grid Margin="0,0,10,26">
         <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Broj osoba -->
-        <Label Grid.Row="0" Grid.Column="0" Content="Broj osoba:" Margin="10"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="10,10,240,10" x:Name="txtNumberOfPeople"  Text="{Binding txtNumberOfPeople,  UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding IsInputEnabled}"/>
-
-        <!-- Ime -->
-        <Label Grid.Row="1" Grid.Column="0" Content="Ime i Prezime:" Margin="10"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="10,10,240,10" x:Name="txtNameSurname" Text="{Binding NameSurname, UpdateSourceTrigger=PropertyChanged}"/>
-
-
-
-        <!-- Godine -->
-        <Label Grid.Row="2" Grid.Column="0" Content="Godine:" Margin="10"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="10,10,240,10" x:Name="txtAge" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Vauceri:" Margin="10" VerticalAlignment="Top"/>
-        <ListView Grid.Row="3" Grid.Column="1" Margin="10,10,10,10"
-          ItemsSource="{Binding AllVouchers}"
-          SelectedItem="{Binding SelectedVoucher}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Padding="10" Margin="2" BorderBrush="Gray" BorderThickness="1">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Description}" FontWeight="Bold"/>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Valid from: " FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding StartDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Valid until: " FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding ExpirationDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
-                            </StackPanel>
+        <Button Background="Transparent" BorderThickness="0" Grid.Column="1" VerticalAlignment="Top" Command="{Binding MovePreviousCommand}" RenderTransformOrigin="0.582,0.672" Margin="83,8,656,0" Grid.Row="1">
+            <Image Source="\Resources\Icons\Tourist\back.png" Width="24" Height="24"/>
+        </Button>
+        <Image Source="{Binding CurrentImage.Path}" Grid.Column="1" Stretch="Fill" Margin="0,0,498,7"/>
+        <Button Background="Transparent" BorderThickness="0"  Grid.Column="1" VerticalAlignment="Top" Command="{Binding MoveNextCommand}" Margin="141,6,595,0" Height="30" Grid.Row="1">
+            <Image Source="\Resources\Icons\Tourist\next.png" Width="24" Height="24"/>
+        </Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="10,48,40,0" Height="44" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Image Source="\Resources\Icons\Tourist\desctiption.png" Width="46" Height="34"/>
+            <TextBlock Text="{Binding TourDescription, StringFormat='Description: {0}'}" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="100">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.841"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3" Margin="10">
+            <Label Content="Added guests:" FontWeight="Bold" FontSize="14" Margin="0,10,0,5"/>
+            <ListView ItemsSource="{Binding temporaryGuests}" Background="Transparent" BorderThickness="0" Height="129" Width="732">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Item1}" Margin="5"/>
+                            <TextBlock Text="{Binding Item2, StringFormat='Age: {0}'}" Margin="5"/>
+                            <Button Command="{Binding DataContext.RemoveGuestCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}" Margin="5">
+                                <Image Source="\Resources\Icons\Tourist\delete.png" Width="20" Height="20"/>
+                            </Button>
                         </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="59,0,0,90" Width="224" Grid.Column="1">
-            <Button Content="Potvrdi" Margin="5" Padding="10,0" Click="ConfirmTourReservation" Height="26" Width="81" />
-            <Button Content="Otkaži" Margin="5" Padding="10,0" Click="CancelTour" Width="72" Height="26" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        
+
+        <Border Grid.Column="1" BorderBrush="DarkCyan" Background="#E0F7FA" BorderThickness="3" CornerRadius="5" Margin="312,10,25,-231" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid Margin="-2,10,0,8" HorizontalAlignment="Left" Width="490">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Guest's Information" Margin="5" FontSize="16" FontWeight="Medium" HorizontalAlignment="Center"/>
+                <Label Grid.Row="1" Content="Capacity:" Margin="5" />
+                <TextBox Grid.Row="1" Margin="134,5,59,5" x:Name="txtNumberOfPeople" Text="{Binding txtNumberOfPeople, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsInputEnabled}" BorderBrush="Cyan"/>
+
+                <Label Grid.Row="2" Content="Name and Surname:" Margin="5"/>
+                <TextBox Grid.Row="2" Margin="134,5,59,5" x:Name="txtNameSurname" Text="{Binding NameSurname, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Cyan"/>
+
+                <Label Grid.Row="3" Content="Age:" Margin="5"/>
+                <TextBox Grid.Row="3" Margin="134,5,59,5" x:Name="txtAge" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Cyan"/>
+                <Label Grid.Row="4" Content="Gender" Margin="5"/>
+                <ComboBox Background="Transparent" BorderBrush="Cyan" BorderThickness="0" Grid.Row="4" Margin="134,5,59,5" SelectedItem="{Binding SelectedGender}" ItemsSource="{Binding Genders}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Label Grid.Row="5" Content="Vouchers:" Margin="5" VerticalAlignment="Top"/>
+                <ListView Grid.Row="5" Margin="70,5,25,5" ItemsSource="{Binding AllVouchers}" SelectedItem="{Binding SelectedVoucher}" Background="Transparent" BorderBrush="DarkCyan" BorderThickness="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="2" BorderBrush="Cyan" BorderThickness="3">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Description}" FontWeight="Bold"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Valid from: " FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding StartDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Valid until: " FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding ExpirationDate, StringFormat='{}{0:dd/MM/yyyy}'}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="687,239,0,-292" Width="126" Grid.ColumnSpan="2">
+            <Button Content="Confirm" Padding="10,0" Command="{Binding ConfirmTourReservationCommand}" Height="26" Width="81"  />
 
         </StackPanel>
-
-
-
-
-
     </Grid>
 </Window>
