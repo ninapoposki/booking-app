@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
@@ -30,10 +31,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 OnPropertyChanged(nameof(SelectedTourGuest));
             }
         }
- 
 
-        public NotificationsWindowVM() {
-
+        public NavigationService NavigationService { get; set; }
+        public NotificationsWindowVM(NavigationService navigationService) {
+            NavigationService = navigationService;
             tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
             TourGuests = new ObservableCollection<TourGuestDTO>();
             SelectedTourGuest=new TourGuestDTO();

@@ -28,60 +28,30 @@ namespace BookingApp.WPF.View.Tourist
     /// <summary>
     /// Interaction logic for TouristMainWindow.xaml
     /// </summary>
-    public partial class TouristMainWindow : Window
+    public partial class TouristMainWindow : Page
     {
         public TouristMainWindowVM  TouristMainWinodowVM { get; set; }
         
-       
-
-        public TouristMainWindow(string username)
+        public TouristMainWindow(NavigationService navigationService, string username)
         {
             InitializeComponent();
-           TouristMainWinodowVM= new TouristMainWindowVM(username);
-            DataContext = TouristMainWinodowVM;
-
-           
+            TouristMainWindowVM viewModel = new TouristMainWindowVM(navigationService, username);
+            DataContext = viewModel;
+            TouristMainWinodowVM = viewModel;
+          
         }
-
-      
-        private void CancelTour(object sender, RoutedEventArgs e)
+       private void CityChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            this.Close();
+            TouristMainWindowVM viewModel = DataContext as TouristMainWindowVM; 
+            if (viewModel != null)
+            {
+                viewModel.CityChanged();
+            }
+            else
+            {
+                MessageBox.Show("ViewModel nije inicijalizovan!");
+            }
         }
-        
-
-        private void SearchTour(object sender, RoutedEventArgs e)
-        {
-            TouristMainWinodowVM.SearchTour();
-        }
-
-       
-        private void BookTour(object sender, RoutedEventArgs e)
-        {
-           TouristMainWinodowVM.BookTour();
-        }
-
-
-        private void FinishedTourClick(object sender, RoutedEventArgs e)
-        {
-            TouristMainWinodowVM.FinishedTourClick();
-        }
-
-        private void ActiveTourClick(object sender, RoutedEventArgs e)
-        {
-            TouristMainWinodowVM.ActiveTourClick();
-        }
-
-        private void NotificationsClick(object sender, RoutedEventArgs e)
-        {
-            TouristMainWinodowVM.NotificationsClick();
-        }
-        private void CityChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TouristMainWinodowVM.CityChanged();
-        }
-
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
