@@ -23,13 +23,12 @@ namespace BookingApp.Services
         {
            return tourGuestRepository.GetAll();
         }
-
-        public List<TourGuestDTO> GetGuests(TourReservation reservation) 
+        public List<TourGuestDTO> GetGuests(TourReservation reservation)
         {
-            List<TourGuestDTO> guests=new List<TourGuestDTO>();
-            foreach(TourGuest guest in GetAll())
+            List<TourGuestDTO> guests = new List<TourGuestDTO>();
+            foreach (TourGuest guest in GetAll())
             {
-                if(guest.TourReservationId==reservation.Id && guest.CheckPointId == -1)
+                if (guest.TourReservationId == reservation.Id && guest.CheckPointId == -1 && guest.Type.ToString().Equals("TOUR"))
                 {
                     guests.Add(new TourGuestDTO(guest));
                 }
@@ -45,16 +44,7 @@ namespace BookingApp.Services
         }
         public void AddGuest(string fullName, int age, int reservationId,Gender gender)
         {
-            TourGuest newGuest = new TourGuest
-            {
-                FullName = fullName,
-                Age = age,
-                TourReservationId = reservationId,
-                CheckPointId = -1,
-                HasArrived = false,
-                Gender=gender
-               
-            };
+            TourGuest newGuest = new TourGuest(fullName, age, reservationId, gender);   
             tourGuestRepository.Add(newGuest);
         }
 

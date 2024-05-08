@@ -129,7 +129,6 @@ namespace BookingApp.DTO
                     duration = value;
                     OnPropertyChanged("Duration");
                 }
-
             }
         }
         public TourDTO() { }
