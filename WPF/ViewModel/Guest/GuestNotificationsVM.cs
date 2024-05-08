@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
@@ -16,6 +17,8 @@ namespace BookingApp.WPF.ViewModel.Guest
         private readonly ReservationRequestService reservationRequestService;
         private readonly ImageService imageService;
         private readonly AccommodationReservationService accommodationReservationService;
+        public NavigationService navigationService { get; set; }
+
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
         public int currentIndex = 0;
@@ -35,7 +38,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             }
         }
       
-        public GuestNotificationsVM()
+        public GuestNotificationsVM(NavigationService navigationService)
         {
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             SelectedReservationRequest = new ReservationRequestDTO();
@@ -55,6 +58,7 @@ namespace BookingApp.WPF.ViewModel.Guest
                 Injector.Injector.CreateInstance<ILocationRepository>(),
                 Injector.Injector.CreateInstance<IOwnerRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            this.navigationService = navigationService;
             Images = new ObservableCollection<ImageDTO>();
             Update();
         }
@@ -66,12 +70,17 @@ namespace BookingApp.WPF.ViewModel.Guest
             foreach (ReservationRequestDTO reservationRequestDTO in reservationRequestService.GetAll())
             {
                 var requestDTO = reservationRequestService.GetOneRequest(reservationRequestDTO);
-                var reservationDTO=accommodationReservationService.GetById(requestDTO.ReservationId);
-                var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(reservationDTO.AccommodationId, allImages));
+                var reservationDTO = accommodationReservationService.GetById(requestDTO.ReservationId);
+                var matchingImages = new ObservableCollection<ImageDTO>(imageService. GetImagesByAccommodation(reservationDTO.AccommodationId, allImages));
+
+                if (matchingImages.Count == 0)
+                {
+                    matchingImages.Add(new ImageDTO { Path = @"\Resources\Images\placeholder_accommodation.jpg" });
+                }
+
                 requestDTO.Images = matchingImages;
                 AllReservationRequests.Add(requestDTO);
             }
         }
-     
     }
 }

@@ -14,8 +14,6 @@ namespace BookingApp.Domain.Model
         public Owner Owner { get; set; }
         public int ReservationId { get; set; }
         public AccommodationReservation AccommodationReservation { get; set; }
-       // public AccommodationReservation Reservation; //mislim da nam ovo ne treba
-       //Owner owner i slicno mislim da nam ne treba
         public int Cleanliness { get; set; }
         public int Correctness { get; set; }
         public string Comment { get; set; }

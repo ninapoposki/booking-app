@@ -1,88 +1,132 @@
-﻿<Window x:Class="BookingApp.WPF.View.Guest.GuestNotifications"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
-        mc:Ignorable="d"
-        Title="GuestNotifications" Height="450" Width="800">
-    <Grid>
+﻿<Page x:Class="BookingApp.WPF.View.Guest.GuestNotifications"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+    mc:Ignorable="d"
+    Title="GuestNotifications" Height="700" Width="824">
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundImageBrush" ImageSource="\Resources\Icons\Guest\background_menubar.jpg" Stretch="Fill" Opacity="0.6"/>
+    </Page.Resources>
+    <Grid Background="{StaticResource BackgroundImageBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Prva vrsta za naslov -->
             <RowDefinition Height="*"/>
-            <!-- Druga vrsta za listu -->
-            <RowDefinition Height="Auto"/>
-            <!-- Treća vrsta za dugme "Cancel" -->
         </Grid.RowDefinitions>
 
-        <!-- Naslov "See what happened to your request!" -->
-        <TextBlock Text="See what happened to your request!" FontWeight="Bold" FontSize="24" Foreground="Green" FontStyle="Italic" Margin="20,20,0,0"/>
-
-        <!-- Razmak između naslova i liste -->
-        <TextBlock Text="" Grid.Row="1" Margin="20,10"/>
-
-        <!-- ScrollViewer za listu -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20,0">
-            <ListBox ItemsSource="{Binding AllReservationRequests}" SelectedItem="{Binding SelectedReservationRequest}" Margin="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderThickness="2" BorderBrush="Black" Padding="10" Margin="0 0 0 10" CornerRadius="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <!-- Slika -->
-                                <ItemsControl ItemsSource="{Binding Images}" Grid.Column="0" Grid.RowSpan="4" Margin="5">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Path}" Height="50" Width="150" Margin="2"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                <!-- Prvi red -->
-                                <TextBlock Text="{Binding Accommodation.Name}" FontSize="15" Foreground="DarkGreen" FontWeight="Bold" FontStyle="Oblique" Grid.Column="1" Grid.Row="0" Margin="5" Width="250"/>
-
-                                <!-- Drugi red -->
-                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="5" Width="250">
-                                    <TextBlock Text="Status: " FontWeight="Bold" Foreground="Green" Margin="5"/>
-                                    <TextBlock Text="{Binding RequestStatus}" FontWeight="Bold" Foreground="Green" Margin="5"/>
-                                </StackPanel>
-
-                                <!-- Treci red -->
-                                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="5" Width="250">
-                                    <TextBlock Text="{Binding NewInitialDate}"/>
-                                    <TextBlock Text=" - "/>
-                                    <TextBlock Text="{Binding NewEndDate}"/>
-                                </StackPanel>
-                                <!-- Cetvrti red -->
-                                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="5" Width="250">
-                                    <TextBlock Text="Owner's comment: " HorizontalAlignment="Left" Margin="5"/>
-                                    <TextBlock Text="{Binding Comment}" Margin="5"/>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </ScrollViewer>
-
-        <!-- Dugme "Cancel" -->
-        <StackPanel Grid.Row="2" Grid.Column="1" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20">
-            <TextBlock Text="Cancel"  FontSize="15" FontWeight="Bold" FontStyle="Oblique" Foreground="ForestGreen" Cursor="Hand" MouseDown="CancelClick"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7">
+            <Image Source="\Resources\Icons\Guest\bell.png" Height="25" Margin="1,0,0,0" VerticalAlignment="Center" Width="25"/>
+            <TextBlock Text="See what happened to your request!" FontSize="19 " FontWeight="Bold"  VerticalAlignment="Center" Foreground="DarkSlateBlue">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform />
+                </TextBlock.RenderTransform>
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"
+                       From="0" To="-5" Duration="0:0:0.2" AutoReverse="True" RepeatBehavior="2x"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+            <Image Source="\Resources\Icons\Guest\contrast.png" Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="340,0,0,0"/>
+            <Image Source="\Resources\Icons\Guest\languages.png" Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,0,0"/>
         </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding AllReservationRequests}" SelectedItem="{Binding SelectedReservationRequest}" Margin="20,20,0,0">
+            
+            <ListView.Template>
+                <ControlTemplate TargetType="ListView">
+                    <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListView.Template>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="#FFD3D3D3" Opacity="0.8" Margin="0,5,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ItemsControl ItemsSource="{Binding Images}" Grid.Column="0" Width="200" Height="150" Margin="5">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path}" Height="130" Width="200" Stretch="UniformToFill" Margin="2">
+                                            <Image.Triggers>
+                                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:0.5" AutoReverse="False" RepeatBehavior="1x"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <StackPanel Grid.Column="1" Margin="20,18,10,0">
+                                <TextBlock Text="{Binding Accommodation.Name}" FontSize="17" Foreground="DimGray" FontWeight="Bold" FontStyle="Normal"/>
+                                <TextBlock Text="Your new request dates:" Foreground="DarkCyan" FontWeight="Bold" Margin="0,2,0,0"/>
+                                <TextBlock Text="{Binding NewInitialDate}" Foreground="DarkCyan" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding NewEndDate}"  Foreground="DarkCyan" Margin="0,0,0,5"/>
+                                <StackPanel Orientation="Horizontal"  Width="250">
+                                    <TextBlock Text="STATUS: "  FontSize="13" FontWeight="Bold" Foreground="DarkCyan" />
+                                    <TextBlock Text="{Binding RequestStatus}"  FontSize="13"  FontWeight="Bold" Foreground="DarkCyan" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Owner's comment: " Foreground="DimGray" FontWeight="Bold" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding Comment}" Foreground="DimGray"  Margin="0,2,0,0" FontStyle="Italic"/>
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <Image Grid.Column="2" Height="30" Width="30" Margin="180,0,20,0">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <TranslateTransform Y="0" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <EventTrigger RoutedEvent="Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"  From="0" To="-5" Duration="0:0:0.2" AutoReverse="True" RepeatBehavior="2x" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <DataTrigger Binding="{Binding RequestStatus}" Value="ONHOLD">
+                                                <Setter Property="Source" Value="\Resources\Icons\Guest\pause.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RequestStatus}" Value="DECLINED">
+                                                <Setter Property="Source" Value="\Resources\Icons\Guest\decline.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RequestStatus}" Value="ACCEPTED">
+                                                <Setter Property="Source" Value="\Resources\Icons\Guest\accept.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
-</Window>
+</Page>

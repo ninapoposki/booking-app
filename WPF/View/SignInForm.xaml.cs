@@ -91,8 +91,10 @@ namespace BookingApp.WPF.View
         }
         private void OpenGuestWindow()
         {
-            GuestMainWindow guestMainWindow = new GuestMainWindow();
-           guestMainWindow.Show();
+            //GuestMainWindow guestMainWindow = new GuestMainWindow(Username);
+            //guestMainWindow.Show();
+            GuestMenuBar guestMenuBar = new GuestMenuBar(Username);
+            guestMenuBar.Show();
             Close();
         }
         private void OpenGuideWindow()

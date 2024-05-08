@@ -18,39 +18,24 @@ using BookingApp.Domain.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BookingApp.WPF.ViewModel.Guest;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Guest
 {
     /// <summary>
     /// Interaction logic for ReserveAccommodation.xaml
     /// </summary>
-    public partial class ReserveAccommodation : Window
+    public partial class ReserveAccommodation : Page
     {
 
         public ReserveAccommodationVM ReserveAccommodationVM { get; set; }
 
-        public ReserveAccommodation(AccommodationDTO selectedAccommodationDTO)
+        public ReserveAccommodation(NavigationService navigationService, AccommodationDTO selectedAccommodationDTO,GuestDTO guestDTO)
         {
             InitializeComponent();
-            ReserveAccommodationVM = new ReserveAccommodationVM(selectedAccommodationDTO);
+            ReserveAccommodationVM = new ReserveAccommodationVM(AvailableDatesFrame.NavigationService, selectedAccommodationDTO,guestDTO);
             DataContext = ReserveAccommodationVM;
-            ReserveAccommodationVM.RequestClose += (sender, args) =>
-            {
-                Close(); 
-            };
         }
-
-        private void TryToBookClick(object sender, RoutedEventArgs e)
-        {
-            ReserveAccommodationVM.TryToBookAccommodation();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close(); 
-        }
-
- 
 
     }
 }

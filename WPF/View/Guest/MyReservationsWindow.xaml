@@ -1,39 +1,226 @@
-﻿<Window x:Class="BookingApp.WPF.View.Guest.MyReservationsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
-        mc:Ignorable="d"
-        Title="My Reservations" Height="450" Width="800">
-    <Grid>
-        <ListView Grid.Row="0" Margin="10" Height="350"  x:Name="ReservationsListView" ItemsSource="{Binding AllReservations, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}">
-            <ListView.Resources>
+﻿<Page x:Class="BookingApp.WPF.View.Guest.MyReservationsWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+      mc:Ignorable="d"
+      x:Name="MyReservationsPage"
+      Title="My Reservations" Height="700" Width="824">
+    <Page.Resources>
+        <ControlTemplate x:Key="ListViewTemplate" TargetType="ListView">
+            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <ItemsPresenter />
+            </ScrollViewer>
+        </ControlTemplate>
+        <Style TargetType="ListView">
+            <Setter Property="Template" Value="{StaticResource ListViewTemplate}" />
+        </Style>
+        <ImageBrush x:Key="BackgroundImageBrush" ImageSource="\Resources\Icons\Guest\background_menubar.jpg" Stretch="Fill" Opacity="0.2"/>
+        <Style x:Key="BounceButtonStyle" TargetType="Button">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y" From="0" To="-10" Duration="0:0:0.18" AutoReverse="True" RepeatBehavior="2x"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{StaticResource BackgroundImageBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="\Resources\Icons\Guest\palm-tree.png" Height="20" Width="20" Grid.Column="0" VerticalAlignment="Center" 
+           HorizontalAlignment="Left" Margin="0,0,10,0"/>
+            <TextBlock Text="My reservations" Grid.Column="1" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" 
+               Foreground="DarkSlateBlue" HorizontalAlignment="Left" Margin="0,8,0,0"/>
+            <Image Source="\Resources\Icons\Guest\contrast.png" Height="20" Width="20" Grid.Column="2" VerticalAlignment="Center" 
+           HorizontalAlignment="Left" Margin="0,0,10,0"/>
+            <Image Source="\Resources\Icons\Guest\languages.png" Height="20" Width="20" Grid.Column="3" VerticalAlignment="Center" 
+           HorizontalAlignment="Left" Margin="0,0,10,0"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,5,10,10">
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <RadioButton IsChecked="{Binding ShowPastReservations, Mode=TwoWay}" Margin="30,2,0,0" GroupName="ReservationFilter" VerticalAlignment="Center"/>
+                <Label Content="past reservations" Foreground="DarkSalmon" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" >
+                <RadioButton IsChecked="{Binding ShowFutureReservations, Mode=TwoWay}" Margin="35,2,0,0" GroupName="ReservationFilter" VerticalAlignment="Center"/>
+                <Label Content="future reservations" Foreground="DarkSalmon" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <ListView Grid.Row="2" ItemsSource="{Binding PastReservations}" SelectedItem="{Binding SelectedReservation, Mode=TwoWay}" Visibility="{Binding PastVisibility}">
+            <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border BorderBrush="DarkSalmon" BorderThickness="0,0,0,1">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
-            </ListView.Resources>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Accommodations.Name}" Width="100"/>
-                    <GridViewColumn Header="Owner" DisplayMemberBinding="{Binding Owner.FirstName}" Width="80"/>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Location.Country}" Width="80"/>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Location.City}" Width="80"/>
-                    <GridViewColumn Header="Initial date" DisplayMemberBinding="{Binding InitialDate}" Width="100"/>
-                    <GridViewColumn Header="End date" DisplayMemberBinding="{Binding EndDate}" Width="100"/>
-                    <GridViewColumn Header="Days to stay" DisplayMemberBinding="{Binding DaysToStay}" Width="100"/>
-                    <GridViewColumn Header="Guest number" DisplayMemberBinding="{Binding NumberOfGuests}" Width="130"/>
-                </GridView>
-            </ListView.View>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Height="120" Stretch="UniformToFill" Source="{Binding Path=Images[0].Path, FallbackValue='pack://application:,,,/Resources/Images/placeholder_accommodation.jpg'}">
+                            <Image.Triggers>
+                                 <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                     <BeginStoryboard>
+                                         <Storyboard>
+                                             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1" Duration="0:0:1" AutoReverse="False" RepeatBehavior="1x"/>
+                                         </Storyboard>
+                                     </BeginStoryboard>
+                                 </EventTrigger>
+                             </Image.Triggers>
+                        </Image>
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,8,0,0">
+                            <TextBlock Text="{Binding Accommodations.Name}" Foreground="DarkCyan" FontWeight="Bold" FontSize="19"/>
+                            <TextBlock FontSize="14">
+                                 <Image Source="\Resources\Icons\Guest\push-pin.png" Height="14" Width="16"/>
+                                 <Run Text="{Binding Location.City}" Foreground="DarkCyan" FontWeight="Bold"/>
+                                 <Run Text=", " Foreground="DarkCyan" FontWeight="Bold"/>
+                                 <Run Text="{Binding Location.Country}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBlock>
+                                 <Run Text="From:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                 <Run Text="{Binding InitialDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                             </TextBlock>
+                             <TextBlock>
+                                 <Run Text="To:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                 <Run Text="{Binding EndDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                             </TextBlock>
+                             <TextBlock>
+                                 <Run Text="Days to stay:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                 <Run Text="{Binding DaysToStay}" Foreground="DarkCyan" FontWeight="Bold"/>
+                             </TextBlock>
+                             <TextBlock>
+                                 <Run Text="Number of guests:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                 <Run Text="{Binding NumberOfGuests}" Foreground="DarkCyan" FontWeight="Bold"/>
+                             </TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="2" Margin="120,20,0,30" Padding="0" BorderThickness="0" Background="Transparent"  Command="{Binding DataContext.RateReservationCommand, ElementName=MyReservationsPage}" 
+                                 CommandParameter="{Binding}"  Visibility="{Binding DataContext.PastVisibility, ElementName=MyReservationsPage}"  Cursor="Hand"  Style="{StaticResource BounceButtonStyle}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Image Source="\Resources\Icons\Guest\star.png" Width="18" Height="18" Margin="0,0,5,0"/>
+                                <TextBlock Text="Rate" FontSize="15" FontWeight="DemiBold" Foreground="DarkSlateBlue"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
-            <Button Content="Rate" Margin="5" Padding="10,0" Click="RateAccommodationClick" Height="34" Width="120"/>
-            <Button Content="Cancel Reservation" Margin="5" Padding="10,0" Click="CancelReservationClick" Height="34" Width="130"/>
-            <Button Content="Change Reservation" Margin="5" Padding="10,0" Click="ChangeReservationClick" Height="34" Width="130"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding FutureReservations}" SelectedItem="{Binding SelectedReservation, Mode=TwoWay}" Visibility="{Binding FutureVisibility}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border BorderBrush="DarkSalmon" BorderThickness="0,0,0,1">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="400    "/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Height="120" Stretch="UniformToFill" Source="{Binding Path=Images[0].Path, FallbackValue='pack://application:,,,/Resources/Images/placeholder_accommodation.jpg'}">
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1" Duration="0:0:1" AutoReverse="False" RepeatBehavior="1x"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
+                        </Image>
 
-        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,8,0,0">
+                            <TextBlock Text="{Binding Accommodations.Name}" Foreground="DarkCyan" FontWeight="Bold" FontSize="19"/>
+                            <TextBlock  FontSize="14">
+                                <Image Source="\Resources\Icons\Guest\push-pin.png" Height="14" Width="16"/>
+                                <Run Text="{Binding Location.City}" Foreground="DarkCyan" FontWeight="Bold"/>
+                                <Run Text=", " Foreground="DarkCyan" FontWeight="Bold"/>
+                                <Run Text="{Binding Location.Country}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="From:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                <Run Text="{Binding InitialDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="To:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                <Run Text="{Binding EndDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Days to stay:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                <Run Text="{Binding DaysToStay}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Number of guests:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
+                                <Run Text="{Binding NumberOfGuests}" Foreground="DarkCyan" FontWeight="Bold"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="100,25,0,30">
+                            <Button Grid.Column="0" Margin="0,0,0,15" Padding="0" BorderThickness="0" Background="Transparent" Command="{Binding DataContext.ChangeReservationCommand, ElementName=MyReservationsPage}" CommandParameter="{Binding}" Visibility="{Binding DataContext.FutureVisibility, ElementName=MyReservationsPage}" 
+                                    Cursor="Hand" Style="{StaticResource BounceButtonStyle}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Image Source="\Resources\Icons\Guest\airplane.png" Width="18" Height="18" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Change" FontSize="15" FontWeight="DemiBold" Foreground="DarkSlateBlue"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="0" Margin="0,0,0,0" Padding="0" BorderThickness="0" Background="Transparent" Command="{Binding DataContext.CancelReservationCommand, ElementName=MyReservationsPage}" CommandParameter="{Binding}" Visibility="{Binding DataContext.FutureVisibility, ElementName=MyReservationsPage}" 
+                                    Cursor="Hand" Style="{StaticResource BounceButtonStyle}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Image Source="\Resources\Icons\Guest\trash-can.png" Width="18" Height="18" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Cancel" FontSize="15" FontWeight="DemiBold" Foreground="DarkSlateBlue"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
-
-
-</Window>
+</Page>

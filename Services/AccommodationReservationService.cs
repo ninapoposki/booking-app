@@ -19,12 +19,14 @@ namespace BookingApp.Services
         public AccommodationService accommodationService;
         public GuestService guestService;
         private UserService userService;
+        private ImageService imageService;
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository,IGuestRepository guestRepository,IUserRepository userRepository, IAccommodationRepository accommodationRepository, IImageRepository imageRepository, ILocationRepository locationRepository, IOwnerRepository ownerRepository)
         {
             this.accommodationReservationRepository = accommodationReservationRepository;
             accommodationService = new AccommodationService(accommodationRepository,imageRepository,locationRepository,ownerRepository);
             guestService = new GuestService(guestRepository);
             userService = new UserService(userRepository);
+            imageService = new ImageService(imageRepository);
         }
         public bool IsOverFiveDays(AccommodationReservation accommodationReservation){
             DateTime currentDate = DateTime.Now;
@@ -56,21 +58,23 @@ namespace BookingApp.Services
             return accommodationReservationRepository.AreDatesAvailable(accommodationId, start, end); }
         public AccommodationReservation Add(AccommodationReservation reservation){
             return accommodationReservationRepository.Add(reservation); }
+        //OVO MISLIMD A SE MOZE I OBRISATI-POGLEDAJ ZA SIMS,spoj u jedno za sims iste su
         public AccommodationReservation ProcessAlternativeDates(AccommodationReservation reservation, int accommodationId, Guest guest){
-            guest.UserId = userService.GetCurrentGuestUserId();
-            guestService.Add(guest);
+           // guest.UserId = userService.GetCurrentUserId();
+          //  guestService.Add(guest);
             reservation.GuestId = guestService.GetCurrentId();
             return reservation;
         }
         public AccommodationReservation ProcessDateRange(AccommodationReservation reservation, int accommodationId, Guest guest){
-            guest.UserId = userService.GetCurrentGuestUserId();
-            guestService.Add(guest);
+           // guest.UserId = userService.GetCurrentUserId();
+            //guestService.Add(guest);
             reservation.GuestId = guestService.GetCurrentId();
             return reservation; }
         public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO){
             var accommodation=accommodationService.GetAccommodation(reservationDTO.AccommodationId);
             var accommodationReservationDTO=new AccommodationReservationDTO(reservationDTO.ToAccommodationReservation(),accommodation.ToAccommodation(),accommodation.Location,accommodation.Owner);
             accommodationReservationDTO.Guest = new GuestDTO(guestService.GetById(reservationDTO.GuestId));
+            accommodationReservationDTO.Images=imageService.GetImagesByAccommodation(accommodation.Id,imageService.GetImagesDTO());
             return accommodationReservationDTO;}
         public void Delete(AccommodationReservation accommodationReservation){  accommodationReservationRepository.Delete(accommodationReservation); }
     }

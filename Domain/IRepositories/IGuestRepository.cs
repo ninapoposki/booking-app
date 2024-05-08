@@ -16,7 +16,7 @@ namespace BookingApp.Domain.IRepositories
         int NextId();
         void Delete(Guest guest);
         Guest Update (Guest guest);
-        Guest GetByUser(User user);
+        Guest GetByUserId(int userId);
         Guest GetById(int id);
         int GetCurrentId();
         void Subscribe(IObserver observer);

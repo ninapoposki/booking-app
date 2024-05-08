@@ -74,6 +74,15 @@ namespace BookingApp.Services
         {
             return imageRepository.GetAll();
         }
+        public List<ImageDTO> GetImagesDTO() {
+            List<ImageDTO> imagesDTO=new List<ImageDTO>();
+            foreach ( ImageDTO image in GetImagesForEntityType(EntityType.ACCOMMODATION))
+            {
+                imagesDTO.Add(image);
+            }
+            return imagesDTO;
+
+        }
 
         public List<ImageDTO> GetImagesByAccommodation(int accommodationId, List<ImageDTO> allImages)
         {

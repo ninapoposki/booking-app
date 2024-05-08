@@ -69,6 +69,29 @@ namespace BookingApp.Repository
             locations = serializer.FromCSV(FilePath);
             return locations.Find(i => i.Id == id);
         }
+        public HashSet<string> GetCities()
+        {
+            List<Location> locations = serializer.FromCSV(FilePath);
+
+            HashSet<string> cities= new HashSet<string>();
+            foreach (Location location in locations)
+            {
+                cities.Add(location.City);
+            }
+
+            return cities;
+        }
+        public List<string> GetAutocompleteCity(string start)
+        {
+            var allCities = GetCities();
+            return allCities.Where(city => city.StartsWith(start, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        public List<string> GetAutocompleteCountry(string start)
+        {
+            var allCountries = GetAllCountries();
+            return allCountries.Where(country => country.StartsWith(start, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
 
     }
 }

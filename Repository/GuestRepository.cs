@@ -55,9 +55,10 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return guest;
         }
-        public Guest GetByUser(User user) {
-            guests = serializer.FromCSV(FilePath);
-            return guests.FirstOrDefault(guest => guest.User.Id == user.Id);
+      
+        public Guest GetByUserId(int userId)
+        {
+            return guests.FirstOrDefault(guest => guest.UserId == userId);
         }
         public Guest GetById(int id){   
             guests = serializer.FromCSV(FilePath);
