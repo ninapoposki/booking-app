@@ -11,32 +11,21 @@ using System.Runtime.ExceptionServices;
 using System.Windows;
 using System.Windows.Controls;
 using BookingApp.WPF.ViewModel.Guest;
+using System.Windows.Navigation;
+
 
 namespace BookingApp.WPF.View.Guest
 {
-    public partial class AvailableDatesWindow : Window
+    public partial class AvailableDatesWindow : Page
     {
         public AvailableDatesWindowVM AvailableDatesWindowVM { get; set; }
 
-        public AvailableDatesWindow(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
+        public AvailableDatesWindow(NavigationService navigationService,List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             InitializeComponent();
-            AvailableDatesWindowVM = new AvailableDatesWindowVM(dates,accommodationReservation);
+            AvailableDatesWindowVM = new AvailableDatesWindowVM(navigationService,dates,accommodationReservation);
             DataContext = AvailableDatesWindowVM;
-            AvailableDatesWindowVM.RequestClose += (sender, args) =>
-            {
-                Close(); 
-            };
         }
 
-        private void BookAccommodationClick(object sender, RoutedEventArgs e)
-        {
-            AvailableDatesWindowVM.BookAccommodationClick();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

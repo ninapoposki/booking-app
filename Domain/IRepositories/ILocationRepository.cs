@@ -14,7 +14,10 @@ namespace BookingApp.Domain.IRepositories
         HashSet<string> GetAllCountries();
         int GetLocationId(string city, string country);
         Location GetById(int id);
+        HashSet<string> GetCities();
+        List<string> GetAutocompleteCity(string start);
+        List<string> GetAutocompleteCountry(string start);
 
-       
+
     }
 }

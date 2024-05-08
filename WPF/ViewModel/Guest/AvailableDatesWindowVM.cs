@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 using BookingApp.Domain.IRepositories;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
+
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
@@ -19,6 +22,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             {
                 dates = value;
                 OnPropertyChanged();
+
             }
         }
 
@@ -30,6 +34,8 @@ namespace BookingApp.WPF.ViewModel.Guest
             {
                 _selectedDate = value;
                 OnPropertyChanged();
+                BookCommand.RaiseCanExecuteChanged();
+
             }
         }
 
@@ -45,10 +51,13 @@ namespace BookingApp.WPF.ViewModel.Guest
         }
 
         private readonly AccommodationReservationService accommodationReservationService;
+        public NavigationService navigationService { get; set; }
         public event EventHandler RequestClose;
+        public MyICommand <Range> BookCommand { get; set; }
 
 
-        public AvailableDatesWindowVM(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
+
+        public AvailableDatesWindowVM(NavigationService navigationService,List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                Injector.Injector.CreateInstance<IGuestRepository>(),
@@ -59,28 +68,19 @@ namespace BookingApp.WPF.ViewModel.Guest
                Injector.Injector.CreateInstance<IOwnerRepository>());
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { InitialDate = r.Item1, EndDate = r.Item2 }).ToList());
             SelectedReservation = accommodationReservation;
+            this.navigationService = navigationService;
+            BookCommand = new MyICommand <Range> (OnBookAccommodation);
         }
-
-        public void BookAccommodationClick()
+        public void OnBookAccommodation(Range selectedDate)
         {
-            if (selectedDate != null)
-            {
-                SelectedReservation.InitialDate = selectedDate.InitialDate; 
-                SelectedReservation.EndDate = selectedDate.EndDate;
+            SelectedReservation.InitialDate = selectedDate.InitialDate;
+            SelectedReservation.EndDate = selectedDate.EndDate;
 
-                accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation()); 
-                
-                MessageBox.Show("Reservation added successfully");
-                RequestClose?.Invoke(this, EventArgs.Empty);
+            accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation());
 
-            }
-            else
-            {
-                MessageBox.Show("Please select a date before booking.");
-            }
+            MessageBox.Show("Reservation added successfully");
+            navigationService.GoBack();
         }
-
-
         public class Range
         {
             public DateTime InitialDate { get; set; }

@@ -54,6 +54,9 @@ namespace BookingApp.Services
             var accommodationDTO = new AccommodationDTO(accommodation);
             accommodationDTO.Location = locationService.GetById(accommodation.IdLocation);
             accommodationDTO.Owner = ownerService.GetByUserId(accommodation.OwnerId);
+           // var images = imageService.GetImagesDTO();
+            //accommodationDTO.Images = new ObservableCollection<ImageDTO>(images);
+            //commodationDTO.Images = new ImageDTO(images);
             return accommodationDTO;
         }
 
