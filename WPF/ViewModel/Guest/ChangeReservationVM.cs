@@ -78,7 +78,6 @@ namespace BookingApp.WPF.ViewModel.Guest
         public void OnSendRequest(Range selectedDate)
         {
             reservationRequestService.SetNewDates(selectedDate.NewInitialDate, selectedDate.NewEndDate, SelectedReservation.Id);
-
             MessageBox.Show("You successfully added new request!");
         }
         public void OnExitChanges()

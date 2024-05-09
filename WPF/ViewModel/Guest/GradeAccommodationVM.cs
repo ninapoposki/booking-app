@@ -16,6 +16,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         public AccommodationGradeService AccommodationGradeService;
         public NavigationService navigationService;
         public ImageService imageService;
+        public RenovationRecommendationService recommendationService;
         private AccommodationReservationDTO _selectedAccommodationReservation;
 
         public AccommodationReservationDTO selectedAccommodationReservation
@@ -33,8 +34,10 @@ namespace BookingApp.WPF.ViewModel.Guest
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ImageDTO SelectedImage { get; set; }
         public AccommodationGradeDTO accommodationGradeDTO { get; set; }
+        public RenovationRecommendationDTO recommendationDTO { get; set; }
         public MyICommand<object> SetCleanlinessCommand { get; private set; }
         public MyICommand<object> SetCorrectnessCommand { get; private set; }
+        public MyICommand<object> SetRecommendationCommand { get; private set; }
         public MyICommand ExitCommand { get; private set; }
         public MyICommand SubmitCommand {  get; private set; }
         public MyICommand BrowseImageCommand { get; private set; }
@@ -48,11 +51,24 @@ namespace BookingApp.WPF.ViewModel.Guest
                 Injector.Injector.CreateInstance<IImageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
+            recommendationService = new RenovationRecommendationService(Injector.Injector.CreateInstance<IRenovationRecommendationRepository>(),
+                Injector.Injector.CreateInstance<IAccommodationRepository>(),
+                Injector.Injector.CreateInstance<IImageRepository>(),
+                Injector.Injector.CreateInstance<ILocationRepository>(),
+                Injector.Injector.CreateInstance<IOwnerRepository>());
             Images = new ObservableCollection<ImageDTO>();
             SelectedImage = new ImageDTO();
             accommodationGradeDTO = new AccommodationGradeDTO();
+            recommendationDTO=new RenovationRecommendationDTO()
+            {
+               
+                RecommendationComment = "NORECOMMENDATIONS", // Default vrednost
+                RecommendationLevel = 0 // Default nivo preporuke
+               
+        };
             SetCleanlinessCommand = new MyICommand<object>(SetCleanliness);
             SetCorrectnessCommand = new MyICommand<object>(SetCorrectness);
+            SetRecommendationCommand = new MyICommand<object>(SetRecommendation);
             SubmitCommand = new MyICommand(OnConfirmAccommodationGrade);
             ExitCommand = new MyICommand(OnExitPage);
             BrowseImageCommand = new MyICommand(OnBrowseImage);
@@ -83,23 +99,36 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationGradeDTO.Cleanliness = CleanlinessRadio;
             accommodationGradeDTO.Correctness = CorrectnessRadio;
             accommodationGradeDTO.Comment = Comments;
+            recommendationDTO.RecommendationLevel = RecommendationRadio;
+            // recommendationDTO.RecommendationComment = RecommendationComment;
+            if (string.IsNullOrWhiteSpace(RecommendationComment)) { recommendationDTO.RecommendationComment = "NORECOMMENDATIONS"; }
+            else { recommendationDTO.RecommendationComment = RecommendationComment; }
             var linkedAccommodationGradeDTO = AccommodationGradeService.GetOneAccommodationGrade(selectedAccommodationReservation, accommodationGradeDTO);
+            var linkedRecommendationDTO = recommendationService.GetOneRecommendation(selectedAccommodationReservation, recommendationDTO);
             AccommodationGradeService.Add(linkedAccommodationGradeDTO.ToAccommodationGrade());
+            recommendationService.Add(linkedRecommendationDTO.ToRenovationRecommendation());
             MessageBox.Show("You successfully graded accommodation!");
             navigationService.GoBack();
         }
         private void SetCleanliness(object parameter)
         {
-            if (parameter != null && int.TryParse(parameter.ToString(), out int cleannessValue))
+            if (parameter != null && int.TryParse(parameter.ToString(), out int cleanlinessValue))
             {
-                CleanlinessRadio = cleannessValue;
+                CleanlinessRadio = cleanlinessValue;
             }
         }
         private void SetCorrectness(object parameter)
         {
-            if (parameter != null && int.TryParse(parameter.ToString(), out int rulesValue))
+            if (parameter != null && int.TryParse(parameter.ToString(), out int correctnessValue))
             {
-                CorrectnessRadio = rulesValue;
+                CorrectnessRadio = correctnessValue;
+            }
+        }
+        private void SetRecommendation(object parameter)
+        {
+            if (parameter != null && int.TryParse(parameter.ToString(), out int recommendationValue))
+            {
+                RecommendationRadio = recommendationValue;
             }
         }
 
@@ -152,6 +181,34 @@ namespace BookingApp.WPF.ViewModel.Guest
                 }
             }
         }
+        private int recommendationRadio=0;
+        public int RecommendationRadio
+        {
+            get { return recommendationRadio; }
+            set
+            {
+                if (recommendationRadio != value)
+                {
+                    recommendationRadio = value;
+                    OnPropertyChanged("RecommendationRadio");
+                }
+            }
+        }
+
+        private string recommendationComment;
+        public string RecommendationComment
+        {
+            get { return recommendationComment; }
+            set
+            {
+                if (recommendationComment != value)
+                {
+                    recommendationComment = value;
+                    OnPropertyChanged("RecommendationComment");
+                }
+            }
+        }
+
 
     }
 }
