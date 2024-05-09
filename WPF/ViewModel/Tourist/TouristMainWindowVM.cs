@@ -217,7 +217,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 tourDTO.Images.Add(new ImageDTO { Path = imagePath });
             }
             else{ tourDTO.Images.Add(new ImageDTO { Path = "\\Resources\\Icons\\Tourist\\no_picture.png" }); }
-
         }
     }
     
