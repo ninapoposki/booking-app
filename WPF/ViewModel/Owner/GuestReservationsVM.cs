@@ -53,15 +53,15 @@ namespace BookingApp.WPF.ViewModel.Owner
                 var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(updatedDTO.AccommodationId, allImages));
                 if (matchingImages.Count > 0)
                 {
-                    if (updatedDTO.Images == null)
+                    if (updatedDTO.Image == null)
                     {
-                        updatedDTO.Images = new ObservableCollection<ImageDTO>();
+                        updatedDTO.Image = new ObservableCollection<ImageDTO>();
                     }
-                    updatedDTO.Images.Add(matchingImages[0]);
+                    updatedDTO.Image.Add(matchingImages[0]);
                 } else
                 {
-                    updatedDTO.Images = new ObservableCollection<ImageDTO>();
-                    updatedDTO.Images.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" }); 
+                    updatedDTO.Image = new ObservableCollection<ImageDTO>();
+                    updatedDTO.Image.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" }); 
                 }
                 GuestDataGrid(updatedDTO);
                 if (updatedDTO.Owner.UserId == currentUserId)
