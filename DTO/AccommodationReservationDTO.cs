@@ -38,7 +38,7 @@ namespace BookingApp.DTO
         public Accommodation Accommodations{ get; set; }
 
         public Owner Owner { get; set; } 
-        public ObservableCollection<ImageDTO> Images { get; set; } 
+        public ObservableCollection<ImageDTO> Image { get; set; } 
         public string Message { get; set; }
         private bool _canGradeGuest;
 
