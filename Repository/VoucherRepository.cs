@@ -27,12 +27,10 @@ namespace BookingApp.Repository
             vouchers = serializer.FromCSV(FilePath);
             subject = new Subject();
         }
-
         public List<Voucher> GetAll()
         {
             return serializer.FromCSV(FilePath);
         }
-
         public Voucher Add(Voucher voucher)
         {
             voucher.Id = NextId();
@@ -42,7 +40,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return voucher;
         }
-
         public int NextId()
         {
             vouchers = serializer.FromCSV(FilePath);
@@ -52,7 +49,6 @@ namespace BookingApp.Repository
             }
             return vouchers.Max(c => c.Id) + 1;
         }
-
         public void Delete(Voucher voucher)
         {
             vouchers = serializer.FromCSV(FilePath);
@@ -61,7 +57,6 @@ namespace BookingApp.Repository
             serializer.ToCSV(FilePath, vouchers);
             subject.NotifyObservers();
         }
-
         public Voucher Update(Voucher voucher)
         {
             vouchers = serializer.FromCSV(FilePath);

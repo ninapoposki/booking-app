@@ -75,7 +75,9 @@
                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
-                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                                                <Viewbox StretchDirection="DownOnly">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
+                                                </Viewbox>
                                                 <Image Source="{Binding Path}" Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
@@ -146,7 +148,9 @@
                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
-                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                                                <Viewbox StretchDirection="DownOnly">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
+                                                </Viewbox>
                                                 <Image Source="{Binding Path}"  Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
@@ -209,7 +213,9 @@
                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10">
-                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                                                <Viewbox StretchDirection="DownOnly">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"/>
+                                                </Viewbox>
                                                 <Image Source="{Binding Path}"  Height="120"  Stretch="UniformToFill" HorizontalAlignment="Center"></Image>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
