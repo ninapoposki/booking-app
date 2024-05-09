@@ -42,7 +42,7 @@ namespace BookingApp.DTO
             set { if (requestStatus != value) { requestStatus = value; OnPropertyChanged("RequestStatus"); }
             }
         }
-        private String comment="Still no answer!";
+        private String comment;
         public String Comment {
             get { return comment; }
             set{ if (comment != value) { comment = value; OnPropertyChanged("Comment"); }
