@@ -51,7 +51,28 @@
 		<None Remove="Resources\Icons\Guest\user.png" />
 
 		<None Remove="Resources\Images\add.png" />
+
+		<None Remove="Resources\Images\apartment_image1.jpg" />
+
+		<None Remove="Resources\Images\apartment_image2.jpg" />
+
+		<None Remove="Resources\Images\apartment_image3.jpg" />
+
+		<None Remove="Resources\Images\apartment_image4.jpg" />
+
+		<None Remove="Resources\Images\apartment_image5.jpg" />
+
+		<None Remove="Resources\Images\apartment_image6.jpg" />
+
+		<None Remove="Resources\Images\apartment_image7.jpg" />
+
+		<None Remove="Resources\Images\cabin_image1.jpg" />
+
+		<None Remove="Resources\Images\cabin_image2.jpg" />
+
+		<None Remove="Resources\Images\cabin_image3.jpg" />
 		<None Remove="Resources\Images\delete.png" />
+		<None Remove="Resources\Images\house_image1.jpg" />
 		<None Remove="Resources\Images\view.png" />
 		<None Remove="Resources\Images\edit.png" />
 		<None Remove="Resources\Images\apartment_grade.jpg" />
@@ -60,7 +81,6 @@
 
 		<None Remove="Resources\Images\cabin_grade.jpg" />
 		<None Remove="Resources\Images\cabin_grade1.jpg" />
-		<None Remove="Resources\Images\cabin_image2.jpg" />
 		<None Remove="Resources\Images\cabin_picture.jpg" />
 
 		<None Remove="Resources\Images\hotel_grade1.jpg" />
@@ -425,6 +445,27 @@
 		<Resource Include="Resources\Images\apartment_grade1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
+		<Resource Include="Resources\Images\apartment_image1.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image2.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image3.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image4.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image5.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image6.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\apartment_image7.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 		<Resource Include="Resources\Images\apartment_picture.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
@@ -433,6 +474,15 @@
 		</Resource>
 		<Resource Include="Resources\Images\cabin_grade1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\cabin_image1.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\cabin_image2.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\cabin_image3.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Resources\Images\cabin_picture.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -445,6 +495,9 @@
 		</Content>
 		<Resource Include="Resources\Images\hotel_grade1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Images\house_image1.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Resources\Images\house_picture.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
