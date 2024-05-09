@@ -1,19 +1,23 @@
 ﻿using BookingApp.Domain.IRepositories;
+using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
 using BookingApp.Utilities;
 using BookingApp.WPF.View.Guest;
 using BookingApp.WPF.View.Owner;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
     public class MyReservationsVM : ViewModelBase
     {
+        //private readonly ImageService imageService; placeholder
         public ObservableCollection<AccommodationReservationDTO> PastReservations { get; private set; }
         public ObservableCollection<AccommodationReservationDTO> FutureReservations { get; private set; }
 
@@ -105,6 +109,7 @@ namespace BookingApp.WPF.ViewModel.Guest
                 Injector.Injector.CreateInstance<IImageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>(),
                 Injector.Injector.CreateInstance<IOwnerRepository>());
+           // imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>()); placeholder
             AllReservations = new ObservableCollection<AccommodationReservationDTO>();
             PastReservations=new ObservableCollection<AccommodationReservationDTO>();
             FutureReservations=new ObservableCollection<AccommodationReservationDTO>();
@@ -114,15 +119,34 @@ namespace BookingApp.WPF.ViewModel.Guest
             RateReservationCommand = new MyICommand<AccommodationReservationDTO>(CanRateAccommodation);
             Update();
         }
+        
+         public void Update(){
+             AllReservations.Clear();
+             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
+                 AllReservations.Add(accommodationReservationService.GetOneReservation(accommodationReservationDTO));
+             FilterReservations(); 
 
-        public void Update(){
+         }
+        //placeholder
+       /* public void Update()
+        {
             AllReservations.Clear();
             foreach (AccommodationReservationDTO accommodationReservationDTO in accommodationReservationService.GetAll())
-                AllReservations.Add(accommodationReservationService.GetOneReservation(accommodationReservationDTO));
-            FilterReservations(); 
+            {
+                var allImages = imageService.GetImagesForEntityType(EntityType.ACCOMMODATION);
+                var matchingImages = new ObservableCollection<ImageDTO>(imageService.GetImagesByAccommodation(accommodationReservationDTO.AccommodationId, allImages));
+                if (matchingImages.Count == 0)
+                {
+                    matchingImages.Add(new ImageDTO { Path = @"\Resources\Images\placeholder_accommodation.jpg" });
+                }
 
-        }
-        private void FilterReservations()
+                accommodationReservationDTO.Images = matchingImages.ToList();
+                AllReservations.Add(accommodationReservationService.GetOneReservation(accommodationReservationDTO));
+            }
+               
+            FilterReservations();
+        }*/
+            private void FilterReservations()
         {
             if (ShowPastReservations)
             {
