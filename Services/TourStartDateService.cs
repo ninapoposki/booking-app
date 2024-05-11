@@ -56,8 +56,7 @@ namespace BookingApp.Services
                     return new TourStartDateDTO(tourStart);
                 }
             }return null;
-        }
-       
+        }     
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
             TourStartDate? startDate=tourStartDateRepository.Get(selectedDateId);
@@ -88,7 +87,6 @@ namespace BookingApp.Services
         {
             return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
         }
-
         public IEnumerable<TourStartDateDTO> GetAllInactiveTourDates()
         {
             var allTourStartDates = tourStartDateRepository.GetAll();
@@ -96,13 +94,21 @@ namespace BookingApp.Services
             return inactiveTourDates.Select(tsd => new TourStartDateDTO(tsd));
         }
         public TourStartDateDTO GetTourStartDate(int id)
-       {
-          var tourStartDate = tourStartDateRepository.Get(id);
-         if (tourStartDate != null)
         {
-          return new TourStartDateDTO(tourStartDate);
+           var tourStartDate = tourStartDateRepository.Get(id);
+           if (tourStartDate != null) { return new TourStartDateDTO(tourStartDate); }
+            return null;
         }
-        return null;
-       }
+        public List<DateTime> GetUnavailableDates(DateOnly startDate,DateOnly endDate)
+        {
+            List<DateTime> unavailableDates=new List<DateTime>();
+            foreach(TourStartDate tourStartDate in tourStartDateRepository.GetAll())
+            {
+                if(DateOnly.FromDateTime(tourStartDate.StartTime)>=startDate && DateOnly.FromDateTime(tourStartDate.StartTime) <= endDate && tourStartDate.TourStatus.ToString().Equals("INACTIVE"))
+                {
+                    unavailableDates.Add(tourStartDate.StartTime.Date);
+                }
+            }return unavailableDates;
+        }
     }
 }

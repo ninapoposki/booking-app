@@ -1,6 +1,7 @@
 ﻿using BookingApp.WPF.ViewModel.Guide;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,24 +12,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Guide
 {
     /// <summary>
-    /// Interaction logic for GuideMainWindow.xaml
+    /// Interaction logic for TourRequestUserControl.xaml
     /// </summary>
-    public partial class GuideMainWindow : Window
+    public partial class TourRequestUserControl : UserControl
     {
-        public GuideMainWindow(int userId)
+        public TourRequestUserControl(NavigationService navigationService,ObservableCollection<BreadcrumbItem> breadcrumbs)
         {
             InitializeComponent();
-            DataContext = new GuideMainWindowVM(MainWindowFrame.NavigationService,userId);
-        }
-
-        private void ProfilePageClick(object sender, RoutedEventArgs e)
-        {
-
+            DataContext=new TourRequestUserControlVM(navigationService,breadcrumbs);
         }
     }
 }

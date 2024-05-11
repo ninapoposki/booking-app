@@ -60,7 +60,7 @@ namespace BookingApp.Domain.Model
             NumberOfTourists = Convert.ToInt32(values[4]);
             StartDate = DateOnly.ParseExact(values[5], "dd/MM/yyyy");
             EndDate = DateOnly.ParseExact(values[6], "dd/MM/yyyy");
-            ChoosenDate = DateTime.ParseExact(values[7],"dd/MM/yyyy",CultureInfo.InvariantCulture);
+            ChoosenDate = DateTime.ParseExact(values[7],"dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture);
             IsNotified = Convert.ToBoolean(values[8]);
             if (values[9] == "ACCEPTED") { State = State.ACCEPTED; }
             else if (values[9] == "PENDING") { State = State.PENDING; }
@@ -77,7 +77,7 @@ namespace BookingApp.Domain.Model
                 NumberOfTourists.ToString(),
                 StartDate.ToString("dd/MM/yyyy"),
                 EndDate.ToString("dd/MM/yyyy"),
-                ChoosenDate.ToString("dd/MM/yyyy",CultureInfo.InvariantCulture),
+                ChoosenDate.ToString("dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture),
                 IsNotified.ToString(),
                 State.ToString()
             };

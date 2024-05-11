@@ -134,13 +134,26 @@ namespace BookingApp.DTO
             NumberOfTourists = tourRequest.NumberOfTourists;
             StartDate = tourRequest.StartDate.ToString("dd/MM/yyyy");
             EndDate = tourRequest.EndDate.ToString("dd/MM/yyyy");
-            ChoosenDate = tourRequest.ChoosenDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            ChoosenDate = tourRequest.ChoosenDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            IsNotified = tourRequest.IsNotified;
+            State = tourRequest.State;
+        }
+        public TourRequestDTO(TourRequest tourRequest)
+        {
+            Id = tourRequest.Id;
+            LocationId = tourRequest.LocationId;
+            Description = tourRequest.Description;
+            LanguageId = tourRequest.LanguageId;
+            NumberOfTourists = tourRequest.NumberOfTourists;
+            StartDate = tourRequest.StartDate.ToString("dd/MM/yyyy");
+            EndDate = tourRequest.EndDate.ToString("dd/MM/yyyy");
+            ChoosenDate = tourRequest.ChoosenDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
             IsNotified = tourRequest.IsNotified;
             State = tourRequest.State;
         }
         public TourRequest ToTourRequest()
         {
-            return new TourRequest(Id, LocationId, LanguageId, description, numberOfTourists, state, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(endDate, "dd/MM/yyyy"), DateTime.ParseExact(choosenDate, "dd/MM/yyyy", CultureInfo.InvariantCulture), isNotified);
+            return new TourRequest(Id, LocationId, LanguageId, description, numberOfTourists, state, DateOnly.ParseExact(startDate, "dd/MM/yyyy"), DateOnly.ParseExact(endDate, "dd/MM/yyyy"), DateTime.ParseExact(choosenDate, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture), isNotified);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string name)

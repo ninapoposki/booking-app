@@ -14,6 +14,7 @@ namespace BookingApp.WPF.ViewModel.Guide
     {
         public BreadCrumbsVM BreadCrumbsVM { get; set; }
         public MyICommand HomePageCommand { get; private set; }
+        public MyICommand TourRequestCommand { get; private set; }
         public MyICommand MyToursCommand { get; private set; }
         public NavigationService NavigationService { get;  set; }
         private int userId;
@@ -30,6 +31,12 @@ namespace BookingApp.WPF.ViewModel.Guide
         {
             HomePageCommand = new MyICommand(HomeExecute);
             MyToursCommand = new MyICommand(MyToursExecute);
+            TourRequestCommand = new MyICommand(TourRequestExecute);
+        }
+        private void TourRequestExecute()
+        {
+            NavigationService.Navigate(new TourRequestUserControl(NavigationService, BreadCrumbsVM.Breadcrumbs));
+            BreadCrumbsVM.AddBreadcrumb("Tour request",new MyICommand(() => TourRequestExecute()));
         }
         private void HomeExecute()
         {

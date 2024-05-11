@@ -19,7 +19,7 @@
 19|Petar|22|5|12|True|Male|TOUR
 20|tajana maric|44|7|18|True|Female|TOUR
 21|jovo maric|45|7|18|True|Male|TOUR
-22|Mikan|35|8|-1|False|Male|TOUR
+22|Mikan|35|8|16|False|Male|TOUR
 23|Milovanka|34|8|-1|False|Female|TOUR
 24|Miladinka|20|8|-1|False|Female|TOUR
 25|Stefan|27|6|15|True|Male|TOUR
@@ -27,3 +27,17 @@
 27|Anja Srdic|12|10|-1|False|Female|TOUR
 28|Arijana Maric|22|10|-1|False|Female|TOUR
 29|Dimitrije Sunkic|23|11|-1|False|Male|TOUR
+30|Arijana|18|1|-1|False|Female|REQUEST
+31|Anja|21|1|-1|False|Female|REQUEST
+32|Dimitrije|21|1|-1|False|Male|REQUEST
+33|Mikan|55|1|-1|False|Male|REQUEST
+34|Sasa|9|1|-1|False|Male|REQUEST
+35|Arijana|66|2|-1|False|Female|REQUEST
+36|Dajana|22|2|-1|False|Female|REQUEST
+37|Irina|22|2|-1|False|Female|REQUEST
+38|Mikan|12|3|-1|False|Male|REQUEST
+39|Sladjan|10|3|-1|False|Male|REQUEST
+40|Dajana|33|3|-1|False|Female|REQUEST
+41|Irina|12|3|-1|False|Female|REQUEST
+42|Jovo|45|3|-1|False|Male|REQUEST
+43|Arijana|23|3|-1|False|Female|REQUEST
