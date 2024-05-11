@@ -59,6 +59,20 @@
                     <TextBlock Text="Log out" Margin="5,0,0,0" VerticalAlignment="Center" Width="74"/>
                 </StackPanel>
             </Button>
+
+            <Button Margin="5,10,5,10" Padding="10,0" BorderThickness="0" Background="Transparent" Command="{Binding TourRequestCommand}" Height="34" HorizontalAlignment="Stretch" Width="140">
+                <StackPanel Orientation="Horizontal" Width="130">
+                    <Image Source="\Resources\Icons\Tourist\create.png" Width="43" Height="31"/>
+                    <TextBlock Text="Tour Request" Margin="5,0,0,0" VerticalAlignment="Center" Width="91"/>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="5,10,5,10" Padding="10,0" BorderThickness="0" Background="Transparent" Command="{Binding TourRequestViewCommand}" Height="34" HorizontalAlignment="Stretch" Width="140">
+                <StackPanel Orientation="Horizontal" Width="130">
+                  
+                    <TextBlock Text="View Request" Margin="5,0,0,0" VerticalAlignment="Center" Width="91"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
         <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"/>
     </Grid>

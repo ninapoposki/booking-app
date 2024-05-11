@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
+using BookingApp.Repository;
 using BookingApp.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,29 @@ namespace BookingApp.Services
     public class TourRequestService
     {
         private ITourRequestRepository tourRequestRepository;
-        private ILocationRepository locationRepository;
-        private ILanguageRepository languageRepository;
-
+        private LocationService locationService;
+        private LanguageService languageService;
         public TourRequestService(ITourRequestRepository tourRequestRepository,ILocationRepository locationRepository,ILanguageRepository languageRepository)
         {
             this.tourRequestRepository = tourRequestRepository;
-            this.locationRepository = locationRepository;
-            this.languageRepository = languageRepository;
+            locationService = new LocationService(locationRepository);
+            languageService = new LanguageService(languageRepository);
         }
         public List<TourRequest> GetAll()
         {
             return tourRequestRepository.GetAll();
         }
+
+
+        public TourRequest Update(TourRequest request)
+        {
+            return tourRequestRepository.Update(request);
+        }
+        public TourRequest SaveTourRequest(TourRequest tourRequest)
+        {
+           return tourRequestRepository.Add(tourRequest);
+        }
+
         public List<TourRequestDTO> GetAllUnaccepted()
         {
             List<TourRequestDTO> tourRequests = new List<TourRequestDTO>();

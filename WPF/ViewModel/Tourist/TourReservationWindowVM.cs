@@ -129,8 +129,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
             selectedVoucher = new VoucherDTO();
             AllVouchers = new ObservableCollection<VoucherDTO>();
             maxGuests = 0;
-            //TourImage = selectedTour.Path; 
-            //TourDescription = selectedTour.Description;
            ConfirmTourReservationCommand = new MyICommand(ConfirmTourReservation, CanConfirmTourReservation);
             images = new ObservableCollection<ImageDTO>(); 
             if (images.Any())

@@ -122,6 +122,7 @@ namespace BookingApp.DTO
                 }
             }
         }
+     
         public TourRequestDTO() { }
         public TourRequestDTO(TourRequest tourRequest, Location location, Language language)
         {

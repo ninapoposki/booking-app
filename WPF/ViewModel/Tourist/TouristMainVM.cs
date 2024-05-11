@@ -21,6 +21,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public MyICommand ActiveTourCommand { get; set; }
         public MyICommand ToursToRateCommand { get; set; }
         public MyICommand LogOutCommand { get; set; }
+        public MyICommand TourRequestCommand { get; set; }
+        public MyICommand TourRequestViewCommand { get; set; }
         private UserService userService;
         public NavigationService NavigationService { get; set; }
         private string username;
@@ -44,7 +46,8 @@ namespace BookingApp.WPF.ViewModel.Tourist
             ActiveTourCommand = new MyICommand(ActivePageExecute);
             NotificationPageCommand = new MyICommand(NotificationPageExecute);
             ToursToRateCommand = new MyICommand(ToursToRatePageExecute);
-           
+            TourRequestCommand = new MyICommand(TourRequestPageExecute);
+            TourRequestViewCommand = new MyICommand(TourRequestViewPageExecute);
          
         }
 
@@ -65,8 +68,20 @@ namespace BookingApp.WPF.ViewModel.Tourist
             NavigationService.Navigate(new ToursToRateWindow(NavigationService,userId));
         }
 
-       
+       private void TourRequestPageExecute()
+        {
 
-      
+
+            NavigationService.Navigate(new TourRequestWindow(NavigationService));
+        }
+
+        private void TourRequestViewPageExecute()
+        {
+
+            NavigationService.Navigate(new TourRequestViewWindow(NavigationService));
+        }
+
+
+
     }
 }

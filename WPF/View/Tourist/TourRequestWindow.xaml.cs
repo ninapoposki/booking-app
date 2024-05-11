@@ -17,18 +17,14 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.View.Tourist
 {
     /// <summary>
-    /// Interaction logic for NotificationsWindow.xaml
+    /// Interaction logic for TourRequestWindow.xaml
     /// </summary>
-    public partial class NotificationsWindow : Page
+    public partial class TourRequestWindow : Page
     {
-        public NotificationsWindowVM NotificationsWindowVM { get; set; }
-        public NotificationsWindow(NavigationService navigationService)
+        public TourRequestWindow(NavigationService navigationService)
         {
             InitializeComponent();
-            DataContext = new NotificationsWindowVM(navigationService);
-        
+            DataContext = new TourRequestWindowVM(navigationService);
         }
-
-     
     }
 }
