@@ -43,13 +43,13 @@ namespace BookingApp.Services
             {
                 if (request.State.ToString().Equals("PENDING"))
                 {
-                    Location location=locationRepository.GetById(request.LocationId);
-                    Language language=languageRepository.GetById(request.LanguageId);
+                    Location location=locationService.GetById(request.LocationId);
+                    Language language=languageService.GetById(request.LanguageId);
                     tourRequests.Add(new TourRequestDTO(request,location,language));
                 } 
             }return tourRequests;
         }
-        public void Update(TourRequest tourRequest)
+        public void UpdateState(TourRequest tourRequest)
         {
             tourRequest.State = State.ACCEPTED;
             tourRequest.IsNotified = true;
