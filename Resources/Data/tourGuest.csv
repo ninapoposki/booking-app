@@ -1,5 +1,5 @@
-1|Arijana|18|1|1|True|Female|TOUR
-2|Anja|21|1|3|True|Female|TOUR
+1|Arijana|18|1|1|False|Female|TOUR
+2|Anja|21|1|3|False|Female|TOUR
 3|Dimitrije|21|1|2|True|Male|TOUR
 4|Mikan|55|1|1|True|Male|TOUR
 5|Sasa|9|1|1|True|Male|TOUR
@@ -27,3 +27,10 @@
 27|Anja Srdic|12|10|-1|False|Female|TOUR
 28|Arijana Maric|22|10|-1|False|Female|TOUR
 29|Dimitrije Sunkic|23|11|-1|False|Male|TOUR
+30|aana|33|1|-1|False|Female|REQUEST
+31|marija|44|2|-1|False|Female|REQUEST
+32|tanja|44|2|-1|False|Male|REQUEST
+33|Sanja|22|3|-1|False|Female|REQUEST
+34|JA|22|4|-1|False|Female|REQUEST
+35|prvi|22|5|-1|False|Female|REQUEST
+36|drugi|44|5|-1|False|Male|REQUEST

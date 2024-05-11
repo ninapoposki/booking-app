@@ -1,0 +1,89 @@
+﻿<Page x:Class="BookingApp.WPF.View.Tourist.TourRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+        mc:Ignorable="d"
+        Title="TourRequestWindow" Height="532" Width="845">
+
+    <Border BorderBrush="DarkCyan" BorderThickness="3" Padding="5" Margin="26,23,26,0" Background="#E0F7FA" >
+        <Grid Margin=" 10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Create Tour Request" FontSize="24" FontWeight="Medium" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Country:" VerticalAlignment="Center" Margin="5" />
+            <TextBox Grid.Row="1" Grid.Column="1" Height="25" Margin="10,6,479,5" Text="{Binding Country, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="City:" VerticalAlignment="Center" Margin="5" />
+            <ComboBox x:Name="cityComboBox" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LocationComboBox}" SelectedItem="{Binding SelectedCity}" Height="25" Margin="10,4,479,7">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding City}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Language:" VerticalAlignment="Center" Margin="5" />
+            <ComboBox x:Name="languageComboBox" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" Height="25" Margin="10,5,479,6">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Description:" VerticalAlignment="Center" Margin="5" />
+            <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding CurrentRequest.Description}" Margin="10,5,479,5" Height="80" TextWrapping="Wrap" />
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Number of Guests:" VerticalAlignment="Center" Margin="5" />
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding NumberOfTourists, Mode=TwoWay}" IsReadOnly="{Binding IsNumberOfTouristsReadOnly}" Margin="10,5,479,5"/>
+
+            <Label Grid.Row="6" Grid.Column="0" Content="Name:" VerticalAlignment="Center" Margin="5" />
+            <TextBox Grid.Row="6" Text="{Binding CurrentGuest.FullName}" HorizontalAlignment="Left" Margin="10,5,0,5" Width="149" Grid.Column="1" />
+
+            <Label Grid.Row="7" Grid.Column="0" Content="Age:" VerticalAlignment="Center" Margin="5" />
+            <TextBox Grid.Row="7" Text="{Binding CurrentGuest.Age}" Margin="10,0,479,5" Grid.Column="1" />
+
+            <Label Grid.Row="8" Grid.Column="0" Content="Gender:" VerticalAlignment="Center" Margin="5" />
+            <ComboBox Grid.Row="8" Grid.Column="1" Height="25" Margin="10,5,479,6" SelectedItem="{Binding SelectedGender}" ItemsSource="{Binding Genders}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+
+            <Label Grid.Row="9" Grid.Column="0" Content="Start date:" VerticalAlignment="Center" Margin="5" />
+            <DatePicker Grid.Row="9" SelectedDate="{Binding StartDate, Mode=TwoWay}"   Grid.Column="1" Margin="10,5,479,5" />
+
+            <Label Grid.Row="10" Grid.Column="0" Content="End date:" VerticalAlignment="Center" Margin="5" />
+            <DatePicker Grid.Row="10"  SelectedDate="{Binding EndDate, Mode=TwoWay}" Grid.Column="1" Margin="10,5,479,5" />
+
+            <Button Grid.Row="10" Grid.Column="1" Content="Create" Command="{Binding ConfirmTourRequestCommand}" HorizontalAlignment="Right" Margin="0,10,23,0" Width="81"/>
+        </Grid>
+
+    </Border>
+
+</Page>

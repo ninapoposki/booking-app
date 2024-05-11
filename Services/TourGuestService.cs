@@ -54,6 +54,11 @@ namespace BookingApp.Services
             tourGuest.HasArrived = true;
             tourGuestRepository.Update(tourGuest);
         }
-
+        public void AddGuestRequest(string fullName, int age,int tourRequestId, Gender gender)
+        {
+            
+            TourGuest newGuest = new TourGuest(fullName, age, tourRequestId, gender, BookingApp.Domain.Model.Type.REQUEST);
+            tourGuestRepository.Add(newGuest);
+        }
     }
 }
