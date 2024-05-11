@@ -72,7 +72,7 @@
                          <Hyperlink  Command="{Binding MyToursCommand}">My tours</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                       <Hyperlink  Click="TourRequestsPageClick">Tour requests</Hyperlink>
+                       <Hyperlink  Command="{Binding TourRequestCommand}">Tour requests</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
                         <Hyperlink  Click="ProfilePageClick">Profile</Hyperlink>

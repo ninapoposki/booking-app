@@ -108,7 +108,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Image Source="\Resources\Icons\Guide\language.png" Width="20"></Image>
-                <Label  Content="Country"/>
+                <Label  Content="Language"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Image Source="\Resources\Icons\Guide\group.png" Width="20"></Image>

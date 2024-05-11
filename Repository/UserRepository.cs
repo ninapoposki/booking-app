@@ -4,21 +4,17 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BookingApp.Repository
 {
     public class UserRepository : IUserRepository
     {
         private const string FilePath = "../../../Resources/Data/users.csv";
-
-        
-
         private List<User> _users;
         private int currentUserId=-1;
         private readonly Serializer<User> _serializer;
         private static UserRepository instance;
-
-
         public UserRepository()
         {
             _serializer = new Serializer<User>();
@@ -50,7 +46,12 @@ namespace BookingApp.Repository
         {
             currentUserId = userId;
         }
-       public int GetCurrentUserId()
+        public User? GetById(int id)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users.Find(u => u.Id == id);
+        }
+        public int GetCurrentUserId()
        {
             if (currentUserId != 0) { 
 

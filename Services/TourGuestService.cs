@@ -4,6 +4,7 @@ using BookingApp.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,7 @@ namespace BookingApp.Services
     public class TourGuestService
     {
 
-        private ITourGuestRepository tourGuestRepository; 
-        
+        private ITourGuestRepository tourGuestRepository;
         public TourGuestService(ITourGuestRepository tourGuestRepository) 
         {
             this.tourGuestRepository=tourGuestRepository;
@@ -32,10 +32,8 @@ namespace BookingApp.Services
                 {
                     guests.Add(new TourGuestDTO(guest));
                 }
-            }
-            return guests;
+            } return guests;
         }
-
         public void UpdatePresentGuest(TourGuestDTO tourGuest, CheckPointDTO currentCheckPoint)
         {
             TourGuest guest = tourGuest.ToTourGuest();
@@ -47,13 +45,19 @@ namespace BookingApp.Services
             TourGuest newGuest = new TourGuest(fullName, age, reservationId, gender);   
             tourGuestRepository.Add(newGuest);
         }
-
         public void MarkGuestAsArrived(TourGuestDTO tourGuestDTO)
         {
             TourGuest tourGuest = tourGuestDTO.ToTourGuest();
             tourGuest.HasArrived = true;
             tourGuestRepository.Update(tourGuest);
         }
-
+        public string GetCreatorName(int requestId)
+        {
+            return tourGuestRepository.GetAll().Where(tg => tg.TourReservationId == requestId && tg.Type.ToString().Equals("REQUEST")).First().FullName;
+        }
+        public List<TourGuestDTO> GetRequestGuest(int requestId)
+        {
+            return tourGuestRepository.GetAll().Where(tg => tg.TourReservationId == requestId && tg.Type.ToString().Equals("REQUEST")).Select(t => new TourGuestDTO(t)).ToList();
+        }
     }
 }
