@@ -71,7 +71,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private readonly TourService tourService;
         private readonly ImageService imageService;
         private readonly TourReservationService tourReservationService;
-        private readonly TourStartDateService tourStartDateService;
+ 
         private readonly UserService userService;
         private readonly VoucherService voucherService;
         private string username;
@@ -113,7 +113,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
             this.username = username;
             
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
-            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
                 Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
                 Injector.Injector.CreateInstance<ILanguageRepository>(),
