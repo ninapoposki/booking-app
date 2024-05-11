@@ -60,7 +60,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private void OnFinishCommand()
         {
-            tourRequestService.Update(TourRequest.ToTourRequest());
+            tourRequestService.UpdateState(TourRequest.ToTourRequest());
             NavigationService.Navigate(new TourRequestUserControl(NavigationService, BreadCrumbsVM.Breadcrumbs));
         }
         private DateTime FindFirstAvailableDate()
