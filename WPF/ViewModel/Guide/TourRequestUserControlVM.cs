@@ -25,6 +25,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         public MyICommand SearchCommand { get; set; }
         public MyICommand ClearSearchCommand { get; set; }
         public MyICommand<TourRequestDTO> AcceptTourRequestCommand {  get; set; }
+        public MyICommand SeeRequestStatistics { get; set; }
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; }
         public NavigationService NavigationService { get; set; }
         public BreadCrumbsVM BreadCrumbVM { get; set; }
@@ -37,6 +38,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             NavigationService = navigationService;
             SearchCommand = new MyICommand(OnSearchTourRequest);
             ClearSearchCommand = new MyICommand(OnClearSearch);
+            SeeRequestStatistics = new MyICommand(OnRequestStatistics);
             AcceptTourRequestCommand=new MyICommand<TourRequestDTO>(OnAcceptTourRequest);
             BreadCrumbVM = new BreadCrumbsVM(breadcrumbs);
             LanguageComboBox = new List<LanguageDTO>();
@@ -50,6 +52,9 @@ namespace BookingApp.WPF.ViewModel.Guide
             LoadLanguagesAndCities();
             SearchParametars.PropertyChanged += SearchParametarsPropertyChanged;
             LoadTourRequests();
+        }
+        private void OnRequestStatistics(){
+            NavigationService.Navigate(new TourRequestStatisticsUserControl(NavigationService));
         }
         private void GetUser(TourRequestDTO tourRequest)
         {
@@ -115,7 +120,6 @@ namespace BookingApp.WPF.ViewModel.Guide
         private string GetSelectedLanguage(){
             if (SearchParametars.SelectedLanguage == null) return "";
             return SearchParametars.SelectedLanguage.Name;
-        }
-        
+        } 
     }
 }

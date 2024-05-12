@@ -23,7 +23,7 @@ namespace BookingApp.Domain.Model
         public DateOnly EndDate { get; set;}
         public DateTime ChoosenDate { get; set; }
         public bool IsNotified {  get; set; }
-        public string Name { get; set; }    
+        public DateTime CreationDate { get; set; } 
 
         public TourRequest() { }
 
@@ -50,6 +50,7 @@ namespace BookingApp.Domain.Model
             StartDate = startDate;
             EndDate = endDate;
             ChoosenDate = DateTime.Now;
+            CreationDate = DateTime.Now;
             IsNotified = false;
         }
         public void FromCSV(string[] values)
@@ -66,6 +67,7 @@ namespace BookingApp.Domain.Model
             if (values[9] == "ACCEPTED") { State = State.ACCEPTED; }
             else if (values[9] == "PENDING") { State = State.PENDING; }
             else { State=State.EXPIRED; }
+            CreationDate = DateTime.ParseExact(values[10], "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
         }
         public string[] ToCSV()
         {
@@ -80,7 +82,9 @@ namespace BookingApp.Domain.Model
                 EndDate.ToString("dd/MM/yyyy"),
                 ChoosenDate.ToString("dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture),
                 IsNotified.ToString(),
-                State.ToString()
+                State.ToString(),
+                CreationDate.ToString("dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture),
+
             };
             return csvValues;
         }

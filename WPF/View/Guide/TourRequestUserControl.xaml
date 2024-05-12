@@ -9,8 +9,6 @@
              d:DesignHeight="500" d:DesignWidth="960">
     <UserControl.Resources>
         <Style x:Key="RectangleButtonStyle" TargetType="Button">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="100"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -149,8 +147,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="Tour requests" FontSize="20" FontWeight="Bold"></TextBlock>
-                <TextBlock FontSize="15" Padding="10" Margin="190 10 0 0">
-                   <Hyperlink>View tour request statistics</Hyperlink>
+                <TextBlock FontSize="15" Padding="10" Margin="170 10 0 0">
+                   <Hyperlink Command="{Binding SeeRequestStatistics}">View tour request statistics</Hyperlink>
                 </TextBlock>
             </StackPanel>
             <ListView x:Name="TourRequestsListView"

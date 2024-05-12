@@ -23,7 +23,7 @@ namespace BookingApp.WPF.ViewModel.Guide
         public MyICommand AddDateCommand { get; set; }
         public MyICommand FinishCommand { get; set; }
         public MyICommand DeleteDateCommand { get; set; }
-        public MyICommand ChoosenDateTextChangedCommand{ get; set; }
+        public MyICommand<TextBox> ChoosenDateTextChangedCommand{ get; set; }
         public NavigationService NavigationService { get; set; }
         public List<TourGuestDTO> Tourists { get; set; }
         public BreadCrumbsVM BreadCrumbsVM { get; set; }
@@ -38,7 +38,7 @@ namespace BookingApp.WPF.ViewModel.Guide
             TourRequest.ChoosenDate = "";
             AddDateCommand = new MyICommand(OnAddDate);
             DeleteDateCommand=new MyICommand(OnDeleteDate);
-            ChoosenDateTextChangedCommand = new MyICommand(TextChanged);
+            ChoosenDateTextChangedCommand = new MyICommand<TextBox>(TextChanged);
             FinishCommand = new MyICommand(OnFinishCommand, CanFinishCommand);
             BreadCrumbsVM = new BreadCrumbsVM(breadcrumbs);
             LoadSpecifiedDatesCommand = new MyICommand<DatePicker>(LoadSpecifiedDates);
@@ -52,11 +52,11 @@ namespace BookingApp.WPF.ViewModel.Guide
         }
         private bool CanFinishCommand()
         {
-            return TourRequest.ChoosenDate != null;
+            return TourRequest.ChoosenDate != "";
         }
-        private void TextChanged()
+        private void TextChanged(TextBox text)
         {
-            FinishCommand.RaiseCanExecuteChanged();
+           if( text.Text != "") FinishCommand.RaiseCanExecuteChanged();
         }
         private void OnFinishCommand()
         {
