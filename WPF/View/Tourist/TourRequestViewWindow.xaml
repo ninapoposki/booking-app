@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        mc:Ignorable="d"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+      xmlns:local1="clr-namespace:BookingApp.WPF.View.Converter"
+      mc:Ignorable="d"
         Title="TourRequestViewWindow" Height="628.4" Width="845">
+
+    <Page.Resources>
+        <local1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
     <TabControl Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
         <TabItem Header="Tour Requests" Background="Transparent">
             <Grid Margin="10">
@@ -16,8 +21,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Tour Requests" FontSize="20" HorizontalAlignment="Left" FontWeight="Medium"></TextBlock>
                 <ListView x:Name="tourRequestListView" ItemsSource="{Binding TourRequests}" Background="#E0F7FA"  BorderBrush="DarkCyan" BorderThickness="3" Margin="32,44,32,89" Grid.ColumnSpan="2">
-                   
-                     <ListView.ItemTemplate>
+
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="10" Margin="5" BorderBrush="Cyan" BorderThickness="2" CornerRadius="8">
                                 <StackPanel Orientation="Vertical" Background="#E0F7FA">
@@ -59,8 +64,8 @@
         <TabItem  Header="Accepted Requests" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="237*"/>
-                    <ColumnDefinition Width="584*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Accepted Tour Requests" FontSize="20" HorizontalAlignment="Left" FontWeight="Medium" Width="217"></TextBlock>
                 <ListView  x:Name="acceptedRequestsList" ItemsSource="{Binding AcceptedTourRequests}" Background="#E0F7FA"  BorderBrush="DarkCyan" BorderThickness="3" Margin="32,53,32,82" Grid.ColumnSpan="2">
@@ -81,37 +86,34 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Vertical" Background="#E0F7FA">
-                                    <TextBlock Text="{Binding Description}" FontWeight="Bold" FontSize="16" Margin="5"/>
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="Location: " FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding Location}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="Language: " FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding Language}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="Number of Tourists: " FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding NumberOfTourists}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="Choosen Date: " FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding ChoosenDate}"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="Status: " FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding State}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                    <Button Grid.Column="1" BorderThickness="0" Background="Transparent" 
-                                        Command="{Binding DataContext.MarkAsReadCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"
-                                        Height="34" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Image Source="\Resources\Icons\Tourist\read.png" Width="30" Height="30"/>
+                                        <TextBlock Text="{Binding Description}" FontWeight="Bold" FontSize="16" Margin="5"/>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Location: " FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Location}"/>
                                         </StackPanel>
-                                    </Button>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Language: " FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Language}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Number of Tourists: " FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding NumberOfTourists}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Choosen Date: " FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding ChoosenDate}"/>
+                                        </StackPanel>
 
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Status: " FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding State}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Command="{Binding DataContext.MarkAsReadCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+    CommandParameter="{Binding}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
+    Visibility="{Binding IsNotified, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Image Source="\Resources\Icons\Tourist\read.png" Width="30" Height="20"/>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -176,6 +178,94 @@
             </Grid>
 
 
+        </TabItem>
+        <TabItem Header="Notifications" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
+            <Grid Margin="10">
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Image Source="\Resources\Icons\Tourist\notification.png"  Width="37" Height="34" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="Notifications about new tours" FontSize="20" FontWeight="Medium"/>
+                </StackPanel>
+                <Border Grid.Row="1"  Background="Transparent" BorderBrush="DarkCyan"  BorderThickness="3" ClipToBounds="True" CornerRadius="5" Grid.RowSpan="2" Height="468" Margin="28,0,28,0">
+                    <ListView ItemsSource="{Binding FilteredTours, UpdateSourceTrigger=PropertyChanged}"
+              ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="7,7,9,0"
+             
+              SelectionMode="Single" Background="#E0F7FA" BorderThickness="2" BorderBrush="Cyan" Height="505" VerticalAlignment="Top">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="0,5,5,5"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="10" Background="Transparent">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
+                                            <Image Source="{Binding Images[0].Path}" Height="140" Margin="2"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"  Margin="0,0,0,10"/>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                                <Image Grid.Column="1" Source="\Resources\Icons\Tourist\city.png" Width="25" Height="25"/>
+                                                <TextBlock Text="{Binding Location.City, StringFormat=City: {0}}" Margin="5,2,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                                <Image Grid.Column="1" Source="\Resources\Icons\Tourist\country.png" Width="25" Height="25"/>
+                                                <TextBlock Text="{Binding Location.Country, StringFormat=Country: {0}}"  Margin="5,2,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                                <Image Grid.Column="1" Source="\Resources\Icons\Tourist\capacity.png" Width="25" Height="25"/>
+                                                <TextBlock Text="{Binding Capacity, StringFormat=Capacity: {0}}" Margin="5,2,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                                <Image Grid.Column="1" Source="\Resources\Icons\Tourist\language_icon.png" Width="25" Height="25"/>
+                                                <TextBlock Text="{Binding Language.Name, StringFormat=Language: {0}}" Margin="5,2,0,0"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="20,0,20,0">
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                                <Image Source="\Resources\Icons\Tourist\date.png" Height="30" Width="40" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Grid.Row="0" Text="Available dates " Foreground="Black" FontSize="10" FontWeight='Medium' Margin="10,10,0,10" Width="265"/>
+                                            </StackPanel>
+                                            <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" SelectionMode="Single" SelectedItem="{Binding SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0">
+                                                <ListBox.Style>
+                                                    <Style TargetType="ListBox">
+                                                        <Setter Property="BorderBrush" Value="Cyan"/>
+                                                        <Setter Property="BorderThickness" Value="3"/>
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="ListBox">
+                                                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="5">
+                                                                        <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                                                            <ItemsPresenter/>
+                                                                        </ScrollViewer>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListBox.Style>
+                                            </ListBox>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+            </Grid>
         </TabItem>
 
 

@@ -18,13 +18,11 @@ namespace BookingApp.WPF.ViewModel.Tourist
 {
     public class TourRequestWindowVM: ViewModelBase
     {
-        
-        private LocationService locationService;
+       private LocationService locationService;
         private LanguageService languageService;
         private readonly TourGuestService tourGuestService;
         private TourRequestService tourRequestService;
         public TourDTO TourDTO { get; set; }
-        public TourRequestDTO TourRequestDTO { get; set; }
         public NavigationService NavigationService { get; set; }
         public List<LanguageDTO> LanguageComboBox { get; set; }
         public List<LocationDTO> LocationComboBox { get; set; }
@@ -35,37 +33,26 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public bool IsNumberOfTouristsReadOnly { get; set; } = false;
         private TourGuest currentGuest;
         public TourGuest CurrentGuest
-        {
-            get => currentGuest;
+        {get => currentGuest;
             set
-            {
-                if (currentGuest != value)
-                {
-                    currentGuest = value;
+            {if (currentGuest != value)
+                {   currentGuest = value;
                     OnPropertyChanged(nameof(CurrentGuest));
-                    ConfirmTourRequestCommand.RaiseCanExecuteChanged();
-                }
+                    ConfirmTourRequestCommand.RaiseCanExecuteChanged(); }
             }
         }
         public LanguageDTO selectedLanguage;
         public LanguageDTO SelectedLanguage
-        {
-            get { return selectedLanguage; }
-            set
-            {
+        { get { return selectedLanguage; }
+            set{
                 if (selectedLanguage != value)
                 {
                     selectedLanguage = value;
                     if (selectedLanguage != null)
                     {
                         CurrentRequest.LanguageId = selectedLanguage.Id;
-                        OnPropertyChanged("SelectedLanguage");
-                    }
-                }
-            }
-        }
-
-        public string SelectedGender
+                        OnPropertyChanged("SelectedLanguage");}}}}
+         public string SelectedGender
         {
             get => CurrentGuest?.Gender.ToString();
             set
@@ -101,8 +88,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 }
             }
         }
-
-        public TourRequestWindowVM(NavigationService navigationService) {
+         public TourRequestWindowVM(NavigationService navigationService) {
 
             NavigationService = navigationService;
             locationService = new LocationService(Injector.Injector.CreateInstance<ILocationRepository>());
@@ -120,9 +106,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
             CurrentGuest = new TourGuest();
             LoadLanguagesAndCities();
         }
-
-
-        private void LoadLanguagesAndCities()
+       private void LoadLanguagesAndCities()
         {
             languageService.GetAll(LanguageComboBox);
             locationService.GetAll(LocationComboBox);
@@ -131,7 +115,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         {
             Country = locationService.GetCountry(SelectedCity);
         }
-
 
         private string country;
         public string Country
@@ -148,38 +131,18 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
         private LocationDTO selectedCity;
         public LocationDTO SelectedCity
-        {
-            get { return selectedCity; }
-            set
-            {
+        { get { return selectedCity; }
+            set{
                 if (selectedCity != value)
                 {
                     selectedCity = value;
                     CurrentRequest.LocationId = selectedCity.Id;
                     OnPropertyChanged("SelectedCity");
-                    LoadCountry();
-                }
-            }
-        }
-        private string description;
-        public string Description
-        {
-            get => description;
-            set
-            {
-                if (description != value)
-                {
-                    description = value;
-                    OnPropertyChanged(nameof(Description));
-                }
-            }
-        }
+                    LoadCountry();}} }   
         private void ConfirmRequest()
         {
             if (!IsNumberOfTouristsReadOnly)
-            {
-                IsNumberOfTouristsReadOnly = true;
-            }
+            {IsNumberOfTouristsReadOnly = true;}
             if (Guests.Count < NumberOfTourists)
             {
                 if (Guests.Count == 0)
@@ -235,7 +198,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
         private int CompleteRequest()
         {
-
             DateOnly start = DateOnly.FromDateTime(StartDate.Value);
             DateOnly end = DateOnly.FromDateTime(EndDate.Value);
             CurrentRequest.NumberOfTourists = NumberOfTourists;

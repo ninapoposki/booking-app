@@ -90,5 +90,7 @@ namespace BookingApp.Services
             return tourRepository.GetAll().Where(tour => tour.UserId == userId).Select(tour => GetTour(tour.Id)).ToList();
        }
 
+     
+
     }
 }

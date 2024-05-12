@@ -52,6 +52,35 @@ namespace BookingApp.Services
             tourRequest.IsNotified = true;
             tourRequestRepository.Update(tourRequest);
         }
+        public void UpdateRequest(TourRequestDTO tourRequestDTO)
+        {
+            TourRequest tourRequest = tourRequestDTO.ToTourRequest(); 
+            tourRequestRepository.Update(tourRequest); 
+        }
+        public List<TourRequestDTO> GetAllNonAcceptedTourRequests()
+        {
+            var requests = tourRequestRepository.GetAll().Where(r => r.State != State.ACCEPTED).ToList();
+            var requestDTO = new List<TourRequestDTO>();
+            foreach (var request in requests)
+            {
+                var location = locationService.GetById(request.LocationId);
+                var language = languageService.GetById(request.LanguageId);
+                requestDTO.Add(new TourRequestDTO(request, location, language));
+            }
+            return requestDTO;
+        }
+        public List<TourRequestDTO> GetAllAcceptedTourRequests()
+        {
+            var requests = tourRequestRepository.GetAll().Where(r => r.State == State.ACCEPTED).ToList();
+            var requestDTO = new List<TourRequestDTO>();
+            foreach (var request in requests)
+            {
+                var location = locationService.GetById(request.LocationId);
+                var language = languageService.GetById(request.LanguageId);
+                requestDTO.Add(new TourRequestDTO(request, location, language));
+            }
+            return requestDTO;
+        }
         public IEnumerable<TourRequest> FilterRequests(int id, string type)
         {
             return tourRequestRepository.GetAll().Where(tourRequest =>
@@ -65,6 +94,7 @@ namespace BookingApp.Services
         internal int GetStatisticsPerMonth(int id, string type, int year, int monthIndex)
         {
             return FilterRequests(id, type).Where(tourRequest => tourRequest.CreationDate.Year == year && tourRequest.CreationDate.Month == monthIndex).Count();
+
         }
     }
 }

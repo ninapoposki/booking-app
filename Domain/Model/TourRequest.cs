@@ -25,6 +25,7 @@ namespace BookingApp.Domain.Model
         public bool IsNotified {  get; set; }
         public DateTime CreationDate { get; set; } 
 
+
         public TourRequest() { }
 
         public TourRequest(int id, int locationId, int languageId, string description,int numberOfTourists, State state, DateOnly startDate, DateOnly endDate,DateTime choosenDate,bool isNotified)
