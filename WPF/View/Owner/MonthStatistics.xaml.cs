@@ -18,17 +18,16 @@ using System.Windows.Shapes;
 namespace BookingApp.WPF.View.Owner
 {
     /// <summary>
-    /// Interaction logic for AccommodationStatistics.xaml
+    /// Interaction logic for MonthStatistics.xaml
     /// </summary>
-    public partial class AccommodationStatistics : Window
+    public partial class MonthStatistics : Page
     {
-        public AccommodationStatisticsVM AccommodationStatisticsVM {  get; set; }
-        public AccommodationStatistics(AccommodationDTO accommodationDTO)
+        public MonthStatisticsVM MonthStatisticsVM { get; set; }
+        public MonthStatistics(NavigationService navigation, AccommodationStatisticsDTO accommodationStatisticsDTO)
         {
             InitializeComponent();
-            AccommodationStatisticsVM = new AccommodationStatisticsVM(accommodationDTO, MainWindowFrame.NavigationService);
-            DataContext = AccommodationStatisticsVM;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            MonthStatisticsVM = new MonthStatisticsVM(navigation, accommodationStatisticsDTO);
+            DataContext = MonthStatisticsVM;
         }
     }
 }

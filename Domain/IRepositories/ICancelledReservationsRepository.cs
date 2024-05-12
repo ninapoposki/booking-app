@@ -13,7 +13,9 @@ namespace BookingApp.Domain.IRepositories
     {
         CancelledReservations Add(CancelledReservations cancelledReservation);
         int NextId();
-        void Delete(CancelledReservations cancelledReservation);
+        List<CancelledReservations> GetAll();
+        
+         void Delete(CancelledReservations cancelledReservation);
         CancelledReservations Update(CancelledReservations cancelledReservation);
         void Subscribe(IObserver observer);
         bool IsCancellationPeriodValid(Accommodation accommodation, DateTime initialDate);
