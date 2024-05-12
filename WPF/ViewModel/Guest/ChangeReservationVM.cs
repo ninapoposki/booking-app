@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
     public class ChangeReservationVM:ViewModelBase
     {
         private ReservationRequestService reservationRequestService;
+        public NavigationService navigationService { get; set; }
         public ReservationRequestDTO reservationRequestDTO { get; set; }
 
         private AccommodationReservationDTO _selectedReservation; 
@@ -51,8 +54,9 @@ namespace BookingApp.WPF.ViewModel.Guest
                 OnPropertyChanged();
             }
         }
-
-        public ChangeReservationVM(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservationDTO)
+        public MyICommand ExitCommand { get; set; }
+        public MyICommand <Range> SendRequestCommand  { get; set; }
+        public ChangeReservationVM(NavigationService navigationService,List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservationDTO)
         {
             SelectedReservation = accommodationReservationDTO; 
             reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
@@ -65,22 +69,20 @@ namespace BookingApp.WPF.ViewModel.Guest
                 Injector.Injector.CreateInstance<IOwnerRepository>());
             reservationRequestDTO=new ReservationRequestDTO();
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { NewInitialDate = r.Item1, NewEndDate = r.Item2 }).ToList());
+            this.navigationService=navigationService;
+            ExitCommand = new MyICommand(OnExitChanges);
+            SendRequestCommand = new MyICommand<Range>(OnSendRequest);
 
         }
 
-        public void SendRequestClick()
+        public void OnSendRequest(Range selectedDate)
         {
-            if (selectedDate != null)
-            {
-                reservationRequestService.SetNewDates(selectedDate.NewInitialDate, selectedDate.NewEndDate, SelectedReservation.Id);
-
-                MessageBox.Show("You successfully added new request!");
-
-            }
-            else
-            {
-                MessageBox.Show("Please select a date before sending request.");
-            }
+            reservationRequestService.SetNewDates(selectedDate.NewInitialDate, selectedDate.NewEndDate, SelectedReservation.Id);
+            MessageBox.Show("You successfully added new request!");
+        }
+        public void OnExitChanges()
+        {
+            navigationService.GoBack();
         }
         public class Range
         {

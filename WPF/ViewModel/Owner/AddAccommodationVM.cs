@@ -16,6 +16,8 @@ using BookingApp.Services;
 using System.Security.Cryptography.Xml;
 using BookingApp.Domain.IRepositories;
 using System.IO;
+using BookingApp.Utilities;
+using BookingApp.WPF.View.Owner;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -28,8 +30,10 @@ namespace BookingApp.WPF.ViewModel.Owner
         public List<String> CityComboBox { get; set; }
         public HashSet<String> CountryComboBox { get; set; }
         public AccommodationDTO accommodationDTO { get; set; }
-        public string SelectedCountry { get; set; }
-        
+       // public string SelectedCountry { get; set; }
+        public MyICommand Cancel {  get; private set; }
+        public MyICommand Add {  get; private set; }
+        public MyICommand Browse { get; private set; }
         public AddAccommodationVM(int currentUserId) {
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             accommodationService = new AccommodationService(Injector.Injector.CreateInstance<IAccommodationRepository>(),
@@ -46,8 +50,23 @@ namespace BookingApp.WPF.ViewModel.Owner
             accommodationDTO.OwnerId = currentUserId;
             LoadCountries();
             LoadCity();
+            Cancel = new MyICommand(CancelAccommodation);
+            Add = new MyICommand(AddAccommodation);
+            Browse = new MyICommand(BrowseImage);
         }
-        public void CountryChanged() {   LoadCity(); }
+        public void CancelAccommodation()
+        {
+            MessageBox.Show("Cancelling adding accommodation");
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.DataContext == this)
+                {
+                    window.Close();
+                    break;
+                }
+            }
+        }
+       
         private void LoadCountries() {
             CountryComboBox.Clear();
             foreach (String country in accommodationService.locationService.GetAllCountries()) CountryComboBox.Add(country);
@@ -58,18 +77,26 @@ namespace BookingApp.WPF.ViewModel.Owner
                 foreach (String city in accommodationService.locationService.GetAllCities(SelectedCountry)) CityComboBox.Add(city);
             }
         }
-        public void AddAccommodationButtonClick() {
+        public void AddAccommodation() {
             UpdateImages();
             if (SelectedCity != null && SelectedCountry != null) accommodationDTO.IdLocation = accommodationService.locationService.GetLocationId(SelectedCity, SelectedCountry);
                 MessageBox.Show("Accommodation added successfully!");
                 accommodationService.Add(accommodationDTO.ToAccommodation());
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.DataContext == this)
+                {
+                    window.Close();
+                    break;
+                }
+            }
         }
         public void UpdateImages(){ 
             foreach (ImageDTO image in Images) {
                 accommodationService.imageService.UpdateAccommodation(image, accommodationService.GetCurrentId());
             }
         }
-        public void BrowseImageClick() {
+        public void BrowseImage() {
             
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
@@ -86,6 +113,20 @@ namespace BookingApp.WPF.ViewModel.Owner
         public string SelectedCity{
             get { return selectedCity; }
             set { if (selectedCity != value) { selectedCity = value; OnPropertyChanged(nameof(SelectedCity)); } }
+        }
+        private string selectedCountry;
+        public string SelectedCountry
+        {
+            get { return selectedCountry; }
+            set
+            {
+                if (selectedCountry != value)
+                {
+                    selectedCountry = value;
+                    OnPropertyChanged(nameof(SelectedCountry));
+                    LoadCity(); 
+                }
+            }
         }
     }
 }

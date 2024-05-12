@@ -13,31 +13,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Windows.Navigation;
 namespace BookingApp.WPF.View.Guest
 {
     /// <summary>
     /// Interaction logic for ChangeReservation.xaml
     /// </summary>
-    public partial class ChangeReservation : Window
+    public partial class ChangeReservation : Page
     {
         public ChangeReservationVM ChangeReservationVM { get; set; }
 
-        public ChangeReservation(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
+        public ChangeReservation(NavigationService navigationService, List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             InitializeComponent();
-            ChangeReservationVM = new ChangeReservationVM(dates,accommodationReservation);
+            ChangeReservationVM = new ChangeReservationVM(navigationService,dates,accommodationReservation);
             DataContext = ChangeReservationVM;
-        }
-
-        private void SendRequestClick(object sender, RoutedEventArgs e)
-        {
-            ChangeReservationVM.SendRequestClick();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
     }

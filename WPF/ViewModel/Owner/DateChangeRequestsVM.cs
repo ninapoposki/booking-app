@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -24,7 +26,9 @@ namespace BookingApp.WPF.ViewModel.Owner
         public ObservableCollection<ReservationRequestDTO> AllReservationRequests { get; set; }
         public TextBox commentTextBox { get; set; }
         public int currentUserId;
-        public DateChangeRequestsVM(TextBox textBox, int loggedInUserId) {
+        public MyICommand Decline {  get; private set; }
+        public MyICommand Accept { get; private set; }
+        public DateChangeRequestsVM(NavigationService navigation, TextBox textBox, int loggedInUserId) {
             reservationRequestService = new ReservationRequestService(Injector.Injector.CreateInstance<IReservationRequestRepository>(),
                 Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                 Injector.Injector.CreateInstance<IGuestRepository>(),
@@ -48,6 +52,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             AllReservationRequests = new ObservableCollection<ReservationRequestDTO>();
             commentTextBox = textBox;
             currentUserId = loggedInUserId;
+            Decline = new MyICommand(DeclineRequest);
+            Accept = new MyICommand(AcceptRequest);
             Update();
         }
         public void Update() {
@@ -84,12 +90,14 @@ namespace BookingApp.WPF.ViewModel.Owner
             AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation);
             return accommodationDTO;
         }
-        public void DeclineButtonClick(){
+        public void DeclineRequest(){
             string Comment = commentTextBox.Text;
             reservationRequestService.UpdateStatus(SelectedReservation.ReservationId, RequestStatus.DECLINED, Comment  );
+            Update();
             MessageBox.Show("Requests is declined");
+            commentTextBox.Text = string.Empty;
         }
-        public void AcceptButtonClick() {
+        public void AcceptRequest() {
             if (SelectedReservation != null){
                 string Comment = commentTextBox.Text;
                 reservationRequestService.UpdateStatus(SelectedReservation.ReservationId, RequestStatus.ACCEPTED, Comment);
@@ -98,6 +106,8 @@ namespace BookingApp.WPF.ViewModel.Owner
                 DateTime endDate = SelectedReservation.NewEndDate;
                 accommodationReservationService.UpdateDate(SelectedReservation.AccommodationReservation, initialDate, endDate);
                 MessageBox.Show("Requests is accepted");
+                Update();
+                commentTextBox.Text = string.Empty;
             } else { MessageBox.Show("Please select a reservation before accepting."); }
         }
     }

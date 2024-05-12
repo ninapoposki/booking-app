@@ -39,6 +39,11 @@ namespace BookingApp.Services
             image.EntityType = EntityType.ACCOMMODATION;
             imageRepository.Update(image.ToImage());
         }
+        public void ResetImage(ImageDTO image) { 
+            image.EntityId = -1;
+            image.EntityType= EntityType.NONE;
+            imageRepository.Update(image.ToImage());
+        }
         public void UpdateGuestImages(ImageDTO image, int accommodationGradeId)
         {
             image.EntityId = accommodationGradeId;
@@ -69,6 +74,15 @@ namespace BookingApp.Services
         public List<Image> GetAllImages()
         {
             return imageRepository.GetAll();
+        }
+        public List<ImageDTO> GetImagesDTO() {
+            List<ImageDTO> imagesDTO=new List<ImageDTO>();
+            foreach ( ImageDTO image in GetImagesForEntityType(EntityType.ACCOMMODATION))
+            {
+                imagesDTO.Add(image);
+            }
+            return imagesDTO;
+
         }
 
         public List<ImageDTO> GetImagesByAccommodation(int accommodationId, List<ImageDTO> allImages)

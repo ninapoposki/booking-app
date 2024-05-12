@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.ViewModel.Owner;
+﻿using BookingApp.WPF.ViewModel.Guest;
+using BookingApp.WPF.ViewModel.Owner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Owner
@@ -18,15 +20,15 @@ namespace BookingApp.WPF.View.Owner
     /// <summary>
     /// Interaction logic for OwnersAccommodation.xaml
     /// </summary>
-    public partial class OwnersAccommodation : Window
+    public partial class OwnersAccommodation : Page
     {
         public OwnersAccommodationVM OwnersAccommodationVM { get; set; }
-        public OwnersAccommodation(int loggedInUserId)
+        public OwnersAccommodation(NavigationService navigation, int loggedInUserId)
         {
             InitializeComponent();
-            OwnersAccommodationVM = new OwnersAccommodationVM(loggedInUserId);
+            OwnersAccommodationVM = new OwnersAccommodationVM(navigation, loggedInUserId);
             DataContext = OwnersAccommodationVM;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
+      
     }
 }

@@ -14,6 +14,8 @@ using System.Windows.Controls;
 using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics.Eventing.Reader;
+using System.Windows.Navigation;
+using BookingApp.Utilities;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
@@ -24,7 +26,8 @@ namespace BookingApp.WPF.ViewModel.Owner
         public ObservableCollection<AccommodationReservationDTO> AllAccommodationReservations { get; set; }
         public int currentUserId;
         public AccommodationReservationDTO SelectedAccommodationReservation { get; set; }
-        public GuestReservationsVM(int loggedInUserId) {
+        public MyICommand<AccommodationReservationDTO> GradeGuestCommand { get; private set; }
+        public GuestReservationsVM(NavigationService navigation, int loggedInUserId) {
             guestGradeService = new GuestGradeService(Injector.Injector.CreateInstance<IGuestGradeRepository>(),
                 Injector.Injector.CreateInstance<IOwnerRepository>());
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
@@ -38,7 +41,9 @@ namespace BookingApp.WPF.ViewModel.Owner
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             SelectedAccommodationReservation = new AccommodationReservationDTO();
             currentUserId = loggedInUserId;
+
             Update();
+            GradeGuestCommand = new MyICommand<AccommodationReservationDTO>(GradeGuest);
         }
         public void Update() {
             AllAccommodationReservations.Clear();
@@ -53,7 +58,12 @@ namespace BookingApp.WPF.ViewModel.Owner
                         updatedDTO.Image = new ObservableCollection<ImageDTO>();
                     }
                     updatedDTO.Image.Add(matchingImages[0]);
+                } else
+                {
+                    updatedDTO.Image = new ObservableCollection<ImageDTO>();
+                    updatedDTO.Image.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" }); 
                 }
+                updatedDTO.Images = updatedDTO.Image.ToList();
                 GuestDataGrid(updatedDTO);
                 if (updatedDTO.Owner.UserId == currentUserId)
                 {
@@ -67,7 +77,6 @@ namespace BookingApp.WPF.ViewModel.Owner
                 int reservationId = guestGradeService.GetReservationId(selectedAccommodationReservation);
                 
                 if (IsGuestGraded(reservationId)) {
-                // MessageBox.Show("Guest is already graded.");
                 selectedAccommodationReservation.Message = "Already graded!";
                 selectedAccommodationReservation.CanGradeGuest = false;
             }
@@ -75,13 +84,13 @@ namespace BookingApp.WPF.ViewModel.Owner
                     AreDatesValid(selectedAccommodationReservation);
                 }
             
-        }
+        }/*
 
         public void GuestDataGridSelectionChanged() {
             if (SelectedAccommodationReservation != null){
                 GuestDataGrid(SelectedAccommodationReservation);
             }
-        }
+        }*/
         private void AreDatesValid(AccommodationReservationDTO accommodationReservationDTO) {
             if (accommodationReservationDTO.EndDate > DateTime.Now){
                 //MessageBox.Show("Guest stay has not finished yet!");
@@ -104,11 +113,12 @@ namespace BookingApp.WPF.ViewModel.Owner
             return guestGradeService.IsGuestGraded(reservationId); 
         }
 
-        public void GradeGuestClick(AccommodationReservationDTO reservation)
+        public void GradeGuest(AccommodationReservationDTO reservation)
         {
             
             GradeGuestWindow gradeGuest = new GradeGuestWindow(reservation);
             gradeGuest.ShowDialog();
+            Update();
         }
 
 

@@ -27,6 +27,21 @@ namespace BookingApp.Services
         {
            return userRepository.GetCurrentGuestUserId();
         }
+
+        public User FindUser(string currentUsername)
+        {
+            return userRepository.GetByUsername(currentUsername);
+        }
+
+        public void UpdateUser(AccommodationDTO accommodation, string currentUsername)
+        {
+            accommodation.OwnerId = FindUser(currentUsername).Id;
+        }
+        public int GetCurrentUserId()
+        {
+            return userRepository.GetCurrentUserId();   
+        }
+
    
     }
 }

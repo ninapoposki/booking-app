@@ -5,26 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d"
-        Background="AliceBlue"
-        Title="GradeGuestWindow" Height="500" Width="800">
+        Background="WhiteSmoke"
+        Title="GradeGuestWindow" Height="600" Width="1000">
     <Window.Resources>
-        <Style TargetType="Window">
-            <Setter Property="Background" Value="LightBlue"/>
-        </Style>
+        
         <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Foreground" Value=" Navy"/>
+            <Setter Property="Foreground" Value=" White"/>
         </Style>
-        <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="Arial"/>
-            <Setter Property="Foreground" Value=" Navy"/>
-        </Style>
+        
         <Style TargetType="Button">
             <Setter Property="Width" Value="60"/>
             <Setter Property="Height" Value="20"/>
-            <Setter Property="Foreground" Value=" Navy"/>
         </Style>
 
+        <Style x:Key="RadioButtonBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#5F9EA0"/>
+            
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}" Value="True">
+                    <Setter Property="BorderBrush" Value="#008B8B"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
     </Window.Resources>
     <Grid >
@@ -41,14 +45,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Prvi red -->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" >
-            <!-- Prva kolona -->
+        
             <StackPanel Grid.Column="0">
-                <!-- Sadržaj prve kolone -->
-                <Label Content="Grade guest" Margin="10 0 10 0" FontWeight="Bold" FontSize="20"/>
-               
-                <Border CornerRadius="15" Margin="50,0,0,0" BorderThickness="2" BorderBrush="PeachPuff" Width="500" Height="100" Background="OldLace" >
+              
+                <Label Content="Grade guest" Margin="10 0 10 0" FontWeight="Bold" FontSize="25"/>
+
+                <Border CornerRadius="15" Margin="200,0,0,0" BorderThickness="2" BorderBrush="#5F9EA0" Width="500" Height="100" Background="#A9A9A9" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical"  Width="200" Margin="50,0,0,0" >
                         <StackPanel Orientation="Horizontal"  >
@@ -62,7 +65,8 @@
                         <StackPanel Orientation="Vertical"   Width="300"  >
                             <TextBlock Text="{Binding SelectedAccommodationReservation.Accommodations.Name}" Width="200" HorizontalAlignment="Center" FontSize="17"/>
                         <StackPanel Orientation="Horizontal" Width="200" HorizontalAlignment="Center" >
-                                <TextBlock Text="&#xE7B7;" FontFamily="Segoe MDL2 Assets" FontSize="15" FontWeight="Bold" Foreground="Red"/>
+
+                                <Image Source=" ..\..\..\Resources\Icons\Owner\icon_location.png" Width="20" Height="20" Stretch="UniformToFill"   />
                                 <TextBlock Text="{Binding SelectedAccommodationReservation.Location.City}" FontSize="15"/>
                                 <TextBlock Text="," FontSize="15"/>
                                 <TextBlock Text="{Binding SelectedAccommodationReservation.Location.Country}" Margin=" 5,0,0,0" FontSize="15"/>
@@ -78,37 +82,50 @@
         </StackPanel>
 
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,10,0" >
-            <Label Content="Fill in these categories and add additional comment:" Margin="10 0 0 0" FontWeight="Bold" FontSize="15"/>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="10,0,10,0" >
+            <Label Content="Fill in these categories and add additional comment:" Margin="10 0 0 0" FontWeight="DemiBold" FontSize="15"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,10,0" >
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="40,10,10,0" >
             <StackPanel Name="Cleanness" Orientation="Horizontal">
-                <Label Content="Cleanness: " Margin="50 0 10 0" FontSize="15"/>
-                <RadioButton Margin="148 5 0 0" Content="1"  GroupName="CleannesGroup" Width="55"  />
-                <RadioButton Margin="10 5 0 0" Content="2" GroupName="CleannesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="CleannesGroup" Width="50"  />
-                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="CleannesGroup" Width="50"  />
-                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="CleannesGroup" Width="50"  />
+                <Label Content="Cleanness: " Margin="55 0 10 0" FontSize="15"/>
+                <RadioButton GroupName="CleannesGroup" Content="1" Width="55" Margin="150 5 0 0" Command="{Binding SetCleannessCommand}" CommandParameter="1" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="2" GroupName="CleannesGroup" Width="50" Command="{Binding SetCleannessCommand}" CommandParameter="2" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="3" GroupName="CleannesGroup" Width="50" Command="{Binding SetCleannessCommand}" CommandParameter="3" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="4" GroupName="CleannesGroup" Width="50" Command="{Binding SetCleannessCommand}" CommandParameter="4" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="5" GroupName="CleannesGroup" Width="50" Command="{Binding SetCleannessCommand}" CommandParameter="5" BorderThickness="2" BorderBrush="#5F9EA0"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,10,0" >
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="40,10,10,0" >
             <StackPanel Name="FollowingTheRules" Orientation="Horizontal" >
                 <Label Content="Following the rules:" Margin="50 0 10 0" FontSize="15"/>
-                <RadioButton Margin="100 5 0 0" Content="1"  GroupName="FollowingRulesGroup" Width="55" />
-                <RadioButton Margin="10 5 0 0" Content="2" GroupName="FollowingRulesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="3"  GroupName="FollowingRulesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="4"  GroupName="FollowingRulesGroup" Width="50" />
-                <RadioButton Margin="10 5 0 0" Content="5"  GroupName="FollowingRulesGroup" Width="50" />
+                <RadioButton GroupName="RulesGroup" Content="1" Width="55" Margin="100 5 0 0" Command="{Binding SetRulesCommand}" CommandParameter="1" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="2" GroupName="RulesGroup" Width="50" Command="{Binding SetRulesCommand}" CommandParameter="2" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="3" GroupName="RulesGroup" Width="50" Command="{Binding SetRulesCommand}" CommandParameter="3" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="4" GroupName="RulesGroup" Width="50" Command="{Binding SetRulesCommand}" CommandParameter="4" BorderThickness="2" BorderBrush="#5F9EA0"/>
+                <RadioButton Margin="10 5 0 0" Content="5" GroupName="RulesGroup" Width="50" Command="{Binding SetRulesCommand}" CommandParameter="5" BorderThickness="2" BorderBrush="#5F9EA0"/>
+
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10,10,0" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="40,10,10,0" Orientation="Horizontal">
             <Label Content="Comment:" Margin="50 0 0 0" VerticalAlignment="Center" FontSize="15"/>
-            <TextBox x:Name="CommentsTextBox" Text="{Binding Comments}" Width="310" Height="50" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0"/>
+            <TextBox  Text="{Binding Comments}" Width="320" Height="50" VerticalScrollBarVisibility="Auto" Margin="150,0,0,0" BorderThickness="2" BorderBrush="#5F9EA0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-            <Button Content="Confirm" Margin="5"  Click="ConfirmButtonClick" Width="80" Height="30" Background="PaleGreen"/>
-            <Button Content="Cancel" Margin="5"  Click="CancelButtonClick" Width="80" Height="30" Background="Tomato"/>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,50,0" HorizontalAlignment="Center">
+            <Button Content="Confirm" Margin="5"  Command="{Binding GradeGuest}" Width="80" Height="30" Background="#F0FFF0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Cancel" Margin="5"  Command="{Binding CloseWindow}" Width="80" Height="30" Background="#FFC0CB">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>
