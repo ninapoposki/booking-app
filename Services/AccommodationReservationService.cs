@@ -62,13 +62,14 @@ namespace BookingApp.Services
         public AccommodationReservation ProcessAlternativeDates(AccommodationReservation reservation, int accommodationId, Guest guest){
            // guest.UserId = userService.GetCurrentUserId();
           //  guestService.Add(guest);
-            reservation.GuestId = guestService.GetCurrentId();
+            reservation.GuestId = guest.Id;
             return reservation;
         }
         public AccommodationReservation ProcessDateRange(AccommodationReservation reservation, int accommodationId, Guest guest){
-           // guest.UserId = userService.GetCurrentUserId();
+            // guest.UserId = userService.GetCurrentUserId();
             //guestService.Add(guest);
-            reservation.GuestId = guestService.GetCurrentId();
+            //reservation.GuestId = guestService.GetCurrentId();
+            reservation.GuestId = guest.Id;
             return reservation; }
         public AccommodationReservationDTO GetOneReservation(AccommodationReservationDTO reservationDTO){
             var accommodation=accommodationService.GetAccommodation(reservationDTO.AccommodationId);
@@ -77,5 +78,20 @@ namespace BookingApp.Services
             accommodationReservationDTO.Images=imageService.GetImagesByAccommodation(accommodation.Id,imageService.GetImagesDTO());
             return accommodationReservationDTO;}
         public void Delete(AccommodationReservation accommodationReservation){  accommodationReservationRepository.Delete(accommodationReservation); }
+
+        //proveri jel mzoe jednostavnije
+        public List<AccommodationReservationDTO> GetOneYearReservations(int guestId){
+            var allReservations = GetAll();
+            var guestReservations=new List<AccommodationReservationDTO>();
+            foreach(var reservation in allReservations)
+            {
+                if(reservation.InitialDate> DateTime.Now.AddYears(-1) && reservation.EndDate < DateTime.Now && guestId==reservation.GuestId)
+                {
+                    guestReservations.Add(reservation);
+                }
+            }
+            return guestReservations;
+        }
+       
     }
 }

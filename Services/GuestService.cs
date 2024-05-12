@@ -50,5 +50,14 @@ namespace BookingApp.Services
             var guestDTO=new GuestDTO(guestRepository.GetByUserId(userId));
             return guestDTO;
         }
+        public void Update(Guest guest)
+        {
+            guestRepository.Update(guest);
+        }
+        public int GetCurrentGuestPoints(int guestId)
+        {
+            return guestRepository.GetCurrentGuestPoints(guestId);
+        }
+        
     }
 }
