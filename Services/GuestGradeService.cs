@@ -30,8 +30,12 @@ namespace BookingApp.Services
         public bool IsGuestGraded(int reservationId) {
              return guestGradeRepository.IsGuestGraded(reservationId);
         } 
-        public List<GuestGrade> GetAll()  {
-            return guestGradeRepository.GetAll();
+      
+        public List<GuestGradeDTO> GetAll()
+        {
+            List<GuestGrade> guestGrades = guestGradeRepository.GetAll();
+            List<GuestGradeDTO> guestGradeDTOs = guestGrades.Select(guestg => new GuestGradeDTO(guestg)).ToList();
+            return guestGradeDTOs;
         }
         public int GetReservationId(AccommodationReservationDTO selectedAccommodationReservation)
         {

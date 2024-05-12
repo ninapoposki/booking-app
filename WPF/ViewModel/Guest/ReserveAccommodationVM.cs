@@ -75,6 +75,7 @@ namespace BookingApp.WPF.ViewModel.Guest
         public void ProcessValidReservation() {
             List<(DateTime, DateTime)> dates = accommodationReservationService.FindDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
             accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.ProcessDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest()));
+            accommodationReservationDTO = accommodationReservationService.GetOneReservation(accommodationReservationDTO);
             AvailableDatesWindow availableDates = new AvailableDatesWindow(navigationService, dates,accommodationReservationDTO);
             navigationService.Navigate(availableDates);
         }
@@ -83,6 +84,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             MessageBox.Show("The requested dates are not available. Here are some alternative options.");
             List<(DateTime, DateTime)> dates = accommodationReservationService.FindAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
             accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.ProcessAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest()));
+            accommodationReservationDTO = accommodationReservationService.GetOneReservation(accommodationReservationDTO);
             AvailableDatesWindow availableDates = new AvailableDatesWindow(navigationService, dates, accommodationReservationDTO);
             navigationService.Navigate(availableDates);
         }

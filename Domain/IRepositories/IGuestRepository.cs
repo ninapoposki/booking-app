@@ -19,6 +19,8 @@ namespace BookingApp.Domain.IRepositories
         Guest GetByUserId(int userId);
         Guest GetById(int id);
         int GetCurrentId();
+        int GetCurrentGuestPoints(int guestId);
+
         void Subscribe(IObserver observer);
 
     }

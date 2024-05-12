@@ -103,7 +103,7 @@
                  <Viewbox Width="20" Height="30">
                      <Image Source="\Resources\Icons\Guest\dot.png" Stretch="Uniform" Margin="0,0,5,0"/>
                  </Viewbox>
-                 <TextBlock Text="guest"/>
+                 <TextBlock Text="{Binding guestDTO.Role}"/>
              </StackPanel>
          </TextBlock>
                 <TextBlock FontSize="16" Margin="50,0,0,0" FontWeight="DemiBold" Foreground="DarkSlateGray">
@@ -111,7 +111,8 @@
                    <Viewbox Width="20" Height="15">
                        <Image Source="\Resources\Icons\Guest\quality.png" Stretch="Uniform" Margin="0,40,0,0"/>
                    </Viewbox>
-                   <TextBlock Text="5 points"/>
+                   <TextBlock Text="{Binding guestDTO.Points}"/>
+                   <TextBlock Text=" points"/>
                </StackPanel>
          </TextBlock>
             </StackPanel>
@@ -192,7 +193,7 @@
                     <TextBlock Text="forums" />
                 </StackPanel>
             </Button>
-            <Button Margin="25,10" Style="{StaticResource CustomButtonStyle}">
+            <Button Margin="25,10" Command="{Binding OwnersRatingsCommand}" Style="{StaticResource CustomButtonStyle}">
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
                         <BeginStoryboard Storyboard="{StaticResource RatingsJumpAnimation}"/>

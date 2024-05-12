@@ -52,6 +52,25 @@ namespace BookingApp.DTO
             get { return userId; }
             set {  if (value != userId){ userId = value; OnPropertyChanged("UserId");} }
         }
+        private string role { get; set; }
+        public string Role
+        {
+            get { return role; }
+            set { if (value != role) { role = value; OnPropertyChanged("Role"); } }
+        }
+        private int points { get; set; }
+        public int Points
+        {
+            get { return points; }
+            set { if (value != points) { points = value; OnPropertyChanged("Points"); } }
+        }
+        private DateTime superGuestTime { get; set; }
+        public DateTime SuperGuestTime
+        {
+            get { return superGuestTime; }
+            set { if (value != superGuestTime) { superGuestTime = value; OnPropertyChanged("SuperGuestTime"); } }
+        }
+
         public GuestDTO() { }
         public GuestDTO(Guest guest){
             Id = guest.Id;
@@ -61,6 +80,9 @@ namespace BookingApp.DTO
             Email = guest.Email;
             User=guest.User; 
             UserId = guest.UserId;
+            Role = guest.Role;
+            Points = guest.Points;
+            SuperGuestTime = guest.SuperGuestTime;
         }
         public Guest ToGuest(){
             var guest = new Guest();
@@ -70,6 +92,9 @@ namespace BookingApp.DTO
             guest.PhoneNumber = this.PhoneNumber;
             guest.Email = this.Email;
             guest.UserId = this.UserId;
+            guest.Role = this.Role;
+            guest.Points = this.Points;
+            guest.SuperGuestTime = this.SuperGuestTime;
             return guest;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null){

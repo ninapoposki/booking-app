@@ -69,6 +69,12 @@ namespace BookingApp.Repository
             int maxId = guests.Count > 0 ? guests.Max(t => t.Id) : 0;
             return maxId;
         }
+        public int GetCurrentGuestPoints(int id)
+        {
+            var guest = guests.FirstOrDefault(g => g.Id == id);
+            return guest.Points;
+
+        }
         public void Subscribe(IObserver observer) {
             subject.Subscribe(observer);
         }

@@ -74,7 +74,9 @@ namespace BookingApp.WPF.ViewModel.Guest
         public MyICommand <AccommodationReservationDTO> ChangeReservationCommand { get; set; }
         public MyICommand <AccommodationReservationDTO> CancelReservationCommand { get; set; }
         public MyICommand <AccommodationReservationDTO> RateReservationCommand { get; set; }
-        public MyReservationsVM(NavigationService navigationService){
+        public GuestDTO currentGuestDTO;
+        public MyReservationsVM(NavigationService navigationService,GuestDTO guestDTO){
+            currentGuestDTO = guestDTO;
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                            Injector.Injector.CreateInstance<IGuestRepository>(),
                            Injector.Injector.CreateInstance<IUserRepository>(),
@@ -151,35 +153,16 @@ namespace BookingApp.WPF.ViewModel.Guest
             if (ShowPastReservations)
             {
                 PastReservations.Clear();
-                var past = AllReservations.Where(r => r.EndDate < DateTime.Now).ToList();
+                var past = AllReservations.Where(r => r.EndDate < DateTime.Now && currentGuestDTO.Id==r.GuestId).ToList();
                 past.ForEach(PastReservations.Add);
             }
             else
             {
                 FutureReservations.Clear();
-                var future = AllReservations.Where(r => r.InitialDate > DateTime.Now).ToList();
+                var future = AllReservations.Where(r => r.InitialDate > DateTime.Now && currentGuestDTO.Id == r.GuestId).ToList();
                 future.ForEach(FutureReservations.Add);
             }
         }
-
-        /*public void AccommodationDataGrid(AccommodationReservationDTO selectedReservation) {
-            int reservationId = accommodationGradeService.GetReservationId(selectedReservation.ToAccommodationReservation());
-            if (!accommodationGradeService.IsReservationGraded(reservationId))
-                AreDatesValid(selectedReservation);
-            else
-                MessageBox.Show("Accommodation is already graded.");
-        }
-        private void AreDatesValid(AccommodationReservationDTO accommodationReservationDTO){
-            if (accommodationReservationDTO.EndDate > DateTime.Now)
-                MessageBox.Show("Your days to stay has not finished yet!");
-            else if (accommodationReservationService.IsOverFiveDays(accommodationReservationDTO.ToAccommodationReservation())){
-                var dialog = new GradeAccommodation(accommodationReservationDTO);
-                dialog.ShowDialog();
-            }
-            else
-                MessageBox.Show("Grading is not possible, it has been more than 5 days.");
-        }
-        public void RateAccommodationClick() => AccommodationDataGrid(SelectedReservation);*/
 
         private void AreDatesValid(AccommodationReservationDTO accommodationReservationDTO)
         {
