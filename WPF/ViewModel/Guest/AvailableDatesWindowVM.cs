@@ -57,7 +57,7 @@ namespace BookingApp.WPF.ViewModel.Guest
 
 
 
-        public AvailableDatesWindowVM(NavigationService navigationService,List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
+        public AvailableDatesWindowVM(NavigationService navigationService, List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                Injector.Injector.CreateInstance<IGuestRepository>(),

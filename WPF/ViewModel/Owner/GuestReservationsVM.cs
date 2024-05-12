@@ -63,6 +63,7 @@ namespace BookingApp.WPF.ViewModel.Owner
                     updatedDTO.Image = new ObservableCollection<ImageDTO>();
                     updatedDTO.Image.Add(new ImageDTO { Path = @"\Resources\Icons\Owner\accommodation_placeholder.jpg" }); 
                 }
+                updatedDTO.Images = updatedDTO.Image.ToList();
                 GuestDataGrid(updatedDTO);
                 if (updatedDTO.Owner.UserId == currentUserId)
                 {

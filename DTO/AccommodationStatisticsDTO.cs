@@ -23,6 +23,19 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private string monthName;
+        public string MonthName
+        {
+            get { return monthName; }
+            set
+            {
+                if (value != monthName)
+                {
+                    monthName = value;
+                    OnPropertyChanged("MonthName");
+                }
+            }
+        }
         private int madeReservations;
         public int MadeReservations
         {
@@ -72,6 +85,19 @@ namespace BookingApp.DTO
                 {
                     recommendedReservations = value;
                     OnPropertyChanged("RecommendedReservations");
+                }
+            }
+        }
+        private int accommId;
+        public int AccomId
+        {
+            get { return accommId; }
+            set
+            {
+                if (value != accommId)
+                {
+                    accommId = value;
+                    OnPropertyChanged("AccomId");
                 }
             }
         }

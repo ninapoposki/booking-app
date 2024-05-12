@@ -153,7 +153,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button  Margin="0,5,0,0" Width="100" HorizontalAlignment="Right" Height="30" FontSize="13" Foreground="white">
+                                <Button  Margin="0,5,0,0" Width="100" HorizontalAlignment="Right" Height="30" FontSize="13" Foreground="white"  Command="{Binding ElementName=ownerAccommodationsPage, Path=DataContext.AccommodationRenovations}" CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="..\..\..\Resources\Icons\Owner\icon_hammer.png" Width="20" Height="20" Stretch="UniformToFill" />
                                         <TextBlock Text="Renovate" Margin="15,0,15,0" />

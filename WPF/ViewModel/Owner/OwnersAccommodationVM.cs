@@ -48,6 +48,7 @@ namespace BookingApp.WPF.ViewModel.Owner
         public MyICommand SearchAccommodation {  get; private set; }
         public MyICommand<AccommodationDTO> AccommodationDetails { get; private set; }
         public MyICommand<AccommodationDTO> AccommodationStatistics {  get; private set; }
+        public MyICommand<AccommodationDTO> AccommodationRenovations {  get; private set; }
         public BindableBase CurrentVM { get; set; }
 
         public OwnersAccommodationVM(NavigationService navigationService, int currentUserId)
@@ -71,6 +72,7 @@ namespace BookingApp.WPF.ViewModel.Owner
             SearchAccommodation = new MyICommand(Search);
             AccommodationDetails = new MyICommand<AccommodationDTO>(OwnersAcommodationDetails);
             AccommodationStatistics = new MyICommand<AccommodationDTO>(GetStatistics);
+            AccommodationRenovations = new MyICommand<AccommodationDTO>(GetRenovations);
         }
         public void DeleteAccommodation()
         {
@@ -168,6 +170,15 @@ namespace BookingApp.WPF.ViewModel.Owner
             AddAccommodation addAccommodationWindow = new AddAccommodation(CurrentUserId);
             addAccommodationWindow.ShowDialog();
             Update();
+        }
+        public void GetRenovations(AccommodationDTO accommodationDTO)
+        {
+            if(SelectedAccommodation != null)
+            {
+                Renovations renovations = new Renovations(accommodationDTO);
+                renovations.ShowDialog();
+
+            }
         }
         
     }

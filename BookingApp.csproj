@@ -49,6 +49,7 @@
 		<None Remove="Resources\Icons\Guest\typewriter.png" />
 		<None Remove="Resources\Icons\Guest\umbrella.png" />
 		<None Remove="Resources\Icons\Guest\user.png" />
+		<None Remove="Resources\Icons\Owner\icon_trophy.png" />
 
 		<None Remove="Resources\Images\add.png" />
 
@@ -268,6 +269,9 @@
 		</Content>
 		<Content Include="Resources\Icons\Owner\icon_statistics.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Icons\Owner\icon_trophy.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\Icons\Owner\istock.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
