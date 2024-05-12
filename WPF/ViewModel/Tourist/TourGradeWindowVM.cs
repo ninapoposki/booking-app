@@ -14,10 +14,8 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookingApp.WPF.ViewModel.Tourist
-{
-    public class TourGradeWindowVM : ViewModelBase
-    {
-        public TourDTO SelectedTour { get; set; }
+{   public class TourGradeWindowVM : ViewModelBase
+    {   public TourDTO SelectedTour { get; set; }
         private TourReservationService tourReservationService;
         public TourReservationDTO selectedTourReservation;
         private readonly LocationService locationService;
@@ -26,7 +24,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private TourGradeService tourGradeService { get; set; }
         private TourService tourService;
         private TourStartDateService tourStartDateService;
-
         public TourGradeDTO tourGradeDTO { get; set; }
         public ObservableCollection<ImageDTO> Images { get; set; }
         public ImageDTO SelectedImage { get; set; }
@@ -58,25 +55,21 @@ namespace BookingApp.WPF.ViewModel.Tourist
             BrowseImageCommand = new MyICommand(BrowseImage);
             ConfirmCommand = new MyICommand(ExecuteConfirmCommand);
         }
-
         public void Confirm(int knowledge, int language, int attractions)
         {
             tourGradeService.Add(MakeTourGrade(knowledge, language, attractions).ToTourGrade());
             Update();
             MessageBox.Show("Ocijenili ste turu.");
         }
-
         private void ExecuteConfirmCommand()
         {
             Confirm(KnowledgeRadio, LanguageRadio, AttractionsRadio);
         }
         private void LoadTourData(int tourStartDateId)
         {
-            var tourStartDate = tourStartDateService.GetTourStartDate(tourStartDateId);
+            TourStartDateDTO tourStartDate = tourStartDateService.GetTourStartDate(tourStartDateId);
             if (tourStartDate != null)
-            {
-                SelectedTour = tourService.GetTour(tourStartDate.TourId);
-
+            {SelectedTour = tourService.GetTour(tourStartDate.TourId);
                 if (SelectedTour != null)
                 {
                     SelectedTour.SelectedDateTime = tourStartDate;
@@ -88,10 +81,7 @@ namespace BookingApp.WPF.ViewModel.Tourist
                     {
                         SelectedTour.Images.Clear();
                         SelectedTour.Images.Add(firstImage);
-                    }
-                }
-            }
-        }
+                    } }}}
         public TourGradeDTO MakeTourGrade(int knowledge, int language, int attractions)
         {
             tourGradeDTO.GuideKnowledge = knowledge;
@@ -101,96 +91,55 @@ namespace BookingApp.WPF.ViewModel.Tourist
             tourGradeDTO.TourReservationId = selectedTourReservation.Id;
             return tourGradeDTO;
         }
-
         private void Update()
         {
             int id = tourGradeService.GetCurrentId();
             foreach (ImageDTO image in Images)
-            {
-                imageService.UpdateForGrade(image, id);
-            }
+            {imageService.UpdateForGrade(image, id);}
         }
 
         private int knowledgeRadio;
         public int KnowledgeRadio
-        {
-            get { return knowledgeRadio; }
-            set
-            {
+        { get { return knowledgeRadio; }
+            set{
                 if (knowledgeRadio != value)
-                {
-                    knowledgeRadio = value;
-                    OnPropertyChanged("KnowledgeRadio");
-                }
-            }
+                {knowledgeRadio = value;
+                    OnPropertyChanged("KnowledgeRadio");}}
         }
-
-        private int languageRadio;
+         private int languageRadio;
         public int LanguageRadio
-        {
-            get { return languageRadio; }
-            set
-            {
+        {   get { return languageRadio; }
+            set{
                 if (languageRadio != value)
                 {
                     languageRadio = value;
-                    OnPropertyChanged("LanguageRadio");
-                }
-            }
-        }
+                    OnPropertyChanged("LanguageRadio");}} }
 
         private int attractionsRadio;
         public int AttractionsRadio
-        {
-            get { return attractionsRadio; }
-            set
-            {
-                if (attractionsRadio != value)
-                {
+        {get { return attractionsRadio; }
+            set{if (attractionsRadio != value){
                     attractionsRadio = value;
-                    OnPropertyChanged("AttractionsRadio");
-                }
-            }
+                    OnPropertyChanged("AttractionsRadio"); }}
         }
-
-
         private string comment;
-        public string Comment
-        {
-            get { return comment; }
-            set
-            {
-                if (comment != value)
-                {
-                    comment = value;
-                    OnPropertyChanged("Comment");
-                }
-            }
-        }
-
         public void BrowseImage()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+        {   OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = imageService.FilterImages();
             openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Resources\Images"));
             if (openFileDialog.ShowDialog() == true) { AddImage(openFileDialog.FileName); }
         }
-
         private void AddImage(string absolutePath)
-        {
-            string relativePath = MakeRelativePath(absolutePath);
+        {   string relativePath = MakeRelativePath(absolutePath);
             Images.Add(imageService.GetByPath(relativePath));
         }
         private string MakeRelativePath(string absolutPath)
-        {
-            string referencePath = "../../../Resources/Images/";
+        {   string referencePath = "../../../Resources/Images/";
             string[] pathPieces = absolutPath.Split('\\');
             string relativePath = referencePath + pathPieces[pathPieces.Length - 1];
             return relativePath;
         }
         public void RemoveImage(ImageDTO image)
-        {
-            Images.Remove(image);
-        }
+        {Images.Remove(image);}
     }
  }

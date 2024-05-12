@@ -8,6 +8,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Services
 {
@@ -22,6 +23,12 @@ namespace BookingApp.Services
         public List<TourGuest> GetAll()
         {
            return tourGuestRepository.GetAll();
+        }
+        public void MarkGuestAsArrived(TourGuestDTO tourGuestDTO)
+        {
+            TourGuest tourGuest = tourGuestDTO.ToTourGuest();
+            tourGuest.HasArrived = true;
+            tourGuestRepository.Update(tourGuest);
         }
         public List<TourGuestDTO> GetGuests(TourReservation reservation)
         {
@@ -45,12 +52,7 @@ namespace BookingApp.Services
             TourGuest newGuest = new TourGuest(fullName, age, reservationId, gender);   
             tourGuestRepository.Add(newGuest);
         }
-        public void MarkGuestAsArrived(TourGuestDTO tourGuestDTO)
-        {
-            TourGuest tourGuest = tourGuestDTO.ToTourGuest();
-            tourGuest.HasArrived = true;
-            tourGuestRepository.Update(tourGuest);
-        }
+    
         public void AddGuestRequest(string fullName, int age,int tourRequestId, Gender gender)
         {
             

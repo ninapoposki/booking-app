@@ -72,20 +72,6 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 }
             }
         }
-
-        /*public void RateTour(TourDTO tour)
-        {
-            if(tour==null )
-            {
-                MessageBox.Show("Niste selektovali turu");
-            }
-            if (tourReservationService.CheckIfReserved(tour.SelectedDateTime.Id))
-            {
-                TourGradeWindow tourGradeWindow = new TourGradeWindow(tour.SelectedDateTime.Id);
-                tourGradeWindow.Show();
-            }
-        }*/
-
         public void RateTour(TourDTO tour)
         {
             if (tour == null)
@@ -93,15 +79,11 @@ namespace BookingApp.WPF.ViewModel.Tourist
                 MessageBox.Show("Niste selektovali turu");
                 return;
             }
-
-            // Proveravamo da li je tura već ocenjena
             if (tourGradeService.IsTourRated(tour.SelectedDateTime.Id))
             {
                 MessageBox.Show("Ova tura je već ocenjena.");
                 return;
             }
-
-            // Ako tura nije ocenjena, omogućavamo ocenjivanje
             TourGradeWindow tourGradeWindow = new TourGradeWindow(tour.SelectedDateTime.Id);
             tourGradeWindow.Show();
         }

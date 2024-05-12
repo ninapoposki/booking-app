@@ -23,7 +23,6 @@ namespace BookingApp.Domain.Model
         public DateOnly EndDate { get; set;}
         public DateTime ChoosenDate { get; set; }
         public bool IsNotified {  get; set; }
-        public string Name { get; set; }    
 
         public TourRequest() { }
 
