@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="BookingApp.WPF.View.Guide.TourRequestStatisticsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="960">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia code"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
+        </Style>
+        <Style x:Key="IconImageStyle" TargetType="Image">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style x:Key="RectangleButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            CornerRadius="10" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="LightSteelBlue">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Tour request statistics" Padding="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Gray" Grid.Column="0" BorderThickness="1" CornerRadius="5" Grid.Row="1" Margin="10" Background="LightSteelBlue" Height="400">
+                <Grid  Background="LightSteelBlue" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0 0 0 2">
+                        <TextBlock Text="Filter by location or language" Padding="5" TextAlignment="Center"></TextBlock>
+                    </Border>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="15" HorizontalAlignment="Center">
+                        <Image Source="\Resources\Icons\Guide\language.png" Width="20"></Image>
+                        <TextBlock  Text="Language" VerticalAlignment="Center"/>
+                        <ComboBox  Height="30" Width="120" Margin="10" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" IsEnabled="{Binding IsLocationComboBoxEnabled}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15" HorizontalAlignment="Center">
+                        <Image Source="\Resources\Icons\Guide\map.png" Width="20"></Image>
+                        <TextBlock  Text="Location" VerticalAlignment="Center"/>
+                        <ComboBox  Height="30" Width="120" Margin="10" ItemsSource="{Binding LocationComboBox}" SelectedItem="{Binding SelectedLocation}" IsEnabled="{Binding IsLanguageComboBoxEnabled}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding City}"/>
+                                        <TextBlock Text=","></TextBlock>
+                                        <TextBlock Text="{Binding Country}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <Button  Grid.Row="3" Height="40" Width="150" Command="{Binding FilterCommand}" Style="{StaticResource RectangleButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="\Resources\Icons\Guide\loupe.png" Style="{StaticResource IconImageStyle}"/>
+                            <TextBlock Text="Filter" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Orientation="Vertical" Margin="10">
+                    <TextBlock TextAlignment="Center" Padding="10">Choose a year</TextBlock>
+                    <ComboBox  Width="150" Height="30" ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}"></ComboBox>
+                    <lvc:CartesianChart Margin="0 20 0 0" Height="200" Background="LightSteelBlue" DisableAnimations="True" Width="Auto">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Meseci" Labels="{Binding Months}" FontSize="10" FontWeight="Bold" Foreground="DarkSlateGray" LabelsRotation="45">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Broj zahteva" MinValue="0" FontSize="12" FontWeight="Bold" Foreground="DarkSlateGray">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.Series>
+                            <lvc:ColumnSeries Values="{Binding ChartSeries[0].Values}" DataLabels="True" Title="Zahtevi" FontSize="11" FontWeight="Bold" Foreground="Black">
+                                <lvc:ColumnSeries.Fill>
+                                    <SolidColorBrush Color="CadetBlue"/>
+                                </lvc:ColumnSeries.Fill>
+                            </lvc:ColumnSeries>
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </StackPanel>
+            </Grid>
+            <Border BorderBrush="Gray" Grid.Column="2" BorderThickness="1" CornerRadius="5" Grid.Row="1" Margin="10" Background="LightSteelBlue" Height="400">
+               
+                <Grid Grid.Column="2" Background="LightSteelBlue" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0 0 0 2">
+                    <TextBlock Text="All time statistics" Padding="5" TextAlignment="Center"></TextBlock>
+                </Border>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding StatisticsPerYear}" Width="200" AutoGenerateColumns="False"  Margin="10">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
+                                <Setter Property="Padding" Value="10"></Setter>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Godina" Binding="{Binding Key}" />
+                            <DataGridTextColumn Header="Broj zahteva" Binding="{Binding Value}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

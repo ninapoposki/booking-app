@@ -89,12 +89,10 @@ namespace BookingApp.WPF.ViewModel.Tourist
             timer.Tick += TimerTick;
             timer.Start();
         }
-
         private void TimerTick(object sender, EventArgs e)
         {
             ExpirePendingRequests();
         }
-
         private void ExpirePendingRequests()
         {
             var currentDate = DateTime.Now;
