@@ -73,10 +73,12 @@ namespace BookingApp.WPF.ViewModel.Tourist
             foreach (TourRequestDTO request in sortedRequests)
             {AcceptedTourRequests.Add(request);}}
         private void LoadAcceptedTourRequests()
+
         {   AcceptedTourRequests.Clear();
             var acceptedTourRequestDTOs = tourRequestService.GetAllAcceptedTourRequests();
             foreach (TourRequestDTO dto in acceptedTourRequestDTOs)
             {AcceptedTourRequests.Add(dto);} }
+
         private void ExpirePendingRequests()
         {   DateTime currentDate = DateTime.Now;
             foreach (TourRequestDTO dto in TourRequests) {

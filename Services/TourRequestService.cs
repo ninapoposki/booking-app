@@ -25,8 +25,6 @@ namespace BookingApp.Services
         {
             return tourRequestRepository.GetAll();
         }
-
-
         public TourRequest Update(TourRequest request)
         {
             return tourRequestRepository.Update(request);
@@ -35,7 +33,6 @@ namespace BookingApp.Services
         {
            return tourRequestRepository.Add(tourRequest);
         }
-
         public List<TourRequestDTO> GetAllUnaccepted()
         {
             List<TourRequestDTO> tourRequests = new List<TourRequestDTO>();
@@ -83,6 +80,21 @@ namespace BookingApp.Services
                 requestDTO.Add(new TourRequestDTO(request, location, language));
             }
             return requestDTO;
+        }
+        public IEnumerable<TourRequest> FilterRequests(int id, string type)
+        {
+            return tourRequestRepository.GetAll().Where(tourRequest =>
+                (type == "language" && tourRequest.LanguageId == id) ||
+                (type == "location" && tourRequest.LocationId == id));
+        }
+        internal int GetStatisticsPerYear(int id, string type, int year)
+        {
+            return FilterRequests(id, type).Where(tourRequest => tourRequest.CreationDate.Year == year).Count();
+        }
+        internal int GetStatisticsPerMonth(int id, string type, int year, int monthIndex)
+        {
+            return FilterRequests(id, type).Where(tourRequest => tourRequest.CreationDate.Year == year && tourRequest.CreationDate.Month == monthIndex).Count();
+
         }
     }
 }

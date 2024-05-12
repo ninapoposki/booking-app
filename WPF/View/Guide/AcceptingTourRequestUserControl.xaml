@@ -107,13 +107,13 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Text="{Binding TourRequest.ChoosenDate,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:dd/MM/yyyy HH:mm}}" Height="25" Width="120" Background="LightSteelBlue">
-                     <i:Interaction.Triggers>
+                <TextBox x:Name="TextBoxDate" Text="{Binding TourRequest.ChoosenDate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Height="25" Width="150" Background="LightSteelBlue" IsReadOnly="True">
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
-                          <i:InvokeCommandAction Command="{Binding ChoosenDateTextChangedCommand}" />
+                            <i:InvokeCommandAction Command="{Binding ChoosenDateTextChangedCommand}" CommandParameter="{Binding ElementName=TextBoxDate}" />
                         </i:EventTrigger>
-                     </i:Interaction.Triggers>
-                </TextBlock>
+                    </i:Interaction.Triggers>
+                </TextBox>
                 <Button  Height="30" Width="80" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="2" Margin="5" Cursor="Hand" Command="{Binding DeleteDateCommand}">
                     <Button.Template>
                         <ControlTemplate>
