@@ -39,6 +39,10 @@ namespace BookingApp.Services
         {
             accommodation.OwnerId = FindUser(currentUsername).Id;
         }
+        public int GetCurrentUserId()
+        {
+            return userRepository.GetCurrentUserId();   
+        }
    
     }
 }

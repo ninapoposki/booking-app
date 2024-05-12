@@ -1,37 +1,20 @@
 ﻿using BookingApp.WPF.ViewModel.Guest;
 using System.Windows;
+using System.Windows.Navigation;
+using System.Windows.Controls;
+using BookingApp.DTO;
 
 namespace BookingApp.WPF.View.Guest
 {
-    public partial class MyReservationsWindow : Window
+    public partial class MyReservationsWindow : Page
     {
         public MyReservationsVM MyReservationsVM { get; set; }
 
-        public MyReservationsWindow()
+        public MyReservationsWindow(NavigationService navigationService,GuestDTO guestDTO)
         {
             InitializeComponent();
-            MyReservationsVM = new MyReservationsVM();
+            MyReservationsVM = new MyReservationsVM(navigationService,guestDTO);
             DataContext = MyReservationsVM;
-        }
-
-        private void RateAccommodationClick(object sender, RoutedEventArgs e)
-        {
-            MyReservationsVM.RateAccommodationClick();
-        }
-
-        private void ChangeReservationClick(object sender, RoutedEventArgs e)
-        {
-            MyReservationsVM.ChangeReservationClick();
-        }
-
-        private void CancelReservationClick(object sender, RoutedEventArgs e)
-        {
-            MyReservationsVM.CancelReservationClick();
-        }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

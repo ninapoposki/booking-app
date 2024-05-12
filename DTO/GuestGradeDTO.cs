@@ -65,6 +65,7 @@ namespace BookingApp.DTO
                    }
             }
         }
+        public AccommodationReservationDTO AccommodationReservation { get; set; }
         public GuestGradeDTO(){  }
         public GuestGradeDTO(GuestGrade guestGrade){
             this.Id = guestGrade.Id;

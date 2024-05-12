@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 using BookingApp.Domain.IRepositories;
 using BookingApp.DTO;
 using BookingApp.Services;
+using BookingApp.Utilities;
+
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
@@ -19,6 +22,7 @@ namespace BookingApp.WPF.ViewModel.Guest
             {
                 dates = value;
                 OnPropertyChanged();
+
             }
         }
 
@@ -30,6 +34,8 @@ namespace BookingApp.WPF.ViewModel.Guest
             {
                 _selectedDate = value;
                 OnPropertyChanged();
+                BookCommand.RaiseCanExecuteChanged();
+
             }
         }
 
@@ -45,10 +51,14 @@ namespace BookingApp.WPF.ViewModel.Guest
         }
 
         private readonly AccommodationReservationService accommodationReservationService;
+        private readonly GuestService guestService;
+        public NavigationService navigationService { get; set; }
         public event EventHandler RequestClose;
+        public MyICommand <Range> BookCommand { get; set; }
 
 
-        public AvailableDatesWindowVM(List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
+
+        public AvailableDatesWindowVM(NavigationService navigationService, List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                Injector.Injector.CreateInstance<IGuestRepository>(),
@@ -57,30 +67,42 @@ namespace BookingApp.WPF.ViewModel.Guest
                Injector.Injector.CreateInstance<IImageRepository>(),
                Injector.Injector.CreateInstance<ILocationRepository>(),
                Injector.Injector.CreateInstance<IOwnerRepository>());
+            guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>());
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { InitialDate = r.Item1, EndDate = r.Item2 }).ToList());
             SelectedReservation = accommodationReservation;
+            this.navigationService = navigationService;
+            BookCommand = new MyICommand <Range> (OnBookAccommodation);
         }
-
-        public void BookAccommodationClick()
+        public void OnBookAccommodation(Range selectedDate)
         {
-            if (selectedDate != null)
-            {
-                SelectedReservation.InitialDate = selectedDate.InitialDate; 
-                SelectedReservation.EndDate = selectedDate.EndDate;
+            SelectedReservation.InitialDate = selectedDate.InitialDate;
+            SelectedReservation.EndDate = selectedDate.EndDate;
 
-                accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation()); 
-                
-                MessageBox.Show("Reservation added successfully");
-                RequestClose?.Invoke(this, EventArgs.Empty);
-
-            }
-            else
+            accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation());
+         /*   if (SelectedReservation.Guest.Role == "SUPERGUEST")
             {
-                MessageBox.Show("Please select a date before booking.");
+                SelectedReservation.Guest.Points -= 1;
+                if (SelectedReservation.Guest.Points == 0)
+                {
+                    SelectedReservation.Guest.Role = "GUEST";
+                }
+                guestService.Update(SelectedReservation.Guest.ToGuest());
+            }*/
+            if(SelectedReservation.Guest.Role=="SUPERGUEST" && SelectedReservation.Guest.Points > 0)
+            {
+                SelectedReservation.Guest.Points -= 1;
             }
+            /*if(SlectedReservation.Guest.Role=="GUEST" && accommodationReservation.GetResForOneYear>=10){
+             *  SelectedRes.Guest.Role="SUPERGUEST";
+             *  SelectedRes.Guest.Points=5;
+             * SelectedRes.Guest.SuperGuestSince=DateTime.Now() -ili ce se ovo samo apdejtovati
+             * }
+             * 
+             */
+            guestService.Update(SelectedReservation.Guest.ToGuest());
+            MessageBox.Show("Reservation added successfully");
+            navigationService.GoBack();
         }
-
-
         public class Range
         {
             public DateTime InitialDate { get; set; }

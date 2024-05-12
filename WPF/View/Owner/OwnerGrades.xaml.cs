@@ -17,6 +17,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Owner
@@ -24,23 +25,17 @@ namespace BookingApp.WPF.View.Owner
     /// <summary>
     /// Interaction logic for OwnerGrades.xaml
     /// </summary>
-    public partial class OwnerGrades : Window
+    public partial class OwnerGrades : Page
     {
         public OwnerGradesVM OwnerGradesVM;
        
-        public OwnerGrades(int loggedInUserId)
+        public OwnerGrades(NavigationService navigation, int loggedInUserId)
         {
             InitializeComponent();
-            OwnerGradesVM = new OwnerGradesVM(loggedInUserId);
+            OwnerGradesVM = new OwnerGradesVM( navigation, loggedInUserId);
             DataContext = OwnerGradesVM;
             
         }
-
-        private void GradeDetailsClick(object sender, RoutedEventArgs e)
-        {
-            OwnerGradesVM.GradeDetailsClick();
-        }
-
        
     }
 }

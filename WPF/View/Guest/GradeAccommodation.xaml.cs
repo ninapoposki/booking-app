@@ -19,58 +19,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Guest
 {
     /// <summary>
     /// Interaction logic for GradeAccommodation.xaml
     /// </summary>
-    public partial class GradeAccommodation : Window
+    public partial class GradeAccommodation : Page
     {
         public GradeAccommodationVM GradeAccommodationVM { get; set; }
-        public GradeAccommodation(AccommodationReservationDTO accommodationReservationDTO)
+        public GradeAccommodation(NavigationService navigationService,AccommodationReservationDTO accommodationReservationDTO)
         {
             InitializeComponent();
-            GradeAccommodationVM = new GradeAccommodationVM(accommodationReservationDTO);
+            GradeAccommodationVM = new GradeAccommodationVM(navigationService,accommodationReservationDTO);
             DataContext = GradeAccommodationVM;
         }
-
-        private int GetSelectedRadioButtonValue(StackPanel panel)
-        {
-
-            foreach (var radioButton in panel.Children)
-            {
-                if (radioButton is RadioButton && ((RadioButton)radioButton).IsChecked == true)
-                {
-                    return int.Parse(((RadioButton)radioButton).Content.ToString());
-                }
-            }
-            return 0;
-        }
-
-
-        private void ConfirmButtonClick(object sender, RoutedEventArgs e)
-        {
-            int cleanness = GetSelectedRadioButtonValue(Cleanliness);
-            int followingRules = GetSelectedRadioButtonValue(Correctness);
-            string comment = CommentsTextBox.Text;
-            GradeAccommodationVM.ConfirmButtonClick(cleanness, followingRules);
-            MessageBox.Show("You graded reservation successfully!");
-            Close();
-        }
-        private void BrowseImageClick(object sender, RoutedEventArgs e)
-        {
-            GradeAccommodationVM.BrowseImageClick();
-        }
-        private void RemoveImageClick(object sender, RoutedEventArgs e)
-        {
-            GradeAccommodationVM.RemoveImageClick();
-        }
-
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
     }
 }

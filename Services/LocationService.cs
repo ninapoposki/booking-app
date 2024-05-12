@@ -26,7 +26,7 @@ namespace BookingApp.Services
             foreach (Location location in locationRepository.GetAll()) locations.Add(new LocationDTO(location));
         }
 
-        public List<Location> GetAllLocations() { 
+        public List<Location> GetAllLocations() {
             return locationRepository.GetAll();
         }
         public string GetCountry(LocationDTO city)
@@ -41,12 +41,21 @@ namespace BookingApp.Services
             return null;
         }
         public HashSet<string> GetAllCountries() {
-            return locationRepository.GetAllCountries();    
+            return locationRepository.GetAllCountries();
         }
 
         public List<string> GetAllCities(String country)
         {
             return locationRepository.GetAllCities(country);
+        }
+
+        public List<string> GetAutocompleteCity(String start)
+        {
+            return locationRepository.GetAutocompleteCity(start);
+        }
+        public List<string> GetAutocompleteCountry(String start)
+        {
+            return locationRepository.GetAutocompleteCountry(start);
         }
         
         public int GetLocationId(string city, string country)
@@ -63,6 +72,10 @@ namespace BookingApp.Services
         public Location GetById(int id)
         {
             return locationRepository.GetById(id);
+        }
+        public HashSet<string> GetCities()
+        {
+            return locationRepository.GetCities();
         }
 
     }

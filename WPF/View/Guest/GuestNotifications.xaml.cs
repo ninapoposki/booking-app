@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Guest
@@ -18,19 +19,15 @@ namespace BookingApp.WPF.View.Guest
     /// <summary>
     /// Interaction logic for GuestNotifications.xaml
     /// </summary>
-    public partial class GuestNotifications : Window
+    public partial class GuestNotifications : Page
     {
         public GuestNotificationsVM GuestNotificationsVM { get; set; }
 
-        public GuestNotifications()
+        public GuestNotifications(NavigationService navigationService)
         {
             InitializeComponent();
-            GuestNotificationsVM = new GuestNotificationsVM();
+            GuestNotificationsVM = new GuestNotificationsVM(navigationService);
             DataContext = GuestNotificationsVM;
-        }
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

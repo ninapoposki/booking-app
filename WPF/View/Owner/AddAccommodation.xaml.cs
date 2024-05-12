@@ -21,7 +21,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
-using BookingApp.WPF.ViewModel.Owner;
 using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.WPF.View.Owner
@@ -41,37 +40,13 @@ namespace BookingApp.WPF.View.Owner
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Cancelling adding accommodation");
-             this.DialogResult = false;
-             this.Close();
-        }
-        private void BrowseImageClick(object sender, RoutedEventArgs e)
-        {
-            AddAccommodationVM.BrowseImageClick();
-        }
-
-        private void AddAccommodationButtonClick(object sender, RoutedEventArgs e)
-        {
-            AddAccommodationVM.AddAccommodationButtonClick();
-            Close();
-        }
-        private void CountryChanged(object sender, SelectionChangedEventArgs e)
-        {
-           AddAccommodationVM.CountryChanged();
-        }
-
-        private void CityChanged(object sender, SelectionChangedEventArgs e)
-        {
-            AddAccommodationVM.SelectedCity = (string)cityComboBox.SelectedItem;
-        }
-        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+      
+       /* private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
             if (MaxUpDown.Value == 0) { MaxUpDown.Value = 1; e.Handled = true; }
             if (MinUpDown.Value == 0) { MinUpDown.Value = 1; e.Handled = true; }
-        }
+        }*/
     }
     
 }

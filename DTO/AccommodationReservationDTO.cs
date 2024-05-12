@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -20,6 +21,7 @@ namespace BookingApp.DTO
             get{ return accommodation;}
             set{  if (value != accommodation){accommodation=value; OnPropertyChanged("Accommodation"); } }
         }*/
+       public List<ImageDTO>  Images { get; set; }
        public AccommodationDTO Accommodation { get; set; }
         //proveri za ovo i OwnerDTO
         private int accommodationId; 
@@ -34,6 +36,7 @@ namespace BookingApp.DTO
         }
         public GuestDTO Guest { get; set; }
         public Accommodation Accommodations{ get; set; }
+
         public Owner Owner { get; set; } 
         public ObservableCollection<ImageDTO> Image { get; set; } 
         public string Message { get; set; }

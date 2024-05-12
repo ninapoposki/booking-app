@@ -27,21 +27,16 @@ namespace BookingApp.WPF.View.Owner
     {
         public NotificationsVM NotificationsVM { get; set; }
         
-        public Notifications()
+        public Notifications( int loggedInUserId)
         {
             InitializeComponent();
-            NotificationsVM = new NotificationsVM();
+            NotificationsVM = new NotificationsVM(loggedInUserId);
             DataContext = NotificationsVM;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
         }
 
-        
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
+       
     }
 }
 
