@@ -88,11 +88,11 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Name="RenovationRecommendation" Orientation="Horizontal">
                         <Label Content="Renovation recommendation: " FontWeight="DemiBold" Foreground="DarkCyan" Margin="10 0 10 0" FontSize="15"/>
-                        <RadioButton GroupName="RenovationRecommendationGroup" Content="1" Width="55" Margin="13 10 0 0"/>
-                        <RadioButton Margin="10 10 0 0" Content="2" GroupName="RenovationRecommendationGroup" Width="50"/>
-                        <RadioButton Margin="10 10 0 0" Content="3" GroupName="RenovationRecommendationGroup" Width="50"/>
-                        <RadioButton Margin="10 10 0 0" Content="4" GroupName="RenovationRecommendationGroup" Width="50"/>
-                        <RadioButton Margin="10 10 0 0" Content="5" GroupName="RenovationRecommendationGroup" Width="50"/>
+                        <RadioButton GroupName="RenovationRecommendationGroup" Content="1" Width="55" Margin="13 10 0 0"  Command="{Binding SetRecommendationCommand}" CommandParameter="1"/>
+                        <RadioButton Margin="10 10 0 0" Content="2" GroupName="RenovationRecommendationGroup" Width="50"  Command="{Binding SetRecommendationCommand}" CommandParameter="2"/>
+                        <RadioButton Margin="10 10 0 0" Content="3" GroupName="RenovationRecommendationGroup" Width="50"  Command="{Binding SetRecommendationCommand}" CommandParameter="3"/>
+                        <RadioButton Margin="10 10 0 0" Content="4" GroupName="RenovationRecommendationGroup" Width="50"  Command="{Binding SetRecommendationCommand}" CommandParameter="4"/>
+                        <RadioButton Margin="10 10 0 0" Content="5" GroupName="RenovationRecommendationGroup" Width="50"  Command="{Binding SetRecommendationCommand}" CommandParameter="5"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -141,8 +141,10 @@
 
             <StackPanel Orientation="Vertical" Grid.Column="0" Margin="14,0,20,0">
                 <Label Content="Additional Information:" Margin="2,0,0,0" Foreground="DarkCyan" FontWeight="DemiBold"/>
-                <TextBox Height="80" Width="650" Margin="0,5,0,0" Background="LightGray"  BorderBrush="DarkCyan" BorderThickness="2"/>
+                <TextBox  x:Name="RecommendationTextBox"  Height="80" Width="650" Margin="0,5,0,0" Background="LightGray"  BorderBrush="DarkCyan" BorderThickness="2"
+                          Text="{Binding RecommendationComment}" VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
+           
 
             <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Right" Margin="5,40,0,0">
                 <Button Command="{Binding SubmitCommand}" Margin="5,0" FontWeight="DemiBold"

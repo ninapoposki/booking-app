@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO
 {
-    class RenovationRecommendationDTO: INotifyPropertyChanged
+    public class RenovationRecommendationDTO: INotifyPropertyChanged
     {
         public int Id { get; set; }
         private int reservationId;
@@ -22,6 +22,19 @@ namespace BookingApp.DTO
                 {
                     reservationId = value;
                     OnPropertyChanged("ReservationId");
+                }
+            }
+        }
+        private int ownerId;
+        public int OwnerId
+        {
+            get { return ownerId; }
+            set
+            {
+                if (value != ownerId)
+                {
+                    ownerId = value;
+                    OnPropertyChanged("OwnerId");
                 }
             }
         }
@@ -38,7 +51,7 @@ namespace BookingApp.DTO
                 }
             }
         }
-        private string recommendationComment = "";
+        private string recommendationComment;
         public string RecommendationComment
         {
             get { return recommendationComment; }
@@ -51,12 +64,15 @@ namespace BookingApp.DTO
                 }
             }
         }
+        //mislimd a i ovo dvoje ne treba
+        public OwnerDTO Owner { get; set; }
         public AccommodationReservationDTO AccommodationReservation { get; set; }
         public RenovationRecommendationDTO() { }
         public RenovationRecommendationDTO(RenovationRecommendation renovationRecommendation)
         {
             this.Id = renovationRecommendation.Id;
             this.ReservationId = renovationRecommendation.ReservationId;
+            this.OwnerId = renovationRecommendation.OwnerId;
             this.RecommendationLevel = renovationRecommendation.RecommendationLevel;
             this.RecommendationComment = renovationRecommendation.RecommendationComment;
         }
@@ -65,6 +81,7 @@ namespace BookingApp.DTO
             var renovationRecommendation = new RenovationRecommendation();
             renovationRecommendation.Id = this.Id;
             renovationRecommendation.ReservationId = this.ReservationId;
+            renovationRecommendation.OwnerId = this.OwnerId;
             renovationRecommendation.RecommendationLevel = this.RecommendationLevel;
             renovationRecommendation.RecommendationComment = this.RecommendationComment;
             return renovationRecommendation;

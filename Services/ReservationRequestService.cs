@@ -46,6 +46,7 @@ namespace BookingApp.Services
                 NewInitialDate = initialDate,
                 NewEndDate = endDate,
                 RequestStatus=RequestStatus.ONHOLD,
+                Comment="Still no answer!"
             };
             reservationRequestRepository.Add(reservationRequest);
 
