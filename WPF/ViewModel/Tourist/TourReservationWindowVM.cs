@@ -3,6 +3,7 @@ using BookingApp.Domain.Model;
 using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.Utilities;
 using BookingApp.WPF.View.Tourist;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,66 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.ViewModel.Tourist
 {
     public class TourReservationWindowVM:ViewModelBase
     {
-
-        public TourReservationDTO TourReservationDTO { get; set; }
         private TourDTO selectedTour;
-        private List<Tuple<string, int>> temporaryGuests = new List<Tuple<string, int>>();
+        public TourDTO SelectedTour
+        { get => selectedTour;
+            set{ if (selectedTour != value){
+                    selectedTour = value;
+                    OnPropertyChanged(nameof(SelectedTour));}}}
+        private TourGuest _currentGuest;
+        public TourGuest CurrentGuest
+        {
+            get => _currentGuest;
+            set
+            {
+                if (_currentGuest != value)
+                {
+                    _currentGuest = value;
+                    OnPropertyChanged(nameof(CurrentGuest));
+                }
+            }
+        }
+        public string SelectedGender
+        {
+            get => CurrentGuest?.Gender.ToString();
+            set
+            {
+                if (CurrentGuest != null && Enum.TryParse<Gender>(value, out var newGender))
+                {
+                    CurrentGuest.Gender = newGender;
+                    OnPropertyChanged(nameof(SelectedGender));
+                    ConfirmTourReservationCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+        private ObservableCollection<Tuple<string, int>> TemporaryGuests = new ObservableCollection<Tuple<string, int>>();
+        public ObservableCollection<Tuple<string, int>> temporaryGuests 
+    
+        {
+            get { return TemporaryGuests; }
+            set
+            {
+                if (TemporaryGuests != value)
+                {
+                    TemporaryGuests = value;
+                    OnPropertyChanged(nameof(temporaryGuests));
+                }
+            }
+        }
         private readonly TourGuestService tourGuestService;
         private readonly TourService tourService;
+        private readonly ImageService imageService;
         private readonly TourReservationService tourReservationService;
-        private readonly TourStartDateService tourStartDateService;
+ 
         private readonly UserService userService;
         private readonly VoucherService voucherService;
         private string username;
@@ -34,27 +80,46 @@ namespace BookingApp.WPF.ViewModel.Tourist
         private int maxGuests;
         private VoucherDTO selectedVoucher;
         public ObservableCollection<VoucherDTO> AllVouchers { get; set; }
-        
+        public ObservableCollection<string> Genders { get; set; }
+        public MyICommand ConfirmTourReservationCommand { get; set; }
         public VoucherDTO SelectedVoucher
+        {get => selectedVoucher;
+            set
+            {selectedVoucher = value;
+               OnPropertyChanged(nameof(SelectedVoucher));
+                ConfirmTourReservationCommand.RaiseCanExecuteChanged();
+            } }
+        private int currentIndex = 0;
+        private ObservableCollection<ImageDTO> images;
+        private ImageDTO _currentImage;
+        public ImageDTO CurrentImage
         {
-            get => selectedVoucher;
+            get => _currentImage;
             set
             {
-                selectedVoucher = value;
-                OnPropertyChanged(nameof(SelectedVoucher));
+                if (_currentImage != value)
+                {
+                    _currentImage = value;
+                    OnPropertyChanged(nameof(CurrentImage));
+
+                }
             }
         }
+        public MyICommand MoveNextCommand { get; set; }
+        public MyICommand MovePreviousCommand { get; set; }
+        public MyICommand<Tuple<string, int>> RemoveGuestCommand { get; set; }
         public TourReservationWindowVM(TourDTO selectedTour,string username)
         {
             this.username = username;
+            
             tourService = new TourService(Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
-            tourStartDateService = new TourStartDateService(Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(), Injector.Injector.CreateInstance<ILanguageRepository>(), Injector.Injector.CreateInstance<ILocationRepository>());
             tourReservationService = new TourReservationService(Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
                 Injector.Injector.CreateInstance<IUserRepository>(), Injector.Injector.CreateInstance<ITourStartDateRepository>(), Injector.Injector.CreateInstance<ITourRepository>(),
                 Injector.Injector.CreateInstance<ILanguageRepository>(),
                 Injector.Injector.CreateInstance<ILocationRepository>());
-            this.selectedTour= selectedTour;
+           
             tourGuestService = new TourGuestService(Injector.Injector.CreateInstance<ITourGuestRepository>());
+            imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());
             Reservations = new ObservableCollection<TourReservationDTO>();
             userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             voucherService = new VoucherService(Injector.Injector.CreateInstance<IVoucherRepository>(), Injector.Injector.CreateInstance<ITourReservationRepository>(), Injector.Injector.CreateInstance<ITourGuestRepository>(),
@@ -64,29 +129,72 @@ namespace BookingApp.WPF.ViewModel.Tourist
             selectedVoucher = new VoucherDTO();
             AllVouchers = new ObservableCollection<VoucherDTO>();
             maxGuests = 0;
-           
+           ConfirmTourReservationCommand = new MyICommand(ConfirmTourReservation, CanConfirmTourReservation);
+            images = new ObservableCollection<ImageDTO>(); 
+            if (images.Any())
+            {
+                CurrentImage = images[0];
+            }
+            this.selectedTour= selectedTour;
+            SetSelectedTour(selectedTour);
+            MoveNextCommand = new MyICommand(MoveNext);
+            MovePreviousCommand = new MyICommand(MovePrevious);
+            Genders = new ObservableCollection<string>(Enum.GetNames(typeof(Gender)));
+            CurrentGuest = new TourGuest();
+            RemoveGuestCommand = new MyICommand<Tuple<string, int>>(RemoveGuest);
             Update();
-
-            
         }
-
-
-        public void Update()
+        private bool CanConfirmTourReservation()
+        {   
+            return !string.IsNullOrEmpty(NameSurname) && !string.IsNullOrEmpty(Age) && !string.IsNullOrEmpty(txtNumberOfPeople) && SelectedGender != null && SelectedVoucher != null;
+        }
+        private void MoveNext()
         {
-
-            GetVouchers();
+            if (currentIndex < images.Count - 1)
+            {
+                currentIndex++;
+                CurrentImage = images[currentIndex];
+                OnPropertyChanged(nameof(CurrentImage));
+            }
         }
-
+        private void RemoveGuest(Tuple<string, int> guest)
+        {
+            if (guest != null)
+            {
+                temporaryGuests.Remove(guest);
+                currentGuestCount--;
+                RemainingGuestsToAdd++;
+                OnPropertyChanged(nameof(RemainingGuestsToAdd));
+            }
+        }
+        private void MovePrevious()
+        {
+            if (currentIndex > 0)
+            {
+                currentIndex--;
+                CurrentImage = images[currentIndex];
+                OnPropertyChanged(nameof(CurrentImage));
+            }
+        }
+        public void SetSelectedTour(TourDTO tour)
+        {
+            SelectedTour = tour;
+            images = new ObservableCollection<ImageDTO>(imageService.GetImagesForTour(tour.Id));
+            if (images.Any())
+            {
+                CurrentImage = images[0];
+                OnPropertyChanged(nameof(CurrentImage));
+            }
+            OnPropertyChanged(nameof(SelectedTour));
+        }
+        public void Update()
+        {GetVouchers();}
         public void GetVouchers()
         {
-
             AllVouchers.Clear();
-           
             List<VoucherDTO> vouchers = voucherService.GetAll().Where(v => v.Status == Domain.Model.Status.VALID).ToList();
-            foreach (VoucherDTO voucher in vouchers)
-            {
-                AllVouchers.Add(voucher);
-            }
+            foreach (VoucherDTO voucher in vouchers){
+                AllVouchers.Add(voucher);}
             AllVouchers.Insert(0, new VoucherDTO { Description = "Ne koristi vaučer" });
         }
         public void ConfirmTourReservation()
@@ -103,94 +211,61 @@ namespace BookingApp.WPF.ViewModel.Tourist
 
         private bool isInputEnabled = true;
         public bool IsInputEnabled
-        {
-            get => isInputEnabled;
-            set
-            {
-                isInputEnabled = value;
-                OnPropertyChanged(nameof(IsInputEnabled));
-            }
-        }
+        {get => isInputEnabled;
+            set {isInputEnabled = value;
+                OnPropertyChanged(nameof(IsInputEnabled));}}
         public bool IsTourCapacitySufficient(int numberOfGuests)
-        {
-           
-            if (tourService.IsCapacitySufficient(selectedTour.Id, numberOfGuests))
-            {
+        {if (tourService.IsCapacitySufficient(selectedTour.Id, numberOfGuests)){
                 IsInputEnabled = false;
-                return true;
-            }
-
-            return false;
-        }
-
+                return true; }
+            return false;}
 
         private bool shouldFocusTextBox;
         public bool ShouldFocusTextBox
-        {
-            get => shouldFocusTextBox;
-            set
-            {
-                shouldFocusTextBox = value;
-                OnPropertyChanged(nameof(ShouldFocusTextBox));
-            }
-        }
+        {get => shouldFocusTextBox;
+            set {shouldFocusTextBox = value;
+                OnPropertyChanged(nameof(ShouldFocusTextBox)); }}
 
         private string ttxtNumberOfPeople;
         public string txtNumberOfPeople
-        {
-            get => ttxtNumberOfPeople;
-            set
-            {
-                ttxtNumberOfPeople = value;
+        { get => ttxtNumberOfPeople;
+            set { ttxtNumberOfPeople = value;
                 OnPropertyChanged(nameof(txtNumberOfPeople));
+                ConfirmTourReservationCommand.RaiseCanExecuteChanged();
             }
         }
 
-
-
-        public void EnableGuestNumberInput()
-        {
-          
-        }
+        public void EnableGuestNumberInput() {}
 
         private string nameSurname;
         public string NameSurname
-        {
-            get => nameSurname;
-            set
-            {
-                nameSurname = value;
+        {get => nameSurname;
+            set{nameSurname = value;
                 OnPropertyChanged(nameof(NameSurname));
+                ConfirmTourReservationCommand.RaiseCanExecuteChanged();
             }
         }
 
         private string age;
-      
-
         public string Age
-        {
-            get => age;
-            set
-            {
-                age = value;
+        { get => age;
+            set{age = value;
                 OnPropertyChanged(nameof(Age));
-            }
-        }
+                ConfirmTourReservationCommand.RaiseCanExecuteChanged();
+            } }
 
         public void ProcessGuestAddition(int numberOfPeople, int age)
-        {
-            age = Convert.ToInt32(Age);
+        {age = Convert.ToInt32(Age);
             maxGuests = numberOfPeople;
-            AddGuest(NameSurname, age);
-        }
+            AddGuest(NameSurname, age); }
 
         public bool ValidateInput(out int numberOfPeople, out int age)
-        { numberOfPeople = Convert.ToInt32(txtNumberOfPeople);
-            age = Convert.ToInt32(Age);
-            if ( numberOfPeople <= 0)
+        {   numberOfPeople = 0; 
+            age = 0;
+            if (!int.TryParse(txtNumberOfPeople, out numberOfPeople) || numberOfPeople <= 0)
             {MessageBox.Show("Unesite validan broj ljudi.");
                 return false; }
-            if (age<0)
+            if (!int.TryParse(Age, out age) ||  age < 0)
             { MessageBox.Show("Unesite validan broj za godine.");
                 return false; }
             if (currentGuestCount == 0)
@@ -213,56 +288,36 @@ namespace BookingApp.WPF.ViewModel.Tourist
         }
         private int remainingGuestsToAdd;
         public int RemainingGuestsToAdd
-        {
-            get => remainingGuestsToAdd;
-            set
-            {
-                remainingGuestsToAdd = value;
-                OnPropertyChanged(nameof(RemainingGuestsToAdd));
-            }
-        }
+        {get => remainingGuestsToAdd;
+            set{remainingGuestsToAdd = value;
+                OnPropertyChanged(nameof(RemainingGuestsToAdd));} }
         public void AddGuest(string fullName, int age)
-        {
-            if (currentGuestCount >= maxGuests || RemainingGuestsToAdd <= 0)
-            {
+        { if (currentGuestCount >= maxGuests || RemainingGuestsToAdd <= 0){
                 MessageBox.Show($"Već ste dodali maksimalan broj gostiju: {maxGuests}.");
-                return;
-            }
+                return; }
+            var newGuest = Tuple.Create(fullName, age);
             temporaryGuests.Add(Tuple.Create(fullName, age));
             currentGuestCount++;
             RemainingGuestsToAdd--;
+            OnPropertyChanged(nameof(RemainingGuestsToAdd));
             ShowGuestAddedMessage();
         }
 
         public void UpdateTourCapacity(int numberOfGuestsToAdd)
-        {
-            bool success = tourService.UpdateTourCapacity(selectedTour.Id, numberOfGuestsToAdd, out int remainingCapacity);
-            if (success)
-            {
-                MessageBox.Show($"Kapacitet ažuriran. Preostalo mesta: {remainingCapacity}.");
-            }
-            else
-            {
-                MessageBox.Show("Došlo je do greške");
-            }
-        }
+        { bool success = tourService.UpdateTourCapacity(selectedTour.Id, numberOfGuestsToAdd, out int remainingCapacity);
+            if (success){
+                MessageBox.Show($"Kapacitet ažuriran. Preostalo mesta: {remainingCapacity}."); }
+            else{
+                MessageBox.Show("Došlo je do greške");}}
 
         public void ShowGuestAddedMessage()
-        {
-            MessageBox.Show("Gost je uspješno dodat.");
-            if (currentGuestCount == maxGuests)
-            {
-                FinishReservation();
-            }
-            else
-            {
-                MessageBox.Show($"Trenutno dodato gostiju: {currentGuestCount}. Možete dodati još {maxGuests - currentGuestCount} gostiju.");
-            }
-
-            ResetGuestInputFields();
-        }
+        {MessageBox.Show("Gost je uspješno dodat.");
+            if (currentGuestCount == maxGuests){
+                FinishReservation(); }
+            else {
+                MessageBox.Show($"Trenutno dodato gostiju: {currentGuestCount}. Možete dodati još {maxGuests - currentGuestCount} gostiju."); }
+                ResetGuestInputFields();}
      
-        
        public void FinishReservation()
         {   var user=userService.GetByUsername(username);
             if (!tourReservationService.TryCreateReservation(selectedTour.SelectedDateTime.Id, user.Id,username, maxGuests, out int reservationId))
@@ -272,54 +327,22 @@ namespace BookingApp.WPF.ViewModel.Tourist
             if (SelectedVoucher != null && SelectedVoucher.Description != "Ne koristi vaučer")
             {   SelectedVoucher.Status = Status.USED;
                 SelectedVoucher.TourReservationId = reservationId;
-                voucherService.UpdateVoucherFromDTO(SelectedVoucher);
-            }
+                voucherService.UpdateVoucherFromDTO(SelectedVoucher); }
             Update();
             AddTemporaryGuests(reservationId);
-          int remainingCapacity;
+            int remainingCapacity;
             if (tourService.UpdateTourCapacity(selectedTour.Id, maxGuests, out remainingCapacity))
-            {
-                MessageBox.Show($"Kapacitet ture ažuriran. Preostalo mesta: {remainingCapacity}.");
-            }
+            { MessageBox.Show($"Kapacitet ture ažuriran. Preostalo mesta: {remainingCapacity}."); }
             else
-            {
-                MessageBox.Show("Došlo je do greške prilikom ažuriranja kapaciteta ture.");
-            }
-         }
-
-     
+            { MessageBox.Show("Došlo je do greške prilikom ažuriranja kapaciteta ture.");}}
 
         public void AddTemporaryGuests(int reservationId)
-        {
-            foreach (Tuple<string, int> guest in temporaryGuests)
-            {
-                tourGuestService.AddGuest(guest.Item1, guest.Item2, reservationId);
-            }
-        }
+        { foreach (Tuple<string, int> guest in temporaryGuests) {
+                tourGuestService.AddGuest(guest.Item1, guest.Item2, reservationId,CurrentGuest.Gender);} }
 
-        public void UpdateTourInformation(int reservationId)
-        {
-            int guestsToAdd = temporaryGuests.Count;
-            if (tourService.UpdateTourCapacity(selectedTour.Id, guestsToAdd, out int remainingCapacity))
-            {
-                MessageBox.Show($"VAŠA REZERVACIJA JE USPJEŠNO KREIRANA!!! \n Sa {guestsToAdd} gostiju. \nPREOSTALO MJESTA NA TURI: {remainingCapacity}");
-            }
-            else
-            {
-                MessageBox.Show("Došlo je do greške prilikom ažuriranja informacija o turi.");
-            }
-        }
         public void ResetGuestInputFields()
-        {
-             NameSurname= string.Empty;
-            Age = string.Empty;
-        }
-      
-
+        {  NameSurname= string.Empty;
+            Age = string.Empty;      }      
     }
-
-
-
-
 }
 

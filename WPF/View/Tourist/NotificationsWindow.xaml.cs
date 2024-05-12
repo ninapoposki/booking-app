@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Tourist
@@ -18,20 +19,16 @@ namespace BookingApp.WPF.View.Tourist
     /// <summary>
     /// Interaction logic for NotificationsWindow.xaml
     /// </summary>
-    public partial class NotificationsWindow : Window
+    public partial class NotificationsWindow : Page
     {
         public NotificationsWindowVM NotificationsWindowVM { get; set; }
-        public NotificationsWindow()
+        public NotificationsWindow(NavigationService navigationService)
         {
             InitializeComponent();
-            NotificationsWindowVM = new NotificationsWindowVM();
-            DataContext = NotificationsWindowVM;
+            DataContext = new NotificationsWindowVM(navigationService);
         
         }
 
-        private void MarkAsRead(object sender, RoutedEventArgs e)
-        {
-            NotificationsWindowVM.MarkAsRead();
-        }
+     
     }
 }

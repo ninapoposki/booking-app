@@ -85,8 +85,6 @@ namespace BookingApp.Repository
         {
             subject.Subscribe(observer);
         }
-
-
         public int GetCurrentId()
         {
             if (tours.Count == 0) return 1;
@@ -95,7 +93,6 @@ namespace BookingApp.Repository
         public Tour? GetById(int id)
         {
             return tours.Find(s => s.Id == id);
-
         }
     }
 }

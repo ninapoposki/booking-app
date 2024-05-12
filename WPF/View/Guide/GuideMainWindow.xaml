@@ -4,15 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+        xmlns:converters="clr-namespace:BookingApp.WPF.View.Converter"
         mc:Ignorable="d"
-        Title="GuideMainWindow" Height="600" Width="960">
+        Title="GuideMainWindow" Height="600" Width="960"
+        WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/Images/wallpaperGuide.jpg"></ImageBrush>
+    </Window.Background>
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <Style  TargetType="Hyperlink">
+            <Setter Property="Foreground" Value="#FF2810AB"/>
+            <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
+        </Style>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cascadia Code"></Setter>
+            <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0 0 0 2">
+   
             <Grid Grid.Row="0">
+             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -22,31 +39,48 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Travel agency" FontSize="25" FontWeight="Bold" Padding="10"></TextBlock>
-                <TextBlock Grid.Row="1" Padding="6">
-                    <Hyperlink Click="HomePageClick">
-                        Home
-                    </Hyperlink>
-                </TextBlock>
+                <StackPanel  Grid.Row="0" Orientation="Horizontal">
+                    <Image Source="\Resources\Icons/Guide\flight.png" Width="35" Height="40" Margin="8" ></Image>
+                    <TextBlock  Text="Travel agency" Style="{StaticResource TextBlockStyle}" FontSize="30" Padding="8"></TextBlock>
+                </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                            <ItemsControl ItemsSource="{Binding BreadCrumbsVM.Breadcrumbs}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                <Hyperlink Command="{Binding NavigateCommand}" Foreground="#FF2810AB">
+                                    <TextBlock Text="{Binding Display}" FontFamily="Cascadia Code" FontSize="12" />
+                                </Hyperlink>
+                                <TextBlock Text=" > " FontSize="12" FontFamily="Cascadia Code" Visibility="{Binding IsLastItem, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Padding="15" FontSize="15">
-                        <Hyperlink Click="HomePageClick">Home</Hyperlink>
+                        <Hyperlink  Command="{Binding HomePageCommand}">Home</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                         <Hyperlink Click="MyToursPageClick">My tours</Hyperlink>
+                         <Hyperlink  Command="{Binding MyToursCommand}">My tours</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                       <Hyperlink Click="TourRequestsPageClick">Tour requests</Hyperlink>
+                       <Hyperlink  Command="{Binding TourRequestCommand}">Tour requests</Hyperlink>
                     </TextBlock>
                     <TextBlock Padding="15" FontSize="15">
-                        <Hyperlink Click="ProfilePageClick">Profile</Hyperlink>
+                        <Hyperlink  Click="ProfilePageClick">Profile</Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </Grid>
         </Grid>
-        </Border>
+
         <Frame Grid.Row="1" x:Name="MainWindowFrame" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

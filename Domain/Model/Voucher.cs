@@ -41,16 +41,6 @@ namespace BookingApp.Domain.Model
             Description = description;
             Status = status;
         }
-        public Voucher(int userId,int tourReservationId, DateOnly startDate, DateOnly expirationDate, string description, Status status)
-        {
-            UserId= userId;
-            TourReservationId = tourReservationId;
-            StartDate = startDate;
-            ExpirationDate = expirationDate;
-            Description = description;
-            Status = status;
-        }
-
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -69,7 +59,6 @@ namespace BookingApp.Domain.Model
                 Status = Status.INVALID;
             }
         }
-
         public string[] ToCSV()
         {
             string[] csvValues =
