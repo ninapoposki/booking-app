@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.IRepositories;
 using BookingApp.Domain.Model;
 using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,12 @@ namespace BookingApp.Services
         public bool IsReservationPassed(DateTime initialDate)
         {
             return cancelledReservationsRepository.IsReservationPassed(initialDate);
+        }
+        public List<CancelledReservationsDTO> GetAll()
+        {
+            List<CancelledReservations> cancelledReservations = cancelledReservationsRepository.GetAll();
+            List<CancelledReservationsDTO> cancelledReservationsDTOs = cancelledReservations.Select(canc => new CancelledReservationsDTO(canc)).ToList();
+            return cancelledReservationsDTOs;
         }
     }
 }

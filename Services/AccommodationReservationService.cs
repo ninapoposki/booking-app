@@ -40,6 +40,11 @@ namespace BookingApp.Services
             return accommodationReservationDTOs;
         }
         public AccommodationReservation GetById(int id){ return accommodationReservationRepository.GetById(id); }
+        public AccommodationReservationDTO GetByIdDTO(int id)
+        {
+            var accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationRepository.GetById(id));
+            return accommodationReservationDTO;
+        }
         public void UpdateDate(AccommodationReservationDTO accommodationReservationDTO, DateTime initialDate, DateTime endTime) {
             accommodationReservationDTO.InitialDate = initialDate;
             accommodationReservationDTO.EndDate = endTime;
@@ -93,5 +98,13 @@ namespace BookingApp.Services
             return guestReservations;
         }
        
+
+          public List<AccommodationReservationDTO> GetReservationByAccommodation(int accommodationId)
+        {
+            var accommodationReservations = accommodationReservationRepository.GetReservationsForAccommodation(accommodationId);
+            List<AccommodationReservationDTO> accommodationReservationDTOs = accommodationReservations.Select(accres => new AccommodationReservationDTO(accres)).ToList();
+            return accommodationReservationDTOs;
+
+        }
     }
 }
