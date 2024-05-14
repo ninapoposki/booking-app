@@ -20,7 +20,8 @@ namespace BookingApp.Domain.IRepositories
         Guest GetById(int id);
         int GetCurrentId();
         int GetCurrentGuestPoints(int guestId);
-
+        void SetSuperGuest(Guest guest, DateTime currentDate);
+        void SetGuest(Guest guest);
         void Subscribe(IObserver observer);
 
     }

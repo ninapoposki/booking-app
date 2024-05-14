@@ -19,12 +19,10 @@ namespace BookingApp.Services
         {
             this.userRepository = userRepository;
         }
-
         public User GetByUsername(string username) 
         { 
             return userRepository.GetByUsername(username);
         }
-
         public int GetCurrentGuestUserId()
         {
            return userRepository.GetCurrentGuestUserId();
@@ -43,6 +41,7 @@ namespace BookingApp.Services
         {
             return userRepository.GetCurrentUserId();   
         }
+
    
     }
 }

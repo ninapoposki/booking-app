@@ -19,10 +19,6 @@ namespace BookingApp.Domain.Model
         public DateTime StartTime { get; set; }
 
         public TourStatus TourStatus { get; set; }
-        public bool HasStarted {  get; set; }
-
-        public bool HasFinished {  get; set; }
-
         public int CurrentCheckPointId {  get; set; }
         public TourStartDate() { }
 

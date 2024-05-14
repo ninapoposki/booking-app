@@ -4,73 +4,148 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+         x:Name="windowRoot"
         mc:Ignorable="d"
         Title="Dostupne ture" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-   
+
+    <Window.Resources>
+        <Style x:Key="IconStyle" TargetType="Image">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="5,2,0,0"/>
+        </Style>
+
+        <Style x:Key="TextDetailStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="InfoStackPanelStyle" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+        </Style>
+
+        <Style x:Key="DetailBorderStyle" TargetType="Border">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="Cyan"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+
+        <Style x:Key="ListStyle" TargetType="ListView">
+            <Setter Property="Background" Value="#E0F7FA"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Cyan"/>
+            <Setter Property="Margin" Value="7"/>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="\Resources\Images\new5.jpg"/>
+    </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="37.84"/>
+            <RowDefinition Height="39.16"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        
-        <TextBlock Text="Available Tours" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,10,0,10" Grid.Row="0"/>
 
-        <ListView ItemsSource="{Binding AvailableTours, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,55,10,10" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="0,5,5,5" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
+        <StackPanel Orientation="Horizontal" Margin="25,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="67" Width="250" Grid.RowSpan="2">
+            <Image Source="\Resources\Icons\Tourist\app.png" Height="34" Width="61" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Grid.Row="0" Text="Available Tours " Foreground="Black" FontSize="22" FontWeight='Medium' Margin="10,10,0,10" Width="162" Height="41"/>
+        </StackPanel>
+        <Border Grid.Row="2" Margin="31,19,31,35"
+        Background="Transparent" BorderBrush="DarkCyan"  BorderThickness="3"
+        ClipToBounds="True" CornerRadius="5">
+            <ListView ItemsSource="{Binding AvailableTours, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Style="{StaticResource ListStyle}" SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single" Grid.Row="1"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0,5,5,5" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="Auto"/>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border >
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="Auto"/>
 
-                            </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
-                                <ItemsControl ItemsSource="{Binding Images}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Path}" Height="50" Margin="2"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
+                                    <Image Source="{Binding Images[0].Path}" Height="80" Margin="2"/>
+                                </StackPanel>
 
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
-                                <TextBlock Text="{Binding Description, StringFormat=Opis: {0}}" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding Location.City, StringFormat=Grad: {0}}" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding Location.Country, StringFormat=Država: {0}}" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding Duration, StringFormat=Trajanje: {0} dana}" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding Capacity, StringFormat=Kapacitet: {0}}" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding Language.Name, StringFormat=Jezik: {0}}" Margin="0,2,0,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}"  Style="{StaticResource TextDetailStyle}"/>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                        <Image Style="{StaticResource IconStyle}" Source="\Resources\Icons\Tourist\city.png" Width="25" Height="25"/>
+                                        <TextBlock Text="{Binding Location.City, StringFormat=Grad: {0}}" />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource InfoStackPanelStyle}">
+                                        <Image Style="{StaticResource IconStyle}" Source="\Resources\Icons\Tourist\country.png" Width="25" Height="25"/>
+                                        <TextBlock Text="{Binding Location.Country, StringFormat=Država: {0}}"  />
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource InfoStackPanelStyle}">
+                                        <Image Style="{StaticResource IconStyle}" Source="\Resources\Icons\Tourist\capacity.png" Width="25" Height="25"/>
+                                        <TextBlock Text="{Binding Capacity, StringFormat=Kapacitet: {0}}"/>
+                                    </StackPanel>
+                                    <StackPanel Style="{StaticResource InfoStackPanelStyle}">
+                                        <Image Style="{StaticResource IconStyle}" Source="\Resources\Icons\Tourist\language_icon.png" Width="25" Height="25"/>
+                                        <TextBlock Text="{Binding Language.Name, StringFormat=Jezik: {0}}" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="20,0,20,0">
+                                    <StackPanel Orientation="Horizontal" Margin="10,0,0,10" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Image Source="\Resources\Icons\Tourist\date.png" Height="30" Width="40" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock Grid.Row="0" Text="Available dates " Foreground="Black" FontSize="10" FontWeight='Medium' Margin="10,10,0,10" Width="265"/>
+                                    </StackPanel>
+                                    <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" SelectionMode="Single" SelectedItem="{Binding SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0">
+                                        <ListBox.Style>
+                                            <Style TargetType="ListBox">
+                                                <Setter Property="BorderBrush" Value="Cyan"/>
+                                                <Setter Property="BorderThickness" Value="3"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListBox">
+                                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="5">
+                                                                <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                                                    <ItemsPresenter/>
+                                                                </ScrollViewer>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListBox.Style>
+                                    </ListBox>
+                                </StackPanel>
 
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                <TextBlock Text="Dostupni datumi za ture" FontWeight="Bold" FontSize="12" Margin="20,0,20,0"/>
-                                <ListBox ItemsSource="{Binding DateTimes}" DisplayMemberPath="StartTime" SelectionMode="Single" SelectedItem="{Binding SelectedDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0">
-                                </ListBox>
-                            </StackPanel>
 
-                            
-                            <Button Content="Rezerviši turu" Grid.Column="3" BorderThickness="0" Background="White" Click="BookTour" Height="34" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
+                                <Button Grid.Column="3" BorderThickness="0" Background="Transparent" Height="34" Margin="10,0,0,0" VerticalAlignment="Center"
+                                    Command="{Binding DataContext.BookTourCommand, ElementName=windowRoot}">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Text="BOOK TOUR" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                        <Image Source="\Resources\Icons\Tourist\reserve.png" Width="20" Height="20"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
     </Grid>
 </Window>

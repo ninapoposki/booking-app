@@ -15,16 +15,10 @@ namespace BookingApp.Domain.Model
 
         public int ReservationId {  get; set; }
         public AccommodationReservation Reservation;
-        public int MaxDays {  get; set; }
 
         public int Cleanless {  get; set; }
         public int RulesFollowing {  get; set; }
-        //public static readonly string[] CategoryNames = { "Cleanness", "Following the rules" };
         public string Comment {  get; set; }
-
-        //public Dictionary<string, int> Grades;
-        //public List<int>Grades { get; set; }
-
 
         public GuestGrade()
         {

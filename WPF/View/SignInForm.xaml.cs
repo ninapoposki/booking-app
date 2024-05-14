@@ -99,17 +99,17 @@ namespace BookingApp.WPF.View
         }
         private void OpenGuideWindow()
         {
-           // GuideMainWindow guideMainWindow = new GuideMainWindow();
-            //guideMainWindow.Show();
-           // Close();
-            MakeTour makeTour = new MakeTour(UserId);
-            makeTour.Show();
+            GuideMainWindow guideMainWindow = new GuideMainWindow(UserId);
+            guideMainWindow.Show();
             Close();
+            //MakeTour makeTour = new MakeTour(UserId);
+            //makeTour.Show();
+            //Close();
         }
         private void OpenTouristWindow()
         {
-            TouristMainWindow touristMainWindow = new TouristMainWindow(Username);
-            touristMainWindow.Show();
+            TouristMain touristMain = new TouristMain(Username);
+            touristMain.Show();
             Close();
         }
 

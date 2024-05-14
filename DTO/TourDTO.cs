@@ -15,9 +15,9 @@ namespace BookingApp.DTO
     {
         public ObservableCollection<ImageDTO> Images { get; set; } = new ObservableCollection<ImageDTO>();
         public ObservableCollection<TourStartDateDTO> DateTimes { get; set; } = new ObservableCollection<TourStartDateDTO>();
+       public ObservableCollection<CheckPointDTO> CheckPoints { get; set; } = new ObservableCollection<CheckPointDTO>();
         public int UserId {  get; set; }
         private TourStartDateDTO selectedDateTime;
-
         public TourStartDateDTO SelectedDateTime
         {
             get { return selectedDateTime; }
@@ -129,7 +129,6 @@ namespace BookingApp.DTO
                     duration = value;
                     OnPropertyChanged("Duration");
                 }
-
             }
         }
         public TourDTO() { }

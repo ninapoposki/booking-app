@@ -66,22 +66,7 @@ namespace BookingApp.Services
             List<AccommodationDTO> accommodationDTOs = accommodations.Select(acc => new AccommodationDTO(acc)).ToList();
             return accommodationDTOs;
         }
-        private bool FilterByCityAndCountry(AccommodationDTO accommodation, string cityFilter, string countryFilter){
-            bool cityMatch = string.IsNullOrEmpty(cityFilter) || accommodation.Location.City.ToLower().Contains(cityFilter.ToLower());
-            bool countryMatch = string.IsNullOrEmpty(countryFilter) || accommodation.Location.Country.ToLower().Contains(countryFilter.ToLower());
-            return cityMatch && countryMatch;
-        }
-        private bool FilterByTypeAndName(AccommodationDTO accommodation, string nameFilter){
-            return string.IsNullOrEmpty(nameFilter) || accommodation.Name.ToLower().Contains(nameFilter.ToLower());
-        }
-
-        private bool FilterByMinStayDaysAndCapacity(AccommodationDTO accommodation, string numberOfGuests, string numberOfDaysToStay)
-        {
-            bool capacityMatch = string.IsNullOrEmpty(numberOfGuests) || accommodation.Capacity >= int.Parse(numberOfGuests);
-            bool minStayDaysMatch = string.IsNullOrEmpty(numberOfDaysToStay) || accommodation.MinStayDays <= double.Parse(numberOfDaysToStay);
-
-            return capacityMatch && minStayDaysMatch;
-        }
+       
 
     }
 

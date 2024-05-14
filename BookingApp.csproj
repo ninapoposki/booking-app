@@ -1,16 +1,82 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
 
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-	</PropertyGroup>
-
-	<ItemGroup>
-
-
-		<None Remove="Resources\Icons\Guest\accept.png" />
+  <ItemGroup>  
+    
+    <None Remove="Resources\Icons\Guide\arrow.png" />
+    <None Remove="Resources\Icons\Guide\clear-filter.png" />
+    <None Remove="Resources\Icons\Guide\loupe.png" />
+    <None Remove="Resources\Icons\Guide\user.png" />
+    <None Remove="Resources\Icons\Tourist\activeTour.png" />
+    <None Remove="Resources\Icons\Tourist\age.png" />
+    <None Remove="Resources\Icons\Tourist\app.png" />
+    <None Remove="Resources\Icons\Tourist\capacity.png" />
+    <None Remove="Resources\Icons\Tourist\checkpoint.png" />
+    <None Remove="Resources\Icons\Tourist\city.png" />
+    <None Remove="Resources\Icons\Tourist\country.png" />
+    <None Remove="Resources\Icons\Tourist\create.png" />
+    <None Remove="Resources\Icons\Tourist\date.png" />
+    <None Remove="Resources\Icons\Tourist\finishedTour.png" />  
+    <None Remove="Resources\Icons\Tourist\home.png" />
+    <None Remove="Resources\Icons\Tourist\language_icon.png" />
+    <None Remove="Resources\Icons\Tourist\logOut.png" />
+    <None Remove="Resources\Icons\Tourist\notification.png" />
+    <None Remove="Resources\Icons\Tourist\read.png" />
+    <None Remove="Resources\Icons\Tourist\reserve.png" />
+    <None Remove="Resources\Icons\Tourist\search.png" />
+    <None Remove="Resources\Icons\Tourist\star.png" />
+    <None Remove="Resources\Icons\Tourist\back.png" />
+    <None Remove="Resources\Icons\Tourist\delete.png" />
+    <None Remove="Resources\Icons\Tourist\desctiption.png" />
+    <None Remove="Resources\Icons\Tourist\next.png" />
+    <None Remove="Resources\Icons\Tourist\no_picture.png" />
+    <None Remove="Resources\Icons\Tourist\star_empty.png" />
+    <None Remove="Resources\Icons\Tourist\star_filled.png" />
+    <None Remove="Resources\Icons\Guide\save.png" />
+    <None Remove="Resources\Icons\Guide\adult.png" />
+    <None Remove="Resources\Icons\Guide\arrow-right.png" />
+    <None Remove="Resources\Icons\Guide\best.png" />
+    <None Remove="Resources\Icons\Guide\cancel.png" />
+    <None Remove="Resources\Icons\Guide\check-list.png" />
+    <None Remove="Resources\Icons\Guide\check.png" />
+    <None Remove="Resources\Icons\Guide\cityscape.png" />
+    <None Remove="Resources\Icons\Guide\clock.png" />
+    <None Remove="Resources\Icons\Guide\countries.png" />
+    <None Remove="Resources\Icons\Guide\description.png" />
+    <None Remove="Resources\Icons\Guide\destination.png" />
+    <None Remove="Resources\Icons\Guide\flight.png" />
+    <None Remove="Resources\Icons\Guide\gallery.png" />
+    <None Remove="Resources\Icons\Guide\group.png" />
+    <None Remove="Resources\Icons\Guide\handwriting.png" />
+    <None Remove="Resources\Icons\Guide\info.png" />
+    <None Remove="Resources\Icons\Guide\language.png" />
+    <None Remove="Resources\Icons\Guide\map.png" />
+    <None Remove="Resources\Icons\Guide\old.png" />
+    <None Remove="Resources\Icons\Guide\pdf.png" />
+    <None Remove="Resources\Icons\Guide\pencil.png" />
+    <None Remove="Resources\Icons\Guide\pin.png" />
+    <None Remove="Resources\Icons\Guide\play.png" />
+    <None Remove="Resources\Icons\Guide\plus.png" />
+    <None Remove="Resources\Icons\Guide\quotes.png" />
+    <None Remove="Resources\Icons\Guide\race.png" />
+    <None Remove="Resources\Icons\Guide\rating.png" />
+    <None Remove="Resources\Icons\Guide\record.png" />
+    <None Remove="Resources\Icons\Guide\schedule.png" />
+    <None Remove="Resources\Icons\Guide\search.png" />
+    <None Remove="Resources\Icons\Guide\stop.png" />
+    <None Remove="Resources\Icons\Guide\time.png" />
+    <None Remove="Resources\Icons\Guide\tour-guide.png" />
+    <None Remove="Resources\Icons\Guide\tourists.png" />
+    <None Remove="Resources\Icons\Guide\trophy.png" />
+    <None Remove="Resources\Icons\Guide\warning.png" />
+    <None Remove="Resources\Icons\Guide\young.png" />
+    <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Icons\Guest\accept.png" />
 		<None Remove="Resources\Icons\Guest\airplane.png" />
 		<None Remove="Resources\Icons\Guest\backgorund2.jpg" />
 		<None Remove="Resources\Icons\Guest\background_guest.jpg" />
@@ -31,7 +97,6 @@
 		<None Remove="Resources\Icons\Guest\home.png" />
 		<None Remove="Resources\Icons\Guest\languages.png" />
 		<None Remove="Resources\Icons\Guest\language_icon.png" />
-
 		<None Remove="Resources\Icons\Guest\palm-tree.png" />
 		<None Remove="Resources\Icons\Guest\paper-plane.png" />
 		<None Remove="Resources\Icons\Guest\pause.png" />
@@ -51,27 +116,15 @@
 		<None Remove="Resources\Icons\Guest\umbrella.png" />
 		<None Remove="Resources\Icons\Guest\user.png" />
 		<None Remove="Resources\Icons\Owner\icon_trophy.png" />
-
-		<None Remove="Resources\Images\add.png" />
-
 		<None Remove="Resources\Images\apartment_image1.jpg" />
-
 		<None Remove="Resources\Images\apartment_image2.jpg" />
-
 		<None Remove="Resources\Images\apartment_image3.jpg" />
-
 		<None Remove="Resources\Images\apartment_image4.jpg" />
-
 		<None Remove="Resources\Images\apartment_image5.jpg" />
-
 		<None Remove="Resources\Images\apartment_image6.jpg" />
-
 		<None Remove="Resources\Images\apartment_image7.jpg" />
-
 		<None Remove="Resources\Images\cabin_image1.jpg" />
-
 		<None Remove="Resources\Images\cabin_image2.jpg" />
-
 		<None Remove="Resources\Images\cabin_image3.jpg" />
 		<None Remove="Resources\Images\delete.png" />
 		<None Remove="Resources\Images\house_image1.jpg" />
@@ -80,11 +133,9 @@
 		<None Remove="Resources\Images\apartment_grade.jpg" />
 		<None Remove="Resources\Images\apartment_grade1.jpg" />
 		<None Remove="Resources\Images\apartment_picture.jpg" />
-
 		<None Remove="Resources\Images\cabin_grade.jpg" />
 		<None Remove="Resources\Images\cabin_grade1.jpg" />
 		<None Remove="Resources\Images\cabin_picture.jpg" />
-
 		<None Remove="Resources\Images\hotel_grade1.jpg" />
 		<None Remove="Resources\Images\house_picture.jpg" />
 		<None Remove="Resources\Icons\Owner\6.jpg" />
@@ -132,30 +183,404 @@
 		<None Remove="Resources\Icons\Owner\right.png" />
 		<None Remove="Resources\Icons\Owner\vector.jpg" />
 		<None Remove="Resources\Icons\Owner\white.png" />
-		<None Remove="Resources\Icons\Owner\logo.png" />
+		<None Remove="Resources\Icons\Owner\logo.png" /> 
+    <None Remove="Resources\Images\placeholder_accommodation.jpg" />
+    <None Remove="Resources\Images\female.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper1.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper10.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper2.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper3.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper4.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper6.jpg" />
+    <None Remove="Resources\Images\GuideWallpaper7.jpg" />
+    <None Remove="Resources\Images\hercegNovi.jpg" />
+    <None Remove="Resources\Images\hercegNovi2.jpg" />
+    <None Remove="Resources\Images\like.jpg" />
+    <None Remove="Resources\Images\male.jpg" />
+    <None Remove="Resources\Images\new.jpg" />
+    <None Remove="Resources\Images\new1.jpg" />
+    <None Remove="Resources\Images\new2.jpg" />
+    <None Remove="Resources\Images\new3.jpg" />
+    <None Remove="Resources\Images\new4.jpg" />
+    <None Remove="Resources\Images\new5.jpg" />
+    <None Remove="Resources\Images\newWallpaper.jpg" />
+    <None Remove="Resources\Images\OwnerTravel.png" />
+    <None Remove="Resources\Images\positano1.jpg" />
+    <None Remove="Resources\Images\positano2.jpg" />
+    <None Remove="Resources\Images\positano3.jpg" />
+    <None Remove="Resources\Images\positano4.jpg" />
+    <None Remove="Resources\Images\placeholderGuide.png" />
+    <None Remove="Resources\Images\profileTourist.png" />
+    <None Remove="Resources\Images\rovinj.jpg" />
+    <None Remove="Resources\Images\rovinj2.jpg" />
+    <None Remove="Resources\Images\rovinj3.jpg" />
+    <None Remove="Resources\Images\SlikaBeograd.jpg" />
+    <None Remove="Resources\Images\SlikaBeograd2.jpg" />
+    <None Remove="Resources\Images\SlikaKopenhagen.jpg" />
+    <None Remove="Resources\Images\SlikaKopenhagen2.jpg" />
+    <None Remove="Resources\Images\SlikaNoviSad.jpg" />
+    <None Remove="Resources\Images\SlikaNoviSad2.jpg" />
+    <None Remove="Resources\Images\strand.jpg" />
+    <None Remove="Resources\Images\TourGradeDenmark.jpg" />
+    <None Remove="Resources\Images\TourGradeDjava.jpg" />
+    <None Remove="Resources\Images\TourGradeLimanski.jpg" />
+    <None Remove="Resources\Images\TourGradeNoviSad.jpg" />
+    <None Remove="Resources\Images\TourGradeNoviSadCentar.jpg" />
+    <None Remove="Resources\Images\unnamed.jpg" />
+    <None Remove="Resources\Images\wallpaperGuide.jpg" />
+    <None Remove="Resources\Images\wallpaperDesktop.jpg" />
+    <None Remove="Resources\Images\yellow.jpg" />
+    <None Remove="Resources\Images\smestaj1.jpg" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Resources\Icons\Guide\arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\clear-filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\loupe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\activeTour.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\adult.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\best.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\cityscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\countries.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\description.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\gallery.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\group.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\old.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+ 
+    
+    <Content Include="Resources\Icons\Tourist\back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 
-		<None Remove="Resources\Images\placeholder_accommodation.jpg" />
+    <Content Include="Resources\Icons\Tourist\capacity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\city.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\country.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\create.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\desctiption.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Icons\Tourist\finishedTour.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\check-list.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\clock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\destination.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\flight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\handwriting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\language.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\quotes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\race.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\rating.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\record.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\schedule.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\time.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\tour-guide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\tourists.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 
+    <Content Include="Resources\Icons\Tourist\language_icon.png">
+         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\trophy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guide\young.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 
-		<None Remove="Resources\Images\SlikaBeograd.jpg" />
+ 
+    <Content Include="Resources\Icons\Tourist\logOut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\notification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\no_picture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Tourist\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Icons\Tourist\star_empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\Icons\Tourist\star_filled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Images\profileTourist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Icons\Tourist\age.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Resource Include="Resources\Icons\Tourist\app.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    
+    <Content Include="Resources\Icons\Tourist\checkpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Icons\Tourist\date.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Icons\Tourist\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Content Include="Resources\Icons\Tourist\read.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Resource Include="Resources\Icons\Tourist\reserve.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    
+    <Content Include="Resources\Icons\Tourist\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    <Resource Include="Resources\Images\female.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\GuideWallpaper7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\hercegNovi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\hercegNovi2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+   
+    <Resource Include="Resources\Images\placeholderGuide.png">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\like.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\male.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\new5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\newWallpaper.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\positano1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\positano2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\positano3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\positano4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\rovinj.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\rovinj2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\rovinj3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaBeograd.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  
+    <Resource Include="Resources\Images\SlikaBeograd2.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaKopenhagen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaKopenhagen2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaNoviSad.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SlikaNoviSad2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\strand.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeDenmark.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeDjava.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeLimanski.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeNoviSad.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
 
-		<None Remove="Resources\Images\SlikaBeograd2.jpg" />
-		<None Remove="Resources\Images\SlikaKopenhagen.jpg" />
-		<None Remove="Resources\Images\SlikaKopenhagen2.jpg" />
-		<None Remove="Resources\Images\SlikaNoviSad.jpg" />
-		<None Remove="Resources\Images\SlikaNoviSad2.jpg" />
-		<None Remove="Resources\Images\smestaj1.jpg" />
-		<None Remove="Resources\Images\TourGradeDenmark.jpg" />
-		<None Remove="Resources\Images\TourGradeDjava.jpg" />
-		<None Remove="Resources\Images\TourGradeLimanski.jpg" />
-		<None Remove="Resources\Images\TourGradeNoviSad.jpg" />
-		<None Remove="Resources\Images\TourGradeNoviSadCentar.jpg" />
-	</ItemGroup>
-
-	<ItemGroup>
-
-		<Content Include="Resources\Icons\Guest\accept.png">
+    <Resource Include="Resources\Images\unnamed.jpg">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\wallpaperGuide.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\wallpaperDesktop.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\yellow.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  
+    <Content Include="Resources\Images\view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
+    
+    
+    <Content Include="Resources\Icons\Guest\accept.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 
@@ -449,7 +874,8 @@
 		<Content Include="Resources\Icons\Guest\travel_b.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Resource Include="Resources\Images\apartment_grade.jpg">
+  
+   	<Resource Include="Resources\Images\apartment_grade.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Resources\Images\apartment_grade1.jpg">
@@ -521,50 +947,17 @@
 		<Resource Include="Resources\Images\placeholder_accommodation.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Images\SlikaBeograd.jpg">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\SlikaBeograd2.jpg">
+    <Resource Include="Resources\Images\smestaj1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Images\SlikaKopenhagen.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\SlikaKopenhagen2.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\SlikaNoviSad.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\SlikaNoviSad2.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\smestaj1.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\TourGradeDenmark.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\TourGradeDjava.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\TourGradeLimanski.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\TourGradeNoviSad.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Images\TourGradeNoviSadCentar.jpg">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 
-
-		<Content Include="Resources\Images\view.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
-	</ItemGroup>
+  </ItemGroup>
 
 </Project>

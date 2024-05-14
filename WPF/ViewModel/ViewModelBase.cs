@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.ViewModel
 {
-    public class ViewModelBase:INotifyPropertyChanged
+    public class ViewModelBase: BindableBase,INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -70,5 +70,14 @@ namespace BookingApp.Services
             tourGrade.Validity = Validity.NO;
             tourGradeRepository.Update(tourGrade);
         }
+
+        
+        
+            public bool IsTourRated(int reservationId)
+            {
+                var allGrades = tourGradeRepository.GetAll(); // Dobijamo sve ocene
+                return allGrades.Any(grade => grade.TourReservationId == reservationId && grade.Validity == Validity.YES);
+            }
+       
     }
 }
