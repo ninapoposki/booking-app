@@ -62,10 +62,10 @@ namespace BookingApp.WPF.ViewModel.Guest
             recommendationDTO=new RenovationRecommendationDTO()
             {
                
-                RecommendationComment = "NORECOMMENDATIONS", // Default vrednost
-                RecommendationLevel = 0 // Default nivo preporuke
+                RecommendationComment = "NORECOMMENDATIONS", 
+                RecommendationLevel = 0 
                
-        };
+             };
             SetCleanlinessCommand = new MyICommand<object>(SetCleanliness);
             SetCorrectnessCommand = new MyICommand<object>(SetCorrectness);
             SetRecommendationCommand = new MyICommand<object>(SetRecommendation);
@@ -100,7 +100,6 @@ namespace BookingApp.WPF.ViewModel.Guest
             accommodationGradeDTO.Correctness = CorrectnessRadio;
             accommodationGradeDTO.Comment = Comments;
             recommendationDTO.RecommendationLevel = RecommendationRadio;
-            // recommendationDTO.RecommendationComment = RecommendationComment;
             if (string.IsNullOrWhiteSpace(RecommendationComment)) { recommendationDTO.RecommendationComment = "NORECOMMENDATIONS"; }
             else { recommendationDTO.RecommendationComment = RecommendationComment; }
             var linkedAccommodationGradeDTO = AccommodationGradeService.GetOneAccommodationGrade(selectedAccommodationReservation, accommodationGradeDTO);

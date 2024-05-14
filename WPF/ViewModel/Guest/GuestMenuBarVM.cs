@@ -11,12 +11,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace BookingApp.WPF.ViewModel.Guest
 {
     public class GuestMenuBarVM: ViewModelBase
     {
-        
         public MyICommand HomePageCommand { get; set; }
         public MyICommand MyReservationsCommand {  get; set; }
         public MyICommand NotificationsCommand { get; set; }
@@ -28,11 +28,13 @@ namespace BookingApp.WPF.ViewModel.Guest
         public GuestDTO guestDTO { get; set; }
         private string loggedInUsername;
         public int loggedInUserId;
+        private DispatcherTimer updateTimer;
+
         public GuestMenuBarVM(NavigationService navigationService, string username)
         {
             NavigationService = navigationService;
             userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
-            guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>());
+            guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>() );
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
                           Injector.Injector.CreateInstance<IGuestRepository>(),
                           Injector.Injector.CreateInstance<IUserRepository>(),
@@ -49,76 +51,27 @@ namespace BookingApp.WPF.ViewModel.Guest
             loggedInUserId = userService.GetByUsername(loggedInUsername).Id;
             guestDTO = guestService.UpdateGuest(loggedInUserId);
             NavigationService.Navigate(new GuestMainWindow(NavigationService, guestDTO));
-            //accommodationReservationService.SetGuestRole(guestDTO);
-            SetGuestRole(guestDTO);
+            SetNewGuestRole(guestDTO);
+            updateTimer = new DispatcherTimer();
+            updateTimer.Interval = TimeSpan.FromSeconds(1); 
+            updateTimer.Tick += UpdateTimer_Tick;
+            updateTimer.Start();
+
         }
-        /* public void SetGuestRole(GuestDTO guest)
-         {
-             var guestReservations = accommodationReservationService.GetOneYearReservations(guestDTO.Id);
-             if (guestReservations.Count() >= 10)
-             {
-                 guestDTO.Role = "SUPERGUEST";
-                 guestDTO.Points = 5; //ovde bi ptrebalo da se pozove get current points pa da se apdejtuje svaki put?
-             }
-             else
-             {
-                 guestDTO.Role = "GUEST";
-                 guestDTO.Points = 0;
-             }
-             guestService.Update(guestDTO.ToGuest());
-         }*/
-        public void SetGuestRole(GuestDTO guest)
+        private void SetNewGuestRole(GuestDTO guestDTO)
         {
-            var guestReservations = accommodationReservationService.GetOneYearReservations(guestDTO.Id);
-            var currentDate = DateTime.Now;
-            
-            //ako je supergost i ako nije proslo god dana od pocetka titule
-            if(guest.Role=="SUPERGUEST")
-            {
-                //ako je proslo godinu dana od pocetka vazenja supergost titule
-                if(guestDTO.SuperGuestTime.AddYears(1) <= currentDate)
-                {
-                    if (guestReservations.Count() >= 10) //ako e ostvario dovoljno rezervacija u prethodnih godinu dana
-                    {
-                        guest.Role = "SUPERGUEST";
-                        guest.Points = 5;
-                        guest.SuperGuestTime = currentDate;
-                    }
-                    else
-                    {
-                        guest.Role = "GUEST";
-                        guest.Points = 0;
-                        guest.SuperGuestTime = DateTime.MinValue;
-                    }
-                }
-                else
-                {  //ali ako nije rposlo god dana od pocetka vazenja supergost titule:
-
-                    //uloga i tajming ostaje isti:
-                    guest.Points = guestService.GetCurrentGuestPoints(guest.Id);
-                }
-            }
-            else
-            {
-                //ako je role GUEST
-                if (guestReservations.Count() >= 10) //ako e ostvario dovoljno rezervacija u prethodnih godinu dana
-                {
-                    guest.Role = "SUPERGUEST";
-                    guest.Points = 5;
-                    guest.SuperGuestTime = currentDate;
-                }
-                else
-                {
-                    guest.Role = "GUEST";
-                    guest.Points = 0;
-                    guest.SuperGuestTime = DateTime.MinValue;
-
-                }
-
-            }
-            guestService.Update(guestDTO.ToGuest());
-
+            accommodationReservationService.SetGuestRole(guestDTO);
         }
+        private void UpdateTimer_Tick(object sender, EventArgs e){  RefreshGuestData(); }
+        private void RefreshGuestData() { 
+            guestDTO = guestService.UpdateGuest(loggedInUserId);
+            OnPropertyChanged(nameof(GuestDTO)); }
+        public void Cleanup()
+        {
+            updateTimer.Stop();
+            updateTimer.Tick -= UpdateTimer_Tick;
+        }
+     
         private void HomePageExecute()
         {
             NavigationService.Navigate(new GuestMainWindow(NavigationService,guestDTO));
@@ -136,8 +89,6 @@ namespace BookingApp.WPF.ViewModel.Guest
             NavigationService.Navigate(new OwnersRatings(NavigationService,loggedInUserId));
 
         }
-
-
-
+     
     }
 }

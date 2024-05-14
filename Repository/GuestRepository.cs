@@ -78,5 +78,19 @@ namespace BookingApp.Repository
         public void Subscribe(IObserver observer) {
             subject.Subscribe(observer);
         }
+        public void SetGuest(Guest guest)
+        {
+            guest.Role = "GUEST";
+            guest.Points = 0;
+            guest.SuperGuestTime = DateTime.MinValue;
+            Update(guest);
+        }
+        public void SetSuperGuest(Guest guest,DateTime currentDate)
+        {
+            guest.Role = "SUPERGUEST";
+            guest.Points = 5;
+            guest.SuperGuestTime = currentDate;
+            Update(guest);
+        }
     }
 }

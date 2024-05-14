@@ -18,6 +18,7 @@ namespace BookingApp.Services
         public GuestService(IGuestRepository guestRepository)
         {
             this.guestRepository = guestRepository;
+
         }
         public Guest GetById(int id)
         {
@@ -58,6 +59,14 @@ namespace BookingApp.Services
         {
             return guestRepository.GetCurrentGuestPoints(guestId);
         }
-        
+        public void SetSuperGuest(GuestDTO guest,DateTime currentDate)
+        {
+            guestRepository.SetSuperGuest(guest.ToGuest(), currentDate);
+        }
+        public void SetGuest(GuestDTO guest)
+        {
+            guestRepository.SetGuest(guest.ToGuest());
+        }
+
     }
 }
