@@ -17,7 +17,7 @@ namespace BookingApp.Domain.Model
         public Guest Guest { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
-       // public List<ForumComment> Comments { get; set; }
+        public List<ForumComment> Comments { get; set; }
        public ActivationType ActivationType { get; set; }
        public ForumStatusType ForumStatus { get; set; }
 
@@ -27,14 +27,15 @@ namespace BookingApp.Domain.Model
             Guest=new Guest();
         }
 
-        public Forum(int id, int guestId, int locationId, ActivationType activationType, ForumStatusType forumStatus)
+        public Forum(int id, int guestId, int locationId, ActivationType activationType, ForumStatusType forumStatus, List<ForumComment> comments)
         {
             Id = id;
             GuestId = guestId;
             LocationId = locationId;
             ActivationType = activationType;
             ForumStatus = forumStatus;
-            //dodaj comments ovde posle
+            Comments = comments;
+            
         }
         public void FromCSV(string[] values)
         {

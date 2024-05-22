@@ -42,12 +42,12 @@ namespace BookingApp.DTO
             get { return forumStatus; }
             set { if (forumStatus != value) { forumStatus = value; OnPropertyChanged("StatusType"); } }
         }
-       /* public List<ForumComment> comments;
+        public List<ForumComment> comments;
         public List<ForumComment> Comments
         {
             get { return comments; }
             set { if (comments != value) { comments = value; OnPropertyChanged("Comments"); } }
-        }*/
+        }
 
         public ForumDTO() { }
         public ForumDTO(Forum forum)
@@ -57,7 +57,7 @@ namespace BookingApp.DTO
             this.LocationId = forum.LocationId;
             this.ActivationType = forum.ActivationType;
             this.ForumStatus = forum.ForumStatus;
-            //this.Comments=forum.comments;
+           // this.Comments=forum.comments;
         }
 
         public Forum ToForum()
@@ -68,7 +68,7 @@ namespace BookingApp.DTO
             forum.LocationId= this.LocationId;
             forum.ActivationType = this.ActivationType;
             forum.ForumStatus = this.ForumStatus;
-            //forum.Comments=this.Comments;
+           // forum.Comments=this.Comments;
             return forum;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
