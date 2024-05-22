@@ -71,7 +71,8 @@ namespace BookingApp.Repository
         }
         public int GetCurrentGuestPoints(int id)
         {
-            var guest = guests.FirstOrDefault(g => g.Id == id);
+            var guests = GetAll();
+            var guest = guests.First(g => g.Id == id);
             return guest.Points;
 
         }
