@@ -139,9 +139,8 @@ namespace BookingApp.WPF.ViewModel.Owner
             }
             return number;
         }
-        private List<AccommodationDTO> FilterAccommodations()
+        public List<AccommodationDTO> FilterAccommodations()
         {
-            
                 return AllAccommodations
                 .Where(accommodation =>
                     (string.IsNullOrEmpty(Filter) || accommodation.Name.ToLower().Contains(Filter.ToLower()) || accommodation.Location.City.ToLower().Contains(Filter.ToLower())) || accommodation.Location.Country.ToLower().Contains(Filter.ToLower()) || accommodation.Capacity.ToString() == Filter || accommodation.MinStayDays.ToString() == Filter || accommodation.CancellationPeriod.ToString() == Filter || accommodation.AccommodationType.ToString().ToLower() == Filter.ToLower() ).ToList(); 

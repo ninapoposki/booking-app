@@ -63,19 +63,21 @@ namespace BookingApp.WPF.ViewModel.Owner
          
             Dates = new ObservableCollection<Range>(dates.Select(r => new Range { InitialDate = r.Item1, EndDate = r.Item2 }).ToList());
             SelectedRenovation = new AccommodationRenovationDTO();
-            BookCommand = new MyICommand<Range>(OnBookAccommodation);
+            BookCommand = new MyICommand<Range>(ChooseDates);
            
             AccommodationRenovationService = new AccommodationRenovationService(Injector.Injector.CreateInstance<IAccommodationRenovationRepository>());
             accommodationReservationDTO = accommodationReservation;
+           
         }
        
-        public void OnBookAccommodation(Range selectedDate)
+        public void ChooseDates(Range selectedDate)
         {
-            SelectedRenovation.InitialDate = accommodationReservationDTO.InitialDate;
-            SelectedRenovation.EndDate = accommodationReservationDTO.EndDate;
+            //SelectedRenovation.InitialDate = accommodationReservationDTO.InitialDate;
+            //SelectedRenovation.EndDate = accommodationReservationDTO.EndDate;
+            SelectedRenovation.InitialDate = selectedDate.InitialDate;
+            SelectedRenovation.EndDate = selectedDate.EndDate;
             SelectedRenovation.Duration = accommodationReservationDTO.DaysToStay;
-            DatesSelected?.Invoke(this, selectedDate);
-            // AccommodationRenovationService.Add(SelectedRenovation);
+            AccommodationRenovationService.Add(SelectedRenovation);
             Close();
             // MessageBox.Show("Reservation added successfully");
         }

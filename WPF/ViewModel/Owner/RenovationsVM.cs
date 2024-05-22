@@ -12,24 +12,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace BookingApp.WPF.ViewModel.Owner
 {
-    public class RenovationsVM
-    {
+    public class RenovationsVM : ViewModelBase {
         public ObservableCollection<AccommodationRenovationDTO> AllRenovations { get; set; }
         public AccommodationRenovationDTO SelectedRenovation { get; set; }
         public AccommodationService AccommodationService { get; set; }
         public AccommodationRenovationService AccommodationRenovationService { get; set; }
-        private readonly AccommodationReservationService accommodationReservationService;
-
+        public readonly AccommodationReservationService accommodationReservationService;
         public AccommodationDTO AccommodationDTO { get; set; }
         public MyICommand<AccommodationRenovationDTO> Delete{ get; private set; }
         public AccommodationRenovationDTO accommodationRenovationDTO { get; set; }
         public MyICommand TryToBookRenovationCommand { get; set; }
         public MyICommand ConfirmRenovation { get; set; }
-        public List<(DateTime, DateTime)> dates { get; set; }
+        private string description;
+        public string Description {
+            get { return description; }
+            set { description = value;  OnPropertyChanged(nameof(Description)); } }
        
         public RenovationsVM(AccommodationDTO accommodationDTO) {
             AccommodationDTO = accommodationDTO;
@@ -39,124 +41,82 @@ namespace BookingApp.WPF.ViewModel.Owner
                 Injector.Injector.CreateInstance<ILocationRepository>(),
                 Injector.Injector.CreateInstance<IOwnerRepository>());
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
-                          Injector.Injector.CreateInstance<IGuestRepository>(),
-                          Injector.Injector.CreateInstance<IUserRepository>(),
-                          Injector.Injector.CreateInstance<IAccommodationRepository>(),
-                          Injector.Injector.CreateInstance<IImageRepository>(),
-                          Injector.Injector.CreateInstance<ILocationRepository>(),
-                          Injector.Injector.CreateInstance<IOwnerRepository>());
+                          Injector.Injector.CreateInstance<IGuestRepository>(), Injector.Injector.CreateInstance<IUserRepository>(),
+                          Injector.Injector.CreateInstance<IAccommodationRepository>(),Injector.Injector.CreateInstance<IImageRepository>(),
+                          Injector.Injector.CreateInstance<ILocationRepository>(), Injector.Injector.CreateInstance<IOwnerRepository>());
             AccommodationRenovationService = new AccommodationRenovationService(Injector.Injector.CreateInstance<IAccommodationRenovationRepository>());
             Delete = new MyICommand<AccommodationRenovationDTO>(DeleteRenovation);
             accommodationRenovationDTO = new AccommodationRenovationDTO();
             TryToBookRenovationCommand = new MyICommand(OnBookRenovation);
             ConfirmRenovation = new MyICommand(BookRenovation);
-            dates = new List<(DateTime, DateTime)>();
-            /*AvailableDatesVM availableDatesVM = new AvailableDatesVM(dates, accommodationReservation);
-            availableDatesVM.DatesSelected += (sender, selectedDate) =>
-            {
-                // Ovde možete koristiti odabrane datume kako vam odgovara
-                // Na primer, možete zatvoriti prozor i proslediti datume drugom prozoru
-                // this.Close();
-                // renovationsVM.ProcessSelectedDates(selectedDate);
-            };*/
-
             Update();
         }
        
-        public void BookRenovation()
-        {
-           
-            AccommodationRenovationService.Add(accommodationRenovationDTO);
+        public void BookRenovation() {
+            AccommodationRenovationService.UpdateData(Description, AccommodationDTO.Id);
+            Update();
         }
-        public void Update()
-        {
+        public void Update()  {
             AllRenovations.Clear();
-            foreach (AccommodationRenovationDTO accommodationRenovationDTO in AccommodationRenovationService.GetAll())
-            {
-
-               
-                var accommodationDTO = AccommodationService.GetByIdDTO(accommodationRenovationDTO.AccommodationId);
-                  
-                    if (accommodationRenovationDTO.AccommodationId== accommodationDTO.Id)
-                    {
+            foreach (AccommodationRenovationDTO accommodationRenovationDTO in AccommodationRenovationService.GetAll()) {
+                    if (AccommodationDTO.Id== accommodationRenovationDTO.AccommodationId)  {
                         AllRenovations.Add(accommodationRenovationDTO);
                     }
-                
             }
         }
-        public void DeleteRenovation(AccommodationRenovationDTO accommodationRenovationDTO)
-        {
-            if (SelectedRenovation != null )
-            {
-                if(IsAboveFiveDays(SelectedRenovation)) { 
+        public void DeleteRenovation(AccommodationRenovationDTO accommodationRenovationDTO) {
+            if (SelectedRenovation != null ) {
+                if(AccommodationRenovationService.IsAboveFiveDays(SelectedRenovation)) { 
                 AccommodationRenovationService.Delete(SelectedRenovation);
-
                     Update();
-                }
-                else { MessageBox.Show("You cannot cancel reservation.It has been less than 5 days until renovation!"); }
-            }
-        }
-        private bool IsAboveFiveDays(AccommodationRenovationDTO accommodationRenovationDTO)
-        {
-            DateTime currentDate = DateTime.Now;
-            DateTime endDate = accommodationRenovationDTO.EndDate;
-            TimeSpan difference = currentDate - endDate;
-            return difference.Days > 5 ;
-        }
-        /// <summary>
-        /// ///////////////////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-        private void OnBookRenovation()
-        {
-          
-            var accommodationDTO = accommodationReservationService.accommodationService.GetByIdDTO(AccommodationDTO.Id);
-            var accommodationReservationDTO = accommodationReservationService.GetReservationByAccommodation(accommodationDTO.Id);
-           
-            if (accommodationRenovationDTO.InitialDate < accommodationRenovationDTO.EndDate)
-            {
-                CheckReservationAvailability();
-            }
-            else
-            {
-                HandleInvalidData();
+                }  else { MessageBox.Show("You cannot cancel reservation.It has been less than 5 days until renovation!"); }
             }
         }
 
-        private void CheckReservationAvailability()
-        {
-            var accommodationDTO = accommodationReservationService.accommodationService.GetByIdDTO(AccommodationDTO.Id);
-            if (accommodationReservationService.AreDatesAvailable(accommodationDTO.Id, accommodationRenovationDTO.InitialDate, accommodationRenovationDTO.EndDate))
-            {
-                ProcessValidReservation();
-            }
-            else
-            {
-                HandleUnavailableDates();
+        private void OnBookRenovation() {
+             if (accommodationRenovationDTO.InitialDate < accommodationRenovationDTO.EndDate){
+                ProcessValidRenovation();
+            }  else {  HandleInvalidData();
             }
         }
-        public void ProcessValidReservation()
-        {
+      
+        public void ProcessValidRenovation(){
             var accommodationReservationDTO =new AccommodationReservationDTO();
             accommodationReservationDTO.InitialDate = accommodationRenovationDTO.InitialDate;
             accommodationReservationDTO.EndDate = accommodationRenovationDTO.EndDate;
             accommodationReservationDTO.DaysToStay = accommodationRenovationDTO.Duration;
-            List<(DateTime, DateTime)> dates = accommodationReservationService.FindDateRange(accommodationReservationDTO.ToAccommodationReservation(),AccommodationDTO.Id);
-            //accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.ProcessDateRange(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest()));
+            List<(DateTime, DateTime)> dates1 = accommodationReservationService.FindDateRange(accommodationReservationDTO.ToAccommodationReservation(),AccommodationDTO.Id);
+            List<(DateTime, DateTime)> dates = new List<(DateTime, DateTime)>();
+            var accommodationRenovationDTOs = AccommodationRenovationService.GetAllByAccommodationId(AccommodationDTO.Id);
+            foreach (var date in dates1) {
+                bool found = false;
+                foreach (var accren in accommodationRenovationDTOs) {
+                    if (date.Item1 >= accren.InitialDate && date.Item1 <= accren.EndDate) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found){  dates.Add(date);}
+            }
+            if (dates.Count ==0) { 
+                HandleUnavailableDates(); } else
+            {
+            AvailableDates availableDates = new AvailableDates( dates, accommodationReservationDTO);
+            availableDates.Show();
+            }
+        }
+        public void HandleUnavailableDates() {
+            MessageBox.Show("The requested dates are not available. Here are some alternative options.");
+            var accommodationReservationDTO = new AccommodationReservationDTO();
+            accommodationReservationDTO.InitialDate = accommodationRenovationDTO.InitialDate;
+            accommodationReservationDTO.EndDate = accommodationRenovationDTO.EndDate;
+            accommodationReservationDTO.DaysToStay = accommodationRenovationDTO.Duration;
+            List<(DateTime, DateTime)> dates = accommodationReservationService.FindAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(),AccommodationDTO.Id);
+          
             AvailableDates availableDates = new AvailableDates( dates, accommodationReservationDTO);
             availableDates.Show();
         }
-
-        public void HandleUnavailableDates()
-        {
-          /*  MessageBox.Show("The requested dates are not available. Here are some alternative options.");
-            List<(DateTime, DateTime)> dates = accommodationReservationService.FindAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id);
-            accommodationReservationDTO = new AccommodationReservationDTO(accommodationReservationService.ProcessAlternativeDates(accommodationReservationDTO.ToAccommodationReservation(), selectedAccommodationDTO.Id, guestDTO.ToGuest()));
-            AvailableDatesWindow availableDates = new AvailableDatesWindow(navigationService, dates, accommodationReservationDTO);
-            navigationService.Navigate(availableDates);*/
-        }
-
-        private void HandleInvalidData()
-        {
+        private void HandleInvalidData() {
             MessageBox.Show("The data you entered is not valid");
         }
     }

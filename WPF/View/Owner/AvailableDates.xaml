@@ -5,9 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
         mc:Ignorable="d" Height="450" Width="800" x:Name="AvailableDatesWindow">
+    <Window.Resources>
+        <Style x:Key="GuestPicturesTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#008B8B"/>
+            <Setter Property="Text" Value="Available Dates"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Dates.Count}" Value="0">
+                    <Setter Property="Text" Value="There are no more available and alternative dates for your renovation!"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Grid >
-            <ListView  ItemsSource="{Binding Dates}" Width="500" Height="400" Margin="10" SelectedItem="{Binding selectedDate, Mode=TwoWay}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource GuestPicturesTextStyle}" 
+ 
+FontWeight="Bold"  Grid.Row="0"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding Dates}" Width="500" Height="400" Margin="10" SelectedItem="{Binding selectedDate, Mode=TwoWay}">
                 <ListView.Template>
                     <ControlTemplate TargetType="ListView">
                         <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
@@ -38,5 +55,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-    </Grid>
+    
 </Window>

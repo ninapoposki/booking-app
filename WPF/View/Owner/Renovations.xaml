@@ -73,7 +73,7 @@
                         <TextBlock Text="TO :" Width="50" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="15"/>
                                 <DatePicker Name="to" Width="150" FontSize="13" SelectedDate="{Binding Path=accommodationRenovationDTO.EndDate, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel >
-                    <StackPanel HorizontalAlignment="Center" Margin="0,20,0,0" Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal">
                                 <TextBlock Text="Duration " FontSize="15" VerticalAlignment="Center" />
                        <!-- <xctk:IntegerUpDown   Name="MinUpDown"   TextAlignment="Left"   >
                         </xctk:IntegerUpDown>-->
@@ -87,13 +87,13 @@
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <TextBlock  Text="Chosen period: " FontSize="15" VerticalAlignment="Top"/>
                         <Border BorderBrush="Black" BorderThickness="1" Width="250">
-                            <TextBlock Text=" fhrw"  />
+                            <TextBlock Text=""  />
                         </Border>
                         
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <TextBlock  Text="Description: " FontSize="15" VerticalAlignment="Top"/>
-                        <TextBox   Width="250" Height="100"  Margin="20,5,5,10" BorderBrush="Black" Text="{Binding accommodationRenovationDTO.Description}"/>
+                        <TextBox x:Name="descriptionTextBox"  Width="250" Height="100"  Margin="20,5,5,10" BorderBrush="Black" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
 
                     </StackPanel>
                     <Button Content="Confirm" HorizontalAlignment="Center" Margin="0,25,0,0" Command="{Binding ConfirmRenovation}"/>
@@ -110,24 +110,24 @@
                                 <Setter Property="Height" Value="30" />
                                 <Setter Property="VerticalAlignment" Value="Center" />
                                 <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="Width" Value="110"/>
+                                <Setter Property="Width" Value="100"/>
                             </Style>
                             <Style x:Key="CustomHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Height" Value="30" />
                                 <Setter Property="VerticalAlignment" Value="Center" />
                                 <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="Width" Value="270"/>
+                                <Setter Property="Width" Value="250"/>
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Start" Binding="{Binding InitialDate}" HeaderStyle="{StaticResource CustomHeaderStyle}" />
+                            <DataGridTextColumn Header="Start" Width="100" Binding="{Binding InitialDate, StringFormat='{}{0:dd/MM/yyyy}'}" HeaderStyle="{StaticResource CustomHeaderStyle}" />
 
 
-                            <DataGridTextColumn Header="End" Binding="{Binding EndDate}" HeaderStyle="{StaticResource CustomHeaderStyle}" />
+                            <DataGridTextColumn Header="End" Width="100" Binding="{Binding EndDate, StringFormat='{}{0:dd/MM/yyyy}'}" HeaderStyle="{StaticResource CustomHeaderStyle}" />
 
 
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource CustomHeaderStyle1}" />
+                            <DataGridTextColumn Header="Description"  Width="250"  Binding="{Binding Description}" HeaderStyle="{StaticResource CustomHeaderStyle1}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     
