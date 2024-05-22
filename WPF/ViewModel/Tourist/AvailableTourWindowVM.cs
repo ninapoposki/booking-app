@@ -1,4 +1,5 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Utilities;
 using BookingApp.WPF.View.Tourist;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace BookingApp.WPF.ViewModel.Tourist
         public TourDTO SelectedTour { get; set; }
         public ObservableCollection<TourDTO> AvailableTours { get; set; }
         private string username;
+        public MyICommand BookTourCommand { get; set; }
         public AvailableTourWindowVM(List<TourDTO> availableTours, string username)
         {
             AvailableTours = new ObservableCollection<TourDTO>(availableTours);
             SelectedTour = new TourDTO();
             this.username = username;
+            BookTourCommand = new MyICommand(BookTour);
         }
 
         public void BookTour()

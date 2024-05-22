@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.WPF.View.Tourist
@@ -18,19 +19,16 @@ namespace BookingApp.WPF.View.Tourist
     /// <summary>
     /// Interaction logic for ToursToRateWindow.xaml
     /// </summary>
-    public partial class ToursToRateWindow : Window
+    public partial class ToursToRateWindow : Page
     { 
-        public ToursToRateVM ToursToRateVM { get; set; }
-        public ToursToRateWindow(int userId)
+       
+        public ToursToRateWindow(NavigationService navigationService,int userId)
         { 
-            ToursToRateVM = new ToursToRateVM(userId);
+           
             InitializeComponent();
-            DataContext = ToursToRateVM;
+            DataContext = new ToursToRateVM(navigationService,userId);
         }
 
-        private void RateTour(object sender, RoutedEventArgs e)
-        {
-            ToursToRateVM.RateTour();
-        }
+      
     }
 }

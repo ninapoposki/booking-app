@@ -32,7 +32,7 @@ namespace BookingApp.WPF.ViewModel.Guest
                            Injector.Injector.CreateInstance<IAccommodationRepository>(),
                            Injector.Injector.CreateInstance<IImageRepository>(),
                            Injector.Injector.CreateInstance<ILocationRepository>(),
-                           Injector.Injector.CreateInstance<IOwnerRepository>()); 
+                           Injector.Injector.CreateInstance<IOwnerRepository>());
             guestService = new GuestService(Injector.Injector.CreateInstance<IGuestRepository>());
             userService = new UserService(Injector.Injector.CreateInstance<IUserRepository>());
             imageService = new ImageService(Injector.Injector.CreateInstance<IImageRepository>());

@@ -20,60 +20,41 @@ using BookingApp.DTO;
 using System.Runtime.CompilerServices;
 using BookingApp.WPF.ViewModel.Tourist;
 using BookingApp.Services;
+using BookingApp.WPF.ViewModel.Guide;
+using System.Windows.Navigation;
 
 namespace BookingApp.WPF.View.Tourist
 {
     /// <summary>
     /// Interaction logic for TouristMainWindow.xaml
     /// </summary>
-    public partial class TouristMainWindow : Window
+    public partial class TouristMainWindow : Page
     {
-        public TouristMainWindowVM  touristMainWinodowVM { get; set; }
+        public TouristMainWindowVM  TouristMainWinodowVM { get; set; }
         
-       
-
-        public TouristMainWindow(string username)
+        public TouristMainWindow(NavigationService navigationService, string username)
         {
             InitializeComponent();
-            touristMainWinodowVM= new TouristMainWindowVM(username);
-            DataContext = touristMainWinodowVM;
-
-           
+            TouristMainWindowVM viewModel = new TouristMainWindowVM(navigationService, username);
+            DataContext = viewModel;
+            TouristMainWinodowVM = viewModel;
+          
         }
-
-      
-        private void CancelTour(object sender, RoutedEventArgs e)
+       private void CityChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TouristMainWindowVM viewModel = DataContext as TouristMainWindowVM; 
+            if (viewModel != null)
+            {
+                viewModel.CityChanged();
+            }
+            else
+            {
+                MessageBox.Show("ViewModel nije inicijalizovan!");
+            }
+        }
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            this.Close();
-        }
-
-
-        private void SearchTour(object sender, RoutedEventArgs e)
-        {
-            touristMainWinodowVM.SearchTour();
-        }
-
-       
-        private void BookTour(object sender, RoutedEventArgs e)
-        {
-           touristMainWinodowVM.BookTour();
-        }
-
-
-        private void FinishedTourClick(object sender, RoutedEventArgs e)
-        {
-            touristMainWinodowVM.FinishedTourClick();
-        }
-
-        private void ActiveTourClick(object sender, RoutedEventArgs e)
-        {
-            touristMainWinodowVM.ActiveTourClick();
-        }
-
-        private void NotificationsClick(object sender, RoutedEventArgs e)
-        {
-            touristMainWinodowVM.NotificationsClick();
         }
     }
 }

@@ -30,7 +30,8 @@ namespace BookingApp.Services
         public void UpdateForGrade(ImageDTO image, int tourGradeId)
         {
             image.EntityId = tourGradeId;
-            image.EntityType = EntityType.TOURGRADE;
+            image.EntityType = EntityType.TOURGRADE;  
+            imageRepository.Update(image.ToImage());
         }
         public void UpdateAccommodation(ImageDTO image, int accommodationId)
         {
@@ -104,5 +105,15 @@ namespace BookingApp.Services
             }
             return images;
         }
+        public List<ImageDTO> GetImagesForTour(int tourId)
+        {
+            var images = imageRepository.GetAll()
+                                        .Where(img => img.EntityId == tourId && img.EntityType == EntityType.TOUR)
+                                        .Select(img => new ImageDTO(img))
+                                        .ToList();
+            return images;
+        }
+     
+
     }
 }

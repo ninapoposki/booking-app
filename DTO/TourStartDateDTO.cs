@@ -62,7 +62,6 @@ namespace BookingApp.DTO
                 }
             }
         }
-
         public TourStartDateDTO() { }
 
         public TourStartDateDTO(TourStartDate tourStartDate)
@@ -74,7 +73,6 @@ namespace BookingApp.DTO
             TourStatus= tourStartDate.TourStatus;
             CurrentCheckPointId=tourStartDate.CurrentCheckPointId;
         }
-
         public TourStartDate ToTourStartDate()
         {
             return new TourStartDate(Id,TourId,DateTime.ParseExact(startTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),tourStatus,CurrentCheckPointId);
@@ -83,7 +81,6 @@ namespace BookingApp.DTO
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

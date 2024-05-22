@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.ViewModel.Guide;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,26 +20,10 @@ namespace BookingApp.WPF.View.Guide
     /// </summary>
     public partial class GuideMainWindow : Window
     {
-        public GuideMainWindow()
+        public GuideMainWindow(int userId)
         {
             InitializeComponent();
-            DataContext = this;
-            MainWindowFrame.NavigationService.Navigate(new GuideHomePage());
-        }
-
-        private void HomePageClick(object sender, RoutedEventArgs e)
-        {
-            MainWindowFrame.NavigationService.Navigate(new GuideHomePage());
-        }
-
-        private void MyToursPageClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TourRequestsPageClick(object sender, RoutedEventArgs e)
-        {
-
+            DataContext = new GuideMainWindowVM(MainWindowFrame.NavigationService,userId);
         }
 
         private void ProfilePageClick(object sender, RoutedEventArgs e)

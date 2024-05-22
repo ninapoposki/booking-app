@@ -53,11 +53,22 @@ namespace BookingApp.DTO
                 }
             }
         }
+        private bool isCurrent;
 
+        public bool IsCurrent
+        {
+            get { return isCurrent; }
+            set
+            {
+                if (isCurrent != value)
+                {
+                    isCurrent = value;
+                    OnPropertyChanged("IsCurrent");  
+                }
+            }
+        }
         public CheckPoint ToCheckPoint()
         {
-
-
             return new CheckPoint(Id,name,TourId,type);
         }
 

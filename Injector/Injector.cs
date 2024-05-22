@@ -9,7 +9,6 @@ using BookingApp.Domain.IRepositories;
 
 namespace BookingApp.Injector
 {
-
     public class Injector
     {
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
@@ -33,9 +32,9 @@ namespace BookingApp.Injector
             {  typeof(ICancelledReservationsRepository), new CancelledReservationsRepository()},
             {  typeof(IReservationRequestRepository), new ReservationRequestRepository()},
             { typeof(ITourGradeRepository), new TourGradeRepository()},
+            { typeof(ITourRequestRepository), new TourRequestRepository()},
              { typeof(IAccommodationRenovationRepository), new AccommodationRenovationRepository()},
             { typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository()}
-
 
         };
         public static T CreateInstance<T>()

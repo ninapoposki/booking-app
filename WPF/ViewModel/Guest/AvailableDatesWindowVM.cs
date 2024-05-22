@@ -14,6 +14,7 @@ namespace BookingApp.WPF.ViewModel.Guest
 {
     public class AvailableDatesWindowVM : ViewModelBase
     {
+        
         private ObservableCollection<Range> dates;
         public ObservableCollection<Range> Dates
         {
@@ -55,9 +56,6 @@ namespace BookingApp.WPF.ViewModel.Guest
         public NavigationService navigationService { get; set; }
         public event EventHandler RequestClose;
         public MyICommand <Range> BookCommand { get; set; }
-
-
-
         public AvailableDatesWindowVM(NavigationService navigationService, List<(DateTime, DateTime)> dates, AccommodationReservationDTO accommodationReservation)
         {
             accommodationReservationService = new AccommodationReservationService(Injector.Injector.CreateInstance<IAccommodationReservationRepository>(),
@@ -79,26 +77,10 @@ namespace BookingApp.WPF.ViewModel.Guest
             SelectedReservation.EndDate = selectedDate.EndDate;
 
             accommodationReservationService.Add(SelectedReservation.ToAccommodationReservation());
-         /*   if (SelectedReservation.Guest.Role == "SUPERGUEST")
-            {
-                SelectedReservation.Guest.Points -= 1;
-                if (SelectedReservation.Guest.Points == 0)
-                {
-                    SelectedReservation.Guest.Role = "GUEST";
-                }
-                guestService.Update(SelectedReservation.Guest.ToGuest());
-            }*/
             if(SelectedReservation.Guest.Role=="SUPERGUEST" && SelectedReservation.Guest.Points > 0)
             {
                 SelectedReservation.Guest.Points -= 1;
             }
-            /*if(SlectedReservation.Guest.Role=="GUEST" && accommodationReservation.GetResForOneYear>=10){
-             *  SelectedRes.Guest.Role="SUPERGUEST";
-             *  SelectedRes.Guest.Points=5;
-             * SelectedRes.Guest.SuperGuestSince=DateTime.Now() -ili ce se ovo samo apdejtovati
-             * }
-             * 
-             */
             guestService.Update(SelectedReservation.Guest.ToGuest());
             MessageBox.Show("Reservation added successfully");
             navigationService.GoBack();

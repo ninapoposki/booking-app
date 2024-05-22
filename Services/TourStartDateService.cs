@@ -47,17 +47,16 @@ namespace BookingApp.Services
             tourStart.TourStatus=TourStatus.FINISHED;
             tourStartDateRepository.Update(tourStart);
         }
-        public TourDTO GetActiveTour()
+        public TourStartDateDTO GetActiveTour()
         {
             foreach(TourStartDate tourStart in tourStartDateRepository.GetAll())
             {
                 if (tourStart.TourStatus.ToString().Equals("ACTIVE"))
                 {
-                    return tourService.GetTour(tourStart.TourId);
+                    return new TourStartDateDTO(tourStart);
                 }
             }return null;
-        }
-       
+        }     
         public void UpdateCurrentCheckPoint(int checkPointId,int selectedDateId)
         {
             TourStartDate? startDate=tourStartDateRepository.Get(selectedDateId);
@@ -87,6 +86,29 @@ namespace BookingApp.Services
         public List<TourDTO> GetByYear(int year, int userId)
         {
             return GetAllFinishedTours(userId).Where(t => t.SelectedDateTime.StartDateTime.Year == year).ToList();
+        }
+        public IEnumerable<TourStartDateDTO> GetAllInactiveTourDates()
+        {
+            var allTourStartDates = tourStartDateRepository.GetAll();
+            var inactiveTourDates = allTourStartDates.Where(tsd => tsd.TourStatus == TourStatus.INACTIVE);
+            return inactiveTourDates.Select(tsd => new TourStartDateDTO(tsd));
+        }
+        public TourStartDateDTO GetTourStartDate(int id)
+        {
+           var tourStartDate = tourStartDateRepository.Get(id);
+           if (tourStartDate != null) { return new TourStartDateDTO(tourStartDate); }
+            return null;
+        }
+        public List<DateTime> GetUnavailableDates(DateOnly startDate,DateOnly endDate)
+        {
+            List<DateTime> unavailableDates=new List<DateTime>();
+            foreach(TourStartDate tourStartDate in tourStartDateRepository.GetAll())
+            {
+                if(DateOnly.FromDateTime(tourStartDate.StartTime)>=startDate && DateOnly.FromDateTime(tourStartDate.StartTime) <= endDate && tourStartDate.TourStatus.ToString().Equals("INACTIVE"))
+                {
+                    unavailableDates.Add(tourStartDate.StartTime.Date);
+                }
+            }return unavailableDates;
         }
     }
 }
