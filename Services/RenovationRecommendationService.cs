@@ -35,5 +35,11 @@ namespace BookingApp.Services
             recommendationDTO.ReservationId = accommodationReservationDTO.Id;
             return recommendationDTO;
         }
+        public List<RenovationRecommendationDTO> GetAll()
+        {
+            List<RenovationRecommendation> recommendations = recommendationRepository.GetAll();
+            List<RenovationRecommendationDTO> recommendationsDTOs = recommendations.Select(acc => new RenovationRecommendationDTO(acc)).ToList();
+            return recommendationsDTOs;
+        }
     }
 }
