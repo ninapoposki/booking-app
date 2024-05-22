@@ -12,6 +12,7 @@ namespace BookingApp.Domain.IRepositories
     {
         List<AccommodationRenovation> GetAll();
         public int GetCurrentId();
+        public int NextId();
         AccommodationRenovation Add(AccommodationRenovation accommodationRenovation);
         void Delete(AccommodationRenovation accommodationRenovation);
         AccommodationRenovation Update(AccommodationRenovation accommodationRenovation);
