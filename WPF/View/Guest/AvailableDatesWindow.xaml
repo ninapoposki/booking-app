@@ -23,8 +23,8 @@
                         <Border Padding="5" Margin="5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                 <StackPanel Orientation="Vertical" Width="240" >
-                                    <TextBlock Text="{Binding InitialDate}" FontWeight="DemiBold"  Foreground="DarkSlateGray"/>
-                                    <TextBlock Text="{Binding EndDate}" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
+                                    <TextBlock Text="{Binding InitialDate,StringFormat={}{0:dd.MM.yyyy}}" FontWeight="DemiBold"  Foreground="DarkSlateGray"/>
+                                    <TextBlock Text="{Binding EndDate,StringFormat={}{0:dd.MM.yyyy}}" FontWeight="DemiBold" Foreground="DarkSlateGray"/>
                                 </StackPanel>
                                 <Button Command="{Binding DataContext.BookCommand,ElementName=AvailableDatesPage}" CommandParameter="{Binding}">
                                     <Button.Template>

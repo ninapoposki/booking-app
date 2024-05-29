@@ -12,6 +12,7 @@ using BookingApp.DTO;
 using BookingApp.Domain.Model;
 using BookingApp.Repository;
 
+
 namespace BookingApp.DTO
 {
         public class AccommodationDTO : INotifyPropertyChanged {
@@ -90,6 +91,25 @@ namespace BookingApp.DTO
             get => minDaysMessage;
             set { minDaysMessage = value; OnPropertyChanged(nameof(MinDaysMessage)); }
         }
+        private Tuple<DateTime, DateTime> _firstAvailableDates;
+        public Tuple<DateTime, DateTime> FirstAvailableDates
+        {
+            get => _firstAvailableDates;
+            set
+            {
+                if (_firstAvailableDates != value)
+                {
+                    _firstAvailableDates = value;
+                    OnPropertyChanged(nameof(FirstAvailableDates));
+                    OnPropertyChanged(nameof(FirstAvailableStartDate));
+                    OnPropertyChanged(nameof(FirstAvailableEndDate));
+                }
+            }
+        }
+        public DateTime FirstAvailableStartDate => FirstAvailableDates?.Item1 ?? DateTime.MinValue;
+        public DateTime FirstAvailableEndDate => FirstAvailableDates?.Item2 ?? DateTime.MinValue;
+
+        public List<(DateTime, DateTime)> AllAvailableDates { get; set; }
         public AccommodationDTO(){  }
         public AccommodationDTO(Accommodation accommodation,Location location){
             this.Id = accommodation.Id;

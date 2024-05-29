@@ -41,7 +41,13 @@ namespace BookingApp.Services
         {
             return userRepository.GetCurrentUserId();   
         }
-
+        public List<UserDTO> getByRole(UserType role)
+        {
+            var users = userRepository.GetByRole(role);
+            List<UserDTO> userDTOs = users.Select(us => new UserDTO(us)).ToList();
+            return userDTOs;
+        }
+         
    
     }
 }

@@ -50,7 +50,49 @@ namespace BookingApp.DTO
             get => comment;
             set { comment = value; OnPropertyChanged(nameof(Comment)); }
         }
-        
+        private DateTime creationDate;
+        public DateTime CreationDate
+        {
+            get { return creationDate; }
+            set
+            {
+                if (creationDate != value) { creationDate = value; OnPropertyChanged("CreationDate"); }
+            }
+        }
+        private bool isHighlighted;
+        public bool IsHighlighted
+        {
+            get => isHighlighted;
+            set { isHighlighted = value; OnPropertyChanged(); }
+        }
+        public GuestDTO Guest { get; set; }
+
+        public OwnerDTO Owner { get; set; }
+
+        public ForumCommentDTO() { }
+        public ForumCommentDTO(ForumComment comment)
+        {
+            this.Id = comment.Id;
+            this.UserId = comment.UserId;
+            this.ForumId = comment.ForumId;
+            this.Comment = comment.Comment;
+            this.ReportNumber = comment.ReportNumber;
+            // this.Comments=forum.comments;
+            this.CreationDate=comment.CreationDate;
+        }
+
+        public ForumComment ToForumComment()
+        {
+            var comment = new ForumComment();
+            comment.Id = this.Id;
+            comment.UserId = this.UserId;
+            comment.ForumId = this.ForumId;
+            comment.Comment = comment.Comment;
+            comment.ReportNumber = this.ReportNumber;
+            // forum.Comments=this.Comments;
+            comment.CreationDate= this.CreationDate;
+            return comment;
+        }
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

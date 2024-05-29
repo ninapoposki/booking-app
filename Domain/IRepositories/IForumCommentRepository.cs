@@ -17,6 +17,8 @@ namespace BookingApp.Domain.IRepositories
          int NextId();
          void Delete(ForumComment comment);
          ForumComment Update(ForumComment comment);
+        List<ForumComment> GetCommentsByForum(int forumId);
+
 
     }
 }

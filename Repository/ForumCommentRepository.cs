@@ -73,6 +73,10 @@ namespace BookingApp.Repository
             return comment;
         }
 
+        public List<ForumComment> GetCommentsByForum(int forumId)
+        {
+            return forumComments.Where(fc => fc.ForumId == forumId).ToList();
+        }
         private void WriteToFile()
         {
             serializer.ToCSV(FilePath, forumComments);

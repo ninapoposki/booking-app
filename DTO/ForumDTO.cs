@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -48,7 +49,12 @@ namespace BookingApp.DTO
             get { return comments; }
             set { if (comments != value) { comments = value; OnPropertyChanged("Comments"); } }
         }
+        public ObservableCollection<ForumCommentDTO> ForumComments { get; set; } = new ObservableCollection<ForumCommentDTO>();
+        public GuestDTO Guest { get; set; }
+        public LocationDTO Location { get; set; }
 
+        public bool CanDisable { get; set; }
+        public bool CanBeUseful { get; set; }
         public ForumDTO() { }
         public ForumDTO(Forum forum)
         {
@@ -59,6 +65,7 @@ namespace BookingApp.DTO
             this.ForumStatus = forum.ForumStatus;
            // this.Comments=forum.comments;
         }
+
 
         public Forum ToForum()
         {

@@ -15,17 +15,19 @@ namespace BookingApp.Domain.Model
         public int ForumId { get; set; }
         public string Comment { get; set; }
         public int ReportNumber {  get; set; }
+        public DateTime CreationDate { get; set; }
 
 
         public  ForumComment() { }
 
-        public ForumComment(int id, int userId, int forumId, string comment, int reportNumber)
+        public ForumComment(int id, int userId, int forumId, string comment, int reportNumber, DateTime creationDate)
         {
             Id = id;
             UserId = userId;
             ForumId = forumId;
             Comment = comment;
             ReportNumber = reportNumber;
+            CreationDate = creationDate;
         }
 
         public string[] ToCSV()
@@ -36,7 +38,8 @@ namespace BookingApp.Domain.Model
                 UserId.ToString(),
                 ForumId.ToString(),
                 Comment,
-                ReportNumber.ToString()
+                ReportNumber.ToString(),
+                CreationDate.ToString()
 
             };
 
@@ -50,6 +53,7 @@ namespace BookingApp.Domain.Model
             ForumId = int.Parse(values[2]);
             Comment = values[3];
             ReportNumber = int.Parse(values[4]);
+            CreationDate = DateTime.Parse(values[5]);
         }
 
     }

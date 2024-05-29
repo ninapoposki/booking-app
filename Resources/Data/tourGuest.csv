@@ -1,5 +1,5 @@
-1|Arijana|18|1|1|False|Female|TOUR
-2|Anja|21|1|3|False|Female|TOUR
+1|Arijana|18|1|1|True|Female|TOUR
+2|Anja|21|1|3|True|Female|TOUR
 3|Dimitrije|21|1|2|True|Male|TOUR
 4|Mikan|55|1|1|True|Male|TOUR
 5|Sasa|9|1|1|True|Male|TOUR
@@ -19,7 +19,7 @@
 19|Petar|22|5|12|True|Male|TOUR
 20|tajana maric|44|7|18|True|Female|TOUR
 21|jovo maric|45|7|18|True|Male|TOUR
-22|Mikan|35|8|16|False|Male|TOUR
+22|Mikan|35|8|16|True|Male|TOUR
 23|Milovanka|34|8|-1|False|Female|TOUR
 24|Miladinka|20|8|-1|False|Female|TOUR
 25|Stefan|27|6|15|True|Male|TOUR

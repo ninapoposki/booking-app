@@ -21,6 +21,10 @@ namespace BookingApp.WPF.ViewModel.Guest
         public MyICommand MyReservationsCommand {  get; set; }
         public MyICommand NotificationsCommand { get; set; }
         public MyICommand OwnersRatingsCommand { get; set; }
+        public MyICommand AnytimeAnywhereCommand { get; set; }
+        public MyICommand ForumsCommand { get; set; }
+
+
         public NavigationService NavigationService { get; set; }
         private readonly UserService userService;
         private readonly GuestService guestService;
@@ -46,6 +50,8 @@ namespace BookingApp.WPF.ViewModel.Guest
             MyReservationsCommand = new MyICommand(MyReservationsExecute);
             NotificationsCommand=new MyICommand(NotificationsExecute);
             OwnersRatingsCommand = new MyICommand(OwnersRatingsExecute);
+            AnytimeAnywhereCommand = new MyICommand(AnytimeAnywhereExecute);
+            ForumsCommand = new MyICommand(ForumsExecute);
             guestDTO = new GuestDTO();
             loggedInUsername = username;
             loggedInUserId = userService.GetByUsername(loggedInUsername).Id;
@@ -89,6 +95,16 @@ namespace BookingApp.WPF.ViewModel.Guest
             NavigationService.Navigate(new OwnersRatings(NavigationService,loggedInUserId));
 
         }
-     
+        private void AnytimeAnywhereExecute()
+        {
+            NavigationService.Navigate(new AnytimeAnywhere(NavigationService,guestDTO));
+
+        }
+        private void ForumsExecute()
+        {
+            NavigationService.Navigate(new AllForums(NavigationService,loggedInUserId));
+
+        }
+
     }
 }

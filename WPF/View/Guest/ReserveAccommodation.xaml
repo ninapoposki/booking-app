@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="700" Width="824">
     <Page.Resources>
@@ -142,9 +143,9 @@
 
             <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="10,25,20,0" >
                 <Label Content="Initial date" Margin="5"  Foreground="DarkSalmon" FontWeight="DemiBold"/>
-                <DatePicker Style="{StaticResource RoundedDatePickerStyle}" SelectedDate="{Binding Path=accommodationReservationDTO.InitialDate, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="5"/>
+                <DatePicker Style="{StaticResource RoundedDatePickerStyle}" DisplayDateStart="{x:Static sys:DateTime.Today}"  SelectedDate="{Binding Path=accommodationReservationDTO.InitialDate, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="5"/>
                 <Label Content="End date" Margin="5" Foreground="DarkSalmon" FontWeight="DemiBold"/>
-                <DatePicker Style="{StaticResource RoundedDatePickerStyle}" SelectedDate="{Binding Path=accommodationReservationDTO.EndDate, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="5"/>
+                <DatePicker Style="{StaticResource RoundedDatePickerStyle}" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=accommodationReservationDTO.EndDate, UpdateSourceTrigger=PropertyChanged}" Height="30" Margin="5"/>
                 <Label Content="Days to stay" Margin="5" Foreground="DarkSalmon" FontWeight="DemiBold"/>
                 <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Path=accommodationReservationDTO.DaysToStay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Height="30" Margin="5"/>
                 <Label Content="Number of guests" Margin="5" Foreground="DarkSalmon" FontWeight="DemiBold"/>

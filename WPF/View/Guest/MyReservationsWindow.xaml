@@ -60,7 +60,7 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="5,5,10,10">
-
+            
             <StackPanel Orientation="Horizontal" Margin="5">
                 <RadioButton IsChecked="{Binding ShowPastReservations, Mode=TwoWay}" Margin="30,2,0,0" GroupName="ReservationFilter" VerticalAlignment="Center"/>
                 <Label Content="past reservations" Foreground="DarkSalmon" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -115,11 +115,11 @@
                             </TextBlock>
                             <TextBlock>
                                  <Run Text="From:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
-                                 <Run Text="{Binding InitialDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                                 <Run Text="{Binding InitialDate,StringFormat={}{0:dd.MM.yyyy}}" Foreground="DarkCyan" FontWeight="Bold"/>
                              </TextBlock>
                              <TextBlock>
                                  <Run Text="To:" Foreground="DarkSalmon" FontWeight="DemiBold"/>
-                                 <Run Text="{Binding EndDate}" Foreground="DarkCyan" FontWeight="Bold"/>
+                                 <Run Text="{Binding EndDate,StringFormat={}{0:dd.MM.yyyy}}" Foreground="DarkCyan" FontWeight="Bold"/>
                              </TextBlock>
                              <TextBlock>
                                  <Run Text="Days to stay:" Foreground="DarkSalmon" FontWeight="DemiBold"/>

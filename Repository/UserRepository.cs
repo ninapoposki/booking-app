@@ -62,5 +62,10 @@ namespace BookingApp.Repository
                 return -1; 
             }
         }
+        public List<User> GetByRole(UserType role)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users.Where(u => u.UserType == role).ToList();
+        }
     }
 }

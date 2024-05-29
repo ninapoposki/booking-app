@@ -8,6 +8,14 @@
 
   <ItemGroup>  
     
+    <None Remove="Resources\Icons\Guest\airplane2.png" />  
+    
+    <None Remove="Resources\Icons\Guest\library.png" />  
+    
+    <None Remove="Resources\Icons\Guest\padlock.png" />  
+    
+    <None Remove="Resources\Icons\Guest\reading.png" />  
+    
     <None Remove="Resources\Icons\Guide\arrow.png" />
     <None Remove="Resources\Icons\Guide\clear-filter.png" />
     <None Remove="Resources\Icons\Guide\loupe.png" />
@@ -235,6 +243,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\Guest\airplane2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guest\library.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guest\padlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Guest\reading.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\Guide\arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

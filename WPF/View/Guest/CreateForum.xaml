@@ -1,0 +1,78 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guest.CreateForum"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+      mc:Ignorable="d"
+      Title="CreateForum" Height="700" Width="824">
+    <Page.Resources>
+        <Style x:Key="FilterBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="PeachPuff"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="0,4,4,4"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left part: Form for creating forum -->
+        <StackPanel Grid.Column="0" Margin="20">
+            <Label Content="Choose location:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+
+            <!-- City selection -->
+            <DockPanel Margin="5">
+                <Label Content="City" FontWeight="DemiBold" Foreground="DarkSlateGray" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                <Border Style="{StaticResource FilterBorderStyle}">
+                    <ComboBox x:Name="CityComboBox" BorderThickness="0" Width="140" Margin="0,4,4,4" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
+          ItemsSource="{Binding CurrentCitySource}"
+          SelectedItem="{Binding SelectedCity, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+            </DockPanel>
+
+            <!-- Country selection -->
+            <DockPanel Margin="5">
+                <Label Content="Country" FontWeight="DemiBold" Foreground="DarkSlateGray" VerticalAlignment="Center" DockPanel.Dock="Top"/>
+                <Border Style="{StaticResource FilterBorderStyle}">
+                    <ComboBox x:Name="CountryComboBox" BorderThickness="0" Width="140" Margin="0,4,4,4" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True"
+                  ItemsSource="{Binding CurrentCountrySource}" SelectedItem="{Binding SelectedCountry, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+            </DockPanel>
+
+
+            <Label Content="Leave a comment:" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="0,20,0,0"/>
+            <Border CornerRadius="5" Background="White" BorderBrush="Gray" BorderThickness="1">
+                <TextBox Height="100" Margin="1" TextWrapping="Wrap" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+
+            <!-- Buttons for actions -->
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Button Content="Create" Width="80"  Command="{Binding CreateNewForumCommand}" Margin="10,0" Background="DarkSlateBlue" Foreground="White"/>
+                <Button Content="Exit"  Command="{Binding ExitCommand}" Width="80" Margin="10,0" Background="DarkRed" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Right part: Background image or map -->
+        <Border Grid.Column="1" Background="White" BorderBrush="LightGray" BorderThickness="1">
+            <Image Source="\Resources\Icons\Guest\background_guest.jpg" Stretch="Fill"/>
+        </Border>
+    </Grid>
+</Page>

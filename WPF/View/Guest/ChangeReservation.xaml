@@ -43,12 +43,12 @@
 
                 <Label Height="30"  Foreground="DarkCyan" Margin="0 25 0 0" FontWeight="DemiBold">Initial date</Label>
                 <Border BorderThickness="2" BorderBrush="DarkCyan"  CornerRadius="5">
-                    <TextBox Text="{Binding SelectedReservation.InitialDate}"  Foreground="DarkCyan" FontWeight="Bold"  Height="30" Background="Transparent" HorizontalAlignment="Center" BorderThickness="0" IsReadOnly="True" />
+                    <TextBox Text="{Binding SelectedReservation.InitialDate,StringFormat={}{0:dd.MM.yyyy}}"  Foreground="DarkCyan" FontWeight="Bold"  Height="30" Background="Transparent" HorizontalAlignment="Center" BorderThickness="0" IsReadOnly="True" />
                 </Border>
 
                 <Label Height="30" Foreground="DarkCyan" FontWeight="DemiBold">End date</Label>
                 <Border BorderThickness="2" BorderBrush="DarkCyan" CornerRadius="5">
-                    <TextBox Text="{Binding SelectedReservation.EndDate}"  Foreground="DarkCyan" FontWeight="Bold" Height="30" Background="Transparent" HorizontalAlignment="Center" BorderThickness="0" IsReadOnly="True"/>
+                    <TextBox Text="{Binding SelectedReservation.EndDate,StringFormat={}{0:dd.MM.yyyy}}"  Foreground="DarkCyan" FontWeight="Bold" Height="30" Background="Transparent" HorizontalAlignment="Center" BorderThickness="0" IsReadOnly="True"/>
                 </Border>
 
                 <Label Height="30" Foreground="DarkCyan" FontWeight="DemiBold">Days to stay</Label>
@@ -81,8 +81,8 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0" Margin="5">
-                                    <TextBlock Text="{Binding NewInitialDate}" FontWeight="DemiBold" Margin="0,0,0,2"/>
-                                    <TextBlock Text="{Binding NewEndDate}"  FontWeight="DemiBold"/>
+                                    <TextBlock Text="{Binding NewInitialDate,StringFormat={}{0:dd.MM.yyyy}}" FontWeight="DemiBold" Margin="0,0,0,2"/>
+                                    <TextBlock Text="{Binding NewEndDate,StringFormat={}{0:dd.MM.yyyy}}"  FontWeight="DemiBold"/>
                                 </StackPanel>
 
                                 <Button Grid.Column="1"  Grid.RowSpan="2" Margin="50,0,0,0" Padding="0" BorderThickness="0" Background="Transparent" Command="{Binding DataContext.SendRequestCommand, ElementName=ChangeReservationPage}" CommandParameter="{Binding}">

@@ -36,5 +36,17 @@ namespace BookingApp.Services
             ownerDTO.Role = Role;
              ownerRepository.Update(ownerDTO.ToOwner());
         }
+        public bool IsOwnerId(int userId)
+        {
+            var owners = ownerRepository.GetAll();
+            foreach (var owner in owners)
+            {
+                if (owner.UserId == userId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

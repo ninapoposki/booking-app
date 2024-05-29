@@ -163,7 +163,7 @@
                     <TextBlock Text="notifications" />
                 </StackPanel>
             </Button>
-            <Button Margin="25,10" Style="{StaticResource CustomButtonStyle}">
+            <Button Margin="25,10" Command="{Binding AnytimeAnywhereCommand}" Style="{StaticResource CustomButtonStyle}">
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
                         <BeginStoryboard Storyboard="{StaticResource AnywhereJumpAnimation}"/>
@@ -178,7 +178,7 @@
                     <TextBlock Text="anytime/anywhere" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
-            <Button Margin="25,10" Style="{StaticResource CustomButtonStyle}">
+            <Button Margin="25,10" Command="{Binding ForumsCommand}"  Style="{StaticResource CustomButtonStyle}">
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
                         <BeginStoryboard Storyboard="{StaticResource ForumsJumpAnimation}"/>

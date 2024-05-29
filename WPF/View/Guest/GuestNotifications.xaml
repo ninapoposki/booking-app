@@ -80,8 +80,8 @@
                             <StackPanel Grid.Column="1" Margin="20,18,10,0">
                                 <TextBlock Text="{Binding Accommodation.Name}" FontSize="17" Foreground="DimGray" FontWeight="Bold" FontStyle="Normal"/>
                                 <TextBlock Text="Your new request dates:" Foreground="DarkCyan" FontWeight="Bold" Margin="0,2,0,0"/>
-                                <TextBlock Text="{Binding NewInitialDate}" Foreground="DarkCyan" Margin="0,0,0,5"/>
-                                <TextBlock Text="{Binding NewEndDate}"  Foreground="DarkCyan" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding NewInitialDate ,StringFormat={}{0:dd.MM.yyyy}}" Foreground="DarkCyan" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding NewEndDate, StringFormat={}{0:dd.MM.yyyy}}"  Foreground="DarkCyan" Margin="0,0,0,5"/>
                                 <StackPanel Orientation="Horizontal"  Width="250">
                                     <TextBlock Text="STATUS: "  FontSize="13" FontWeight="Bold" Foreground="DarkCyan" />
                                     <TextBlock Text="{Binding RequestStatus}"  FontSize="13"  FontWeight="Bold" Foreground="DarkCyan" />

@@ -139,5 +139,22 @@ namespace BookingApp.Services
             if (guestReservations.Count() >= 10) {  guestService.SetSuperGuest(guest, currentDate); }
             else { guestService.SetGuest(guest); }
         }
+        public List<AccommodationReservationDTO> GetPastReservations()
+        {
+            List<AccommodationReservation> accommodationReservations = accommodationReservationRepository.GetAll();
+            List<AccommodationReservationDTO> pastReservations = new List<AccommodationReservationDTO>();
+
+            foreach (var reservation in accommodationReservations)
+            {
+                if (reservation.EndDate <= DateTime.Now)
+                {
+                    var reservationDTO = new AccommodationReservationDTO(reservation);
+                    var detailedReservationDTO = GetOneReservation(reservationDTO);
+                    pastReservations.Add(detailedReservationDTO);
+                }
+            }
+
+            return pastReservations;
+        }
     }
 }

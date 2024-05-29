@@ -68,5 +68,19 @@ namespace BookingApp.Services
             guestRepository.SetGuest(guest.ToGuest());
         }
 
+        public bool IsGuestsId(int userId)
+        {
+            var guests = guestRepository.GetAll();  
+            foreach (var guest in guests)
+            {
+                if (guest.UserId == userId)
+                {
+                    return true;  
+                }
+            }
+            return false;  
+        }
+
+
     }
 }

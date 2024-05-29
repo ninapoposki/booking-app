@@ -17,6 +17,7 @@ namespace BookingApp.Domain.IRepositories
         void SetCurrentUserId(int UserId);
         User? GetById(int id);
         int GetCurrentUserId();
+        List<User> GetByRole(UserType role);
 
     }
 }
